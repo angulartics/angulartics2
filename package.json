@@ -34,7 +34,7 @@
     "Chris Soyars <ctso@ctso.me> (https://github.com/ctso)",
     "Fil Maj <maj.fil@gmail.com> (https://github.com/filmaj)"
   ],
-  "dependencies": {
+  "peerDependencies": {
     "rxjs": "5.0.0-beta.0"
   },
   "devDependencies": {
@@ -50,6 +50,7 @@
     "karma-jasmine": "~0.3.6",
     "karma-typescript-preprocessor": "0.0.21",
     "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
     "semantic-release": "^4.3.5",
     "systemjs": "~0.19.6",
     "tslint": "^3.2.1",
