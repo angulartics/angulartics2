@@ -14,6 +14,8 @@ import {SpyLocation} from 'angular2/router/testing';
 import {Angulartics2} from '../angulartics2';
 import {Angulartics2GoogleAnalytics} from './angulartics2-google-analytics';
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
+
 export function main() {
 	describe('Angulartics2GoogleAnalytics', () => {
 

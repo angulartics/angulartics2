@@ -13,6 +13,8 @@ import {SpyLocation} from 'angular2/router/testing';
 
 import {Angulartics2} from './angulartics2';
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
+
 export function main() {
 	describe('angulartics2', () => {
 
@@ -225,7 +227,7 @@ export function main() {
 								fixture.detectChanges();
 								setTimeout(() => {
 									expect(EventSpy).toHaveBeenCalledWith({ path: '/ghi', location: location });
-								}, 20);
+								}, 40);
 							});
 					}));
 

@@ -1,4 +1,4 @@
-# angulartics
+# angulartics2
 
 [![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-downloads-url]
 [![Bower version][bower-image]][bower-url] [![Dependencies status][dep-status-image]][dep-status-url]
