@@ -34,9 +34,7 @@
     "Chris Soyars <ctso@ctso.me> (https://github.com/ctso)",
     "Fil Maj <maj.fil@gmail.com> (https://github.com/filmaj)"
   ],
-  "peerDependencies": {
-    "rxjs": "5.0.0-beta.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "angular2": "~2.0.0-beta.1",
     "commitizen": "~2.4.6",
@@ -62,13 +60,13 @@
   },
   "scripts": {
     "lint": "tslint ./*.ts ./src/{,*/}*.ts",
-    "test": "tsc && karma start",
+    "test": "karma start",
     "commit": "git-cz",
-    "prepublish": "tsc",
+    "prepublish": "tsc --outDir ./",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "main": "index.js",
-  "typings": "./index.d.ts",
+  "main": "./dist",
+  "typings": "./dist",
   "repository": {
     "type": "git",
     "url": "git://github.com/angulartics/angulartics.git"

@@ -1,6 +1,6 @@
 import {Injectable} from 'angular2/core';
 
-import {Angulartics2} from '../angulartics2';
+import {Angulartics2} from '../index';
 
 @Injectable()
 export class Angulartics2GoogleAnalytics {

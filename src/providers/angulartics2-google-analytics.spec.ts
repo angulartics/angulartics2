@@ -11,7 +11,7 @@ MockApplicationRef
 } from 'angular2/testing';
 import {SpyLocation} from 'angular2/router/testing';
 
-import {Angulartics2} from '../angulartics2';
+import {Angulartics2} from '../index';
 import {Angulartics2GoogleAnalytics} from './angulartics2-google-analytics';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
