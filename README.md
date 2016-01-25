@@ -54,11 +54,11 @@ bootstrap(AppComponent, [
 
 
 import {Component, View, Injectable} from 'angular2/angular2';
-import {CloudtasksService, CloudtasksDirective} from 'angular2-cloudtasks/angular2-cloudtasks';
 
 @Injectable()
 @Component({
-    selector: 'app'
+    selector: 'app',
+    providers: [Angulartics2GoogleAnalytics]
 })
 @View({
     template: `<div [angulartics2On]="'click'" [angularticsEvent]="'InitiateSearch'" [angularticsCategory]="'Search'"></div>`,
