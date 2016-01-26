@@ -75,7 +75,7 @@ export function main() {
 						.then((_) => {
 							fixture.detectChanges();
 							setTimeout(() => {
-								expect(win.ga).toHaveBeenCalledWith('send', 'event', { eventCategory: 'cat', eventAction: undefined, eventLabel: undefined, eventValue: undefined, nonInteraction: undefined, page: '/context.html', userId: null });
+								expect(win.ga).toHaveBeenCalledWith('send', 'event', { eventCategory: 'cat', eventAction: 'do', eventLabel: undefined, eventValue: undefined, nonInteraction: undefined, page: '/context.html', userId: null });
 							});
 						});
 				}));

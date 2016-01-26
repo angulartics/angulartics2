@@ -74,13 +74,15 @@ export class Angulartics2 {
 	spyRouter(router: Router, location: Location) {
 		router.subscribe((route) => {
 			if (!this.settings.developerMode) {
-				let url: string = location.prepareExternalUrl(route);
-				if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
-					this.pageTrack.next({
-						path: this.settings.pageTracking.basePath.lenght ? this.settings.pageTracking.basePath + route : location.prepareExternalUrl(url),
-						location: location
-					});
-				}
+				setTimeout(() => {
+					let url: string = location.prepareExternalUrl(route);
+					if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
+						this.pageTrack.next({
+							path: this.settings.pageTracking.basePath.lenght ? this.settings.pageTracking.basePath + route : location.prepareExternalUrl(url),
+							location: location
+						});
+					}
+				});
 			}
 		});
 

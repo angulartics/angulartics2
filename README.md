@@ -77,6 +77,9 @@ export class AppComponent {
 ## Supported providers
 
 * Google Analytics
+* Kissmetrics
+* Mixpanel
+* Segment
 
 If there's no Angulartics2 plugin for your analytics vendor of choice, please feel free to write yours and PR' it!
 

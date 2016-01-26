@@ -21,9 +21,9 @@ export class Angulartics2GoogleAnalytics {
 			userId: null
 		};
 
-		this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x));
+		this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path, x.location));
 
-		this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.actions, x.properties));
+		this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
 
 		this.angulartics2.exceptionTrack.subscribe((x: any) => this.exceptionTrack(x));
 
@@ -34,20 +34,20 @@ export class Angulartics2GoogleAnalytics {
 		this.angulartics2.userTimings.subscribe((x: any) => this.userTimings(x));
 	}
 
-	pageTrack(object: any) {
+	pageTrack(path: string, location: any) {
 		if (this.window._gaq) {
-			this.window._gaq.push(['_trackPageview', object.path]);
+			this.window._gaq.push(['_trackPageview', path]);
 			for (var accountName of this.angulartics2.settings.ga.additionalAccountNames) {
-				this.window._gaq.push([accountName + '._trackPageview', object.path]);
+				this.window._gaq.push([accountName + '._trackPageview', path]);
 			};
 		}
 		if (this.window.ga) {
 			if (this.angulartics2.settings.ga.userId) {
 				this.window.ga('set', '&uid', this.angulartics2.settings.ga.userId);
 			}
-			this.window.ga('send', 'pageview', object.path);
+			this.window.ga('send', 'pageview', path);
 			for (var accountName of this.angulartics2.settings.ga.additionalAccountNames) {
-				this.window.ga(accountName + '.send', 'pageview', object.path);
+				this.window.ga(accountName + '.send', 'pageview', path);
 			};
 		}
 	}
