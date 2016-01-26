@@ -11,7 +11,8 @@ export class Angulartics2 {
 			basePath: '',
 			excludedRoutes: []
 		},
-		eventTracking: {}
+		eventTracking: {},
+		developerMode: false
 	};
 
 	/*
@@ -65,20 +66,32 @@ export class Angulartics2 {
 	public userTimings: ReplaySubject<any> = new ReplaySubject();
 
 	constructor(router: Router, location: Location) {
+		setTimeout(() => {
+			this.spyRouter(router, location);
+		});
+	}
+
+	spyRouter(router: Router, location: Location) {
 		router.subscribe((route) => {
-			let url: string = location.prepareExternalUrl(route);
-			if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
-				this.pageTrack.next({
-					path: this.settings.pageTracking.basePath.lenght ? this.settings.pageTracking.basePath + route : location.prepareExternalUrl(url),
-					location: location
-				});
+			if (!this.settings.developerMode) {
+				let url: string = location.prepareExternalUrl(route);
+				if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
+					this.pageTrack.next({
+						path: this.settings.pageTracking.basePath.lenght ? this.settings.pageTracking.basePath + route : location.prepareExternalUrl(url),
+						location: location
+					});
+				}
 			}
 		});
 
-		this.pageTrack.next({
-			path: this.settings.pageTracking.basePath.lenght ? this.settings.pageTracking.basePath + location.path() : location.prepareExternalUrl(location.path()),
-			location: location
-		});
+		if (!this.settings.developerMode) {
+			if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(location.path())) {
+				this.pageTrack.next({
+					path: this.settings.pageTracking.basePath.lenght ? this.settings.pageTracking.basePath + location.path() : location.prepareExternalUrl(location.path()),
+					location: location
+				});
+			}
+		}
 	}
 
 	virtualPageviews(value: boolean) {
@@ -90,8 +103,11 @@ export class Angulartics2 {
 	firstPageview(value: boolean) {
 		this.settings.pageTracking.autoTrackFirstPage = value;
 	}
-	withBase (value: string) {
+	withBase(value: string) {
     this.settings.pageTracking.basePath = (value);
+	}
+	developerMode(value: boolean) {
+		this.settings.developerMode = value;
 	}
 
 	private matchesExcludedRoute(url: string): boolean {

@@ -48,6 +48,7 @@ export function main() {
 		});
 
 		describe('Configuration', function() {
+			var EventSpy: any;
 
 			beforeEachProviders(() => [
 				ROUTER_PROVIDERS,
@@ -56,6 +57,10 @@ export function main() {
 				Angulartics2,
 				provide(ApplicationRef, { useClass: MockApplicationRef })
 			]);
+
+			beforeEach(function() {
+				EventSpy = jasmine.createSpy('EventSpy');
+			});
 
 			it('should configure virtualPageviews',
 				injectAsync([TestComponentBuilder, Router, Angulartics2],
@@ -73,12 +78,27 @@ export function main() {
 				injectAsync([TestComponentBuilder, Router, Angulartics2],
 					(tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2) => {
 						return compile(tcb)
-								.then((rtc) => fixture = rtc)
+							.then((rtc) => fixture = rtc)
 							.then((_) => router.config([new Route({ path: '/abc/def', component: HelloCmp })]))
 							.then((_) => angulartics2.excludeRoutes(['/abc/def']))
 							.then((_) => {
 								fixture.detectChanges();
 								expect(angulartics2.settings.pageTracking.excludedRoutes).toEqual(['/abc/def']);
+							});
+					}));
+
+			it('should configure developer mode',
+				injectAsync([TestComponentBuilder, Router, Angulartics2],
+					(tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2) => {
+						return compile(tcb)
+							.then((rtc) => fixture = rtc)
+							.then((_) => router.config([new Route({ path: '/abc', component: HelloCmp })]))
+							.then((_) => angulartics2.developerMode(true))
+							.then((_) => angulartics2.pageTrack.subscribe((x: any) => EventSpy(x)))
+							.then((_) => router.navigateByUrl('/abc'))
+							.then((_) => {
+								fixture.detectChanges();
+								expect(EventSpy).not.toHaveBeenCalled();
 							});
 					}));
 
@@ -111,7 +131,7 @@ export function main() {
 								fixture.detectChanges();
 								setTimeout(() => {
 									expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
-								}, 10);
+								}, 20);
 							});
 					}));
 		});
@@ -155,7 +175,7 @@ export function main() {
 								fixture.detectChanges();
 								setTimeout(() => {
 									expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
-								}, 10);
+								}, 20);
 							});
 					}));
 
@@ -172,7 +192,7 @@ export function main() {
 								fixture.detectChanges();
 								setTimeout(() => {
 									expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
-								}, 10);
+								}, 20);
 							});
 					}));
 
@@ -189,7 +209,7 @@ export function main() {
 								fixture.detectChanges();
 								setTimeout(() => {
 									expect(EventSpy).not.toHaveBeenCalledWith({ path: '/abc', location: location });
-								});
+								}, 20);
 							});
 					}));
 
@@ -211,7 +231,7 @@ export function main() {
 								fixture.detectChanges();
 								setTimeout(() => {
 									expect(EventSpy).not.toHaveBeenCalledWith({ path: '/abc', location: location });
-								});
+								}, 20);
 							})
 							.then((_) => {
 								// Ignore excluded route
@@ -219,7 +239,7 @@ export function main() {
 								fixture.detectChanges();
 								setTimeout(() => {
 									expect(EventSpy).not.toHaveBeenCalledWith({ path: '/def', location: location });
-								});
+								}, 20);
 							})
 							.then((_) => {
 								// Track non-excluded route
@@ -227,7 +247,7 @@ export function main() {
 								fixture.detectChanges();
 								setTimeout(() => {
 									expect(EventSpy).toHaveBeenCalledWith({ path: '/ghi', location: location });
-								}, 40);
+								}, 20);
 							});
 					}));
 
@@ -244,7 +264,7 @@ export function main() {
 							fixture.detectChanges();
 							setTimeout(() => {
 								expect(EventSpy).not.toHaveBeenCalledWith({ path: '/sections/123/pages/456', location: location });
-							}, 10);
+							}, 20);
 						});
 				}));
 

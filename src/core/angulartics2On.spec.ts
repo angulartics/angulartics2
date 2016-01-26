@@ -52,7 +52,7 @@ export function main() {
 							fixture.detectChanges();
 							setTimeout(() => {
 								expect(EventSpy).toHaveBeenCalledWith({ action: 'InitiateSearch', properties: { category: 'Search', eventType: 'click' } });
-							});
+							}, 20);
 						});
 				}));
 

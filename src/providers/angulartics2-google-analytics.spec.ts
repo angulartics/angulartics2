@@ -43,8 +43,10 @@ export function main() {
 						.then((rtc) => fixture = rtc)
 						.then((_) => {
 							fixture.detectChanges();
-							expect(win._gaq).toContain(['_trackPageview', '']);
-							expect(win.ga).toHaveBeenCalledWith('send', 'pageview', '');
+							setTimeout(() => {
+								expect(win._gaq).toContain(['_trackPageview', '']);
+								expect(win.ga).toHaveBeenCalledWith('send', 'pageview', '');
+							}, 20);
 						});
 				}));
 
@@ -60,7 +62,7 @@ export function main() {
 							setTimeout(() => {
 								expect(win._gaq).toContain(['_trackPageview', '/abc']);
 								expect(win.ga).toHaveBeenCalledWith('send', 'pageview', '/abc');
-							}, 10);
+							}, 20);
 						});
 				}));
 
