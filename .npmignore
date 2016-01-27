@@ -8,15 +8,12 @@ build.xml
 node_modules/*
 npm-debug.log
 coverage
-*.js
-!karma.conf.js
-!karma-test-shim.js
-*.map
-*.d.ts
-typings
-./providers
-./core
-./index.js
+*.ts
+!*.d.ts
+tests
+*.spec.*
+*.test.*
+src
 
 #################
 ## JetBrains

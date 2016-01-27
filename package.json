@@ -1,0 +1,99 @@
+{
+  "name": "angulartics2",
+  "version": "0.0.1",
+  "description": "Vendor-agnostic web analytics for Angular2 applications",
+  "homepage": "http://angulartics.github.io/",
+  "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
+  "contributors": [
+    "Luis Farzati <lfarzati@gmail.com> (http://github.com/luisfarzati)",
+    "Tim Elfelt <timelf123@gmail.com> (https://github.com/timelf123)",
+    "Simon Morvan <garphy@zone84.net> (https://github.com/morvans)",
+    "Corinna Cohn <ccohn@fusionalliance.com>",
+    "Tarun Garg <tarun1793@users.noreply.github.com> (https://github.com/tarun1793)",
+    "Ruben Oostinga <roostinga@xebia.com> (https://github.com/0xR)",
+    "Adam Creeger <adamcreeger@gmail.com> (https://github.com/acreeger)",
+    "Jan Nicklas <j.nicklas@me.com> (https://github.com/jantimon)",
+    "Tomás Escobar <tomasescobar@users.noreply.github.com> (https://github.com/tomasescobar)",
+    "Martin Crawford <bemisguided@users.noreply.github.com> (https://github.com/bemisguided)",
+    "Contantine Kim <elegantcoder@gmail.com> (https://github.com/elegantcoder)",
+    "Larry Botha <larry@fixate.it> (https://github.com/larrybotha)",
+    "Justin Russell <jus.russell@gmail.com> (https://github.com/jtrussell)",
+    "William Li <wli@williamhli.com> (https://github.com/wli)",
+    "pcw216 <pwinters@rallydev.com>",
+    "Nhat Nguyen <ndnhat@hotmail.com> (https://github.com/ndnhat)",
+    "Chris Mendis <chris.mendis@gmail.com> (https://github.com/chrismendis)",
+    "Sampo Savolainen <sampo.savolainen@spatineo.com> (https://github.com/sampov2)",
+    "Michał Gołębiowski <m.goleb@gmail.com> (https://github.com/mzgol)",
+    "Haim Litvak <haim.litvak@hp.com>",
+    "Hannah Fouasnon <hanelifou@gmail.com> (https://github.com/fouasnon)",
+    "Martin <martinlogdberg@gmail.com> (https://github.com/malog84)",
+    "tlekan <tom.lekan@gmail.com> (https://github.com/tlekan)",
+    "Blake Blackshear <bblackshear@nextgxdx.com> (https://github.com/blakeblackshear)",
+    "Guillermo Alcantara <guillermo.alcantara@gmail.com> (https://github.com/eipipuz)",
+    "Michael Cameron Delaney <michaelcamerondelaney@gmail.com> (https://github.com/NewMediaRoc)",
+    "Chris Soyars <ctso@ctso.me> (https://github.com/ctso)",
+    "Fil Maj <maj.fil@gmail.com> (https://github.com/filmaj)"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "angular2": "~2.0.0-beta.1",
+    "commitizen": "~2.4.6",
+    "cz-conventional-changelog": "~1.1.4",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.3",
+    "jasmine-core": "~2.3.4",
+    "karma": "~0.13.15",
+    "karma-chrome-launcher": "~0.2.2",
+    "karma-firefox-launcher": "~0.1.7",
+    "karma-jasmine": "~0.3.6",
+    "karma-typescript-preprocessor": "0.0.21",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
+    "semantic-release": "^4.3.5",
+    "systemjs": "~0.19.6",
+    "tslint": "^3.2.1",
+    "typescript": "~1.7.3",
+    "zone.js": "~0.5.10"
+  },
+  "bugs": {
+    "url": "http://github.com/angulartics/angulartics2/issues"
+  },
+  "scripts": {
+    "lint": "tslint ./*.ts ./src/{,*/}*.ts",
+    "test": "karma start",
+    "commit": "git-cz",
+    "prepublish": "tsc --outDir ./",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "main": "./dist",
+  "typings": "./dist",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/angulartics/angulartics.git"
+  },
+  "keywords": [
+    "angular2",
+    "ng2",
+    "angular",
+    "analytics",
+    "tracking",
+    "google analytics",
+    "google tag manager",
+    "woopra",
+    "splunk",
+    "piwik",
+    "page tracking",
+    "event tracking",
+    "scroll tracking",
+    "inspectlet"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  }
+}
