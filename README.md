@@ -1,5 +1,7 @@
 # angulartics2
 
+[![Join the chat at https://gitter.im/angulartics/angulartics2](https://badges.gitter.im/angulartics/angulartics2.svg)](https://gitter.im/angulartics/angulartics2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-downloads-url]
 [![devDependency Status](https://david-dm.org/angulartics/angulartics2/dev-status.svg)](https://david-dm.org/angulartics/angulartics2#info=devDependencies)
 [![Build Status](https://img.shields.io/travis/angulartics/angulartics2/master.svg?style=flat)](https://travis-ci.org/angulartics/angulartics2)
