@@ -44,11 +44,16 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
 ## Include it in your application
 
 ```js
+import {bootstrap} from 'angular2/bootstrap';
+import {Component, View, Injectable} from 'angular2/core';
+import {ROUTER_PROVIDERS} from 'angular2/router';
+
 import {Angulartics2, Angulartics2On} from 'angulartics2';
 import {Angulartics2GoogleAnalytics} from 'angulartics2/providers/angulartics2-google-analytics';
 
 bootstrap(AppComponent, [
-    Angulartics2
+  ROUTER_PROVIDERS,
+  Angulartics2
 ]);
 
 
@@ -56,16 +61,16 @@ import {Component, View, Injectable} from 'angular2/angular2';
 
 @Injectable()
 @Component({
-    selector: 'app',
-    providers: [Angulartics2GoogleAnalytics]
+  selector: 'app',
+  providers: [Angulartics2GoogleAnalytics]
 })
 @View({
-    template: `<div [angulartics2On]="'click'" [angularticsEvent]="'InitiateSearch'" [angularticsCategory]="'Search'"></div>`,
-    directives: [Angulartics2On]
+  template: `<div [angulartics2On]="'click'" [angularticsEvent]="'InitiateSearch'" [angularticsCategory]="'Search'"></div>`,
+  directives: [Angulartics2On]
 })
 export class AppComponent {
-    constructor(angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
-    }
+  constructor(angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
+  }
 }
 ```
 
