@@ -24,13 +24,11 @@ System.config({
 });
 ```
 
-## Minimal setup
-
-### for Google Analytics
+## Minimal setup for Google Analytics
 
 Add the full tracking code from Google Tag Manager to the beginning of your body tag.
 
-## Changes in the Google Analytics snippet
+### Changes in the Google Analytics snippet
 
 The snippet code provided by Google Analytics does an automatic pageview hit, but this is already done by Angulartics (unless you disable it) so make sure to delete the tracking line:
 
@@ -43,40 +41,58 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
 
 ## Include it in your application
 
+Bootstrapping the application with ```Angulartics2``` as provider and injecting both ```Angulartics2``` and ```Angulartics2GoogleAnalytics``` (or any provider) into the root component will hook into the router and send every route change to your analytics provider. 
+
+
 ```js
 import {bootstrap} from 'angular2/bootstrap';
-import {Component, View, Injectable} from 'angular2/core';
+import {Component, View} from 'angular2/core';
 import {ROUTER_PROVIDERS} from 'angular2/router';
 
-import {Angulartics2, Angulartics2On} from 'angulartics2';
+import {Angulartics2} from 'angulartics2';
 import {Angulartics2GoogleAnalytics} from 'angulartics2/providers/angulartics2-google-analytics';
 
 bootstrap(AppComponent, [
   ROUTER_PROVIDERS,
-  Angulartics2
+  Angulartics2,
+  Angulartics2GoogleAnalytics
 ]);
 
 
-import {Component, View, Injectable} from 'angular2/angular2';
+import {Component, View} from 'angular2/angular2';
 
-@Injectable()
 @Component({
   selector: 'app',
-  providers: [Angulartics2GoogleAnalytics]
-})
-@View({
-  template: `<div [angulartics2On]="'click'" [angularticsEvent]="'InitiateSearch'" [angularticsCategory]="'Search'"></div>`,
-  directives: [Angulartics2On]
+  template: `<router-outlet></router-outlet>`       // Or what your root template is.
 })
 export class AppComponent {
-  constructor(angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
-  }
+  constructor(angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 }
 ```
 
-### for other providers
 
-[Browse the website for detailed instructions.](http://angulartics.github.io)
+## Tracking events
+
+To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsEvent``` and ```angularticsCategory```:
+
+
+```js
+import {Angulartics2On} from 'angulartics2';
+import {Component, View} from 'angular2/angular2';
+
+@Component({
+  selector: 'song-download-box',
+  providers: [Angulartics2GoogleAnalytics]
+})
+@View({
+  template: `<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}"></div>`,
+  directives: [Angulartics2On]
+})
+export class SongDownloadBox {
+  constructor(private angulartics2: Angulartics2, private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
+}
+```
+
 
 ## Supported providers
 
@@ -84,6 +100,10 @@ export class AppComponent {
 * Kissmetrics
 * Mixpanel
 * Segment
+
+### For other providers
+
+[Browse the website for detailed instructions.](http://angulartics.github.io)
 
 If there's no Angulartics2 plugin for your analytics vendor of choice, please feel free to write yours and PR' it!
 
