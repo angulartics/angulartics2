@@ -78,22 +78,13 @@ export class Angulartics2 {
 					let url: string = location.prepareExternalUrl(route);
 					if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
 						this.pageTrack.next({
-							path: this.settings.pageTracking.basePath.lenght ? this.settings.pageTracking.basePath + route : location.prepareExternalUrl(url),
+							path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + route : location.prepareExternalUrl(url),
 							location: location
 						});
 					}
 				});
 			}
 		});
-
-		if (!this.settings.developerMode) {
-			if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(location.path())) {
-				this.pageTrack.next({
-					path: this.settings.pageTracking.basePath.lenght ? this.settings.pageTracking.basePath + location.path() : location.prepareExternalUrl(location.path()),
-					location: location
-				});
-			}
-		}
 	}
 
 	virtualPageviews(value: boolean) {
