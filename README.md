@@ -50,19 +50,20 @@ import {Component, View} from 'angular2/core';
 import {ROUTER_PROVIDERS} from 'angular2/router';
 
 import {Angulartics2} from 'angulartics2';
-import {Angulartics2GoogleAnalytics} from 'angulartics2/providers/angulartics2-google-analytics';
 
 bootstrap(AppComponent, [
   ROUTER_PROVIDERS,
-  Angulartics2,
-  Angulartics2GoogleAnalytics
+  Angulartics2
 ]);
 
 
+
+import {Angulartics2GoogleAnalytics} from 'angulartics2/providers/angulartics2-google-analytics';
 import {Component, View} from 'angular2/angular2';
 
 @Component({
   selector: 'app',
+  providers: [Angulartics2GoogleAnalytics],
   template: `<router-outlet></router-outlet>`       // Or what your root template is.
 })
 export class AppComponent {
