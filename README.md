@@ -82,15 +82,10 @@ import {Component, View} from 'angular2/angular2';
 
 @Component({
   selector: 'song-download-box',
-  providers: [Angulartics2GoogleAnalytics]
-})
-@View({
+  directives: [Angulartics2On],
   template: `<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}"></div>`,
-  directives: [Angulartics2On]
 })
-export class SongDownloadBox {
-  constructor(private angulartics2: Angulartics2, private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
-}
+export class SongDownloadBox {}
 ```
 
 
