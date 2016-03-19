@@ -66,23 +66,19 @@ export class Angulartics2 {
 	public userTimings: ReplaySubject<any> = new ReplaySubject();
 
 	constructor(router: Router, location: Location) {
-		setTimeout(() => {
-			this.spyRouter(router, location);
-		});
+	  this.spyRouter(router, location);
 	}
 
-	spyRouter(router: Router, location: Location) {
+  spyRouter(router: Router, location: Location) {
 		router.subscribe((route) => {
 			if (!this.settings.developerMode) {
-				setTimeout(() => {
-					let url: string = location.prepareExternalUrl(route);
-					if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
-						this.pageTrack.next({
-							path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + route : location.prepareExternalUrl(url),
-							location: location
-						});
-					}
-				});
+        let url: string = location.prepareExternalUrl(route);
+        if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
+          this.pageTrack.next({
+            path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + route : location.prepareExternalUrl(url),
+            location: location
+          });
+        }
 			}
 		});
 	}

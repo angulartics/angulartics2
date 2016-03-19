@@ -27,8 +27,17 @@ System.config({
 	}
 });
 
-System.import('angular2/src/platform/browser/browser_adapter').then(function(browser_adapter) {
-	browser_adapter.BrowserDomAdapter.makeCurrent();
+Promise.all([
+  System.import('angular2/src/platform/browser/browser_adapter'),
+  System.import('angular2/platform/testing/browser'),
+  System.import('angular2/testing')
+]).then(function (modules) {
+var browser_adapter = modules[0];
+  var providers = modules[1];
+  var testing = modules[2];
+  testing.setBaseTestProviders(providers.TEST_BROWSER_PLATFORM_PROVIDERS,
+                       providers.TEST_BROWSER_APPLICATION_PROVIDERS);
+  browser_adapter.BrowserDomAdapter.makeCurrent();
 }).then(function() {
 		return Promise.all(
 			Object.keys(window.__karma__.files) // All files served by Karma.

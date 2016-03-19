@@ -1,19 +1,20 @@
 import {Injectable} from 'angular2/core';
 
-import {Angulartics2} from '../index';
+import {Angulartics2} from '../core/angulartics2';
+
+declare var _kmq: any;
 
 @Injectable()
 export class Angulartics2Kissmetrics {
 	private angulartics2: Angulartics2;
-	private window: any = window;
 
 	constructor(
 		angulartics2: Angulartics2
 	) {
 		this.angulartics2 = angulartics2;
 
-		if (typeof (this.window._kmq) == "undefined") {
-			this.window._kmq = [];
+		if (typeof (_kmq) === "undefined") {
+			_kmq = [];
 		}
 
 		this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path, x.location));
@@ -26,18 +27,18 @@ export class Angulartics2Kissmetrics {
 	}
 
 	pageTrack(path: string, location: any) {
-		this.window._kmq.push(['record', 'Pageview', { 'Page': path }]);
+		_kmq.push(['record', 'Pageview', { 'Page': path }]);
 	}
 
 	eventTrack(action: string, properties: any) {
-		this.window._kmq.push(['record', action, properties]);
+		_kmq.push(['record', action, properties]);
 	}
 
 	setUsername(userId: string) {
-		this.window._kmq.push(['identify', userId]);
+		_kmq.push(['identify', userId]);
 	}
 
 	setUserProperties(properties: any) {
-		this.window._kmq.push(['set', properties]);
+		_kmq.push(['set', properties]);
 	}
 }

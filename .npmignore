@@ -13,7 +13,6 @@ coverage
 tests
 *.spec.*
 *.test.*
-src
 
 #################
 ## JetBrains

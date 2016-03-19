@@ -1,15 +1,18 @@
 import {Injectable} from 'angular2/core';
 
-import {Angulartics2} from '../index';
+import {Angulartics2} from '../core/angulartics2';
+
+declare var _gaq: any;
+declare var ga: any;
+declare var location: any;
 
 @Injectable()
 export class Angulartics2GoogleAnalytics {
 	private angulartics2: Angulartics2;
-	private window: any = window;
 
 	constructor(
 		angulartics2: Angulartics2
-	) {
+  ) {
 		this.angulartics2 = angulartics2;
 
 		this.angulartics2.settings.pageTracking.trackRelativePath = true;
@@ -21,7 +24,7 @@ export class Angulartics2GoogleAnalytics {
 			userId: null
 		};
 
-		this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path, x.location));
+		this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
 
 		this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
 
@@ -34,20 +37,20 @@ export class Angulartics2GoogleAnalytics {
 		this.angulartics2.userTimings.subscribe((x: any) => this.userTimings(x));
 	}
 
-	pageTrack(path: string, location: any) {
-		if (this.window._gaq) {
-			this.window._gaq.push(['_trackPageview', path]);
+  pageTrack(path: string) {
+		if (_gaq) {
+			_gaq.push(['_trackPageview', path]);
 			for (var accountName of this.angulartics2.settings.ga.additionalAccountNames) {
-				this.window._gaq.push([accountName + '._trackPageview', path]);
+				_gaq.push([accountName + '._trackPageview', path]);
 			};
 		}
-		if (this.window.ga) {
+		if (ga) {
 			if (this.angulartics2.settings.ga.userId) {
-				this.window.ga('set', '&uid', this.angulartics2.settings.ga.userId);
+				ga('set', '&uid', this.angulartics2.settings.ga.userId);
 			}
-			this.window.ga('send', 'pageview', path);
+			ga('send', 'pageview', path);
 			for (var accountName of this.angulartics2.settings.ga.additionalAccountNames) {
-				this.window.ga(accountName + '.send', 'pageview', path);
+				ga(accountName + '.send', 'pageview', path);
 			};
 		}
 	}
@@ -63,7 +66,7 @@ export class Angulartics2GoogleAnalytics {
 	 *
 	 * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/events
 	 */
-	eventTrack(action: string, properties: any) {
+  eventTrack(action: string, properties: any) {
 		// Google Analytics requires an Event Category
 		if (!properties || !properties.category) {
 			properties = properties || {};
@@ -77,14 +80,14 @@ export class Angulartics2GoogleAnalytics {
 			properties.value = isNaN(parsed) ? 0 : parsed;
 		}
 
-		if (this.window.ga) {
+		if (ga) {
 			var eventOptions = {
 				eventCategory: properties.category,
 				eventAction: action,
 				eventLabel: properties.label,
 				eventValue: properties.value,
 				nonInteraction: properties.noninteraction,
-				page: properties.page || this.window.location.hash.substring(1) || this.window.location.pathname,
+				page: properties.page || location.hash.substring(1) || location.pathname,
 				userId: this.angulartics2.settings.ga.userId
 			};
 
@@ -92,16 +95,16 @@ export class Angulartics2GoogleAnalytics {
 			this.setDimensionsAndMetrics(properties);
 
 			if (this.angulartics2.settings.ga.transport) {
-				this.window.ga('send', 'event', eventOptions, { transport: this.angulartics2.settings.ga.transport });
+				ga('send', 'event', eventOptions, { transport: this.angulartics2.settings.ga.transport });
 			} else {
-				this.window.ga('send', 'event', eventOptions);
+				ga('send', 'event', eventOptions);
 			}
 
 			for (let accountName of this.angulartics2.settings.ga.additionalAccountNames) {
-				this.window.ga(accountName + '.send', 'event', eventOptions);
+				ga(accountName + '.send', 'event', eventOptions);
 			}
-		} else if (this.window._gaq) {
-			this.window._gaq.push(['_trackEvent', properties.category, action, properties.label, properties.value, properties.noninteraction]);
+		} else if (_gaq) {
+			_gaq.push(['_trackEvent', properties.category, action, properties.label, properties.value, properties.noninteraction]);
 		}
 	}
 
@@ -129,7 +132,7 @@ export class Angulartics2GoogleAnalytics {
 
 		properties.exDescription = properties.description;
 
-		this.window.ga('send', 'exception', properties);
+		ga('send', 'exception', properties);
 	}
 
 	setUsername(userId: string) {
@@ -159,20 +162,20 @@ export class Angulartics2GoogleAnalytics {
 			return;
 		}
 
-		if (this.window.ga) {
-			this.window.ga('send', 'timing', properties);
+		if (ga) {
+			ga('send', 'timing', properties);
 		}
 	}
 
 	private setDimensionsAndMetrics(properties: any) {
-		if (this.window.ga) {
+		if (ga) {
 			// add custom dimensions and metrics
 			for (var idx = 1; idx <= 200; idx++) {
 				if (properties['dimension' + idx.toString()]) {
-					this.window.ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
+					ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
 				}
 				if (properties['metric' + idx.toString()]) {
-					this.window.ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
+					ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
 				}
 			}
 		}

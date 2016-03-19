@@ -1,11 +1,12 @@
 import {Injectable} from 'angular2/core';
 
-import {Angulartics2} from '../index';
+import {Angulartics2} from '../core/angulartics2';
+
+declare var mixpanel: any;
 
 @Injectable()
 export class Angulartics2Mixpanel {
 	private angulartics2: Angulartics2;
-	private window: any = window;
 
 	constructor(
 		angulartics2: Angulartics2
@@ -31,7 +32,7 @@ export class Angulartics2Mixpanel {
 
 	pageTrack(path: string, location: any) {
 		try {
-			this.window.mixpanel.track("Page Viewed", { "page": path });
+			mixpanel.track("Page Viewed", { "page": path });
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;
@@ -41,7 +42,7 @@ export class Angulartics2Mixpanel {
 
 	eventTrack(action: string, properties: any) {
 		try {
-			this.window.mixpanel.track(action, properties);
+			mixpanel.track(action, properties);
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;
@@ -51,7 +52,7 @@ export class Angulartics2Mixpanel {
 
 	setUsername(userId: string) {
 		try {
-			this.window.mixpanel.identify(userId);
+			mixpanel.identify(userId);
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;
@@ -61,7 +62,7 @@ export class Angulartics2Mixpanel {
 
 	setUserProperties(properties: any) {
 		try {
-			this.window.mixpanel.people.set(properties);
+			mixpanel.people.set(properties);
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;
@@ -71,7 +72,7 @@ export class Angulartics2Mixpanel {
 
 	setUserPropertiesOnce(properties: any) {
 		try {
-			this.window.mixpanel.people.set_once(properties);
+			mixpanel.people.set_once(properties);
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;
@@ -81,7 +82,7 @@ export class Angulartics2Mixpanel {
 
 	setSuperProperties(properties: any) {
 		try {
-			this.window.mixpanel.register(properties);
+			mixpanel.register(properties);
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;
@@ -91,7 +92,7 @@ export class Angulartics2Mixpanel {
 
 	setSuperPropertiesOnce(properties: any) {
 		try {
-			this.window.mixpanel.register_once(properties);
+			mixpanel.register_once(properties);
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;
@@ -101,7 +102,7 @@ export class Angulartics2Mixpanel {
 
 	setAlias(alias: any) {
 		try {
-			this.window.mixpanel.alias(alias);
+			mixpanel.alias(alias);
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;

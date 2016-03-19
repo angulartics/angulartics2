@@ -45,21 +45,9 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 
 
 ```js
-import {bootstrap} from 'angular2/bootstrap';
-import {Component, View} from 'angular2/core';
-import {ROUTER_PROVIDERS} from 'angular2/router';
-
-import {Angulartics2} from 'angulartics2';
-
-bootstrap(AppComponent, [
-  ROUTER_PROVIDERS,
-  Angulartics2
-]);
-
-
-
-import {Angulartics2GoogleAnalytics} from 'angulartics2/providers/angulartics2-google-analytics';
-import {Component, View} from 'angular2/angular2';
+// component
+import {Angulartics2GoogleAnalytics} from 'angulartics2/src/providers/angulartics2-google-analytics';
+import {Component} from 'angular2/angular2';
 
 @Component({
   selector: 'app',
@@ -69,6 +57,17 @@ import {Component, View} from 'angular2/angular2';
 export class AppComponent {
   constructor(angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 }
+
+// bootstrap
+import {bootstrap} from 'angular2/bootstrap';
+import {ROUTER_PROVIDERS} from 'angular2/router';
+
+import {Angulartics2} from 'angulartics2';
+
+bootstrap(AppComponent, [
+  ROUTER_PROVIDERS,
+  Angulartics2
+]);
 ```
 
 
@@ -79,7 +78,7 @@ To track events you can inject the directive ```angulartics2On``` into any compo
 
 ```js
 import {Angulartics2On} from 'angulartics2';
-import {Component, View} from 'angular2/angular2';
+import {Component} from 'angular2/angular2';
 
 @Component({
   selector: 'song-download-box',
