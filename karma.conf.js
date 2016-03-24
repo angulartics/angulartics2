@@ -17,7 +17,7 @@ module.exports = function(config) {
 			'node_modules/es6-shim/es6-shim.js',
 
 			// zone-microtask must be included first as it contains a Promise monkey patch
-			'node_modules/zone.js/dist/zone-microtask.js',
+			'node_modules/zone.js/dist/zone.js',
 			'node_modules/zone.js/dist/long-stack-trace-zone.js',
 			'node_modules/zone.js/dist/jasmine-patch.js',
 			'node_modules/systemjs/dist/system.src.js',
@@ -34,17 +34,18 @@ module.exports = function(config) {
 
 		// list of files to exclude
 		exclude: [
-			'node_modules/angular2/**/*_spec.js'
+			'node_modules/angular2/**/*_spec.js',
+      'src/**/*.d.ts'
 		],
-
-		preprocessors: {
+    
+    preprocessors: {
 			'**/*.ts': ['typescript']
 		},
-
-		typescriptPreprocessor: {
+    
+    typescriptPreprocessor: {
 			options: require('./tsconfig.json').compilerOptions,
 			typings: [
-				"node_modules/angular2/typings/jasmine/jasmine.d.ts"
+				"typings/main.d.ts"
 			]
 		},
 

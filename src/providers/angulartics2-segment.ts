@@ -1,11 +1,12 @@
 import {Injectable} from 'angular2/core';
 
-import {Angulartics2} from '../index';
+import {Angulartics2} from '../core/angulartics2';
+
+declare var analytics: any;
 
 @Injectable()
 export class Angulartics2Segment {
 	private angulartics2: Angulartics2;
-	private window: any = window;
 
 	constructor(
 		angulartics2: Angulartics2
@@ -32,7 +33,7 @@ export class Angulartics2Segment {
   // (string, object) is (name, properties)
 	pageTrack(path: string, location: any) {
 		try {
-			this.window.analytics.page(path);
+			analytics.page(path);
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;
@@ -44,7 +45,7 @@ export class Angulartics2Segment {
   // analytics.track(event, [properties], [options], [callback]);
 	eventTrack(action: string, properties: any) {
 		try {
-			this.window.analytics.track(action, properties);
+			analytics.track(action, properties);
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;
@@ -57,9 +58,9 @@ export class Angulartics2Segment {
 	setUserProperties(properties: any) {
 		try {
 			if (properties.userId) {
-				this.window.analytics.identify(properties.userId, properties);
+				analytics.identify(properties.userId, properties);
 			} else {
-				this.window.analytics.identify(properties);
+				analytics.identify(properties);
 			}
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
@@ -72,7 +73,7 @@ export class Angulartics2Segment {
   // analytics.alias(userId, previousId, options, callback);
 	setAlias(alias: any) {
 		try {
-			this.window.analytics.alias(alias);
+			analytics.alias(alias);
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;

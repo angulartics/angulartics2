@@ -1,15 +1,28 @@
 {
 	"compilerOptions": {
-		"noImplicitAny": true,
-		"module": "commonjs",
-		"target": "ES5",
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"sourceMap": true,
-		"declaration": true,
-		"moduleResolution": "node"
+		"target": "es5",
+    "module": "commonjs",
+    "declaration": false,
+    "removeComments": true,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "pretty": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": false,
+    "noImplicitUseStrict": false,
+    "noFallthroughCasesInSwitch": true
 	},
-	"exclude": [
-		"node_modules"
-	]	
+  "files": [
+    "typings/main.d.ts",
+    "index.ts",
+    "src/providers/angulartics2-google-analytics",
+    "src/providers/angulartics2-kissmetrics",
+    "src/providers/angulartics2-mixpanel",
+    "src/providers/angulartics2-segment"
+  ],
+  "compileOnSave": false
 }
