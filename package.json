@@ -35,10 +35,9 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "angular2": "2.0.0-beta.11",
-    "commitizen": "~2.4.6",
-    "cz-conventional-changelog": "~1.1.4",
-    "es6-promise": "^3.0.2",
+    "angular2": "2.0.0-beta.12",
+    "commitizen": "~2.7.2",
+    "cz-conventional-changelog": "~1.1.5",
     "es6-shim": "^0.35.0",
     "jasmine-core": "~2.3.4",
     "karma": "~0.13.15",
@@ -53,7 +52,7 @@
     "tslint": "^3.2.1",
     "typescript": "~1.8.7",
     "typings": "^0.6.10",
-    "zone.js": "0.6.5"
+    "zone.js": "0.6.6"
   },
   "bugs": {
     "url": "http://github.com/angulartics/angulartics2/issues"
