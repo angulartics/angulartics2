@@ -9,7 +9,7 @@ node_js:
   - '5'
 before_install:
   - npm i -g npm@^3.7
-  - npm i -g tsd
+  - npm i -g typings
 before_script:
   - npm prune
 after_success:
