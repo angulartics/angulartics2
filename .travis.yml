@@ -12,6 +12,7 @@ before_install:
   - npm i -g typings
 before_script:
   - npm prune
+  - npm run build
 after_success:
   - npm run semantic-release
 branches:

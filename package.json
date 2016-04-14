@@ -61,7 +61,7 @@
     "lint": "tslint ./*.ts ./src/{,*/}*.ts",
     "test": "karma start",
     "commit": "git-cz",
-    "prepublish": "typings install && tsc -d",
+    "build": "typings install && tsc -d",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "main": "./index",
