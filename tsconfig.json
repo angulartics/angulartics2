@@ -19,10 +19,10 @@
   "files": [
     "typings/main.d.ts",
     "index.ts",
-    "src/providers/angulartics2-google-analytics",
-    "src/providers/angulartics2-kissmetrics",
-    "src/providers/angulartics2-mixpanel",
-    "src/providers/angulartics2-segment"
+    "src/providers/angulartics2-google-analytics.ts",
+    "src/providers/angulartics2-kissmetrics.ts",
+    "src/providers/angulartics2-mixpanel.ts",
+    "src/providers/angulartics2-segment.ts"
   ],
   "compileOnSave": false
 }
