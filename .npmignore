@@ -42,7 +42,9 @@ Desktop.ini
 
 # Misc Project
 *.yml
-*.json
 karma*
 typings
+tsconfig.json
+tslint.json
+typings.json
 
