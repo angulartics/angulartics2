@@ -62,7 +62,7 @@
     "test": "karma start",
     "commit": "git-cz",
     "build": "typings install && tsc -d",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "npm run build && semantic-release pre && npm publish && semantic-release post"
   },
   "main": "./index",
   "typings": "./index",
