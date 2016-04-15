@@ -7,7 +7,7 @@
         "noLib": false,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "sourceMap": true,
+        "sourceMap": false,
         "pretty": true,
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
