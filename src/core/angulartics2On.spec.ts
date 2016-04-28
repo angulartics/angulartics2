@@ -1,8 +1,9 @@
 import {Component, provide} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Router, Location} from 'angular2/router';
+import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
+import {Location} from 'angular2/platform/common';
 import {
   it,
-  injectAsync,
+  inject,
   describe,
   beforeEachProviders,
   ComponentFixture,
@@ -32,7 +33,7 @@ export function main() {
     });
 
     it('should not send on and event fields to the eventTrack function',
-      injectAsync([TestComponentBuilder, Router, Angulartics2],
+      inject([TestComponentBuilder, Router, Angulartics2],
         (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2) => {
           return tcb.overrideTemplate(RootCmp, `<div [angulartics2On]="'click'" [angularticsEvent]="'InitiateSearch'" [angularticsCategory]="'Search'"></div>`)
             .createAsync(RootCmp)

@@ -1,9 +1,10 @@
 import {Component, provide} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Router, Route, Location} from 'angular2/router';
+import {ROUTER_DIRECTIVES, Router, Route} from 'angular2/router';
+import {Location} from 'angular2/platform/common';
 import {
   it,
   iit,
-  injectAsync,
+  inject,
   describe,
   ddescribe,
   beforeEachProviders,
@@ -45,9 +46,9 @@ export function main() {
     });
 
     it('should track initial page',
-      injectAsync([TestComponentBuilder, Router, Angulartics2, Angulartics2Mixpanel],
+      inject([TestComponentBuilder, Router, Angulartics2, Angulartics2Mixpanel],
         (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => router.config([new Route({ path: '/', component: HelloCmp })]))
             .then((_) => {
@@ -62,9 +63,9 @@ export function main() {
         }));
 
     it('should track pages',
-      injectAsync([TestComponentBuilder, Router, Angulartics2, Angulartics2Mixpanel],
+      inject([TestComponentBuilder, Router, Angulartics2, Angulartics2Mixpanel],
         (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => router.config([new Route({ path: '/abc', component: HelloCmp })]))
             .then((_) => router.navigateByUrl('/abc'))
@@ -80,120 +81,120 @@ export function main() {
         }));
 
     it('should track events',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
         (tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                   expect(mixpanel.track).toHaveBeenCalledWith('do', { category: 'cat' });
                   resolve();
-                });
+                // });
               });
             });
         }));
 
     it('should set username',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
         ((tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setUsername.next('testUser'))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                   expect(mixpanel.identify).toHaveBeenCalledWith('testUser');
                   resolve();
-                });
+                // });
               });
             });
         })));
 
     it('should set user properties',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
         ((tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setUserProperties.next({ userId: '1', firstName: 'John', lastName: 'Doe' }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                   expect(mixpanel.people.set).toHaveBeenCalledWith({ userId: '1', firstName: 'John', lastName: 'Doe' });
                   resolve();
-                });
+                // });
               });
             });
         })));
 
     it('should set user properties once',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
         ((tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setUserPropertiesOnce.next({ userId: '1', firstName: 'John', lastName: 'Doe' }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                   expect(mixpanel.people.set_once).toHaveBeenCalledWith({ userId: '1', firstName: 'John', lastName: 'Doe' });
                   resolve();
-                });
+                // });
               });
             });
         })));
 
     it('should set super properties',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
         ((tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setSuperProperties.next({ userId: '1', firstName: 'John', lastName: 'Doe' }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                   expect(mixpanel.register).toHaveBeenCalledWith({ userId: '1', firstName: 'John', lastName: 'Doe' });
                   resolve();
-                });
+                // });
               });
             });
         })));
 
     it('should set super properties once',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
         ((tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setSuperPropertiesOnce.next({ userId: '1', firstName: 'John', lastName: 'Doe' }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                   expect(mixpanel.register_once).toHaveBeenCalledWith({ userId: '1', firstName: 'John', lastName: 'Doe' });
                   resolve();
-                });
+                // });
               });
             });
         })));
 
     it('should set alias',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Mixpanel],
         (tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setAlias.next('testAlias'))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                   expect(mixpanel.alias).toHaveBeenCalledWith('testAlias');
                   resolve();
-                });
+                // });
               });
             });
         }));

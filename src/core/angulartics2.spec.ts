@@ -1,9 +1,10 @@
 import {Component, provide} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Route, Router, Location, RouteConfig} from 'angular2/router';
+import {ROUTER_DIRECTIVES, Route, Router, RouteConfig} from 'angular2/router';
+import {Location} from 'angular2/platform/common';
 import {
   it,
   iit,
-  injectAsync,
+  inject,
   describe,
   ddescribe,
   xdescribe,
@@ -34,7 +35,7 @@ export function main() {
       ]);
 
       it('should track pages by default',
-        injectAsync([TestComponentBuilder, Router, Angulartics2],
+        inject([TestComponentBuilder, Router, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2) => {
             return compile(tcb)
               .then((rtc) => fixture = rtc)
@@ -59,7 +60,7 @@ export function main() {
       });
 
       it('should configure virtualPageviews',
-        injectAsync([TestComponentBuilder, Router, Angulartics2],
+        inject([TestComponentBuilder, Router, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2) => {
             return compile(tcb)
               .then((rtc) => fixture = rtc)
@@ -71,7 +72,7 @@ export function main() {
           }));
 
       it('should configure excluded routes',
-        injectAsync([TestComponentBuilder, Router, Angulartics2],
+        inject([TestComponentBuilder, Router, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2) => {
             return compile(tcb)
               .then((rtc) => fixture = rtc)
@@ -84,9 +85,9 @@ export function main() {
           }));
 
       it('should configure developer mode',
-        injectAsync([TestComponentBuilder, Router, Angulartics2],
+        inject([TestComponentBuilder, Router, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2) => {
-            return compile(tcb)
+            compile(tcb)
               .then((rtc) => fixture = rtc)
               .then((_) => router.config([new Route({ path: '/abc', component: HelloCmp })]))
               .then((_) => angulartics2.developerMode(true))
@@ -118,9 +119,9 @@ export function main() {
       });
 
       it('should track pages on route change',
-        injectAsync([TestComponentBuilder, Router, Location, Angulartics2],
+        inject([TestComponentBuilder, Router, Location, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, location: Location, angulartics2: Angulartics2) => {
-            return compile(tcb)
+            compile(tcb)
               .then((rtc) => fixture = rtc)
               .then((_) => router.config([new Route({ path: '/abc', component: HelloCmp })]))
               .then((_) => {
@@ -152,9 +153,9 @@ export function main() {
       });
 
       it('should have empty excludedRoutes by default',
-        injectAsync([TestComponentBuilder, Router, Location, Angulartics2],
+        inject([TestComponentBuilder, Router, Location, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, location: Location, angulartics2: Angulartics2) => {
-            return compile(tcb)
+            compile(tcb)
               .then((rtc) => fixture = rtc)
               .then((_) => {
                 fixture.detectChanges();
@@ -163,9 +164,9 @@ export function main() {
           }));
 
       it('should trigger page track if excludeRoutes is empty',
-        injectAsync([TestComponentBuilder, Router, Location, Angulartics2],
+        inject([TestComponentBuilder, Router, Location, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, location: Location, angulartics2: Angulartics2) => {
-            return compile(tcb)
+            compile(tcb)
               .then((rtc) => fixture = rtc)
               .then((_) => router.config([new Route({ path: '/abc', component: HelloCmp })]))
               .then((_) => {
@@ -185,9 +186,9 @@ export function main() {
           }));
 
       it('should trigger page track if excludeRoutes do not match current route',
-        injectAsync([TestComponentBuilder, Router, Location, Angulartics2],
+        inject([TestComponentBuilder, Router, Location, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, location: Location, angulartics2: Angulartics2) => {
-            return compile(tcb)
+            compile(tcb)
               .then((rtc) => fixture = rtc)
               .then((_) => router.config([new Route({ path: '/abc', component: HelloCmp })]))
               .then((_) => {
@@ -207,9 +208,9 @@ export function main() {
           }));
 
       it('should not trigger page track if current route is excluded',
-        injectAsync([TestComponentBuilder, Router, Location, Angulartics2],
+        inject([TestComponentBuilder, Router, Location, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, location: Location, angulartics2: Angulartics2) => {
-            return compile(tcb)
+            compile(tcb)
               .then((rtc) => fixture = rtc)
               .then((_) => router.config([new Route({ path: '/abc', component: HelloCmp })]))
               .then((_) => {
@@ -229,9 +230,9 @@ export function main() {
           }));
 
       it('should not allow for multiple route exclusions to be specified',
-        injectAsync([TestComponentBuilder, Router, Location, Angulartics2],
+        inject([TestComponentBuilder, Router, Location, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, location: Location, angulartics2: Angulartics2) => {
-            return compile(tcb)
+            compile(tcb)
               .then((rtc) => fixture = rtc)
               .then((_) => router.config([
                 new Route({ path: '/abc', component: HelloCmp }),
@@ -278,9 +279,9 @@ export function main() {
           }));
 
       it('should allow specifying excluded routes as regular expressions',
-        injectAsync([TestComponentBuilder, Router, Location, Angulartics2],
+        inject([TestComponentBuilder, Router, Location, Angulartics2],
           (tcb: TestComponentBuilder, router: Router, location: Location, angulartics2: Angulartics2) => {
-            return compile(tcb)
+            compile(tcb)
               .then((rtc) => fixture = rtc)
               .then((_) => router.config([new Route({ path: '/sections/123/pages/456', component: HelloCmp })]))
               .then((_) => {
@@ -327,7 +328,7 @@ export function main() {
 
 
       it('should subscribe to and emit from ' + event,
-        injectAsync([TestComponentBuilder, Angulartics2],
+        inject([TestComponentBuilder, Angulartics2],
           (tcb: TestComponentBuilder, angulartics2: Angulartics2) => {
             return compile(tcb)
               .then((rtc) => fixture = rtc)

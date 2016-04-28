@@ -1,9 +1,10 @@
 import {Component, provide} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Router, Route, Location} from 'angular2/router';
+import {ROUTER_DIRECTIVES, Router, Route} from 'angular2/router';
+import {Location} from 'angular2/platform/common';
 import {
   it,
   iit,
-  injectAsync,
+  inject,
   describe,
   ddescribe,
   beforeEachProviders,
@@ -40,9 +41,9 @@ export function main() {
     });
 
     it('should track initial page',
-      injectAsync([TestComponentBuilder, Router, Angulartics2, Angulartics2Segment],
+      inject([TestComponentBuilder, Router, Angulartics2, Angulartics2Segment],
         (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => router.config([new Route({ path: '/', component: HelloCmp })]))
             .then((_) => {
@@ -57,9 +58,9 @@ export function main() {
         }));
 
     it('should track pages',
-      injectAsync([TestComponentBuilder, Router, Angulartics2, Angulartics2Segment],
+      inject([TestComponentBuilder, Router, Angulartics2, Angulartics2Segment],
         (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => router.config([new Route({ path: '/abc', component: HelloCmp })]))
             .then((_) => router.navigateByUrl('/abc'))
@@ -75,26 +76,26 @@ export function main() {
         }));
 
     it('should track events',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Segment],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Segment],
         (tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                   expect(analytics.track).toHaveBeenCalledWith('do', { category: 'cat' });
                   resolve();
-                });
+                // });
               });
             });
         }));
 
     it('should set user properties',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Segment],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Segment],
         ((tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setUserProperties.next({ userId: '1', firstName: 'John', lastName: 'Doe' }))
             .then((_) => {
@@ -109,9 +110,9 @@ export function main() {
         })));
 
     it('should set user properties once',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Segment],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Segment],
         ((tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setUserPropertiesOnce.next({ userId: '1', firstName: 'John', lastName: 'Doe' }))
             .then((_) => {
@@ -126,9 +127,9 @@ export function main() {
         })));
 
     it('should set alias',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2Segment],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2Segment],
         (tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setAlias.next('testAlias'))
             .then((_) => {

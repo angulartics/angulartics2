@@ -1,9 +1,12 @@
 import {Component, provide} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Router, Route, Location} from 'angular2/router';
+import {ROUTER_DIRECTIVES, Router, Route} from 'angular2/router';
+import {Location} from 'angular2/platform/common';
 import {
   it,
+  iit,
   xit,
-  injectAsync,
+  inject,
+  async,
   describe,
   ddescribe,
   beforeEachProviders,
@@ -39,9 +42,9 @@ export function main() {
     });
 
     it('should track initial page',
-      injectAsync([TestComponentBuilder, Router, Angulartics2, Angulartics2GoogleAnalytics],
+      inject([TestComponentBuilder, Router, Angulartics2, Angulartics2GoogleAnalytics],
         (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => router.config([new Route({ path: '/', component: HelloCmp })]))
             .then((_) => {
@@ -57,9 +60,9 @@ export function main() {
         }));
 
     it('should track pages',
-      injectAsync([TestComponentBuilder, Router, Angulartics2, Angulartics2GoogleAnalytics],
+      inject([TestComponentBuilder, Router, Angulartics2, Angulartics2GoogleAnalytics],
         (tcb: TestComponentBuilder, router: Router, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => router.config([new Route({ path: '/abc', component: HelloCmp })]))
             .then((_) => router.navigateByUrl('/abc'))
@@ -75,43 +78,43 @@ export function main() {
         }));
 
     it('should track events',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2GoogleAnalytics],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2GoogleAnalytics],
         (tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+              //   setTimeout(() => {
                   expect(ga).toHaveBeenCalledWith('send', 'event', { eventCategory: 'cat', eventAction: 'do', eventLabel: undefined, eventValue: undefined, nonInteraction: undefined, page: '/context.html', userId: null });
                   resolve();
-                });
+              //   });
               });
             });
         }));
 
     it('should track exceptions',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2GoogleAnalytics],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2GoogleAnalytics],
         ((tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.exceptionTrack.next({ appId: 'app', appName: 'Test App', appVersion: '0.1' }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+              //   setTimeout(() => {
                   expect(ga).toHaveBeenCalledWith('send', 'exception', { appId: 'app', appName: 'Test App', appVersion: '0.1', exFatal: true, exDescription: undefined });
                   resolve();
-                });
+              //   });
               });
             });
         })));
 
     it('should set username',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2GoogleAnalytics],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2GoogleAnalytics],
         (tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setUsername.next('testuser'))
             .then((_) => {
@@ -126,45 +129,45 @@ export function main() {
         }));
 
     it('should set user porperties',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2GoogleAnalytics],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2GoogleAnalytics],
         (tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.setUserProperties.next({ dimension1: 'test' }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                   expect(ga).toHaveBeenCalledWith('set', 'dimension1', 'test');
                   resolve();
-                });
+                // });
               });
             })
             .then((_) => angulartics2.setUserProperties.next({ metric1: 'test' }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+              //   setTimeout(() => {
                   expect(ga).toHaveBeenCalledWith('set', 'metric1', 'test');
                   resolve();
-                });
+              //   });
               });
             });
         }));
 
     it('should track user timings',
-      injectAsync([TestComponentBuilder, Angulartics2, Angulartics2GoogleAnalytics],
+      inject([TestComponentBuilder, Angulartics2, Angulartics2GoogleAnalytics],
         (tcb: TestComponentBuilder, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          return compile(tcb)
+          compile(tcb)
             .then((rtc) => fixture = rtc)
             .then((_) => angulartics2.userTimings.next({ timingCategory: 'cat', timingVar: 'var', timingValue: 100 }))
             .then((_) => {
               fixture.detectChanges();
               return new Promise((resolve) => {
-                setTimeout(() => {
+                // setTimeout(() => {
                   expect(ga).toHaveBeenCalledWith('send', 'timing', { timingCategory: 'cat', timingVar: 'var', timingValue: 100 });
                   resolve();
-                });
+                // });
               });
             });
         }));

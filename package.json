@@ -35,7 +35,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "angular2": "2.0.0-beta.14",
+    "angular2": "2.0.0-beta.16",
     "commitizen": "~2.7.6",
     "cz-conventional-changelog": "~1.1.5",
     "es6-shim": "^0.35.0",
@@ -52,7 +52,7 @@
     "tslint": "^3.6.0",
     "typescript": "~1.8.9",
     "typings": "^0.7.11",
-    "zone.js": "0.6.8"
+    "zone.js": "0.6.12"
   },
   "bugs": {
     "url": "http://github.com/angulartics/angulartics2/issues"

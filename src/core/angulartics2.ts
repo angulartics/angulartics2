@@ -1,6 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {ReplaySubject} from 'rxjs/subject/ReplaySubject';
-import {Router, Location} from 'angular2/router';
+import {Router} from 'angular2/router';
+import {Location} from 'angular2/platform/common';
 
 @Injectable()
 export class Angulartics2 {
