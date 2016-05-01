@@ -16,7 +16,7 @@
     "no-duplicate-variable": true,
     "no-empty": true,
     "no-eval": false,
-    "no-trailing-comma": true,
+    "trailing-comma": true,
     "no-trailing-whitespace": false,
     "no-unused-expression": true,
     "no-unused-variable": true,

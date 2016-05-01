@@ -1,4 +1,4 @@
-import {ApplicationRef, provide, Component} from 'angular2/core';
+import {provide, Component} from 'angular2/core';
 import {ROUTER_PRIMARY_COMPONENT, ROUTER_DIRECTIVES, RouteRegistry, Router} from 'angular2/router';
 import {Location} from 'angular2/platform/common';
 import {RootRouter} from 'angular2/src/router/router';

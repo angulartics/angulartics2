@@ -1,21 +1,14 @@
-import {Component, provide} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Router, Route} from 'angular2/router';
-import {Location} from 'angular2/platform/common';
+import {Router, Route} from 'angular2/router';
 import {
   it,
-  iit,
-  xit,
   inject,
-  async,
   describe,
-  ddescribe,
   beforeEachProviders,
   ComponentFixture,
   TestComponentBuilder
 } from 'angular2/testing';
-import {SpyLocation} from 'angular2/router/testing';
 
-import {TEST_ROUTER_PROVIDERS, RootCmp, HelloCmp, compile} from '../test.mocks';
+import {TEST_ROUTER_PROVIDERS, HelloCmp, compile} from '../test.mocks';
 import {Angulartics2} from '../core/angulartics2';
 import {Angulartics2GoogleAnalytics} from './angulartics2-google-analytics';
 

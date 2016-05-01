@@ -13,7 +13,7 @@ export class Angulartics2Kissmetrics {
 	) {
 		this.angulartics2 = angulartics2;
 
-		if (typeof (_kmq) === "undefined") {
+		if (typeof (_kmq) === 'undefined') {
 			_kmq = [];
 		}
 

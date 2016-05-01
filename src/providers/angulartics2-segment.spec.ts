@@ -1,18 +1,14 @@
-import {Component, provide} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Router, Route} from 'angular2/router';
-import {Location} from 'angular2/platform/common';
+import {Router, Route} from 'angular2/router';
 import {
   it,
-  iit,
   inject,
   describe,
-  ddescribe,
   beforeEachProviders,
   ComponentFixture,
   TestComponentBuilder
 } from 'angular2/testing';
 
-import {TEST_ROUTER_PROVIDERS, RootCmp, HelloCmp, compile} from '../test.mocks';
+import {TEST_ROUTER_PROVIDERS, HelloCmp, compile} from '../test.mocks';
 import {Angulartics2} from '../core/angulartics2';
 import {Angulartics2Segment} from './angulartics2-segment';
 
@@ -37,7 +33,7 @@ export function main() {
         track: jasmine.createSpy('track'),
         identify: jasmine.createSpy('identify'),
         alias: jasmine.createSpy('alias')
-      }
+      };
     });
 
     it('should track initial page',

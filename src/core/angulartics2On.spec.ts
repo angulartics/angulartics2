@@ -1,6 +1,5 @@
-import {Component, provide} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
-import {Location} from 'angular2/platform/common';
 import {
   it,
   inject,

@@ -32,7 +32,7 @@ export class Angulartics2Mixpanel {
 
 	pageTrack(path: string, location: any) {
 		try {
-			mixpanel.track("Page Viewed", { "page": path });
+			mixpanel.track('Page Viewed', { page: path });
 		} catch (e) {
 			if (!(e instanceof ReferenceError)) {
 				throw e;

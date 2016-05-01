@@ -1,13 +1,9 @@
-import {Component, provide} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Route, Router, RouteConfig} from 'angular2/router';
+import {Route, Router} from 'angular2/router';
 import {Location} from 'angular2/platform/common';
 import {
   it,
-  iit,
   inject,
   describe,
-  ddescribe,
-  xdescribe,
   beforeEachProviders,
   ComponentFixture,
   TestComponentBuilder
