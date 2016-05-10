@@ -95,6 +95,7 @@ export class SongDownloadBox {}
 * Kissmetrics
 * Mixpanel
 * Segment
+* Facebook
 
 ### For other providers
 
