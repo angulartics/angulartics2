@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 
 import {Angulartics2} from '../core/angulartics2';
 
@@ -6,13 +6,10 @@ declare var _kmq: any;
 
 @Injectable()
 export class Angulartics2Kissmetrics {
-	private angulartics2: Angulartics2;
 
 	constructor(
-		angulartics2: Angulartics2
+		private angulartics2: Angulartics2
 	) {
-		this.angulartics2 = angulartics2;
-
 		if (typeof (_kmq) === 'undefined') {
 			_kmq = [];
 		}

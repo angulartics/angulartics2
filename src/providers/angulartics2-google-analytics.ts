@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 
 import {Angulartics2} from '../core/angulartics2';
 
@@ -8,13 +8,10 @@ declare var location: any;
 
 @Injectable()
 export class Angulartics2GoogleAnalytics {
-	private angulartics2: Angulartics2;
 
 	constructor(
-		angulartics2: Angulartics2
+		private angulartics2: Angulartics2
   ) {
-		this.angulartics2 = angulartics2;
-
 		this.angulartics2.settings.pageTracking.trackRelativePath = true;
 
 		// Set the default settings for this module
