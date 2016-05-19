@@ -69,17 +69,9 @@ export class Angulartics2 {
 	  this.trackLocation(location);
 	}
 
-  trackLocation(location: Location) {
+	trackLocation(location: Location) {
 		location.subscribe((value: any) => {
-			if (!this.settings.developerMode) {
-				var url = value.url;
-        if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
-          this.pageTrack.next({
-            path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + url : location.prepareExternalUrl(url),
-            location: location
-          });
-        }
-			}
+			this.trackUrlChange(value.url, location);
 		});
 	}
 
@@ -93,18 +85,29 @@ export class Angulartics2 {
 		this.settings.pageTracking.autoTrackFirstPage = value;
 	}
 	withBase(value: string) {
-    this.settings.pageTracking.basePath = (value);
+		this.settings.pageTracking.basePath = (value);
 	}
 	developerMode(value: boolean) {
 		this.settings.developerMode = value;
 	}
+	
+	protected trackUrlChange(url: string, location: Location) {
+		if (!this.settings.developerMode) {
+			if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
+				this.pageTrack.next({
+					path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + url : location.prepareExternalUrl(url),
+					location: location
+				});
+			}
+		}
+	}
 
-	private matchesExcludedRoute(url: string): boolean {
+	protected matchesExcludedRoute(url: string): boolean {
 		for (let excludedRoute of this.settings.pageTracking.excludedRoutes) {
 			if ((excludedRoute instanceof RegExp && excludedRoute.test(url)) || url.indexOf(excludedRoute) > -1) {
 				return true;
 			}
 		}
 		return false;
-  }
+	}
 }
