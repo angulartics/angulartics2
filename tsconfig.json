@@ -1,6 +1,6 @@
 {
-	"compilerOptions": {
-		"target": "es5",
+  "compilerOptions": {
+    "target": "es5",
     "module": "commonjs",
     "declaration": false,
     "removeComments": true,
@@ -15,9 +15,9 @@
     "noImplicitReturns": false,
     "noImplicitUseStrict": false,
     "noFallthroughCasesInSwitch": true
-	},
+  },
   "files": [
-    "typings/main.d.ts",
+    "typings/index.d.ts",
     "index.ts",
     "src/providers/angulartics2-google-analytics.ts",
     "src/providers/angulartics2-kissmetrics.ts",
