@@ -33,12 +33,12 @@ export class Angulartics2 {
 	/*
 		@Param: (alias: string)
 	 */
-	public setAlias: ReplaySubject<string> = new ReplaySubject();
+	public setAlias: ReplaySubject<any> = new ReplaySubject();
 
 	/*
 		@Param: (userId: string)
 	 */
-	public setUsername: ReplaySubject<string> = new ReplaySubject();
+	public setUsername: ReplaySubject<any> = new ReplaySubject();
 
 	/*
 		@Param: ({action: any, properties: any})
