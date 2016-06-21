@@ -26,7 +26,7 @@ export class Angulartics2On implements AfterContentInit {
 	}
 
 	ngAfterContentInit() {
-		this.eventManager.addEventListener(this.el, this.angulartics2On, (event: any) => this.eventTrack(event));
+		this.eventManager.addEventListener(this.el, this.angulartics2On || 'click', (event: any) => this.eventTrack(event));
   }
 
 	eventTrack(event: any) {
