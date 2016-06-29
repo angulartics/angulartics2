@@ -25,56 +25,47 @@ export class Angulartics2Piwik {
 	}
 
 	pageTrack(path: string, location: any) {
-		if (_paq) {
-			try {
-				_paq.push(['setDocumentTitle', window.document.title]);
-				_paq.push(['setCustomUrl', path]);
-				_paq.push(['trackPageView']);
-			} catch (e) {
-				if (!(e instanceof ReferenceError)) {
-					throw e;
-				}
+		try {
+			_paq.push(['setDocumentTitle', window.document.title]);
+			_paq.push(['setCustomUrl', path]);
+			_paq.push(['trackPageView']);
+		} catch (e) {
+			if (!(e instanceof ReferenceError)) {
+				throw e;
 			}
 		}
 	}
 
 	eventTrack(action: string, properties: any) {
-		if (_paq) {
-			try {
-				if (properties.value) {
-					var parsed = parseInt(properties.value, 10);
-					properties.value = isNaN(parsed) ? 0 : parsed;
-				}
-				_paq.push(['trackEvent', properties.category, action, properties.label, properties.value]);
-			} catch (e) {
-				if (!(e instanceof ReferenceError)) {
-					throw e;
-				}
+		try {
+			if (properties.value) {
+				var parsed = parseInt(properties.value, 10);
+				properties.value = isNaN(parsed) ? 0 : parsed;
+			}
+			_paq.push(['trackEvent', properties.category, action, properties.label, properties.value]);
+		} catch (e) {
+			if (!(e instanceof ReferenceError)) {
+				throw e;
 			}
 		}
 	}
 
 	setUsername(userId: string) {
-		if (_paq) {
-			try {
-				_paq.push(['setUserId', userId]);
-			} catch (e) {
-				if (!(e instanceof ReferenceError)) {
-					throw e;
-				}
+		try {
+			_paq.push(['setUserId', userId]);
+		} catch (e) {
+			if (!(e instanceof ReferenceError)) {
+				throw e;
 			}
 		}
 	}
 
 	setUserProperties(properties: any) {
-		if (_paq) {
-			try {
-				_paq.push(['setCustomVariable', properties]);
-
-			} catch (e) {
-				if (!(e instanceof ReferenceError)) {
-					throw e;
-				}
+		try {
+			_paq.push(['setCustomVariable', properties]);
+		} catch (e) {
+			if (!(e instanceof ReferenceError)) {
+				throw e;
 			}
 		}
 	}
