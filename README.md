@@ -47,25 +47,30 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 ```js
 // component
 import {Angulartics2GoogleAnalytics} from 'angulartics2/src/providers/angulartics2-google-analytics';
+import {Angulartics2RouterFix} from 'angulartics2/src/core/angulartics2-routerfix';
 import {Component} from '@angular/core';
 
 @Component({
   selector: 'app',
+  // you don't need providers when using ngModules in RC5
   providers: [Angulartics2GoogleAnalytics],
   template: `<router-outlet></router-outlet>`       // Or what your root template is.
 })
 export class AppComponent {
-  constructor(angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
+  constructor(angulartics2: Angulartics2RouterFix, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 }
 ```
 The bootstrapping depends on whether you use ngModules introduced in RC5, or the pre-RC5 way of bootstrapping.
 ## Important: Due to an issue with Angular, the location events are not raised. To overcome this, we have provided a temporary fix by using the router events.
 
 ## RC5, add a dependency to your ngModule:
+import {Angulartics2GoogleAnalytics} from 'angulartics2/src/providers/angulartics2-google-analytics';
+import {Angulartics2RouterFix} from 'angulartics2/src/core/angulartics2-routerfix';
+
 @NgModule({
   imports: [ BrowserModule, RouterModule.forRoot(routes)],  
   bootstrap:    [ ClientApp ],
-  providers: [ Angulartics2 ],  
+  providers: [ Angulartics2RouterFix, Angulartics2GoogleAnalytics ],  
 })
 
 ## Pre-RC5, add it to the bootstrap
