@@ -5,6 +5,7 @@ function __export(m) {
 var angulartics2_1 = require('./src/core/angulartics2');
 __export(require('./src/core/angulartics2'));
 __export(require('./src/core/angulartics2On'));
+__export(require('./src/core/angulartics2-routerfix'));
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     providers: [angulartics2_1.Angulartics2]
