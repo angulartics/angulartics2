@@ -64,13 +64,17 @@ The bootstrapping depends on whether you use ngModules introduced in RC5, or the
 ## Important: Due to an issue with Angular, the location events are not raised. To overcome this, we have provided a temporary fix by using the router events.
 
 ## RC5, add a dependency to your ngModule:
-import {Angulartics2GoogleAnalytics} from 'angulartics2/src/providers/angulartics2-google-analytics';
+import {Angulartics2} from 'angulartics2/src/core/angulartics2';
 import {Angulartics2RouterFix} from 'angulartics2/src/core/angulartics2-routerfix';
+import {Angulartics2GoogleAnalytics} from 'angulartics2/src/providers/angulartics2-google-analytics';
 
 @NgModule({
   imports: [ BrowserModule, RouterModule.forRoot(routes)],  
   bootstrap:    [ ClientApp ],
-  providers: [ Angulartics2RouterFix, Angulartics2GoogleAnalytics ],  
+  providers: [ 
+    provide(Angulartics2, {useClass: Angulartics2RouterFix}), 
+    Angulartics2GoogleAnalytics 
+  ],  
 })
 
 ## Pre-RC5, add it to the bootstrap
