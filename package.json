@@ -1,5 +1,6 @@
 {
   "name": "angulartics2",
+  "version": "1.1.3-beta",
   "description": "Vendor-agnostic web analytics for Angular2 applications",
   "homepage": "http://angulartics.github.io/",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
