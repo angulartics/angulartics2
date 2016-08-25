@@ -57,7 +57,18 @@ import {Component} from '@angular/core';
 export class AppComponent {
   constructor(angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 }
+```
+The bootstrapping depends on whether you use ngModules introduced in RC5, or the pre-RC5 way of bootstrapping.
+## Important: Due to an issue with Angular, the location events are not raised. To overcome this, we have provided a temporary fix by using the router events.
 
+## RC5, add a dependency to your ngModule:
+@NgModule({
+  imports: [ BrowserModule, RouterModule.forRoot(routes)],  
+  bootstrap:    [ ClientApp ],
+  providers: [ Angulartics2 ],  
+})
+
+## Pre-RC5, add it to the bootstrap
 // bootstrap
 import {bootstrap} from '@angular/platform-browser-dynamic';
 import {ROUTER_PROVIDERS} from '@angular/router';
