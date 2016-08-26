@@ -27,7 +27,7 @@ var Angulartics2GoogleAnalytics = (function () {
         this.angulartics2.userTimings.subscribe(function (x) { return _this.userTimings(x); });
     }
     Angulartics2GoogleAnalytics.prototype.pageTrack = function (path) {
-        if (_gaq) {
+        if (typeof _gaq !== 'undefined' && _gaq) {
             _gaq.push(['_trackPageview', path]);
             for (var _i = 0, _a = this.angulartics2.settings.ga.additionalAccountNames; _i < _a.length; _i++) {
                 var accountName = _a[_i];
@@ -35,7 +35,7 @@ var Angulartics2GoogleAnalytics = (function () {
             }
             ;
         }
-        if (ga) {
+        if (typeof ga !== 'undefined' && ga) {
             if (this.angulartics2.settings.ga.userId) {
                 ga('set', '&uid', this.angulartics2.settings.ga.userId);
             }
