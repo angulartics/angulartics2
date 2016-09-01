@@ -35,13 +35,13 @@ export class Angulartics2GoogleAnalytics {
 	}
 
   pageTrack(path: string) {
-		if (_gaq) {
+		if (typeof _gaq !== 'undefined' && _gaq) {
 			_gaq.push(['_trackPageview', path]);
 			for (var accountName of this.angulartics2.settings.ga.additionalAccountNames) {
 				_gaq.push([accountName + '._trackPageview', path]);
 			};
 		}
-		if (ga) {
+		if (typeof ga !== 'undefined' && ga) {
 			if (this.angulartics2.settings.ga.userId) {
 				ga('set', '&uid', this.angulartics2.settings.ga.userId);
 			}
