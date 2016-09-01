@@ -51,13 +51,33 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'app',
+  // with RC5 you won't need to add it to providers, see below.
   providers: [Angulartics2GoogleAnalytics],
   template: `<router-outlet></router-outlet>`       // Or what your root template is.
 })
 export class AppComponent {
   constructor(angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 }
+The bootstrapping depends on whether you use ngModules introduced in RC5, or the pre-RC5 way of bootstrapping.
+## Important: Due to an issue with Angular, the location events are not raised. To overcome this, we have provided a temporary fix by using the router events.
+## For this bugfix, refer to the temporary branch at https://github.com/rolandoldengarm/angulartics2/tree/rc5-router-fix including a readme.
+## You can add that branch to your package.json as https://github.com/rolandoldengarm/angulartics2.git#rc5-router-fix
 
+## RC5, add a dependency to your ngModule:
+import {Angulartics2} from 'angulartics2/src/core/angulartics2';
+import {Angulartics2RouterFix} from 'angulartics2/src/core/angulartics2-routerfix';
+import {Angulartics2GoogleAnalytics} from 'angulartics2/src/providers/angulartics2-google-analytics';
+
+@NgModule({
+  imports: [ BrowserModule, RouterModule.forRoot(routes)],  
+  bootstrap:    [ ClientApp ],
+  providers: [ 
+    provide(Angulartics2, {useClass: Angulartics2RouterFix}), 
+    Angulartics2GoogleAnalytics 
+  ],  
+})
+
+## Pre-RC5, add it to the bootstrap
 // bootstrap
 import {bootstrap} from '@angular/platform-browser-dynamic';
 import {ROUTER_PROVIDERS} from '@angular/router';
