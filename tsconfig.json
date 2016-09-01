@@ -17,7 +17,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "files": [
-    "typings/index.d.ts",
     "index.ts",
     "src/providers/angulartics2-google-analytics.ts",
     "src/providers/angulartics2-kissmetrics.ts",
