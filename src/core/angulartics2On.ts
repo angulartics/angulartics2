@@ -1,8 +1,8 @@
-import {Directive, Injectable, Input, ElementRef, AfterContentInit} from '@angular/core';
-import {EventManager} from '@angular/platform-browser';
-import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
+import { Directive, Injectable, Input, ElementRef, AfterContentInit } from '@angular/core';
+import { EventManager } from '@angular/platform-browser';
+// import { getDOM } from '@angular/platform-browser/src/dom/dom_adapter';
 
-import {Angulartics2} from './angulartics2';
+import { Angulartics2 } from './angulartics2';
 
 @Injectable()
 @Directive({
@@ -29,12 +29,12 @@ export class Angulartics2On implements AfterContentInit {
 		this.eventManager.addEventListener(this.el, this.angulartics2On || 'click', (event: any) => this.eventTrack(event));
   }
 
-	eventTrack(event: any) {
+	public eventTrack(event: any) {
 		if (this.angularticsIf && !eval(this.angularticsIf)) {
 			return; // Cancel this event if we don't pass the angulartics-if condition
 		}
 
-		const action = this.angularticsEvent || this.inferEventName();
+		const action = this.angularticsEvent; // || this.inferEventName();
 		let properties: any = {
 			eventType: event.type
 		};
@@ -55,7 +55,7 @@ export class Angulartics2On implements AfterContentInit {
 		});
 	}
 
-	private isCommand() {
+	/*private isCommand() {
 		return ['a:', 'button:', 'button:button', 'button:submit', 'input:button', 'input:submit'].indexOf(
 			getDOM().tagName(this.el).toLowerCase() + ':' + (getDOM().type(this.el) || '')) >= 0;
 	}
@@ -63,5 +63,5 @@ export class Angulartics2On implements AfterContentInit {
 	private inferEventName() {
 		if (this.isCommand()) return getDOM().getText(this.el) || getDOM().getValue(this.el);
 		return getDOM().getProperty(this.el, 'id') || getDOM().getProperty(this.el, 'name') || getDOM().tagName(this.el);
-	}
+	}*/
 }

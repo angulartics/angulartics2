@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {Angulartics2} from '../core/angulartics2';
+import { Angulartics2 } from '../core/angulartics2';
 
 declare var mixpanel: any;
 

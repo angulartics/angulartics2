@@ -1,24 +1,11 @@
-import {Location} from '@angular/common';
-import {SpyLocation} from '@angular/common/testing';
-import {
-  async,
-  it,
-  iit,
-  inject,
-  ddescribe,
-  describe,
-  expect,
-  beforeEach,
-  beforeEachProviders,
-  fakeAsync
-} from '@angular/core/testing';
-import {
-  TestComponentBuilder,
-  ComponentFixture
-} from '@angular/compiler/testing';
+import { Location } from '@angular/common';
+import { SpyLocation } from '@angular/common/testing';
+import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 
-import {TEST_ROUTER_PROVIDERS, RootCmp, advance, compile} from '../test.mocks';
-import {Angulartics2} from './angulartics2';
+import { RoutesConfig, TestModule, RootCmp, advance, createRoot, createRootWithRouter } from '../test.mocks';
+import { Angulartics2 } from './angulartics2';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
@@ -33,10 +20,17 @@ export function main() {
 
     describe('initialize', function() {
 
-      beforeEachProviders(() => [
-        TEST_ROUTER_PROVIDERS,
-        Angulartics2
-      ]);
+      beforeEach(() => {
+        TestBed.configureTestingModule({
+          imports: [
+            RouterTestingModule.withRoutes(RoutesConfig),
+            TestModule
+          ],
+          providers: [
+            Angulartics2
+          ]
+        });
+      });
 
       it('should track pages by default',
         inject([Angulartics2],
@@ -48,12 +42,18 @@ export function main() {
     describe('Configuration', function() {
       var EventSpy: any;
 
-      beforeEachProviders(() => [
-        TEST_ROUTER_PROVIDERS,
-        Angulartics2
-      ]);
+      beforeEach(() => {
+        TestBed.configureTestingModule({
+          imports: [
+            RouterTestingModule.withRoutes(RoutesConfig),
+            TestModule
+          ],
+          providers: [
+            { provide: Location, useClass: SpyLocation },
+            Angulartics2
+          ]
+        });
 
-      beforeEach(function() {
         EventSpy = jasmine.createSpy('EventSpy');
       });
 
@@ -72,14 +72,14 @@ export function main() {
       }));
 
       it('should configure developer mode',
-        fakeAsync(inject([TestComponentBuilder, Location, Angulartics2],
-          (tcb: TestComponentBuilder, location: Location, angulartics2: Angulartics2) => {
-            fixture = tcb.createFakeAsync(RootCmp);
+        fakeAsync(inject([Router, Location, Angulartics2],
+           (router: Router, location: Location, angulartics2: Angulartics2) => {
+            fixture = createRootWithRouter(router, RootCmp);
             angulartics2.developerMode(true);
             angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
             (<SpyLocation>location).simulateUrlPop('/abc');
             advance(fixture);
-            expect(EventSpy).not.toHaveBeenCalled();
+            expect(EventSpy).not.toHaveBeenCalledWith({ path: '/abc', location: location });
           })));
 
     });
@@ -87,19 +87,25 @@ export function main() {
     describe('router support', function() {
       var EventSpy: any;
 
-      beforeEachProviders(() => [
-        TEST_ROUTER_PROVIDERS,
-        Angulartics2
-      ]);
+      beforeEach(() => {
+        TestBed.configureTestingModule({
+          imports: [
+            RouterTestingModule.withRoutes(RoutesConfig),
+            TestModule
+          ],
+          providers: [
+            { provide: Location, useClass: SpyLocation },
+            Angulartics2
+          ]
+        });
 
-      beforeEach(function() {
         EventSpy = jasmine.createSpy('EventSpy');
       });
 
       it('should track pages on route change',
-        fakeAsync(inject([TestComponentBuilder, Location, Angulartics2],
-          (tcb: TestComponentBuilder, location: Location, angulartics2: Angulartics2) => {
-            fixture = tcb.createFakeAsync(RootCmp);
+        fakeAsync(inject([Router, Location, Angulartics2],
+          (router: Router, location: Location, angulartics2: Angulartics2) => {
+            fixture = createRootWithRouter(router, RootCmp);
             angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
             (<SpyLocation>location).simulateUrlPop('/abc');
             advance(fixture);
@@ -110,12 +116,18 @@ export function main() {
     describe('excludedRoutes', function() {
       var EventSpy: any;
 
-      beforeEachProviders(() => [
-        TEST_ROUTER_PROVIDERS,
-        Angulartics2
-      ]);
+      beforeEach(() => {
+        TestBed.configureTestingModule({
+          imports: [
+            RouterTestingModule.withRoutes(RoutesConfig),
+            TestModule
+          ],
+          providers: [
+            { provide: Location, useClass: SpyLocation },
+            Angulartics2
+          ]
+        });
 
-      beforeEach(function() {
         EventSpy = jasmine.createSpy('EventSpy');
       });
 
@@ -125,9 +137,9 @@ export function main() {
         }));
 
       it('should trigger page track if excludeRoutes is empty',
-        fakeAsync(inject([TestComponentBuilder, Location, Angulartics2],
-          (tcb: TestComponentBuilder, location: Location, angulartics2: Angulartics2) => {
-            fixture = tcb.createFakeAsync(RootCmp);
+        fakeAsync(inject([Router, Location, Angulartics2],
+           (router: Router, location: Location, angulartics2: Angulartics2) => {
+            fixture = createRootWithRouter(router, RootCmp);
             angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
             angulartics2.settings.pageTracking.excludedRoutes = [];
             (<SpyLocation>location).simulateUrlPop('/abc');
@@ -136,9 +148,9 @@ export function main() {
           })));
 
       it('should trigger page track if excludeRoutes do not match current route',
-        fakeAsync(inject([TestComponentBuilder, Location, Angulartics2],
-          (tcb: TestComponentBuilder, location: Location, angulartics2: Angulartics2) => {
-            fixture = tcb.createFakeAsync(RootCmp);
+        fakeAsync(inject([Router, Location, Angulartics2],
+           (router: Router, location: Location, angulartics2: Angulartics2) => {
+            fixture = createRootWithRouter(router, RootCmp);
             angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
             angulartics2.settings.pageTracking.excludedRoutes = ['/def'];
             (<SpyLocation>location).simulateUrlPop('/abc');
@@ -147,9 +159,9 @@ export function main() {
           })));
 
       it('should not trigger page track if current route is excluded',
-        fakeAsync(inject([TestComponentBuilder, Location, Angulartics2],
-          (tcb: TestComponentBuilder, location: Location, angulartics2: Angulartics2) => {
-            fixture = tcb.createFakeAsync(RootCmp);
+        fakeAsync(inject([Router, Location, Angulartics2],
+           (router: Router, location: Location, angulartics2: Angulartics2) => {
+            fixture = createRootWithRouter(router, RootCmp);
             angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
             angulartics2.settings.pageTracking.excludedRoutes = ['/abc'];
             (<SpyLocation>location).simulateUrlPop('/abc');
@@ -158,9 +170,9 @@ export function main() {
           })));
 
       it('should not allow for multiple route exclusions to be specified',
-        fakeAsync(inject([TestComponentBuilder, Location, Angulartics2],
-          (tcb: TestComponentBuilder, location: Location, angulartics2: Angulartics2) => {
-            fixture = tcb.createFakeAsync(RootCmp);
+        fakeAsync(inject([Router, Location, Angulartics2],
+           (router: Router, location: Location, angulartics2: Angulartics2) => {
+            fixture = createRootWithRouter(router, RootCmp);
             angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
             // Ignore excluded route
             angulartics2.settings.pageTracking.excludedRoutes = ['/def', '/abc'];
@@ -176,9 +188,9 @@ export function main() {
           })));
 
       it('should allow specifying excluded routes as regular expressions',
-        fakeAsync(inject([TestComponentBuilder, Location, Angulartics2],
-          (tcb: TestComponentBuilder, location: Location, angulartics2: Angulartics2) => {
-            fixture = tcb.createFakeAsync(RootCmp);
+        fakeAsync(inject([Router, Location, Angulartics2],
+           (router: Router, location: Location, angulartics2: Angulartics2) => {
+            fixture = createRootWithRouter(router, RootCmp);
             angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
             angulartics2.settings.pageTracking.excludedRoutes = [/\/sections\/\d+\/pages\/\d+/];
             (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
@@ -203,19 +215,25 @@ export function main() {
         'userTimings'
       ];
 
-      beforeEachProviders(() => [
-        TEST_ROUTER_PROVIDERS,
-        Angulartics2
-      ]);
+      beforeEach(() => {
+        TestBed.configureTestingModule({
+          imports: [
+            RouterTestingModule.withRoutes(RoutesConfig),
+            TestModule
+          ],
+          providers: [
+            { provide: Location, useClass: SpyLocation },
+            Angulartics2
+          ]
+        });
 
-      beforeEach(function() {
         EventSpy = jasmine.createSpy('EventSpy');
       });
 
       it('should subscribe to and emit from ' + event,
-        fakeAsync(inject([TestComponentBuilder, Angulartics2],
-          (tcb: TestComponentBuilder, angulartics2: Angulartics2) => {
-            fixture = tcb.createFakeAsync(RootCmp);
+        fakeAsync(inject([Angulartics2],
+          (angulartics2: Angulartics2) => {
+            fixture = createRoot(RootCmp);
             for (var event of EventEmiters) {
               (<any>angulartics2)[event].subscribe((x: any) => EventSpy(x));
               (<any>angulartics2)[event].next(`test: ${event}`);

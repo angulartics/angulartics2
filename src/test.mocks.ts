@@ -1,19 +1,11 @@
-import { provide, Component, ComponentResolver, Injector } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import {
-  Router,
-  RouterConfig,
-  RouterOutletMap,
-  UrlSerializer,
-  DefaultUrlSerializer,
-  ROUTER_DIRECTIVES
+  Routes,
+  Router
 } from '@angular/router';
-import { Location } from '@angular/common';
-import { tick } from '@angular/core/testing';
-import { SpyLocation } from '@angular/common/testing';
-import {
-  TestComponentBuilder,
-  ComponentFixture
-} from '@angular/compiler/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CommonModule } from '@angular/common';
+import { TestBed, tick, ComponentFixture } from '@angular/core/testing';
 
 @Component({ selector: 'hello-cmp', template: `{{greeting}}` })
 export class HelloCmp {
@@ -37,12 +29,12 @@ export class HelloCmp4 {
 export class HelloCmp5 {
 }
 
-const config: RouterConfig = [
-  { path: '/', component: HelloCmp },
-  { path: '/abc', component: HelloCmp2 },
-  { path: '/def', component: HelloCmp3 },
-  { path: '/ghi', component: HelloCmp4 },
-  { path: '/sections/123/pages/456', component: HelloCmp5 }
+export const RoutesConfig: Routes = [
+  { path: '', component: HelloCmp },
+  { path: 'abc', component: HelloCmp2 },
+  { path: 'def', component: HelloCmp3 },
+  { path: 'ghi', component: HelloCmp4 },
+  { path: 'sections/123/pages/456', component: HelloCmp5 }
 ]
 
 @Component({
@@ -53,26 +45,53 @@ export class RootCmp {
   name: string;
 }
 
-export const TEST_ROUTER_PROVIDERS: any[] = [
-  RouterOutletMap,
-  { provide: UrlSerializer, useClass: DefaultUrlSerializer },
-  { provide: Location, useClass: SpyLocation },
-  {
-    provide: Router,
-    useFactory: (resolver: ComponentResolver, urlSerializer: UrlSerializer, outletMap: RouterOutletMap, location: Location, injector: Injector) => {
-      const r = new Router(RootCmp, resolver, urlSerializer, outletMap, location, injector, config);
-      r.initialNavigation();
-      return r;
-    },
-    deps: [ComponentResolver, UrlSerializer, RouterOutletMap, Location, Injector]
-  },
-];
-
-export function compile(tcb: TestComponentBuilder): Promise<ComponentFixture<any>> {
-  return tcb.createAsync(RootCmp);
-}
-
 export function advance(fixture: ComponentFixture<any>): void {
   tick();
   fixture.detectChanges();
+}
+
+export function createRoot(type: any): ComponentFixture<any> {
+  const f = TestBed.createComponent(type);
+  advance(f);
+  return f;
+}
+
+export function createRootWithRouter(router: Router, type: any): ComponentFixture<any> {
+  const f = TestBed.createComponent(type);
+  advance(f);
+  router.initialNavigation();
+  advance(f);
+  return f;
+}
+
+@NgModule({
+  imports: [RouterTestingModule, CommonModule],
+  entryComponents: [
+    HelloCmp,
+    HelloCmp2,
+    HelloCmp3,
+    HelloCmp4,
+    HelloCmp5,
+    RootCmp
+  ],
+
+  exports: [
+    HelloCmp,
+    HelloCmp2,
+    HelloCmp3,
+    HelloCmp4,
+    HelloCmp5,
+    RootCmp
+  ],
+
+  declarations: [
+    HelloCmp,
+    HelloCmp2,
+    HelloCmp3,
+    HelloCmp4,
+    HelloCmp5,
+    RootCmp
+  ]
+})
+export class TestModule {
 }

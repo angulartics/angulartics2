@@ -46,28 +46,31 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 
 ```js
 // component
+import {Angulartics2} from 'angulartics2/src/core/angulartics2';
 import {Angulartics2GoogleAnalytics} from 'angulartics2/src/providers/angulartics2-google-analytics';
 import {Component} from '@angular/core';
 
 @Component({
   selector: 'app',
-  providers: [Angulartics2GoogleAnalytics],
-  template: `<router-outlet></router-outlet>`       // Or what your root template is.
+  template: `<router-outlet></router-outlet>` // Or what your root template is.
 })
 export class AppComponent {
   constructor(angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 }
 
 // bootstrap
-import {bootstrap} from '@angular/platform-browser-dynamic';
-import {ROUTER_PROVIDERS} from '@angular/router';
+import {Angulartics2} from 'angulartics2/src/core/angulartics2';
+import {Angulartics2GoogleAnalytics} from 'angulartics2/src/providers/angulartics2-google-analytics';
 
-import {Angulartics2} from 'angulartics2';
-
-bootstrap(AppComponent, [
-  ROUTER_PROVIDERS,
-  Angulartics2
-]);
+@NgModule({
+  imports: [ BrowserModule, RouterModule.forRoot(routes)],
+  declarations: [ AppComponent ], 
+  bootstrap: [ AppComponent ],
+  providers: [ 
+    Angulartics2, 
+    Angulartics2GoogleAnalytics 
+  ],  
+})
 ```
 
 
@@ -77,15 +80,25 @@ To track events you can inject the directive ```angulartics2On``` into any compo
 
 
 ```js
-import {Angulartics2On} from 'angulartics2';
 import {Component} from '@angular/core';
 
 @Component({
   selector: 'song-download-box',
-  directives: [Angulartics2On],
   template: `<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}"></div>`,
 })
 export class SongDownloadBox {}
+
+// bootstrap
+import {Angulartics2, Angulartics2On} from 'angulartics2/src/core/angulartics2';
+
+@NgModule({
+  imports: [ BrowserModule, RouterModule.forRoot(routes)],
+  declarations: [ AppComponent, SongDownloadBox, Angulartics2On ], 
+  bootstrap: [ AppComponent ],
+  providers: [ 
+    Angulartics2
+  ],  
+})
 ```
 
 

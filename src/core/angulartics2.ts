@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {Location} from '@angular/common';
+import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Location } from '@angular/common';
 
 @Injectable()
 export class Angulartics2 {
@@ -71,8 +71,14 @@ export class Angulartics2 {
 
 	trackLocation(location: Location) {
 		location.subscribe((value: any) => {
-			this.trackUrlChange(value.url, location);
+			if (!this.settings.developerMode) {
+				this.trackUrlChange(value.url, location);
+			}
 		});
+
+		if (!this.settings.developerMode) {
+			this.trackUrlChange(location.path(), location);
+		}
 	}
 
 	virtualPageviews(value: boolean) {

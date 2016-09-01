@@ -13,17 +13,18 @@ module.exports = function(config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			// Polyfills.
-      'node_modules/es6-shim/es6-shim.js',
-
-      'node_modules/reflect-metadata/Reflect.js',
-
-      // System.js for module loading
-      'node_modules/systemjs/dist/system-polyfills.js',
+			// System.js for module loading
       'node_modules/systemjs/dist/system.src.js',
 
-      // Zone.js dependencies
+      // Polyfills
+      'node_modules/core-js/client/shim.js',
+
+      // Reflect and Zone.js
+      'node_modules/reflect-metadata/Reflect.js',
       'node_modules/zone.js/dist/zone.js',
+      'node_modules/zone.js/dist/long-stack-trace-zone.js',
+      'node_modules/zone.js/dist/proxy.js',
+      'node_modules/zone.js/dist/sync-test.js',
       'node_modules/zone.js/dist/jasmine-patch.js',
       'node_modules/zone.js/dist/async-test.js',
       'node_modules/zone.js/dist/fake-async-test.js',
@@ -32,14 +33,13 @@ module.exports = function(config) {
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
 
-      // paths loaded via module imports
-      // Angular itself
-      { pattern: 'node_modules/@angular/**/*.js', included: false, watched: true },
+      // Angular 2 itself and the testing library
+      { pattern: 'node_modules/@angular/**/*.js', included: false, watched: false },
+      { pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: false },
 
-			{ pattern: 'src/**/*.ts', included: false, watched: true },
-			{ pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: false, watched: false }, // PhantomJS2 (and possibly others) might require it
+      'karma-test-shim.js',
 
-			'karma-test-shim.js'
+      { pattern: 'src/**/*.ts', included: false, watched: true },
 		],
 
 		// list of files to exclude
@@ -53,9 +53,6 @@ module.exports = function(config) {
     
     typescriptPreprocessor: {
 			options: require('./tsconfig.json').compilerOptions,
-			typings: [
-				"typings/index.d.ts"
-			]
 		},
 
 		customLaunchers: {
