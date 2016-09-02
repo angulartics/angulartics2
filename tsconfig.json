@@ -14,7 +14,10 @@
     "noImplicitAny": true,
     "noImplicitReturns": false,
     "noImplicitUseStrict": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": [
+      "jasmine"
+    ]
   },
   "files": [
     "index.ts",

@@ -41,7 +41,6 @@
     "@angular/platform-browser": "^2.0.0-rc.6",
     "@angular/platform-browser-dynamic": "^2.0.0-rc.6",
     "@angular/router": "^3.0.0-rc.2",
-    "@types/core-js": "^0.9.28",
     "@types/jasmine": "^2.2.29",
     "commitizen": "^2.8.1",
     "core-js": "^2.4.0",
@@ -70,7 +69,7 @@
     "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
   },
   "main": "./index",
-  "typings": "./index",
+  "typings": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/angulartics/angulartics2.git"
