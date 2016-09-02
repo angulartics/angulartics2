@@ -233,6 +233,25 @@ export function main() {
         EventSpy = jasmine.createSpy('EventSpy');
       });
 
+      it('should replay all events',
+        fakeAsync(inject([Router, Location, Angulartics2],
+          (router: Router, location: Location, angulartics2: Angulartics2) => {
+            fixture = createRootWithRouter(router, RootCmp);
+
+            (<SpyLocation>location).simulateUrlPop('/abc');
+            advance(fixture);
+            (<SpyLocation>location).simulateUrlPop('/def');
+            advance(fixture);
+            (<SpyLocation>location).simulateUrlPop('/ghi');
+            advance(fixture);
+
+            angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+            
+            expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
+            expect(EventSpy).toHaveBeenCalledWith({ path: '/def', location: location });
+            expect(EventSpy).toHaveBeenCalledWith({ path: '/ghi', location: location });
+          })));
+
       it('should subscribe to and emit from ' + event,
         fakeAsync(inject([Angulartics2],
           (angulartics2: Angulartics2) => {
