@@ -15,9 +15,12 @@
     "noImplicitReturns": false,
     "noImplicitUseStrict": false,
     "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
     "types": [
-      "jasmine"
-    ]
+      "jasmine",
+      "node"
+    ],
+    "lib": ["es2015", "dom"]
   },
   "files": [
     "index.ts",
@@ -27,5 +30,8 @@
     "src/providers/angulartics2-piwik.ts",
     "src/providers/angulartics2-segment.ts"
   ],
-  "compileOnSave": false
+  "compileOnSave": false,
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true
+  }
 }
