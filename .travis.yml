@@ -8,6 +8,8 @@ notifications:
 node_js:
   - '4'
   - '6'
+before_install:
+  npm i -g npm@^3
 after_success:
   - npm run semantic-release
 branches:
