@@ -102,14 +102,17 @@ export function main() {
         EventSpy = jasmine.createSpy('EventSpy');
       });
 
-      it('should track pages on route change',
+      it('should track pages on route v3 change',
         fakeAsync(inject([Router, Location, Angulartics2],
           (router: Router, location: Location, angulartics2: Angulartics2) => {
             fixture = createRootWithRouter(router, RootCmp);
             angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
-            (<SpyLocation>location).simulateUrlPop('/abc');
+            router.navigateByUrl('/abc');
+            advance(fixture);
+            router.navigate(['def']);
             advance(fixture);
             expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
+            expect(EventSpy).toHaveBeenCalledWith({ path: '/def', location: location });
           })));
     });
 
