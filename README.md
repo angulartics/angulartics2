@@ -46,9 +46,9 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 
 ```js
 // component
-import {Angulartics2} from 'angulartics2/src/core/angulartics2';
-import {Angulartics2GoogleAnalytics} from 'angulartics2/src/providers/angulartics2-google-analytics';
-import {Component} from '@angular/core';
+import { Angulartics2 } from 'angulartics2/src/core/angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-google-analytics';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app',
@@ -59,17 +59,25 @@ export class AppComponent {
 }
 
 // bootstrap
-import {Angulartics2} from 'angulartics2/src/core/angulartics2';
-import {Angulartics2GoogleAnalytics} from 'angulartics2/src/providers/angulartics2-google-analytics';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
+import { Angulartics2 } from 'angulartics2/src/core/angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-google-analytics';
+
+const ROUTES: Routes = [
+  { path: '',      component: HomeComponent },
+  { path: 'about', component: AboutComponent }
+];
 
 @NgModule({
-  imports: [ BrowserModule, RouterModule.forRoot(routes)],
+  imports: [ BrowserModule, RouterModule.forRoot(ROUTES)],
   declarations: [ AppComponent ], 
   bootstrap: [ AppComponent ],
   providers: [ 
     Angulartics2, 
     Angulartics2GoogleAnalytics 
-  ],  
+  ] 
 })
 ```
 
@@ -80,7 +88,8 @@ To track events you can inject the directive ```angulartics2On``` into any compo
 
 
 ```js
-import {Component} from '@angular/core';
+// component
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'song-download-box',
@@ -89,15 +98,17 @@ import {Component} from '@angular/core';
 export class SongDownloadBox {}
 
 // bootstrap
-import {Angulartics2, Angulartics2On} from 'angulartics2/src/core/angulartics2';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { Angulartics2, Angulartics2On } from 'angulartics2/src/core/angulartics2';
 
 @NgModule({
-  imports: [ BrowserModule, RouterModule.forRoot(routes)],
+  imports: [ BrowserModule ],
   declarations: [ AppComponent, SongDownloadBox, Angulartics2On ], 
   bootstrap: [ AppComponent ],
   providers: [ 
     Angulartics2
-  ],  
+  ]
 })
 ```
 
