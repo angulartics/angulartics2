@@ -5,4 +5,4 @@ export * from './src/core/angulartics2On';
 
 export default {
   providers: [Angulartics2]
-}
+};

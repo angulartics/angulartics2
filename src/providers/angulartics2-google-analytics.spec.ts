@@ -46,7 +46,7 @@ export function main() {
       fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
           (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
             fixture = createRoot(RootCmp);
-            (<SpyLocation>location).simulateUrlPop('/abc');
+            angulartics2.pageTrack.next({ path: '/abc', location: location });
             advance(fixture);
             expect(ga).toHaveBeenCalledWith('send', 'pageview', '/abc');
         })));
@@ -94,7 +94,7 @@ export function main() {
       fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
           (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
             fixture = createRoot(RootCmp);
-            angulartics2.userTimings.next({ timingCategory: 'cat', timingVar: 'var', timingValue: 100 })
+            angulartics2.userTimings.next({ timingCategory: 'cat', timingVar: 'var', timingValue: 100 });
             advance(fixture);
             expect(ga).toHaveBeenCalledWith('send', 'timing', { timingCategory: 'cat', timingVar: 'var', timingValue: 100 });
         })));

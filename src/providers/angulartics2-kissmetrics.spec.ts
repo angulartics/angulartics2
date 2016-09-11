@@ -43,7 +43,7 @@ export function main() {
       fakeAsync(inject([Location, Angulartics2, Angulartics2Kissmetrics],
           (location: Location, angulartics2: Angulartics2, angulartics2Kissmetrics: Angulartics2Kissmetrics) => {
             fixture = createRoot(RootCmp);
-            (<SpyLocation>location).simulateUrlPop('/abc');
+            angulartics2.pageTrack.next({ path: '/abc', location: location });
             advance(fixture);
             expect(_kmq).toContain(['record', 'Pageview', { 'Page': '/abc' }]);
         })));
@@ -52,7 +52,7 @@ export function main() {
       fakeAsync(inject([Location, Angulartics2, Angulartics2Kissmetrics],
           (location: Location, angulartics2: Angulartics2, angulartics2Kissmetrics: Angulartics2Kissmetrics) => {
             fixture = createRoot(RootCmp);
-            angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } })
+            angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
             advance(fixture);
             expect(_kmq).toContain(['record', 'do', { category: 'cat' }]);
         })));
@@ -61,7 +61,7 @@ export function main() {
       fakeAsync(inject([Location, Angulartics2, Angulartics2Kissmetrics],
           (location: Location, angulartics2: Angulartics2, angulartics2Kissmetrics: Angulartics2Kissmetrics) => {
             fixture = createRoot(RootCmp);
-            angulartics2.setUsername.next('testUser')
+            angulartics2.setUsername.next('testUser');
             advance(fixture);
             expect(_kmq).toContain(['identify', 'testUser']);
         })));

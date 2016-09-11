@@ -36,7 +36,7 @@ export function main() {
 		  fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
 			(location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
 			  fixture = createRoot(RootCmp);
-			  angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } })
+			  angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
 			  advance(fixture);
 			  expect(_paq).toContain(['trackEvent', 'cat', 'do', undefined, undefined]);
 			})));
@@ -45,7 +45,7 @@ export function main() {
 		  fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
 			(location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
 			  fixture = createRoot(RootCmp);
-			  angulartics2.setUsername.next('testUser')
+			  angulartics2.setUsername.next('testUser');
 			  advance(fixture);
 			  expect(_paq).toContain(['setUserId', 'testUser']);
 			})));

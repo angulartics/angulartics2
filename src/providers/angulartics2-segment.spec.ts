@@ -49,7 +49,7 @@ export function main() {
       fakeAsync(inject([Location, Angulartics2, Angulartics2Segment],
           (location: Location, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
             fixture = createRoot(RootCmp);
-            (<SpyLocation>location).simulateUrlPop('/abc');
+            angulartics2.pageTrack.next({ path: '/abc', location: location });
             advance(fixture);
             expect(analytics.page).toHaveBeenCalledWith('/abc');
         })));
@@ -58,7 +58,7 @@ export function main() {
       fakeAsync(inject([Location, Angulartics2, Angulartics2Segment],
           (location: Location, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
             fixture = createRoot(RootCmp);
-            angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } })
+            angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
             advance(fixture);
             expect(analytics.track).toHaveBeenCalledWith('do', { category: 'cat' });
         })));

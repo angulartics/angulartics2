@@ -54,7 +54,7 @@ export function main() {
       fakeAsync(inject([Location, Angulartics2, Angulartics2Mixpanel],
           (location: Location, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
             fixture = createRoot(RootCmp);
-            (<SpyLocation>location).simulateUrlPop('/abc');
+            angulartics2.pageTrack.next({ path: '/abc', location: location });
             advance(fixture);
             expect(mixpanel.track).toHaveBeenCalledWith('Page Viewed', { page: '/abc' });
         })));

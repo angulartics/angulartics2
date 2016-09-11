@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Location } from '@angular/common';
+import { Router, NavigationEnd } from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 @Injectable()
 export class Angulartics2 {
@@ -65,16 +67,18 @@ export class Angulartics2 {
 	 */
 	public userTimings: ReplaySubject<any> = new ReplaySubject();
 
-	constructor(location: Location) {
-	  this.trackLocation(location);
+	constructor(location: Location, router: Router) {
+	  this.trackLocation(location, router);
 	}
 
-	trackLocation(location: Location) {
-		location.subscribe((value: any) => {
-			if (!this.settings.developerMode) {
-				this.trackUrlChange(value.url, location);
-			}
-		});
+	trackLocation(location: Location, router: Router) {
+		router.events
+			.filter(event => event instanceof NavigationEnd)
+			.subscribe((event: NavigationEnd) => {
+				if (!this.settings.developerMode) {
+					this.trackUrlChange(event.urlAfterRedirects, location);
+				}
+			});
 
 		if (!this.settings.developerMode) {
 			this.trackUrlChange(location.path(), location);

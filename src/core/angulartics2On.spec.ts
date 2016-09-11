@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
 import { SpyLocation } from '@angular/common/testing';
 import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/testing';
 
@@ -84,7 +85,8 @@ export function main() {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
-          TestModule
+          TestModule,
+          RouterTestingModule
         ],
         providers: [
           { provide: Location, useClass: SpyLocation },
