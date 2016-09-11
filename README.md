@@ -100,7 +100,8 @@ export class SongDownloadBox {}
 // bootstrap
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Angulartics2, Angulartics2On } from 'angulartics2/src/core/angulartics2';
+import { Angulartics2 } from 'angulartics2/src/core/angulartics2';
+import { Angulartics2On } from 'angulartics2/src/core/angulartics2On';
 
 @NgModule({
   imports: [ BrowserModule ],
