@@ -24,7 +24,6 @@ export function main() {
         ],
         providers: [
           { provide: Location, useClass: SpyLocation },
-          Angulartics2,
           Angulartics2Segment
         ]
       });

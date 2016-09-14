@@ -46,7 +46,7 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 
 ```js
 // component
-import { Angulartics2 } from 'angulartics2/src/core/angulartics2';
+import { Angulartics2 } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-google-analytics';
 import { Component } from '@angular/core';
 
@@ -62,7 +62,7 @@ export class AppComponent {
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { Angulartics2 } from 'angulartics2/src/core/angulartics2';
+import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-google-analytics';
 
 const ROUTES: Routes = [
@@ -71,11 +71,15 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [ BrowserModule, RouterModule.forRoot(ROUTES)],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(ROUTES),
+
+    Angulartics2Module.forRoot()
+  ],
   declarations: [ AppComponent ], 
   bootstrap: [ AppComponent ],
-  providers: [ 
-    Angulartics2, 
+  providers: [
     Angulartics2GoogleAnalytics 
   ] 
 })
@@ -99,17 +103,13 @@ export class SongDownloadBox {}
 
 // bootstrap
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { Angulartics2 } from 'angulartics2/src/core/angulartics2';
 import { Angulartics2On } from 'angulartics2/src/core/angulartics2On';
 
 @NgModule({
-  imports: [ BrowserModule ],
-  declarations: [ AppComponent, SongDownloadBox, Angulartics2On ], 
-  bootstrap: [ AppComponent ],
-  providers: [ 
-    Angulartics2
-  ]
+  imports: [
+    Angulartics2Module.forRoot()
+  ],
+  declarations: [ SongDownloadBox, Angulartics2On ]
 })
 ```
 

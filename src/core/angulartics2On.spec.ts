@@ -6,6 +6,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/test
 
 import { advance, createRoot } from '../test.mocks';
 
+import { Angulartics2Module } from '../../index';
 import { Angulartics2 } from './angulartics2';
 import { Angulartics2On } from './angulartics2On';
 
@@ -47,33 +48,6 @@ class RootCmp3 {
   name: string;
 }
 
-@NgModule({
-  imports: [CommonModule],
-  entryComponents: [
-    RootCmp,
-    RootCmp1,
-    RootCmp2,
-    RootCmp3
-  ],
-
-  exports: [
-    RootCmp,
-    RootCmp1,
-    RootCmp2,
-    RootCmp3
-  ],
-
-  declarations: [
-    RootCmp,
-    RootCmp1,
-    RootCmp2,
-    RootCmp3,
-    Angulartics2On
-  ]
-})
-export class TestModule {
-}
-
 export function main() {
 
   describe('angulartics2On', () => {
@@ -85,12 +59,18 @@ export function main() {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
-          TestModule,
-          RouterTestingModule
+          CommonModule,
+          RouterTestingModule,
+          Angulartics2Module.forRoot()
+        ],
+        declarations: [
+          RootCmp,
+          RootCmp1,
+          RootCmp2,
+          RootCmp3
         ],
         providers: [
-          { provide: Location, useClass: SpyLocation },
-          Angulartics2
+          { provide: Location, useClass: SpyLocation }
         ]
       });
 

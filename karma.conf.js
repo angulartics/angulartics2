@@ -39,6 +39,7 @@ module.exports = function(config) {
 
       'karma-test-shim.js',
 
+      { pattern: '*.ts', included: false, watched: true },
       { pattern: 'src/**/*.ts', included: false, watched: true },
 		],
 
