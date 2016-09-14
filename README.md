@@ -106,9 +106,7 @@ import { NgModule } from '@angular/core';
 import { Angulartics2On } from 'angulartics2/src/core/angulartics2On';
 
 @NgModule({
-  imports: [
-    Angulartics2Module.forRoot()
-  ],
+  imports: [],
   declarations: [ SongDownloadBox, Angulartics2On ]
 })
 ```
