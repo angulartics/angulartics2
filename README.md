@@ -101,7 +101,6 @@ import { Component } from '@angular/core';
 })
 export class SongDownloadBox {}
 
-// bootstrap
 import { NgModule } from '@angular/core';
 import { Angulartics2On } from 'angulartics2/src/core/angulartics2On';
 
