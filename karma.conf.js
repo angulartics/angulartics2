@@ -1,97 +1,70 @@
-// Karma configuration
-// Generated on Wed Dec 02 2015 22:57:01 GMT+0100 (Paris, Madrid)
-
 module.exports = function(config) {
-	config.set({
+    var testWebpackConfig = require('./webpack.test.js');
 
-		// base path that will be used to resolve all patterns (eg. files, exclude)
-		basePath: './',
+    var configuration = {
+        basePath: '',
 
-		// frameworks to use
-		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-		frameworks: ['jasmine'],
+        frameworks: ['jasmine'],
 
-		// list of files / patterns to load in the browser
-		files: [
-			// System.js for module loading
-      'node_modules/systemjs/dist/system.src.js',
+        // list of files to exclude
+        exclude: [ ],
 
-      // Polyfills
-      'node_modules/core-js/client/shim.js',
+        /*
+         * list of files / patterns to load in the browser
+         *
+         * we are building the test environment in ./spec-bundle.js
+         */
+        files: [ { pattern: './spec-bundle.js', watched: false } ],
 
-      // Reflect and Zone.js
-      'node_modules/reflect-metadata/Reflect.js',
-      'node_modules/zone.js/dist/zone.js',
-      'node_modules/zone.js/dist/long-stack-trace-zone.js',
-      'node_modules/zone.js/dist/proxy.js',
-      'node_modules/zone.js/dist/sync-test.js',
-      'node_modules/zone.js/dist/jasmine-patch.js',
-      'node_modules/zone.js/dist/async-test.js',
-      'node_modules/zone.js/dist/fake-async-test.js',
+        preprocessors: { './spec-bundle.js': ['coverage', 'webpack', 'sourcemap'] },
 
-      // RxJs.
-      { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
-      { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
+        // Webpack Config at ./webpack.test.js
+        webpack: testWebpackConfig,
 
-      // Angular 2 itself and the testing library
-      { pattern: 'node_modules/@angular/**/*.js', included: false, watched: false },
-      { pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: false },
+        coverageReporter: {
+            dir : 'coverage/',
+            reporters: [
+                { type: 'text-summary' },
+                { type: 'json' },
+                { type: 'html' }
+            ]
+        },
 
-      'karma-test-shim.js',
+        // Webpack please don't spam the console when running in karma!
+        webpackServer: { noInfo: true },
 
-      { pattern: '*.ts', included: false, watched: true },
-      { pattern: 'src/**/*.ts', included: false, watched: true },
-		],
+        reporters: [ 'mocha', 'coverage' ],
 
-		// list of files to exclude
-		exclude: [
-      'src/**/*.d.ts'
-		],
-    
-    preprocessors: {
-			'**/*.ts': ['typescript']
-		},
-    
-    typescriptPreprocessor: {
-			options: require('./tsconfig.json').compilerOptions,
-		},
+        // web server port
+        port: 9876,
 
-		customLaunchers: {
-				Chrome_travis_ci: {
-						base: 'Chrome',
-						flags: ['--no-sandbox']
-				}
-		},
+        colors: true,
 
-		// test results reporter to use
-		// possible values: 'dots', 'progress'
-		// available reporters: https://npmjs.org/browse/keyword/karma-reporter
-		reporters: ['progress'],
+        /*
+         * level of logging
+         * possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+         */
+        logLevel: config.LOG_INFO,
 
+        autoWatch: false,
 
-		// web server port
-		port: 9876,
+        browsers: [
+            'Chrome'
+        ],
 
-		// enable / disable colors in the output (reporters and logs)
-		colors: true,
+        customLaunchers: {
+            Chrome_travis_ci: {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            }
+        },
 
-		// level of logging
-		// possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-		logLevel: config.LOG_INFO,
+        singleRun: true
+    };
 
-		// enable / disable watching file and executing tests whenever any file changes
-		autoWatch: false,
+    if(process.env.TRAVIS){
+        configuration.browsers = ['Chrome_travis_ci'];
+    }
 
-		// start these browsers
-		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['Chrome'],
-
-		// Continuous Integration mode
-		// if true, Karma captures browsers, runs the tests and exits
-		singleRun: true,
-
-		// Concurrency level
-		// how many browser should be started simultanous
-		concurrency: Infinity
-	});
+    config.set(configuration);
 };

@@ -15,7 +15,7 @@ export default {
   exports: [ Angulartics2On ]
 })
 export class Angulartics2Module {
-	constructor(@Optional() @SkipSelf() parentModule: Angulartics2Module) {
+  constructor(@Optional() @SkipSelf() parentModule: Angulartics2Module) {
     if (parentModule) {
       throw new Error('Angulartics2Module already loaded; Import in root module only.');
     }

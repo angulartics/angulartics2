@@ -7,117 +7,117 @@ import 'rxjs/add/operator/filter';
 @Injectable()
 export class Angulartics2 {
 
-	public settings: any = {
-		pageTracking: {
-			autoTrackVirtualPages: true,
-			basePath: '',
-			excludedRoutes: []
-		},
-		eventTracking: {},
-		developerMode: false
-	};
+  public settings: any = {
+    pageTracking: {
+      autoTrackVirtualPages: true,
+      basePath: '',
+      excludedRoutes: []
+    },
+    eventTracking: {},
+    developerMode: false
+  };
 
-	/*
-		@Param: ({url: string, location: Location})
-	 */
-	public pageTrack: ReplaySubject<any> = new ReplaySubject();
+  /*
+    @Param: ({url: string, location: Location})
+   */
+  public pageTrack: ReplaySubject<any> = new ReplaySubject();
 
-	/*
-		@Param: ({action: any, properties: any})
-	 */
-	public eventTrack: ReplaySubject<any> = new ReplaySubject();
+  /*
+    @Param: ({action: any, properties: any})
+   */
+  public eventTrack: ReplaySubject<any> = new ReplaySubject();
 
-	/*
-		@Param: (properties: any)
-	 */
-	public exceptionTrack: ReplaySubject<any> = new ReplaySubject();
+  /*
+    @Param: (properties: any)
+   */
+  public exceptionTrack: ReplaySubject<any> = new ReplaySubject();
 
-	/*
-		@Param: (alias: string)
-	 */
-	public setAlias: ReplaySubject<any> = new ReplaySubject();
+  /*
+    @Param: (alias: string)
+   */
+  public setAlias: ReplaySubject<any> = new ReplaySubject();
 
-	/*
-		@Param: (userId: string)
-	 */
-	public setUsername: ReplaySubject<any> = new ReplaySubject();
+  /*
+    @Param: (userId: string)
+   */
+  public setUsername: ReplaySubject<any> = new ReplaySubject();
 
-	/*
-		@Param: ({action: any, properties: any})
-	 */
-	public setUserProperties: ReplaySubject<any> = new ReplaySubject();
+  /*
+    @Param: ({action: any, properties: any})
+   */
+  public setUserProperties: ReplaySubject<any> = new ReplaySubject();
 
-	/*
-		@Param: (properties: any)
-	 */
-	public setUserPropertiesOnce: ReplaySubject<any> = new ReplaySubject();
+  /*
+    @Param: (properties: any)
+   */
+  public setUserPropertiesOnce: ReplaySubject<any> = new ReplaySubject();
 
-	/*
-		@Param: (properties: any)
-	 */
-	public setSuperProperties: ReplaySubject<any> = new ReplaySubject();
+  /*
+    @Param: (properties: any)
+   */
+  public setSuperProperties: ReplaySubject<any> = new ReplaySubject();
 
-	/*
-		@Param: (properties: any)
-	 */
-	public setSuperPropertiesOnce: ReplaySubject<any> = new ReplaySubject();
+  /*
+    @Param: (properties: any)
+   */
+  public setSuperPropertiesOnce: ReplaySubject<any> = new ReplaySubject();
 
-	/*
-		@Param: (properties: any)
-	 */
-	public userTimings: ReplaySubject<any> = new ReplaySubject();
+  /*
+    @Param: (properties: any)
+   */
+  public userTimings: ReplaySubject<any> = new ReplaySubject();
 
-	constructor(location: Location, router: Router) {
-	  this.trackLocation(location, router);
-	}
+  constructor(location: Location, router: Router) {
+    this.trackLocation(location, router);
+  }
 
-	trackLocation(location: Location, router: Router) {
-		router.events
-			.filter(event => event instanceof NavigationEnd)
-			.subscribe((event: NavigationEnd) => {
-				if (!this.settings.developerMode) {
-					this.trackUrlChange(event.urlAfterRedirects, location);
-				}
-			});
+  trackLocation(location: Location, router: Router) {
+    router.events
+      .filter(event => event instanceof NavigationEnd)
+      .subscribe((event: NavigationEnd) => {
+        if (!this.settings.developerMode) {
+          this.trackUrlChange(event.urlAfterRedirects, location);
+        }
+      });
 
-		if (!this.settings.developerMode) {
-			this.trackUrlChange(location.path(), location);
-		}
-	}
+    if (!this.settings.developerMode) {
+      this.trackUrlChange(location.path(), location);
+    }
+  }
 
-	virtualPageviews(value: boolean) {
-		this.settings.pageTracking.autoTrackVirtualPages = value;
-	}
-	excludeRoutes(routes: Array<string>) {
-		this.settings.pageTracking.excludedRoutes = routes;
-	}
-	firstPageview(value: boolean) {
-		this.settings.pageTracking.autoTrackFirstPage = value;
-	}
-	withBase(value: string) {
-		this.settings.pageTracking.basePath = (value);
-	}
-	developerMode(value: boolean) {
-		this.settings.developerMode = value;
-	}
-	
-	protected trackUrlChange(url: string, location: Location) {
-		if (!this.settings.developerMode) {
-			if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
-				this.pageTrack.next({
-					path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + url : location.prepareExternalUrl(url),
-					location: location
-				});
-			}
-		}
-	}
+  virtualPageviews(value: boolean) {
+    this.settings.pageTracking.autoTrackVirtualPages = value;
+  }
+  excludeRoutes(routes: Array<string>) {
+    this.settings.pageTracking.excludedRoutes = routes;
+  }
+  firstPageview(value: boolean) {
+    this.settings.pageTracking.autoTrackFirstPage = value;
+  }
+  withBase(value: string) {
+    this.settings.pageTracking.basePath = (value);
+  }
+  developerMode(value: boolean) {
+    this.settings.developerMode = value;
+  }
+  
+  protected trackUrlChange(url: string, location: Location) {
+    if (!this.settings.developerMode) {
+      if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
+        this.pageTrack.next({
+          path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + url : location.prepareExternalUrl(url),
+          location: location
+        });
+      }
+    }
+  }
 
-	protected matchesExcludedRoute(url: string): boolean {
-		for (let excludedRoute of this.settings.pageTracking.excludedRoutes) {
-			if ((excludedRoute instanceof RegExp && excludedRoute.test(url)) || url.indexOf(excludedRoute) > -1) {
-				return true;
-			}
-		}
-		return false;
-	}
+  protected matchesExcludedRoute(url: string): boolean {
+    for (let excludedRoute of this.settings.pageTracking.excludedRoutes) {
+      if ((excludedRoute instanceof RegExp && excludedRoute.test(url)) || url.indexOf(excludedRoute) > -1) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
