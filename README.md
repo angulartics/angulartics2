@@ -32,7 +32,7 @@ Add the full tracking code from Google Tag Manager to the beginning of your body
 
 The snippet code provided by Google Analytics does an automatic pageview hit, but this is already done by Angulartics (unless you disable it) so make sure to delete the tracking line:
 
-```js
+```html
       ...
       ga('create', 'UA-XXXXXXXX-X', 'none'); // 'none' while you are working on localhost
       ga('send', 'pageview');  // DELETE THIS LINE!
@@ -44,7 +44,7 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
 Bootstrapping the application with ```Angulartics2``` as provider and injecting both ```Angulartics2``` and ```Angulartics2GoogleAnalytics``` (or any provider) into the root component will hook into the router and send every route change to your analytics provider. 
 
 
-```js
+```ts
 // component
 import { Angulartics2 } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-google-analytics';
@@ -91,7 +91,7 @@ const ROUTES: Routes = [
 To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsEvent``` and ```angularticsCategory```:
 
 
-```js
+```ts
 // component
 import { Component } from '@angular/core';
 
@@ -110,6 +110,32 @@ import { Angulartics2On } from 'angulartics2/src/core/angulartics2On';
 })
 ```
 
+If you need event label, you can use
+```html
+<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}" [angularticsProperties]="{label: 'Fall Campaign'}"></div>
+```
+
+
+## Tracking events in the code
+Import Angulartics2
+```ts
+import { Angulartics2 } from 'angulartics2';
+```
+and inject it
+```ts
+constructor(angulartics2: Angulartics2) {}
+```
+
+Then you can use
+```ts
+this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 'myCategory' }});
+```
+
+If you need event label, you can use
+
+```ts
+this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 'myCategory', label: 'myLabel' }});
+```
 
 ## Supported providers
 
