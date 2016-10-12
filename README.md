@@ -43,7 +43,6 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
 
 Bootstrapping the application with ```Angulartics2``` as provider and injecting both ```Angulartics2``` and ```Angulartics2GoogleAnalytics``` (or any provider) into the root component will hook into the router and send every route change to your analytics provider. 
 
-
 ```ts
 // component
 import { Angulartics2 } from 'angulartics2';
