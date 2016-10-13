@@ -143,6 +143,7 @@ this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 
 * Mixpanel
 * Piwik
 * Segment
+* Facebook
 
 ### For other providers
 
