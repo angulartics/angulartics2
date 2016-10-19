@@ -28,7 +28,8 @@
     "src/providers/angulartics2-kissmetrics.ts",
     "src/providers/angulartics2-mixpanel.ts",
     "src/providers/angulartics2-piwik.ts",
-    "src/providers/angulartics2-segment.ts"
+    "src/providers/angulartics2-segment.ts",
+    "src/providers/angulartics2-baidu-analytics.ts"
   ],
   "compileOnSave": false,
   "angularCompilerOptions": {
