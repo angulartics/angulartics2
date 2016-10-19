@@ -24,7 +24,7 @@ System.config({
 });
 ```
 
-## Minimal setup for Google Analytics
+## Minimal setup for Google Analytics 
 
 Add the full tracking code from Google Tag Manager to the beginning of your body tag.
 
