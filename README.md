@@ -41,7 +41,7 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
 
 ## Include it in your application
 
-Bootstrapping the application with ```Angulartics2``` as provider and injecting both ```Angulartics2``` and ```Angulartics2GoogleAnalytics``` (or any provider) into the root component will hook into the router and send every route change to your analytics provider. 
+Bootstrapping the application with ```Angulartics2``` as provider and injecting both ```Angulartics2``` and ```Angulartics2GoogleAnalytics``` (or any provider) into the root component will hook into the router and send every route change to your analytics provider.
 
 ```ts
 // component
@@ -76,11 +76,11 @@ const ROUTES: Routes = [
 
     Angulartics2Module.forRoot()
   ],
-  declarations: [ AppComponent ], 
+  declarations: [ AppComponent ],
   bootstrap: [ AppComponent ],
   providers: [
-    Angulartics2GoogleAnalytics 
-  ] 
+    Angulartics2GoogleAnalytics
+  ]
 })
 ```
 
@@ -143,6 +143,7 @@ this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 
 * Mixpanel
 * Piwik
 * Segment
+* Baidu Analytics
 
 ### For other providers
 
