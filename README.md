@@ -46,7 +46,7 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 ```ts
 // component
 import { Angulartics2 } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-google-analytics';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-ga';
 import { Component } from '@angular/core';
 
 @Component({
@@ -62,7 +62,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-google-analytics';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-ga';
 
 const ROUTES: Routes = [
   { path: '',      component: HomeComponent },

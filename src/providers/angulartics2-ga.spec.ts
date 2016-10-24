@@ -5,7 +5,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/test
 import { TestModule, RootCmp, advance, createRoot } from '../test.mocks';
 
 import { Angulartics2 } from '../core/angulartics2';
-import { Angulartics2GoogleAnalytics } from './angulartics2-google-analytics';
+import { Angulartics2GoogleAnalytics } from './angulartics2-ga';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
