@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
 import { TestBed, tick, ComponentFixture } from '@angular/core/testing';
 
-import { Angulartics2Module } from '../index';
+import { Angulartics2Module } from '../';
 
 @Component({ selector: 'hello-cmp', template: `{{greeting}}` })
 export class HelloCmp {
