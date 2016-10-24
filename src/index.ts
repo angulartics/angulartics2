@@ -1,11 +1,11 @@
 import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core';
 
-import { Angulartics2 } from './src/core/angulartics2';
-import { Angulartics2On } from './src/core/angulartics2On';
+import { Angulartics2 } from './core/angulartics2';
+import { Angulartics2On } from './core/angulartics2On';
 
-export * from './src/core/angulartics2';
-export * from './src/core/angulartics2On';
-export * from './src/providers'
+export * from './core/angulartics2';
+export * from './core/angulartics2On';
+export * from './providers'
 
 export default {
   providers: [ Angulartics2 ]
