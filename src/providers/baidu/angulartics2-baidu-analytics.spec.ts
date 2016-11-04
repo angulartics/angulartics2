@@ -2,9 +2,9 @@ import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/testing';
 
-import { TestModule, RootCmp, advance, createRoot } from '../test.mocks';
+import { TestModule, RootCmp, advance, createRoot } from '../../test.mocks';
 
-import { Angulartics2 } from '../core/angulartics2';
+import { Angulartics2 } from '../../core/angulartics2';
 import { Angulartics2BaiduAnalytics } from './angulartics2-baidu-analytics';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;

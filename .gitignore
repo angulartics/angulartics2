@@ -16,6 +16,8 @@ coverage
 *.map
 *.d.ts
 typings
+dist
+*.metadata.js
 
 #################
 ## JetBrains
