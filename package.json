@@ -81,11 +81,11 @@
     "test": "tsc && karma start",
     "test-watch": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
     "commit": "git-cz",
-    "build": "ngc -d",
+    "build": "tsc -d && ngc",
     "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
   },
-  "main": "./index",
-  "typings": "./index.d.ts",
+  "main": "./dist/index",
+  "typings": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/angulartics/angulartics2.git"
