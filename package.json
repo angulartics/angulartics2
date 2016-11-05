@@ -1,4 +1,5 @@
 {
+  "version": "1.2.2",
   "name": "angulartics2",
   "description": "Vendor-agnostic web analytics for Angular2 applications",
   "homepage": "http://angulartics.github.io/",
