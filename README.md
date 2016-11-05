@@ -155,6 +155,10 @@ If there's no Angulartics2 plugin for your analytics vendor of choice, please fe
 
 See more docs and samples at [http://angulartics.github.io](http://angulartics.github.io "http://angulartics.github.io").
 
+## Contributing
+
+Please see the [CONTRIBUTING](https://github.com/angulartics/angulartics2/blob/master/.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT](https://github.com/angulartics/angulartics2/blob/master/.github/CODE_OF_CONDUCT.md) files for guidelines.
+
 ## License
 
 [MIT](LICENSE)
