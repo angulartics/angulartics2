@@ -13,7 +13,7 @@ export class Angulartics2GoogleTagManager {
   ) {
 
     // The dataLayer needs to be initialized
-    if (! dataLayer) {
+    if (typeof dataLayer !== 'undefined' && dataLayer) {
       dataLayer = (<any>window).dataLayer = (<any>window).dataLayer || [];
     }
 
