@@ -139,11 +139,13 @@ this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 
 ## Supported providers
 
 * Google Analytics
+* Google Tag Manager
 * Kissmetrics
 * Mixpanel
 * Piwik
 * Segment
 * Baidu Analytics
+* Facebook Pixel
 
 ### For other providers
 
