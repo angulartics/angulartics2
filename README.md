@@ -24,7 +24,7 @@ System.config({
 });
 ```
 
-## Minimal setup for Google Analytics 
+## Minimal setup for Google Analytics
 
 Add the full tracking code from Google Tag Manager to the beginning of your body tag.
 
@@ -45,8 +45,7 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 
 ```ts
 // component
-import { Angulartics2 } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/dist/providers';
+import { Angulartics2, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Component } from '@angular/core';
 
 @Component({
@@ -61,8 +60,7 @@ export class AppComponent {
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/dist/providers';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 const ROUTES: Routes = [
   { path: '',      component: HomeComponent },
