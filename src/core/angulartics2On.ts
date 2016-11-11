@@ -12,7 +12,6 @@ export class Angulartics2On implements AfterContentInit {
   @Input('angulartics2On') angulartics2On: string;
   @Input() angularticsEvent: string;
   @Input() angularticsCategory: string;
-  @Input() angularticsIf: string;
   @Input() angularticsProperties: any;
 
   private el: any;
@@ -30,10 +29,6 @@ export class Angulartics2On implements AfterContentInit {
   }
 
   public eventTrack(event: any) {
-    if (this.angularticsIf && !this.angularticsIf) {
-      return; // Cancel this event if we don't pass the angulartics-if condition
-    }
-
     const action = this.angularticsEvent; // || this.inferEventName();
     let properties: any = {
       eventType: event.type
