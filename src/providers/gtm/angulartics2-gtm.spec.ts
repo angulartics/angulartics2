@@ -33,7 +33,7 @@ describe('Angulartics2GoogleTagManager', () => {
         (angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
           fixture = createRoot(RootCmp);
           advance(fixture);
-          expect(dataLayer).toContain({ event: 'pageview', 'content-name': '', userId: null });
+          expect(dataLayer).toContain({ event: 'Page View', 'content-name': '', userId: null });
       })));
 
   it('should track pages',
@@ -42,7 +42,7 @@ describe('Angulartics2GoogleTagManager', () => {
           fixture = createRoot(RootCmp);
           angulartics2.pageTrack.next({ path: '/abc', location: location });
           advance(fixture);
-          expect(dataLayer).toContain({ event: 'pageview', 'content-name': '/abc', userId: null });
+          expect(dataLayer).toContain({ event: 'Page View', 'content-name': '/abc', userId: null });
       })));
 
   it('should track events',
