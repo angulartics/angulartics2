@@ -29,8 +29,8 @@ describe('Angulartics2Facebook', () => {
   });
 
   it('should track events',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Facebook],
-        (location: Location, angulartics2: Angulartics2, angulartics2Facebook: Angulartics2Facebook) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Facebook],
+        (angulartics2: Angulartics2, angulartics2Facebook: Angulartics2Facebook) => {
           fixture = createRoot(RootCmp);
           angulartics2.eventTrack.next({ action: 'ViewContent', properties: { category: 'cat' } });
           advance(fixture);
@@ -38,8 +38,8 @@ describe('Angulartics2Facebook', () => {
       })));
 
   it('should track custom events',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Facebook],
-        (location: Location, angulartics2: Angulartics2, angulartics2Facebook: Angulartics2Facebook) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Facebook],
+        (angulartics2: Angulartics2, angulartics2Facebook: Angulartics2Facebook) => {
           fixture = createRoot(RootCmp);
           angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
           advance(fixture);

@@ -8,7 +8,7 @@ declare const fbq: Function;
 export class Angulartics2Facebook {
 
   constructor(
-    readonly angulartics2: Angulartics2
+    private angulartics2: Angulartics2
   ) {
     this.angulartics2.settings.pageTracking.trackRelativePath = true;
 

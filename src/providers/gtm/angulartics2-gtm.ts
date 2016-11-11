@@ -9,7 +9,7 @@ declare var location: any;
 export class Angulartics2GoogleTagManager {
 
   constructor(
-    readonly angulartics2: Angulartics2
+    private angulartics2: Angulartics2
   ) {
 
     // The dataLayer needs to be initialized
@@ -86,11 +86,11 @@ export class Angulartics2GoogleTagManager {
       properties.exFatal = true;
     }
 
-    properties.exDescription = properties.description;
+    properties.exDescription = properties.event ? properties.event.stack : properties.description;
 
     this.eventTrack(`Exception thrown for ${properties.appName} <${properties.appId}@${properties.appVersion}>`, {
       'category': 'Exception',
-      'label': properties.event.stack
+      'label': properties.exDescription
     });
   }
 

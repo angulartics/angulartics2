@@ -29,11 +29,11 @@ describe('Angulartics2GoogleTagManager', () => {
   });
 
   it('should track initial page',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleTagManager],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleTagManager],
+        (angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
           fixture = createRoot(RootCmp);
           advance(fixture);
-          expect(dataLayer).toContain({ event: 'pageview', content-name: '', userId: null });
+          expect(dataLayer).toContain({ event: 'pageview', 'content-name': '', userId: null });
       })));
 
   it('should track pages',
@@ -42,34 +42,34 @@ describe('Angulartics2GoogleTagManager', () => {
           fixture = createRoot(RootCmp);
           angulartics2.pageTrack.next({ path: '/abc', location: location });
           advance(fixture);
-          expect(dataLayer).toContain({ event: 'pageview', content-name: '/abc', userId: null });
+          expect(dataLayer).toContain({ event: 'pageview', 'content-name': '/abc', userId: null });
       })));
 
   it('should track events',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleTagManager],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleTagManager],
+        (angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
           fixture = createRoot(RootCmp);
           angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
           advance(fixture);
-          expect(dataLayer).toContain({ event: 'do', target: 'cat', userId: null });
+          expect(dataLayer).toContain({ event: 'interaction', target: 'cat', action: 'do', targetProperties: undefined, value: undefined, interactionType: undefined, userId: null });
       })));
 
   it('should track exceptions',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleTagManager],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleTagManager],
+        (angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
           fixture = createRoot(RootCmp);
           angulartics2.exceptionTrack.next({ appId: 'app', appName: 'Test App', appVersion: '0.1' });
           advance(fixture);
-          expect(dataLayer).toContain({ appId: 'app', appName: 'Test App', appVersion: '0.1', exFatal: true, exDescription: undefined });
+          expect(dataLayer).toContain({ event: 'interaction', target: 'Exception', action: 'Exception thrown for Test App <app@0.1>', targetProperties: undefined, value: undefined, interactionType: undefined, userId: null });
       })));
 
   it('should set username',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleTagManager],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleTagManager],
+        (angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
           fixture = createRoot(RootCmp);
           angulartics2.setUsername.next('testuser');
           advance(fixture);
-          expect(angulartics2.settings.dataLayer.userId).toBe('testuser');
+          expect(angulartics2.settings.gtm.userId).toBe('testuser');
       })));
 
 });
