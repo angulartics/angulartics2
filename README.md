@@ -136,8 +136,8 @@ this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 
 
 ## Supported providers
 
-* Google Analytics
-* Google Tag Manager
+* [Google Analytics](https://github.com/angulartics/angulartics2/wiki/Google-Analytics)
+* [Google Tag Manager](https://github.com/angulartics/angulartics2/wiki/Google-Tag-Manager)
 * Kissmetrics
 * Mixpanel
 * Piwik
@@ -153,7 +153,7 @@ If there's no Angulartics2 plugin for your analytics vendor of choice, please fe
 
 ## What else?
 
-See more docs and samples at [http://angulartics.github.io](http://angulartics.github.io "http://angulartics.github.io").
+See more docs and samples at [Wiki](https://github.com/angulartics/angulartics2/wiki).
 
 ## Contributing
 
