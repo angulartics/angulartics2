@@ -36,7 +36,7 @@ export class Angulartics2GoogleTagManager {
   pageTrack(path: string) {
     if (typeof dataLayer !== 'undefined' && dataLayer) {
       dataLayer.push({
-        'event': 'pageview',
+        'event': 'Page View',
         'content-name': path,
         'userId': this.angulartics2.settings.gtm.userId
       });
