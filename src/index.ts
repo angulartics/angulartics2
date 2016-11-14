@@ -5,7 +5,7 @@ import { Angulartics2On } from './core/angulartics2On';
 
 export * from './core/angulartics2';
 export * from './core/angulartics2On';
-export * from './providers'
+export * from './providers/index'
 
 export default {
   providers: [ Angulartics2 ]
