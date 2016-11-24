@@ -45,7 +45,7 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 
 ```ts
 // component
-import { Angulartics2, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2 } from 'angulartics2';
 import { Component } from '@angular/core';
 
 @Component({
@@ -53,7 +53,7 @@ import { Component } from '@angular/core';
   template: `<router-outlet></router-outlet>` // Or what your root template is.
 })
 export class AppComponent {
-  constructor(angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
+  constructor(angulartics2: Angulartics2) {}
 }
 
 // bootstrap
@@ -72,13 +72,10 @@ const ROUTES: Routes = [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
 
-    Angulartics2Module.forRoot()
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   declarations: [ AppComponent ],
-  bootstrap: [ AppComponent ],
-  providers: [
-    Angulartics2GoogleAnalytics
-  ]
+  bootstrap: [ AppComponent ]
 })
 ```
 
@@ -94,16 +91,19 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'song-download-box',
-  template: `<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}"></div>`,
+  template: `<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}">Click Me</div>`,
 })
 export class SongDownloadBox {}
 
 import { NgModule } from '@angular/core';
-import { Angulartics2On } from 'angulartics2';
+import { Angulartics2Module } from 'angulartics2';
 
 @NgModule({
   imports: [],
-  declarations: [ SongDownloadBox, Angulartics2On ]
+  declarations: [
+    SongDownloadBox,
+    Angulartics2Module.forChild()
+  ]
 })
 ```
 

@@ -1,4 +1,11 @@
-import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core';
+import {
+  NgModule,
+  ModuleWithProviders,
+  Inject,
+  Optional,
+  OpaqueToken,
+  SkipSelf
+} from '@angular/core';
 
 import { Angulartics2 } from './core/angulartics2';
 import { Angulartics2On } from './core/angulartics2On';
@@ -7,25 +14,46 @@ export * from './core/angulartics2';
 export * from './core/angulartics2On';
 export * from './providers/index'
 
-export default {
-  providers: [ Angulartics2 ]
-};
+export const ANGULARTICS2_FORROOT_GUARD = new OpaqueToken('ANGULARTICS2_FORROOT_GUARD');
+export function provideForRootGuard(angulartics2: Angulartics2): any {
+  if (angulartics2) {
+    throw new Error(
+      `Angulartics2Module.forRoot() called twice. Lazy loaded modules should use Angulartics2Module.forChild() instead.`);
+  }
+  return 'guarded';
+}
 
 @NgModule({
   declarations: [ Angulartics2On ],
   exports: [ Angulartics2On ]
 })
 export class Angulartics2Module {
-  constructor(@Optional() @SkipSelf() parentModule: Angulartics2Module) {
-    if (parentModule) {
-      throw new Error('Angulartics2Module already loaded; Import in root module only.');
-    }
-  }
+  constructor(@Optional() @Inject(ANGULARTICS2_FORROOT_GUARD) guard: any) {}
 
-  static forRoot(): ModuleWithProviders {
+  static forRoot(providers: Array<any>): ModuleWithProviders {
+    if (!providers) {
+      throw new Error(
+        `Angulartics2Module.forRoot() called without providers.`);
+    }
+
     return {
       ngModule: Angulartics2Module,
-      providers: [ Angulartics2 ]
+      providers: [
+        {
+          provide: ANGULARTICS2_FORROOT_GUARD,
+          useFactory: provideForRootGuard,
+          deps: [[Angulartics2, new Optional(), new SkipSelf()]]
+        },
+        Angulartics2,
+        ...providers
+      ]
+    };
+  }
+
+  static forChild(): ModuleWithProviders {
+    return {
+      ngModule: Angulartics2Module,
+      providers: []
     };
   }
 }
