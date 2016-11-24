@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, Injectable, NgModule } from '@angular/core';
 import {
   Routes,
   Router
@@ -8,6 +8,12 @@ import { CommonModule } from '@angular/common';
 import { TestBed, tick, ComponentFixture } from '@angular/core/testing';
 
 import { Angulartics2Module } from './';
+
+@Injectable()
+export class DummyProvider {
+
+  constructor() {}
+}
 
 @Component({ selector: 'hello-cmp', template: `{{greeting}}` })
 export class HelloCmp {
@@ -70,7 +76,7 @@ export function createRootWithRouter(router: Router, type: any): ComponentFixtur
   imports: [
     CommonModule,
     RouterTestingModule,
-    Angulartics2Module.forRoot()
+    Angulartics2Module.forRoot([ DummyProvider ])
   ],
   entryComponents: [
     HelloCmp,

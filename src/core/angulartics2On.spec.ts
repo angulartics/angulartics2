@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SpyLocation } from '@angular/common/testing';
@@ -10,6 +10,14 @@ import { Angulartics2Module } from '../';
 import { Angulartics2 } from './angulartics2';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
+
+@Injectable()
+export class DummyProvider {
+
+  constructor(
+    private angulartics2: Angulartics2
+  ) {}
+}
 
 @Component({
   selector: 'root-comp',
@@ -58,7 +66,7 @@ describe('angulartics2On', () => {
       imports: [
         CommonModule,
         RouterTestingModule,
-        Angulartics2Module.forRoot()
+        Angulartics2Module.forRoot([ DummyProvider ])
       ],
       declarations: [
         RootCmp,
