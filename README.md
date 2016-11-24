@@ -113,7 +113,6 @@ If you need event label, you can use
 <div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}" [angularticsProperties]="{label: 'Fall Campaign'}"></div>
 ```
 
-
 ## Tracking events in the code
 Import Angulartics2
 ```ts
