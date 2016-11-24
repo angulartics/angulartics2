@@ -45,7 +45,7 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 
 ```ts
 // component
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Component } from '@angular/core';
 
 @Component({
@@ -53,7 +53,7 @@ import { Component } from '@angular/core';
   template: `<router-outlet></router-outlet>` // Or what your root template is.
 })
 export class AppComponent {
-  constructor(angulartics2: Angulartics2) {}
+  constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 }
 
 // bootstrap
@@ -110,8 +110,9 @@ import { Angulartics2Module } from 'angulartics2';
 
 If you need event label, you can use
 ```html
-<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}" [angularticsProperties]="{label: 'Fall Campaign'}"></div>
+<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}" [angularticsProperties]="{label: 'Fall Campaign'}">Click Me</div>
 ```
+
 
 ## Tracking events in the code
 Import Angulartics2
