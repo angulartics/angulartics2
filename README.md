@@ -99,10 +99,11 @@ import { NgModule } from '@angular/core';
 import { Angulartics2Module } from 'angulartics2';
 
 @NgModule({
-  imports: [],
-  declarations: [
-    SongDownloadBox,
+  imports: [
     Angulartics2Module.forChild()
+  ],
+  declarations: [
+    SongDownloadBox
   ]
 })
 ```
