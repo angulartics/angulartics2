@@ -20,6 +20,7 @@ export function provideForRootGuard(angulartics2: Angulartics2): any {
     throw new Error(
       `Angulartics2Module.forRoot() called twice. Lazy loaded modules should use Angulartics2Module.forChild() instead.`);
   }
+
   return 'guarded';
 }
 
@@ -31,11 +32,6 @@ export class Angulartics2Module {
   constructor(@Optional() @Inject(ANGULARTICS2_FORROOT_GUARD) guard: any) {}
 
   static forRoot(providers: Array<any>): ModuleWithProviders {
-    if (!providers) {
-      throw new Error(
-        `Angulartics2Module.forRoot() called without providers.`);
-    }
-
     return {
       ngModule: Angulartics2Module,
       providers: [
