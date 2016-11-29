@@ -20,52 +20,52 @@ export class Angulartics2 {
   /*
     @Param: ({url: string, location: Location})
    */
-  public pageTrack: ReplaySubject<any> = new ReplaySubject();
+  public pageTrack: ReplaySubject<any> = new ReplaySubject(10);
 
   /*
     @Param: ({action: any, properties: any})
    */
-  public eventTrack: ReplaySubject<any> = new ReplaySubject();
+  public eventTrack: ReplaySubject<any> = new ReplaySubject(10);
 
   /*
     @Param: (properties: any)
    */
-  public exceptionTrack: ReplaySubject<any> = new ReplaySubject();
+  public exceptionTrack: ReplaySubject<any> = new ReplaySubject(10);
 
   /*
     @Param: (alias: string)
    */
-  public setAlias: ReplaySubject<any> = new ReplaySubject();
+  public setAlias: ReplaySubject<any> = new ReplaySubject(10);
 
   /*
     @Param: (userId: string)
    */
-  public setUsername: ReplaySubject<any> = new ReplaySubject();
+  public setUsername: ReplaySubject<any> = new ReplaySubject(10);
 
   /*
     @Param: ({action: any, properties: any})
    */
-  public setUserProperties: ReplaySubject<any> = new ReplaySubject();
+  public setUserProperties: ReplaySubject<any> = new ReplaySubject(10);
 
   /*
     @Param: (properties: any)
    */
-  public setUserPropertiesOnce: ReplaySubject<any> = new ReplaySubject();
+  public setUserPropertiesOnce: ReplaySubject<any> = new ReplaySubject(10);
 
   /*
     @Param: (properties: any)
    */
-  public setSuperProperties: ReplaySubject<any> = new ReplaySubject();
+  public setSuperProperties: ReplaySubject<any> = new ReplaySubject(10);
 
   /*
     @Param: (properties: any)
    */
-  public setSuperPropertiesOnce: ReplaySubject<any> = new ReplaySubject();
+  public setSuperPropertiesOnce: ReplaySubject<any> = new ReplaySubject(10);
 
   /*
     @Param: (properties: any)
    */
-  public userTimings: ReplaySubject<any> = new ReplaySubject();
+  public userTimings: ReplaySubject<any> = new ReplaySubject(10);
 
   constructor(location: Location, router: Router) {
     this.trackLocation(location, router);
