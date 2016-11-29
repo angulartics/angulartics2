@@ -28,14 +28,6 @@ describe('Angulartics2Kissmetrics', () => {
     window._kmq = _kmq = [];
   });
   
-  it('should track initial page',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Kissmetrics],
-        (location: Location, angulartics2: Angulartics2, angulartics2Kissmetrics: Angulartics2Kissmetrics) => {
-          fixture = createRoot(RootCmp);
-          advance(fixture);
-          expect(_kmq).toContain(['record', 'Pageview', { 'Page': '' }]);
-      })));
-
   it('should track pages',
     fakeAsync(inject([Location, Angulartics2, Angulartics2Kissmetrics],
         (location: Location, angulartics2: Angulartics2, angulartics2Kissmetrics: Angulartics2Kissmetrics) => {

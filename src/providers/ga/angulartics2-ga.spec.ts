@@ -30,15 +30,6 @@ describe('Angulartics2GoogleAnalytics', () => {
     window._gaq = _gaq = [];
   });
 
-  it('should track initial page',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          fixture = createRoot(RootCmp);
-          advance(fixture);
-          expect(_gaq).toContain(['_trackPageview', '']);
-          expect(ga).toHaveBeenCalledWith('send', 'pageview', '');
-      })));
-
   it('should track pages',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
         (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {

@@ -28,14 +28,6 @@ describe('Angulartics2BaiduAnalytics', () => {
         window.hmt = hmt = [];
     });
 
-    it('should track initial page',
-        fakeAsync(inject([Location, Angulartics2, Angulartics2BaiduAnalytics],
-            (location: Location, angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {
-                fixture = createRoot(RootCmp);
-                advance(fixture);
-                expect(hmt).toContain(['_trackPageview', '']);
-            })));
-
     it('should track pages',
         fakeAsync(inject([Location, Angulartics2, Angulartics2BaiduAnalytics],
             (location: Location, angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {

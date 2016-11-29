@@ -39,14 +39,6 @@ describe('Angulartics2Mixpanel', () => {
     };
   });
 
-  it('should track initial page',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Mixpanel],
-        (location: Location, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
-          fixture = createRoot(RootCmp);
-          advance(fixture);
-          expect(mixpanel.track).toHaveBeenCalledWith('Page Viewed', { page: '' });
-      })));
-
   it('should track pages',
     fakeAsync(inject([Location, Angulartics2, Angulartics2Mixpanel],
         (location: Location, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {

@@ -79,10 +79,6 @@ export class Angulartics2 {
           this.trackUrlChange(event.urlAfterRedirects, location);
         }
       });
-
-    if (!this.settings.developerMode) {
-      this.trackUrlChange(location.path(), location);
-    }
   }
 
   virtualPageviews(value: boolean) {

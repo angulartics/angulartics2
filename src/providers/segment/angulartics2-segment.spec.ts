@@ -34,14 +34,6 @@ describe('Angulartics2Segment', () => {
     };
   });
 
-  it('should track initial page',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Segment],
-        (location: Location, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
-          fixture = createRoot(RootCmp);
-          advance(fixture);
-          expect(analytics.page).toHaveBeenCalledWith('');
-      })));
-
   it('should track pages',
     fakeAsync(inject([Location, Angulartics2, Angulartics2Segment],
         (location: Location, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {

@@ -28,14 +28,6 @@ describe('Angulartics2GoogleTagManager', () => {
     window.dataLayer = dataLayer = [];
   });
 
-  it('should track initial page',
-    fakeAsync(inject([Angulartics2, Angulartics2GoogleTagManager],
-        (angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
-          fixture = createRoot(RootCmp);
-          advance(fixture);
-          expect(dataLayer).toContain({ event: 'Page View', 'content-name': '', userId: null });
-      })));
-
   it('should track pages',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleTagManager],
         (location: Location, angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {

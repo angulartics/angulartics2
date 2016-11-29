@@ -113,6 +113,15 @@ describe('angulartics2', () => {
           expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
           expect(EventSpy).toHaveBeenCalledWith({ path: '/def', location: location });
         })));
+
+    it('should track initial page',
+      fakeAsync(inject([Router, Location, Angulartics2],
+        (router: Router, location: Location, angulartics2: Angulartics2) => {
+          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          fixture = createRootWithRouter(router, RootCmp);
+          advance(fixture);
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/', location: location });
+        })));
   });
 
   describe('excludedRoutes', function() {

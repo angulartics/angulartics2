@@ -28,6 +28,14 @@ describe('Angulartics2Piwik', () => {
     window._paq = _paq = [];
   });
 
+  it('should track pages',
+    fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
+    (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fixture = createRoot(RootCmp);
+      angulartics2.pageTrack.next({ path: '/abc', location: location });
+      advance(fixture);
+      expect(_paq).toContain(['setCustomUrl', '/abc']);
+    })));
 
   it('should track events',
     fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
