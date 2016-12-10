@@ -18,7 +18,8 @@
     "moduleResolution": "node",
     "types": [
       "jasmine",
-      "node"
+      "node",
+      "applicationinsights-js"
     ],
     "lib": ["es2015", "dom"],
     "outDir": "dist"
