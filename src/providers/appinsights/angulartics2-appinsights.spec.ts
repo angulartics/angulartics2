@@ -154,7 +154,9 @@ describe('Angulartics2AppInsights', () => {
             (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
                 angulartics2AppInsights.loadStartTime = Date.now() - 1000;
                 angulartics2AppInsights.stopTimer();
-                expect(angulartics2AppInsights.loadTime).toBe(1000);
+                // 50ms time difference for testing to ensure timing is correct
+                expect(angulartics2AppInsights.loadTime).toBeLessThanOrEqual(1150);
+                expect(angulartics2AppInsights.loadTime).toBeGreaterThanOrEqual(1000);
                 expect(angulartics2AppInsights.loadStartTime).toBe(null);
             })));
 });

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { Angulartics2 } from '../../core/angulartics2';
 
@@ -6,13 +6,11 @@ declare const appInsights: Microsoft.ApplicationInsights.IAppInsights;
 
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, NavigationStart, NavigationError } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Injectable()
-export class Angulartics2AppInsights implements OnInit, OnDestroy {
+export class Angulartics2AppInsights {
     loadStartTime: number = null;
     loadTime: number = null;
-    private sub: Subscription[];
 
     metrics: any = null;
     dimensions: any = null;
@@ -38,23 +36,17 @@ export class Angulartics2AppInsights implements OnInit, OnDestroy {
         this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
 
         this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
-    }
 
-    ngOnInit(): void {
-        this.sub.push(
-            this.router.events
-                .filter(event => event instanceof NavigationStart)
-                .subscribe(event => this.startTimer())
-        );
+        this.router.events
+            .filter(event => event instanceof NavigationStart)
+            .subscribe(event => this.startTimer());
 
-        this.sub.push(
-            this.router.events
-                .filter(event =>
-                    (event instanceof NavigationError) ||
-                    (event instanceof NavigationEnd)
-                )
-                .subscribe(error => this.stopTimer())
-        );
+        this.router.events
+            .filter(event =>
+                (event instanceof NavigationError) ||
+                (event instanceof NavigationEnd)
+            )
+            .subscribe(error => this.stopTimer());
     }
 
     startTimer() {
@@ -67,14 +59,8 @@ export class Angulartics2AppInsights implements OnInit, OnDestroy {
         this.loadStartTime = null;
     }
 
-    ngOnDestroy(): void {
-        this.sub.forEach(sub => sub.unsubscribe());
-
-        this.sub = [];
-    }
-
     /**
-     * Page Track in App Insights
+     * Page Track in Baidu Analytics
      * @name pageTrack
      *
      * @param {string} path Required 'path' (string)
