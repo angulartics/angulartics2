@@ -32,7 +32,8 @@
     "Michael Cameron Delaney <michaelcamerondelaney@gmail.com> (https://github.com/NewMediaRoc)",
     "Chris Soyars <ctso@ctso.me> (https://github.com/ctso)",
     "Fil Maj <maj.fil@gmail.com> (https://github.com/filmaj)",
-    "Adam Yost <swimmadude66@users.noreply.github.com> (https://github.com/swimmadude66)"
+    "Adam Yost <swimmadude66@users.noreply.github.com> (https://github.com/swimmadude66)",
+    "Adam S. Kirschner <accounts@adamskirschner.com> (https://github.com/hikirsch)"
   ],
   "devDependencies": {
     "@angular/common": "^2.1.2",
