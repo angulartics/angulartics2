@@ -74,7 +74,7 @@ export class Angulartics2AppInsights implements OnInit, OnDestroy {
     }
 
     /**
-     * Page Track in Baidu Analytics
+     * Page Track in App Insights
      * @name pageTrack
      *
      * @param {string} path Required 'path' (string)
