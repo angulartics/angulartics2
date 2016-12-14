@@ -43,7 +43,7 @@ describe('Angulartics2GoogleTagManager', () => {
           fixture = createRoot(RootCmp);
           angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
           advance(fixture);
-          expect(dataLayer).toContain({ event: 'interaction', target: 'cat', action: 'do', targetProperties: undefined, value: undefined, interactionType: undefined, userId: null });
+          expect(dataLayer).toContain({ event: 'interaction', target: 'cat', action: 'do', label: undefined, value: undefined, interactionType: undefined, userId: null });
       })));
 
   it('should track exceptions',
