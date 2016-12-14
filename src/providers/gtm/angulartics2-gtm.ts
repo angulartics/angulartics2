@@ -60,7 +60,7 @@ export class Angulartics2GoogleTagManager {
         event: properties.event || 'interaction',
         target: properties.category || 'Event',
         action: action,
-        targetProperties: properties.label,
+        label: properties.label,
         value: properties.value,
         interactionType: properties.noninteraction,
         userId: this.angulartics2.settings.gtm.userId
