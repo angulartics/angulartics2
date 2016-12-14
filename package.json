@@ -32,9 +32,9 @@
     "Michael Cameron Delaney <michaelcamerondelaney@gmail.com> (https://github.com/NewMediaRoc)",
     "Chris Soyars <ctso@ctso.me> (https://github.com/ctso)",
     "Fil Maj <maj.fil@gmail.com> (https://github.com/filmaj)",
-    "Adam Yost <swimmadude66@users.noreply.github.com> (https://github.com/swimmadude66)"
+    "Adam Yost <swimmadude66@users.noreply.github.com> (https://github.com/swimmadude66)",
+    "Adam S. Kirschner <accounts@adamskirschner.com> (https://github.com/hikirsch)"
   ],
-  "dependencies": {},
   "devDependencies": {
     "@angular/common": "~2.2.0",
     "@angular/compiler": "~2.2.0",
@@ -43,6 +43,7 @@
     "@angular/platform-browser": "~2.2.0",
     "@angular/platform-browser-dynamic": "~2.2.0",
     "@angular/router": "~3.2.0",
+    "@types/applicationinsights-js": "^0.23.5",
     "@types/core-js": "^0.9.32",
     "@types/jasmine": "^2.2.29",
     "@types/node": "6.0.38",

@@ -6,3 +6,4 @@ export * from './mixpanel/angulartics2-mixpanel';
 export * from './piwik/angulartics2-piwik';
 export * from './segment/angulartics2-segment';
 export * from './facebook/angulartics2-facebook';
+export * from './appinsights/angulartics2-appinsights';

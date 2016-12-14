@@ -145,6 +145,7 @@ this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 
 * Segment
 * Baidu Analytics
 * Facebook Pixel
+* Application Insights
 
 ### For other providers
 
