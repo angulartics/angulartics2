@@ -43,7 +43,7 @@ describe('Angulartics2GoogleTagManager', () => {
           fixture = createRoot(RootCmp);
           angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
           advance(fixture);
-          expect(dataLayer).toContain({ event: 'interaction', target: 'cat', action: 'do', targetProperties: undefined, value: undefined, interactionType: undefined, userId: null });
+          expect(dataLayer).toContain({ event: 'interaction', target: 'cat', action: 'do', label: undefined, value: undefined, interactionType: undefined, userId: null });
       })));
 
   it('should track exceptions',
@@ -52,7 +52,7 @@ describe('Angulartics2GoogleTagManager', () => {
           fixture = createRoot(RootCmp);
           angulartics2.exceptionTrack.next({ appId: 'app', appName: 'Test App', appVersion: '0.1' });
           advance(fixture);
-          expect(dataLayer).toContain({ event: 'interaction', target: 'Exception', action: 'Exception thrown for Test App <app@0.1>', targetProperties: undefined, value: undefined, interactionType: undefined, userId: null });
+          expect(dataLayer).toContain({ event: 'interaction', target: 'Exception', action: 'Exception thrown for Test App <app@0.1>', label: undefined, value: undefined, interactionType: undefined, userId: null });
       })));
 
   it('should set username',
