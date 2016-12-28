@@ -100,7 +100,7 @@ export class Angulartics2GoogleAnalytics {
       for (let accountName of this.angulartics2.settings.ga.additionalAccountNames) {
         ga(accountName + '.send', 'event', eventOptions);
       }
-    } else if (_gaq) {
+    } else if (typeof _gaq !== 'undefined') {
       _gaq.push(['_trackEvent', properties.category, action, properties.label, properties.value, properties.noninteraction]);
     }
   }
