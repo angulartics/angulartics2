@@ -77,7 +77,7 @@ export class Angulartics2GoogleAnalytics {
       properties.value = isNaN(parsed) ? 0 : parsed;
     }
 
-    if (ga) {
+    if (typeof ga !== 'undefined') {
       var eventOptions = {
         eventCategory: properties.category,
         eventAction: action,
