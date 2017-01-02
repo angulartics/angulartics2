@@ -78,6 +78,15 @@ describe('Angulartics2GoogleAnalytics', () => {
           expect(ga).toHaveBeenCalledWith('set', 'metric1', 'test');
       })));
 
+  it('should set additional account names',
+    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
+        (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+          fixture = createRoot(RootCmp);
+          angulartics2.setAdditionalAccountNames.next(['test1','test2','test3']);
+          advance(fixture);
+          expect(angulartics2.settings.ga.additionalAccountNames).toBe(['test1','test2','test3']);
+      })));
+
   it('should track user timings',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
         (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
