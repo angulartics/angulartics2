@@ -31,7 +31,7 @@ export class Angulartics2GoogleAnalytics {
 
     this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
 
-    this.angulartics2.setAdditionalAccountNames.subscribe((x: string) => this.setAdditionalAccountNames(x));
+    this.angulartics2.setAdditionalAccountNames.subscribe((x: string[]) => this.setAdditionalAccountNames(x));
 
     this.angulartics2.userTimings.subscribe((x: any) => this.userTimings(x));
   }
