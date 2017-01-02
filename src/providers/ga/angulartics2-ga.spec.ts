@@ -84,7 +84,7 @@ describe('Angulartics2GoogleAnalytics', () => {
           fixture = createRoot(RootCmp);
           angulartics2.setAdditionalAccountNames.next(['test1','test2','test3']);
           advance(fixture);
-          expect(angulartics2.settings.ga.additionalAccountNames).toBe(['test1','test2','test3']);
+          expect(angulartics2.settings.ga.additionalAccountNames[2]).toBe('test3');
       })));
 
   it('should track user timings',
