@@ -52,9 +52,9 @@ describe('Angulartics2GoogleAnalytics', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
         (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
           fixture = createRoot(RootCmp);
-          angulartics2.exceptionTrack.next({ appId: 'app', appName: 'Test App', appVersion: '0.1' });
+          angulartics2.exceptionTrack.next({ fatal: true, description: 'test' });
           advance(fixture);
-          expect(ga).toHaveBeenCalledWith('send', 'exception', { appId: 'app', appName: 'Test App', appVersion: '0.1', exFatal: true, exDescription: undefined });
+          expect(ga).toHaveBeenCalledWith('send', 'exception', { exFatal: true, exDescription: 'test' });
       })));
 
   it('should set username',
