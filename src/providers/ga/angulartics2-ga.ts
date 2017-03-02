@@ -109,27 +109,28 @@ export class Angulartics2GoogleAnalytics {
    * Exception Track Event in GA
    * @name exceptionTrack
    *
-   * @param {object} properties Comprised of the mandatory fields 'appId' (string), 'appName' (string) and 'appVersion' (string) and 
-   * optional  fields 'fatal' (boolean) and 'description' (string)
+   * @param {object} properties Comprised of the optional fields:
+   *     'fatal' (string),
+   *     'description' (string)
    *
    * @https://developers.google.com/analytics/devguides/collection/analyticsjs/exceptions
    *
    * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/events
    */
   exceptionTrack(properties: any) {
-    if (!properties || !properties.appId || !properties.appName || !properties.appVersion) {
-      console.error('Must be setted appId, appName and appVersion.');
-      return;
-    }
-
     if (properties.fatal === undefined) {
       console.log('No "fatal" provided, sending with fatal=true');
-      properties.exFatal = true;
+      properties.fatal = true;
     }
 
     properties.exDescription = properties.description;
 
-    ga('send', 'exception', properties);
+    var eventOptions = {
+      exFatal: properties.fatal,
+      exDescription: properties.description
+    };
+
+    ga('send', 'exception', eventOptions);
   }
 
   setUsername(userId: string) {
