@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { Angulartics2 } from '../../core/angulartics2';
+import {
+  GaEcImpressionFieldObject, GaEcActionFieldObject, GaEcAction, GaEcProductFieldObject
+} from './angulartics2-ga-options';
 
 declare var _gaq: any;
 declare var ga: any;
@@ -131,6 +134,43 @@ export class Angulartics2GoogleAnalytics {
     };
 
     ga('send', 'exception', eventOptions);
+  }
+
+  /**
+   * Add impression in GA enhanced ecommerce tracking
+   * @name ecAddImpression
+   *
+   * @param {GaEcImpressionFieldObject} properties
+   *
+   * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce#measuring-activities
+   */
+  ecAddImpression(properties: GaEcImpressionFieldObject) {
+    ga('ec:addImpression', properties);
+  }
+
+  /**
+   * Add product in GA enhanced ecommerce tracking
+   * @name ecAddProduct
+   *
+   * @param {GaEcProductFieldObject} product
+   *
+   * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
+   */
+  ecAddProduct(product: GaEcProductFieldObject) {
+    ga('ec:addProduct', product);
+  }
+
+  /**
+   * Set action in GA enhanced ecommerce tracking
+   * @name ecSetAction
+   *
+   * @param {GaEcAction} action
+   * @param {GaEcActionFieldObject} properties
+   *
+   * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
+   */
+  ecSetAction(action: GaEcAction, properties: GaEcActionFieldObject) {
+    ga('ec:setAction', action, properties);
   }
 
   setUsername(userId: string) {

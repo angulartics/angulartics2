@@ -6,6 +6,7 @@ import { TestModule, RootCmp, advance, createRoot } from '../../test.mocks';
 
 import { Angulartics2 } from '../../core/angulartics2';
 import { Angulartics2GoogleAnalytics } from './angulartics2-ga';
+import { GaEcAction } from './angulartics2-ga-options';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
@@ -55,6 +56,27 @@ describe('Angulartics2GoogleAnalytics', () => {
           angulartics2.exceptionTrack.next({ fatal: true, description: 'test' });
           advance(fixture);
           expect(ga).toHaveBeenCalledWith('send', 'exception', { exFatal: true, exDescription: 'test' });
+      })));
+
+  it('should add ec impression',
+    fakeAsync(inject([Angulartics2GoogleAnalytics],
+      (angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+        angulartics2GoogleAnalytics.ecAddImpression({ id: 'this is id' });
+        expect(ga).toHaveBeenCalledWith('ec:addImpression', { id: 'this is id' });
+      })));
+
+  it('should add ec product',
+    fakeAsync(inject([Angulartics2GoogleAnalytics],
+      (angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+        angulartics2GoogleAnalytics.ecAddProduct({ id: 'this is id', name: 'alexander' });
+        expect(ga).toHaveBeenCalledWith('ec:addProduct', { id: 'this is id', name: 'alexander' });
+      })));
+
+  it('should set ec action',
+    fakeAsync(inject([Angulartics2GoogleAnalytics],
+      (angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+        angulartics2GoogleAnalytics.ecSetAction(GaEcAction.add, { id: 'this is some kind of id' });
+        expect(ga).toHaveBeenCalledWith('ec:setAction', GaEcAction.add, { id: 'this is some kind of id' });
       })));
 
   it('should set username',
