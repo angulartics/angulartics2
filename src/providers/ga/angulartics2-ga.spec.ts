@@ -75,8 +75,8 @@ describe('Angulartics2GoogleAnalytics', () => {
   it('should set ec action',
     fakeAsync(inject([Angulartics2GoogleAnalytics],
       (angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-        angulartics2GoogleAnalytics.ecSetAction(GaEcAction.add, { id: 'this is some kind of id' });
-        expect(ga).toHaveBeenCalledWith('ec:setAction', GaEcAction.add, { id: 'this is some kind of id' });
+        angulartics2GoogleAnalytics.ecSetAction('add', { id: 'this is some kind of id' });
+        expect(ga).toHaveBeenCalledWith('ec:setAction', 'add', { id: 'this is some kind of id' });
       })));
 
   it('should set username',

@@ -4,17 +4,17 @@
  * Actions specify how to interpret product and promotion data that you send to Google Analytics.
  */
 
-export enum GaEcAction {
-  click,            // A click on a product or product link for one or more products.
-  detail,           // A view of product details.
-  add,              // Adding one or more products to a shopping cart.
-  remove,           // Remove one or more products from a shopping cart.
-  checkout,         // Initiating the checkout process for one or more products.
-  checkout_option,  // Sending the option value for a given checkout step.
-  purchase,         // The sale of one or more products.
-  refund,           // The refund of one or more products.
-  promo_click 	    // A click on an internal promotion.
-}
+export type GaEcAction =
+  'click'           |   // A click on a product or product link for one or more products.
+  'detail'          |   // A view of product details.
+  'add'             |   // Adding one or more products to a shopping cart.
+  'remove'          |   // Remove one or more products from a shopping cart.
+  'checkout'        |   // Initiating the checkout process for one or more products.
+  'checkout_option' |   // Sending the option value for a given checkout step.
+  'purchase'        |   // The sale of one or more products.
+  'refund'          |   // The refund of one or more products.
+  'promo_click'	        // A click on an internal promotion.
+;
 
 /**
  * Impression Data
