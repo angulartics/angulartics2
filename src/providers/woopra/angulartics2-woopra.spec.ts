@@ -10,10 +10,10 @@ import { Angulartics2Woopra } from './angulartics2-woopra';
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
 
-describe('Angulartics2Segment', () => {
+describe('Angulartics2Woopra', () => {
 
     var fixture: ComponentFixture<any>;
-    var analytics: any;
+    var woopra: any;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -26,7 +26,7 @@ describe('Angulartics2Segment', () => {
             ]
         });
 
-        window.analytics = analytics = {
+        window.woopra = woopra = {
             page: jasmine.createSpy('page'),
             track: jasmine.createSpy('track'),
             identify: jasmine.createSpy('identify')
@@ -39,7 +39,7 @@ describe('Angulartics2Segment', () => {
                 fixture = createRoot(RootCmp);
                 angulartics2.pageTrack.next({ path: '/abc', location: location });
                 advance(fixture);
-                expect(analytics.page).toHaveBeenCalledWith('/abc');
+                expect(woopra.page).toHaveBeenCalledWith('/abc');
             })));
 
     it('should track events',
@@ -53,7 +53,7 @@ describe('Angulartics2Segment', () => {
                     }
                 });
                 advance(fixture);
-                expect(analytics.track).toHaveBeenCalledWith('payment', {
+                expect(woopra.track).toHaveBeenCalledWith('payment', {
                     amount: "49.95",
                     currency: "USD"
                 });
@@ -65,7 +65,7 @@ describe('Angulartics2Segment', () => {
                 fixture = createRoot(RootCmp);
                 angulartics2.setUserProperties.next({ email: 'test@test.com', name: 'John Doe', company: 'Test Co' });
                 advance(fixture);
-                expect(analytics.identify).toHaveBeenCalledWith('1', { email: 'test@test.com', name: 'John Doe', company: 'Test Co' });
+                expect(woopra.identify).toHaveBeenCalledWith('1', { email: 'test@test.com', name: 'John Doe', company: 'Test Co' });
             })));
 
 
