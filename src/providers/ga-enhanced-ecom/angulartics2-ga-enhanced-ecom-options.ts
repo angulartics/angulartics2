@@ -4,17 +4,17 @@
  * Actions specify how to interpret product and promotion data that you send to Google Analytics.
  */
 
-export type GaEcAction =
+export type GaEnhancedEcomAction =
   'click'           |   // A click on a product or product link for one or more products.
-  'detail'          |   // A view of product details.
-  'add'             |   // Adding one or more products to a shopping cart.
-  'remove'          |   // Remove one or more products from a shopping cart.
-  'checkout'        |   // Initiating the checkout process for one or more products.
-  'checkout_option' |   // Sending the option value for a given checkout step.
-  'purchase'        |   // The sale of one or more products.
-  'refund'          |   // The refund of one or more products.
-  'promo_click'	        // A click on an internal promotion.
-;
+    'detail'          |   // A view of product details.
+    'add'             |   // Adding one or more products to a shopping cart.
+    'remove'          |   // Remove one or more products from a shopping cart.
+    'checkout'        |   // Initiating the checkout process for one or more products.
+    'checkout_option' |   // Sending the option value for a given checkout step.
+    'purchase'        |   // The sale of one or more products.
+    'refund'          |   // The refund of one or more products.
+    'promo_click'	        // A click on an internal promotion.
+  ;
 
 /**
  * Impression Data
@@ -24,7 +24,7 @@ export type GaEcAction =
  *
  * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce#impression-data
  */
-export interface GaEcImpressionFieldObject {
+export interface GaEnhancedEcomImpressionFieldObject {
   id?: string; // The product ID or SKU (e.g. P67890). *Either this field or name must be set.
   name?: string; // The name of the product (e.g. Android T-Shirt). *Either this field or id must be set.
   list?: string; // The list or collection to which the product belongs (e.g. Search Results)
@@ -44,7 +44,7 @@ export interface GaEcImpressionFieldObject {
  *
  * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce#product-data
  */
-export interface GaEcProductFieldObject {
+export interface GaEnhancedEcomProductFieldObject {
   id?: string; // The product ID or SKU (e.g. P67890). *Either this field or name must be set.
   name?: string; // The name of the product (e.g. Android T-Shirt). *Either this field or id must be set.
   brand?: string; // The brand associated with the product (e.g. Google).
@@ -64,7 +64,7 @@ export interface GaEcProductFieldObject {
  *
  * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce#promotion-data
  */
-export interface GaEcPromoFieldObject {
+export interface GaEnhancedEcomPromoFieldObject {
   id?: string; // The promotion ID (e.g. PROMO_1234). *Either this field or name must be set.
   name?: string; // The name of the promotion (e.g. Summer Sale). *Either this field or id must be set.
   creative?: string; // The creative associated with the promotion (e.g. summer_banner2).
@@ -80,7 +80,7 @@ export interface GaEcPromoFieldObject {
  *
  * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce#action-data
  */
-export interface GaEcActionFieldObject {
+export interface GaEnhancedEcomActionFieldObject {
   id?: string; // The transaction ID (e.g. T1234). *Required if the action type is purchase or refund.
   affilation?: string; // The store or affiliation from which this transaction occurred (e.g. Google Store).
   revenue?: number; // Specifies the total revenue or grand total associated with the transaction (e.g. 11.99). This value may include shipping, tax costs, or other adjustments to total revenue that you want to include as part of your revenue calculations. Note: if revenue is not set, its value will be automatically calculated using the product quantity and price fields of all products in the same hit.
