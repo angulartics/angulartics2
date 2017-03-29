@@ -47,11 +47,11 @@ export class Angulartics2AdobeAnalytics {
       }
       if (action) {
         // if linkName property is passed, use that; otherwise, the action is the linkName
-        var linkName = (properties['linkName']) ? properties['linkName'] : action;
+        const linkName = (properties['linkName']) ? properties['linkName'] : action;
         // note that 'this' should refer the link element, but we can't get that in this function. example:
         // <a href="http://anothersite.com" onclick="s.tl(this,'e','AnotherSite',null)">
         // if disableDelay property is passed, use that to turn off/on the 500ms delay; otherwise, it uses this
-        var disableDelay = !!properties['disableDelay'] ? true : this;
+        const disableDelay = !!properties['disableDelay'] ? true : this;
         // if action property is passed, use that; otherwise, the action remains unchanged
         if (properties['action']) {
           action = properties['action'];
