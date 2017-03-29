@@ -47,3 +47,5 @@ typings
 tsconfig.json
 tslint.json
 typings.json
+.vscode
+lerna-debug.log
