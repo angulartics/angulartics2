@@ -49,7 +49,7 @@
         enforce: 'post',
         test: /\.(js|ts)$/,
         use: 'istanbul-instrumenter-loader',
-        include: helpers.root('src'),
+        include: helpers.root('packages'),
         exclude: [
         /\.(e2e|spec)\.ts$/,
         /node_modules/

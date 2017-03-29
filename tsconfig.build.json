@@ -21,8 +21,7 @@
       "node",
       "applicationinsights-js"
     ],
-    "lib": ["es2015", "dom"],
-    "outDir": "dist"
+    "lib": ["es2015", "dom"]
   },
   "include": [
     "packages/core/index.ts",

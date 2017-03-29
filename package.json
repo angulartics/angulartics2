@@ -1,6 +1,6 @@
 {
-  "name": "angulartics2",
-  "description": "Vendor-agnostic web analytics for Angular2 applications",
+  "name": "@angulartics/core",
+  "description": "Vendor-agnostic web analytics for Angular applications",
   "homepage": "http://angulartics.github.io/",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "contributors": [
@@ -36,59 +36,62 @@
     "Adam S. Kirschner <accounts@adamskirschner.com> (https://github.com/hikirsch)"
   ],
   "devDependencies": {
-    "@angular/common": "^2.4.9",
-    "@angular/compiler": "^2.4.9",
-    "@angular/compiler-cli": "^2.4.9",
-    "@angular/core": "^2.4.9",
-    "@angular/platform-browser": "^2.4.9",
-    "@angular/platform-browser-dynamic": "^2.4.9",
-    "@angular/router": "^3.4.9",
-    "@types/applicationinsights-js": "^0.23.5",
-    "@types/core-js": "^0.9.35",
-    "@types/jasmine": "^2.5.43",
-    "@types/node": "^7.0.5",
-    "awesome-typescript-loader": "^3.0.8",
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/compiler-cli": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/router": "^4.0.0",
+    "@types/applicationinsights-js": "^1.0.1",
+    "@types/core-js": "^0.9.39",
+    "@types/jasmine": "^2.5.47",
+    "@types/node": "^7.0.12",
+    "awesome-typescript-loader": "^3.1.2",
     "codelyzer": "^2.0.1",
     "commitizen": "^2.9.6",
     "concurrently": "^3.3.0",
     "core-js": "^2.4.1",
-    "cz-conventional-changelog": "^2.0.0",
+    "coveralls": "^2.12.0",
+    "cz-lerna-changelog": "^1.2.1",
     "istanbul-instrumenter-loader": "^0.2.0",
     "jasmine-core": "^2.5.1",
     "karma": "^1.5.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
+    "karma-coveralls": "^1.1.2",
     "karma-jasmine": "^1.1.0",
-    "karma-mocha-reporter": "^2.2.2",
+    "karma-mocha-reporter": "^2.2.3",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^2.0.2",
+    "karma-webpack": "^2.0.3",
+    "lerna": "2.0.0-beta.38",
+    "lerna-semantic-release": "^9.0.7",
     "reflect-metadata": "^0.1.10",
     "rimraf": "^2.6.1",
     "rxjs": "^5.0.2",
-    "semantic-release": "^6.3.6",
-    "source-map-loader": "^0.1.6",
-    "systemjs": "^0.20.9",
+    "source-map-loader": "^0.2.0",
+    "systemjs": "^0.20.10",
     "ts-helpers": "^1.1.1",
-    "tslint": "^4.5.0",
+    "tslint": "^4.0.0",
     "tslint-loader": "^3.4.2",
-    "typescript": "^2.2.1",
-    "webpack": "^2.2.1",
-    "zone.js": "^0.7.7"
+    "typescript": "^2.2.2",
+    "webpack": "^2.3.2",
+    "zone.js": "^0.8.5"
   },
   "bugs": {
     "url": "http://github.com/angulartics/angulartics2/issues"
   },
   "scripts": {
     "rimraf": "rimraf",
-    "lint": "tslint ./*.ts ./src/{,*/}*.ts",
+    "lint": "tslint ./*.ts ./packages/**/*.ts",
     "test": "tsc && karma start",
     "test-watch": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
     "clean": "npm cache clean && npm run rimraf -- node_modules dist",
     "preclean:install": "npm run clean",
     "clean:install": "npm set progress=false && npm i",
     "commit": "git-cz",
-    "build": "tsc -d && ngc",
-    "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
+    "build": "tsc -d -p ./tsconfig.build.json && ngc",
+    "semantic-release": "lerna-semantic-release pre && npm run build && lerna-semantic-release post && lerna-semantic-release perform"
   },
   "main": "./dist/index",
   "typings": "./dist/index.d.ts",
@@ -97,9 +100,8 @@
     "url": "https://github.com/angulartics/angulartics2.git"
   },
   "keywords": [
-    "angular2",
-    "ng2",
     "angular",
+    "ngx",
     "analytics",
     "tracking",
     "google analytics",
@@ -118,7 +120,8 @@
   },
   "config": {
     "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
+      "path": "./node_modules/cz-lerna-changelog"
     }
-  }
+  },
+  "version": "0.0.0"
 }

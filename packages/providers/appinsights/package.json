@@ -1,0 +1,36 @@
+{
+  "name": "@angulartics/appinsights",
+  "description": "Application Insights for Angular applications with Angulartics",
+  "homepage": "http://angulartics.github.io/",
+  "author": "Adam S. Kirschner <accounts@adamskirschner.com> (https://github.com/hikirsch)",
+  "contributors": [
+    "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)"
+  ],
+  "bugs": {
+    "url": "http://github.com/angulartics/angulartics2/issues"
+  },
+  "main": "./index",
+  "typings": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angulartics/angulartics2.git"
+  },
+  "keywords": [
+    "angular",
+    "ngx",
+    "analytics",
+    "angulartics",
+    "tracking",
+    "application insights",
+    "google tag manager",
+    "page tracking",
+    "event tracking",
+    "scroll tracking",
+    "inspectlet"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "version": "2.0.0"
+}
