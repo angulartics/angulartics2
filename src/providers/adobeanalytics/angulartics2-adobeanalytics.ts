@@ -13,13 +13,6 @@ export class Angulartics2AdobeAnalytics {
   ) {
     this.angulartics2.settings.pageTracking.trackRelativePath = true;
 
-    // Set the default settings for this module
-    this.angulartics2.settings.s = {
-      // array of additional account names (only works for analyticsjs)
-      additionalAccountNames: [],
-      userId: null
-    };
-
     this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
 
     this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
