@@ -1,9 +1,9 @@
 # angulartics
 
 [![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-downloads-url]
-[![devDependency Status](https://david-dm.org/angulartics/angulartics2/dev-status.svg)](https://david-dm.org/angulartics/angulartics#info=devDependencies)
-[![Build Status](https://img.shields.io/travis/angulartics/angulartics2/master.svg?style=flat)](https://travis-ci.org/angulartics/angulartics)
-[![Coverage Status](https://coveralls.io/repos/github/angulartics/angulartics2/badge.svg?branch=master)](https://coveralls.io/github/angulartics/angulartics?branch=master)
+[![devDependency Status](https://david-dm.org/angulartics/angulartics/dev-status.svg)](https://david-dm.org/angulartics/angulartics#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/angulartics/angulartics/master.svg?style=flat)](https://travis-ci.org/angulartics/angulartics)
+[![Coverage Status](https://coveralls.io/repos/github/angulartics/angulartics/badge.svg?branch=master)](https://coveralls.io/github/angulartics/angulartics?branch=master)
 
 [![MIT license][license-image]][license-url]
 [![Gitter Chat](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angulartics/angulartics)
@@ -170,9 +170,15 @@ Please see the [CONTRIBUTING](https://github.com/angulartics/angulartics/blob/ma
 
 [MIT](LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/@angulartics/core.svg
-[npm-url]: https://npmjs.org/package/@angulartics/core
-[npm-downloads-image]: https://img.shields.io/npm/dm/@angulartics/core.svg
-[npm-downloads-url]: https://npmjs.org/package/@angulartics/core
+[npm-image]: https://img.shields.io/npm/v/angulartics.svg
+[npm-url]: https://npmjs.org/package/angulartics
+[npm-downloads-image]: https://img.shields.io/npm/dm/angulartics.svg
+[npm-downloads-url]: https://npmjs.org/package/angulartics
+[bower-image]: https://img.shields.io/bower/v/angulartics.svg
+[bower-url]: http://bower.io/search/?q=angulartics
+[dep-status-image]: https://img.shields.io/david/angulartics/angulartics.svg
+[dep-status-url]: https://david-dm.org/angulartics/angulartics
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg
 [license-url]: LICENSE
+[slack-image]: https://angulartics.herokuapp.com/badge.svg
+[slack-url]: https://angulartics.herokuapp.com
