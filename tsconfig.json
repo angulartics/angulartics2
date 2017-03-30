@@ -1,20 +1,11 @@
 {
   "compilerOptions": {
+    "noImplicitAny": true,
+    "module": "es2015",
     "target": "es5",
-    "module": "commonjs",
-    "declaration": false,
-    "removeComments": true,
-    "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": false,
-    "pretty": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "noImplicitAny": true,
-    "noImplicitReturns": false,
-    "noImplicitUseStrict": false,
-    "noFallthroughCasesInSwitch": true,
+    "declaration": true,
     "moduleResolution": "node",
     "types": [
       "jasmine",
@@ -27,8 +18,13 @@
   "files": [
     "src/index.ts"
   ],
+  "exclude": [
+    "node_modules",
+    "bundles"
+  ],
   "compileOnSave": false,
   "angularCompilerOptions": {
+    "strictMetadataEmit": true,
     "skipTemplateCodegen": true
   }
 }

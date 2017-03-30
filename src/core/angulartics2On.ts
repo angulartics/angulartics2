@@ -21,7 +21,7 @@ export class Angulartics2On implements AfterContentInit {
     private angulartics2: Angulartics2,
     private eventManager: EventManager
   ) {
-    this.el = elRef.nativeElement;
+    this.el = this.elRef.nativeElement;
   }
 
   ngAfterContentInit() {

@@ -6,7 +6,6 @@ import 'rxjs/add/operator/filter';
 
 @Injectable()
 export class Angulartics2 {
-
   public settings: any = {
     pageTracking: {
       autoTrackVirtualPages: true,
