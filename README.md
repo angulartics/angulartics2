@@ -1,30 +1,25 @@
-# angulartics
+# angulartics2
 
 [![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-downloads-url]
-[![devDependency Status](https://david-dm.org/angulartics/angulartics/dev-status.svg)](https://david-dm.org/angulartics/angulartics#info=devDependencies)
-[![Build Status](https://img.shields.io/travis/angulartics/angulartics/master.svg?style=flat)](https://travis-ci.org/angulartics/angulartics)
-[![Coverage Status](https://coveralls.io/repos/github/angulartics/angulartics/badge.svg?branch=master)](https://coveralls.io/github/angulartics/angulartics?branch=master)
+[![devDependency Status](https://david-dm.org/angulartics/angulartics2/dev-status.svg)](https://david-dm.org/angulartics/angulartics2#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/angulartics/angulartics2/master.svg?style=flat)](https://travis-ci.org/angulartics/angulartics2)
 
 [![MIT license][license-image]][license-url]
-[![Gitter Chat](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angulartics/angulartics)
+[![Gitter Chat](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angulartics/angulartics2)
 
-Vendor-agnostic analytics for Angular applications. [angulartics.github.io](http://angulartics.github.io "Go to the website")
+Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io](http://angulartics.github.io "Go to the website")
 
 ## Install
 
 ```shell
-npm install @angulartics/core --save
-```
-or too install with provider
-```shell
-npm install @angulartics/{core,ga} --save
+npm install angulartics2 --save
 ```
 
 If you use SystemJS to load your files, you might have to update your config with this if you don't use `defaultJSExtensions: true`:
 ```js
 System.config({
     packages: {
-        "/angulartics": {"defaultExtension": "js"}
+        "/angulartics2": {"defaultExtension": "js"}
     }
 });
 ```
@@ -46,11 +41,11 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
 
 ## Include it in your application
 
-Bootstrapping the application with ```Angulartics``` as provider and injecting ```AngularticsGoogleAnalytics``` (or every provider you want to use) into the root component will hook into the router and send every route change to your analytics provider.
+Bootstrapping the application with ```Angulartics2``` as provider and injecting ```Angulartics2GoogleAnalytics``` (or every provider you want to use) into the root component will hook into the router and send every route change to your analytics provider.
 
 ```ts
 // component
-import { AngularticsGoogleAnalytics } from '@angulartics/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Component } from '@angular/core';
 
 @Component({
@@ -58,14 +53,14 @@ import { Component } from '@angular/core';
   template: `<router-outlet></router-outlet>` // Or what your root template is.
 })
 export class AppComponent {
-  constructor(angularticsGoogleAnalytics: AngularticsGoogleAnalytics) {}
+  constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 }
 
 // bootstrap
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { AngularticsModule, AngularticsGoogleAnalytics } from '@angulartics/core';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 const ROUTES: Routes = [
   { path: '',      component: HomeComponent },
@@ -77,7 +72,7 @@ const ROUTES: Routes = [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
 
-    AngularticsModule.forRoot([ AngularticsGoogleAnalytics ])
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   declarations: [ AppComponent ],
   bootstrap: [ AppComponent ]
@@ -87,7 +82,7 @@ const ROUTES: Routes = [
 
 ## Tracking events
 
-To track events you can inject the directive ```angularticsOn``` into any component and use the attributes ```angularticsOn```, ```angularticsEvent``` and ```angularticsCategory```:
+To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsEvent``` and ```angularticsCategory```:
 
 
 ```ts
@@ -96,16 +91,16 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'song-download-box',
-  template: `<div angularticsOn="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}">Click Me</div>`,
+  template: `<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}">Click Me</div>`,
 })
 export class SongDownloadBox {}
 
 import { NgModule } from '@angular/core';
-import { AngularticsModule } from '@angulartics/core';
+import { Angulartics2Module } from 'angulartics2';
 
 @NgModule({
   imports: [
-    AngularticsModule.forChild()
+    Angulartics2Module.forChild()
   ],
   declarations: [
     SongDownloadBox
@@ -115,35 +110,35 @@ import { AngularticsModule } from '@angulartics/core';
 
 If you need event label, you can use
 ```html
-<div angularticsOn="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}" [angularticsProperties]="{label: 'Fall Campaign'}">Click Me</div>
+<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}" [angularticsProperties]="{label: 'Fall Campaign'}">Click Me</div>
 ```
 
 
 ## Tracking events in the code
-Import Angulartics
+Import Angulartics2
 ```ts
-import { Angulartics } from '@angulartics/core';
+import { Angulartics2 } from 'angulartics2';
 ```
 and inject it
 ```ts
-constructor(angulartics: Angulartics) {}
+constructor(angulartics2: Angulartics2) {}
 ```
 
 Then you can use
 ```ts
-this.angulartics.eventTrack.next({ action: 'myAction', properties: { category: 'myCategory' }});
+this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 'myCategory' }});
 ```
 
 If you need event label, you can use
 
 ```ts
-this.angulartics.eventTrack.next({ action: 'myAction', properties: { category: 'myCategory', label: 'myLabel' }});
+this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 'myCategory', label: 'myLabel' }});
 ```
 
 ## Supported providers
 
-* [Google Analytics](https://github.com/angulartics/angulartics/wiki/Google-Analytics)
-* [Google Tag Manager](https://github.com/angulartics/angulartics/wiki/Google-Tag-Manager)
+* [Google Analytics](https://github.com/angulartics/angulartics2/wiki/Google-Analytics)
+* [Google Tag Manager](https://github.com/angulartics/angulartics2/wiki/Google-Tag-Manager)
 * Kissmetrics
 * Mixpanel
 * Piwik
@@ -156,29 +151,29 @@ this.angulartics.eventTrack.next({ action: 'myAction', properties: { category: '
 
 [Browse the website for detailed instructions.](http://angulartics.github.io)
 
-If there's no Angulartics plugin for your analytics vendor of choice, please feel free to write yours and PR' it!
+If there's no Angulartics2 plugin for your analytics vendor of choice, please feel free to write yours and PR' it!
 
 ## What else?
 
-See more docs and samples at [Wiki](https://github.com/angulartics/angulartics/wiki).
+See more docs and samples at [Wiki](https://github.com/angulartics/angulartics2/wiki).
 
 ## Contributing
 
-Please see the [CONTRIBUTING](https://github.com/angulartics/angulartics/blob/master/.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT](https://github.com/angulartics/angulartics/blob/master/.github/CODE_OF_CONDUCT.md) files for guidelines.
+Please see the [CONTRIBUTING](https://github.com/angulartics/angulartics2/blob/master/.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT](https://github.com/angulartics/angulartics2/blob/master/.github/CODE_OF_CONDUCT.md) files for guidelines.
 
 ## License
 
 [MIT](LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/angulartics.svg
-[npm-url]: https://npmjs.org/package/angulartics
-[npm-downloads-image]: https://img.shields.io/npm/dm/angulartics.svg
-[npm-downloads-url]: https://npmjs.org/package/angulartics
-[bower-image]: https://img.shields.io/bower/v/angulartics.svg
-[bower-url]: http://bower.io/search/?q=angulartics
-[dep-status-image]: https://img.shields.io/david/angulartics/angulartics.svg
-[dep-status-url]: https://david-dm.org/angulartics/angulartics
+[npm-image]: https://img.shields.io/npm/v/angulartics2.svg
+[npm-url]: https://npmjs.org/package/angulartics2
+[npm-downloads-image]: https://img.shields.io/npm/dm/angulartics2.svg
+[npm-downloads-url]: https://npmjs.org/package/angulartics2
+[bower-image]: https://img.shields.io/bower/v/angulartics2.svg
+[bower-url]: http://bower.io/search/?q=angulartics2
+[dep-status-image]: https://img.shields.io/david/angulartics/angulartics2.svg
+[dep-status-url]: https://david-dm.org/angulartics/angulartics2
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg
 [license-url]: LICENSE
-[slack-image]: https://angulartics.herokuapp.com/badge.svg
-[slack-url]: https://angulartics.herokuapp.com
+[slack-image]: https://angulartics2.herokuapp.com/badge.svg
+[slack-url]: https://angulartics2.herokuapp.com
