@@ -175,5 +175,3 @@ Please see the [CONTRIBUTING](https://github.com/angulartics/angulartics2/blob/m
 [dep-status-url]: https://david-dm.org/angulartics/angulartics2
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg
 [license-url]: LICENSE
-[slack-image]: https://angulartics2.herokuapp.com/badge.svg
-[slack-url]: https://angulartics2.herokuapp.com
