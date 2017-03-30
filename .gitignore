@@ -11,6 +11,7 @@ coverage
 *.js
 !karma.conf.js
 !webpack.test.js
+!webpack.config.js
 !helpers.js
 !spec-bundle.js
 *.map
@@ -44,4 +45,4 @@ Desktop.ini
 
 # Mac crap
 .DS_Store
-
+.vscode
