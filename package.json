@@ -33,7 +33,8 @@
     "Chris Soyars <ctso@ctso.me> (https://github.com/ctso)",
     "Fil Maj <maj.fil@gmail.com> (https://github.com/filmaj)",
     "Adam Yost <swimmadude66@users.noreply.github.com> (https://github.com/swimmadude66)",
-    "Adam S. Kirschner <accounts@adamskirschner.com> (https://github.com/hikirsch)"
+    "Adam S. Kirschner <accounts@adamskirschner.com> (https://github.com/hikirsch)",
+    "Tyler Danielson <tysdanielson@gmail.com> (https://github.com/tydanielson)"
   ],
   "devDependencies": {
     "@angular/common": "^4.0.1",
