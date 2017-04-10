@@ -147,6 +147,8 @@ this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 
 * Facebook Pixel
 * Application Insights
 * Hubspot
+* Adobe Analytics (Omniture)
+
 
 ### For other providers
 
