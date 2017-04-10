@@ -146,6 +146,7 @@ this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 
 * Baidu Analytics
 * Facebook Pixel
 * Application Insights
+* Hubspot
 
 ### For other providers
 
