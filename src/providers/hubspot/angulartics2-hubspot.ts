@@ -10,7 +10,7 @@ export class Angulartics2Hubspot {
   constructor(
     private angulartics2: Angulartics2
   ) {
-    if (typeof (_hsq) === undefined) {
+    if (typeof _hsq === "undefined") {
       _hsq = [];
     }
 
@@ -22,20 +22,20 @@ export class Angulartics2Hubspot {
   }
 
   pageTrack(path: string, location: any) {
-    if (_hsq !== undefined) {
+    if (typeof _hsq !== "undefined") {
       _hsq.push(['setPath', path]);
       _hsq.push(['trackPageView']);
     }
   }
 
   eventTrack(action: string, properties: any) {
-    if (_hsq !== undefined) {
+    if (typeof _hsq !== "undefined") {
       _hsq.push(['trackEvent', properties]);
     }
   }
 
   setUserProperties(properties: any) {
-    if (_hsq !== undefined) {
+    if (typeof _hsq !== "undefined") {
       _hsq.push(['identify', properties]);
     }
   }
