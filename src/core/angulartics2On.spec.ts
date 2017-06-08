@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, Directive } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SpyLocation } from '@angular/common/testing';
@@ -8,6 +8,7 @@ import { advance, createRoot } from '../test.mocks';
 
 import { Angulartics2Module } from '../';
 import { Angulartics2 } from './angulartics2';
+import { Angulartics2On } from './angulartics2On';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
@@ -131,5 +132,38 @@ describe('angulartics2On', () => {
         advance(fixture);
         expect(EventSpy).toHaveBeenCalledWith({ action: 'InitiateSearch', properties: { category: 'Search', eventType: 'click' } });
       })));
+
+  describe('running on server', () => {
+    @Injectable()
+    @Directive({
+      selector: '[angulartics2On]'
+    })
+    class Angulartics2OnStub extends Angulartics2On {
+      isBrowser() {
+        return false;
+      }
+    }
+
+    beforeEach(() => {
+      TestBed.overrideModule(Angulartics2Module, {
+        set: {
+          declarations: [Angulartics2OnStub],
+          exports: [Angulartics2OnStub]
+        }
+      });
+    });
+
+    it('should not bind event',
+    fakeAsync(inject([Angulartics2],
+      (angulartics2: Angulartics2) => {
+        fixture = createRoot(RootCmp);
+        expect(EventSpy).not.toHaveBeenCalled();
+        angulartics2.eventTrack.subscribe((x: any) => EventSpy(x));
+        compiled = fixture.debugElement.nativeElement.children[0];
+        compiled.click();
+        advance(fixture);
+        expect(EventSpy).not.toHaveBeenCalled();
+    })));
+  });
 
 });
