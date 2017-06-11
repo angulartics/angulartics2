@@ -25,7 +25,14 @@ export class Angulartics2On implements AfterContentInit {
   }
 
   ngAfterContentInit() {
-    this.eventManager.addEventListener(this.el, this.angulartics2On || 'click', (event: any) => this.eventTrack(event));
+    // Don't listen in server-side
+    if (this.isBrowser()) {
+      this.eventManager.addEventListener(this.el, this.angulartics2On || 'click', (event: any) => this.eventTrack(event));
+    }
+  }
+
+  public isBrowser() {
+    return typeof(window) !== 'undefined';
   }
 
   public eventTrack(event: any) {
