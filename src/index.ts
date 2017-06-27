@@ -12,7 +12,7 @@ import { Angulartics2On } from './core/angulartics2On';
 
 export * from './core/angulartics2';
 export * from './core/angulartics2On';
-export * from './providers/index'
+export * from './providers/index';
 
 export const ANGULARTICS2_FORROOT_GUARD = new OpaqueToken('ANGULARTICS2_FORROOT_GUARD');
 export function provideForRootGuard(angulartics2: Angulartics2): any {
