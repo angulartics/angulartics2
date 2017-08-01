@@ -9,7 +9,20 @@
 
 Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io](http://angulartics.github.io "Go to the website")
 
-## Install
+* [Installation](#installation)
+* [Usage](#usage)
+  + [Include it in your application](#include-it-in-your-application)
+  + [Tracking events](#tracking-events)
+  + [Tracking events in the code](#tracking-events-in-the-code)
+* [Supported providers](#supported-providers)
+  + [For other providers](#for-other-providers)
+  + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
+    - [Changes in the Google Analytics snippet](#changes-in-the-google-analytics-snippet)
+* [What else?](#what-else-)
+* [Contributing](#contributing)
+* [License](#license)
+  
+## Installation
 
 ```shell
 npm install angulartics2 --save
@@ -24,22 +37,9 @@ System.config({
 });
 ```
 
-## Minimal setup for Google Analytics
+## Usage
 
-Add the full tracking code from Google Tag Manager to the beginning of your body tag.
-
-### Changes in the Google Analytics snippet
-
-The snippet code provided by Google Analytics does an automatic pageview hit, but this is already done by Angulartics (unless you disable it) so make sure to delete the tracking line:
-
-```html
-      ...
-      ga('create', 'UA-XXXXXXXX-X', 'none'); // 'none' while you are working on localhost
-      ga('send', 'pageview');  // DELETE THIS LINE!
-    </script>
-```
-
-## Include it in your application
+### Include it in your application
 
 Bootstrapping the application with ```Angulartics2``` as provider and injecting ```Angulartics2GoogleAnalytics``` (or every provider you want to use) into the root component will hook into the router and send every route change to your analytics provider.
 
@@ -79,8 +79,7 @@ const ROUTES: Routes = [
 })
 ```
 
-
-## Tracking events
+### Tracking events
 
 To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsEvent``` and ```angularticsCategory```:
 
@@ -114,7 +113,7 @@ If you need event label, you can use
 ```
 
 
-## Tracking events in the code
+### Tracking events in the code
 Import Angulartics2
 ```ts
 import { Angulartics2 } from 'angulartics2';
@@ -149,12 +148,26 @@ this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 
 * Hubspot
 * Adobe Analytics (Omniture)
 
-
 ### For other providers
 
 [Browse the website for detailed instructions.](http://angulartics.github.io)
 
 If there's no Angulartics2 plugin for your analytics vendor of choice, please feel free to write yours and PR' it!
+
+### Minimal setup for Google Analytics
+
+Add the full tracking code from Google Tag Manager to the beginning of your body tag.
+
+#### Changes in the Google Analytics snippet
+
+The snippet code provided by Google Analytics does an automatic pageview hit, but this is already done by Angulartics (unless you disable it) so make sure to delete the tracking line:
+
+```html
+      ...
+      ga('create', 'UA-XXXXXXXX-X', 'none'); // 'none' while you are working on localhost
+      ga('send', 'pageview');  // DELETE THIS LINE!
+    </script>
+```
 
 ## What else?
 
