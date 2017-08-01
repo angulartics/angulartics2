@@ -85,7 +85,8 @@ export class Angulartics2GoogleAnalytics {
         eventValue: properties.value,
         nonInteraction: properties.noninteraction,
         page: properties.page || location.hash.substring(1) || location.pathname,
-        userId: this.angulartics2.settings.ga.userId
+        userId: this.angulartics2.settings.ga.userId,
+        hitCallback: properties.hitCallback
       };
 
       // add custom dimensions and metrics
