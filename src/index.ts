@@ -3,7 +3,7 @@ import {
   ModuleWithProviders,
   Inject,
   Optional,
-  OpaqueToken,
+  InjectionToken,
   SkipSelf
 } from '@angular/core';
 
@@ -14,7 +14,7 @@ export * from './core/angulartics2';
 export * from './core/angulartics2On';
 export * from './providers/index';
 
-export const ANGULARTICS2_FORROOT_GUARD = new OpaqueToken('ANGULARTICS2_FORROOT_GUARD');
+export const ANGULARTICS2_FORROOT_GUARD = new InjectionToken('ANGULARTICS2_FORROOT_GUARD');
 export function provideForRootGuard(angulartics2: Angulartics2): any {
   if (angulartics2) {
     throw new Error(
