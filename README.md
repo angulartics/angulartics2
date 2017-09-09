@@ -14,6 +14,7 @@ Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io](htt
   + [Include it in your application](#include-it-in-your-application)
   + [Tracking events](#tracking-events)
   + [Tracking events in the code](#tracking-events-in-the-code)
+  + [Excluding routes from automatic pageview tracking](#excluding-routes-from-automatic-pageview-tracking)
 * [Supported providers](#supported-providers)
   + [For other providers](#for-other-providers)
   + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
@@ -133,6 +134,29 @@ If you need event label, you can use
 ```ts
 this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 'myCategory', label: 'myLabel' }});
 ```
+
+### Excluding routes from automatic pageview tracking
+
+You can use string literals and regular expressions to exclude routes from automatic pageview tracking, using an array of string literals and/or regular expressions.
+
+````ts
+import { Component } from '@angular/core';
+import { Angulartics2, Angulartics2GoogleAnalytics } from 'angulartics2';
+
+@Component({
+  selector: 'app',
+  template: `<router-outlet></router-outlet>` // Or what your root template is.
+})
+export class ExampleComponent {
+  constructor(angulartics2: Angulartics2) {
+    const excluded = [
+      /\/[0-9]{4}\/[0-9]{2}\/[a-zA-Z0-9|\-]*/,
+      '2017/03/article-title'
+    ];
+    this.angulartics2.excludeRoutes(excluded);
+  }
+}
+````
 
 ## Supported providers
 
