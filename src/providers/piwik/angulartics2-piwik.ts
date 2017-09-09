@@ -60,14 +60,37 @@ export class Angulartics2Piwik {
     }
   }
 
+  /**
+   * Sets custom dimensions if at least one property has the key "dimension<n>",
+   * e.g. dimension10. If there are custom dimensions, any other property is ignored.
+   *
+   * If there are no custom dimensions in the given properties object, the properties
+   * object is saved as a custom variable.
+   *
+   * If in doubt, prefer custom dimensions.
+   * @see https://piwik.org/docs/custom-variables/
+   */
   setUserProperties(properties: any) {
     try {
-      _paq.push(['setCustomVariable', properties]);
+      const dimensions = this.setCustomDimensions(properties);
+      if (dimensions.length === 0) {
+        _paq.push(['setCustomVariable', properties]);
+      }
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
       }
     }
+  }
+
+  private setCustomDimensions(properties: any): string[] {
+    const dimensionRegex: RegExp = /dimension[1-9]\d*/;
+    const dimensions = Object.keys(properties).filter(key => dimensionRegex.exec(key));
+    dimensions.forEach(dimension => {
+      const number = Number(dimension.substr(9));
+      _paq.push(['setCustomDimension', number, properties[dimension]]);
+    });
+    return dimensions;
   }
 
 }
