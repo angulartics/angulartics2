@@ -6,7 +6,7 @@ declare var _paq: any;
 
 @Injectable()
 export class Angulartics2Piwik {
-
+  
   constructor(
     private angulartics2: Angulartics2
   ) {
