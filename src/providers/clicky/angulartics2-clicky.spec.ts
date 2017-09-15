@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser';
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
 
-fdescribe('Angulartics2Clicky', () => {
+describe('Angulartics2Clicky', () => {
     var clicky: any;
     var clicky_custom: any;
     var fixture: ComponentFixture<any>;

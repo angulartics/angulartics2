@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Angulartics2 } from '../../core/angulartics2';
+import { ClickyProperties, EventType } from './properties.model';
 
 declare var clicky: any;
 declare var window: any;
@@ -16,34 +17,44 @@ export class Angulartics2Clicky {
             console.warn('Angulartics 2 Clicky Plugin: clicky global not found');
         }
         this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
-        this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
+        this.angulartics2.eventTrack.subscribe((x: any) => this.eventOrGoalTrack(x.action, x.properties));
     }
 
-    pageTrack (path:string): void {
+    /**
+     * Track Page in Clicky
+     * 
+     * @name pageTrack
+     * 
+     * @param {string} path
+     * 
+     * @link https://clicky.com/help/custom/manual#log
+     */
+    pageTrack (path: string): void {
         let title: string = this.titleService.getTitle();
-        clicky.log(path, title, 'pageview');
+        clicky.log(path, title, EventType.Pageview);
     }
 
-    eventTrack (action:string, properties:any): void {
+    /**
+     * Track Event Or Goal in Clicky
+     * @name eventOrGoalTrack
+     *
+     * @param {string} action
+     * @param {object} properties Definition of 'properties.goal' determines goal vs event tracking
+     *
+     * @link https://clicky.com/help/custom/manual#log
+     * @link https://clicky.com/help/custom/manual#goal
+     *
+     */
+    eventOrGoalTrack (action: string, properties: ClickyProperties): void {
         if( typeof (properties.goal) === 'undefined' ) {
             let title: string = properties.title || null;
-            let type: string = (properties.eventType != null)? this.validateType(properties.eventType) : null;
+            let type: EventType = (properties.type != null)? properties.type : null;
             clicky.log(action, title, type);
         } else {
-            let goalId = properties.goal;
-            let revenue = this.validateNumber(properties.revenue) ? properties.revenue : null;
-            let noQueue = !!properties.noQueue;
-            clicky.goal(goalId, revenue, noQueue);
+            let goalId: string = properties.goal;
+            let revenue: number = properties.revenue;
+            clicky.goal(goalId, revenue, !!properties.noQueue);
         }
     }
-
-    validateType (type: string): string {
-        const TYPE_ENUM = ['click', 'download', 'outbound', 'pageview'];
-        return (TYPE_ENUM.indexOf(type) >= 0) ? type : 'pageview';
-    }
-
-    validateNumber (number: number): boolean {
-        return typeof number === 'number' && isFinite(number);
-      }
     
 }
