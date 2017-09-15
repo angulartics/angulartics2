@@ -1,3 +1,92 @@
+# angulartics2-clicky
+
+This is an interim solution for adding clicky support to angulartics, and it is in the form of a forked branch of the angulartics2 github repository with the addition of a clicky provider. An ideal solution would involve either an approved pull request to the main angulartics2 repository or the development of an angulartics2 clicky plugin that contains only the clicky code. Either of these solutions will sidestep maintainenance issues down the road.
+
+The primary angulartics2 documentation is below, but here's some clicky specific instructions.
+
+## Installation
+
+`npm install github:nicholascelestin/angulartics2-clicky --save`
+
+Add the following clicky code to your *index.html* file, before the closing body tag. Replace *XXXX* with your Clicky Site ID.
+
+```html
+<script type="text/javascript">
+  var clicky_custom = {
+    pageview_disable : 1,
+    history_disable : 1
+  };
+</script>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(XXXXX); }catch(e){}</script>
+```
+
+## Usage
+
+### Import
+```ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes, RouterOutlet } from '@angular/router';
+
+import { AppComponent } from './app.component';
+
+import {Angulartics2Module, Angulartics2Clicky} from 'angulartics2-clicky';
+import { PageComponent } from './page/page.component';
+import { HomeComponent } from './home/home.component';
+
+const ROUTES: Routes = [
+  { path: '', component: HomeComponent},
+  { path: 'page', component: PageComponent}
+];
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    PageComponent,
+    HomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(ROUTES),
+    Angulartics2Module.forRoot([Angulartics2Clicky])
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+### Enable Auto Route Logging
+```ts
+import { Component } from '@angular/core';
+import { Angulartics2Clicky } from 'angulartics2-clicky';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  // Enable auto route logging
+  constructor(angulartics2Clicky: Angulartics2Clicky) {}
+}
+```
+
+### Track Events & Goals
+```html
+  <li>
+    <!-- Track Events -->
+    <button angulartics2On="click" angularticsEvent="event-button" [angularticsProperties]="{title: 'Event Button Clicked'}">Track Button Click Event 1</button>
+  </li>
+  <li>
+    <!-- Track Goals -->
+    <button angulartics2On="click" angularticsEvent="event-button" [angularticsProperties]="{goal: 'Goal #1', revenue: 500, noQueue: true}">Goal Button</button>
+  </li>
+```
+
+
+
 # angulartics2
 
 [![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-downloads-url]

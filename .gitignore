@@ -8,7 +8,6 @@ build.xml
 node_modules/*
 npm-debug.log
 coverage
-*.js
 !karma.conf.js
 !webpack.test.js
 !webpack.config.js
@@ -17,7 +16,6 @@ coverage
 *.map
 *.d.ts
 typings
-dist
 *.metadata.js
 
 #################
