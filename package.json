@@ -1,8 +1,9 @@
 {
   "name": "angulartics2-clicky",
-  "description": "Vendor-agnostic web analytics for Angular2 applications",
-  "homepage": "http://angulartics.github.io/",
-  "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
+  "version": "1.0.0",
+  "description": "Clicky plugin for the vendor-agnostic web analytics library for Angular2 applications",
+  "homepage": "http://github.com/nicholascelestin/angulartics2-clicky",
+  "author": "Nick Celestin <developer@nickcelestin.com> (https://github.com/nicholascelestin/)",
   "contributors": [
     "Luis Farzati <lfarzati@gmail.com> (http://github.com/luisfarzati)",
     "Tim Elfelt <timelf123@gmail.com> (https://github.com/timelf123)",
@@ -78,7 +79,7 @@
     "zone.js": "^0.8.12"
   },
   "bugs": {
-    "url": "http://github.com/angulartics/angulartics2/issues"
+    "url": "http://github.com/nicholascelestin/angulartics2-clicky/issues"
   },
   "scripts": {
     "rimraf": "rimraf",
