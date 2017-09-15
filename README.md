@@ -1,7 +1,5 @@
 # angulartics2-clicky
 
-This is an interim solution for adding clicky support to angulartics, and it is in the form of a forked branch of the angulartics2 github repository with the addition of a clicky provider. An ideal solution would involve either an approved pull request to the main angulartics2 repository or the development of an angulartics2 clicky plugin that contains only the clicky code. Either of these solutions will sidestep maintainenance issues down the road.
-
 The primary angulartics2 documentation is below, but here's some clicky specific instructions.
 
 ## Installation
