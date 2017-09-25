@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Angulartics2 } from '../../core/angulartics2';
 
 declare var dataLayer: any;
-declare var location: any;
 
 @Injectable()
 export class Angulartics2GoogleTagManager {

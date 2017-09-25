@@ -85,7 +85,8 @@ export class Angulartics2GoogleAnalytics {
         eventValue: properties.value,
         nonInteraction: properties.noninteraction,
         page: properties.page || location.hash.substring(1) || location.pathname,
-        userId: this.angulartics2.settings.ga.userId
+        userId: this.angulartics2.settings.ga.userId,
+        hitCallback: properties.hitCallback
       };
 
       // add custom dimensions and metrics
@@ -171,9 +172,13 @@ export class Angulartics2GoogleAnalytics {
       for (var idx = 1; idx <= 200; idx++) {
         if (properties['dimension' + idx.toString()]) {
           ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
+        } else {
+          ga('set', 'dimension' + idx.toString(), undefined);
         }
         if (properties['metric' + idx.toString()]) {
           ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
+        } else {
+          ga('set', 'metric' + idx.toString(), undefined);
         }
       }
     }

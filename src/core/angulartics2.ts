@@ -6,7 +6,6 @@ import 'rxjs/add/operator/filter';
 
 @Injectable()
 export class Angulartics2 {
-
   public settings: any = {
     pageTracking: {
       autoTrackVirtualPages: true,
@@ -84,7 +83,7 @@ export class Angulartics2 {
   virtualPageviews(value: boolean) {
     this.settings.pageTracking.autoTrackVirtualPages = value;
   }
-  excludeRoutes(routes: Array<string>) {
+  excludeRoutes(routes: Array<string|RegExp>) {
     this.settings.pageTracking.excludedRoutes = routes;
   }
   firstPageview(value: boolean) {

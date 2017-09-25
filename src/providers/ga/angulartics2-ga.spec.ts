@@ -45,8 +45,18 @@ describe('Angulartics2GoogleAnalytics', () => {
           fixture = createRoot(RootCmp);
           angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
           advance(fixture);
-          expect(ga).toHaveBeenCalledWith('send', 'event', { eventCategory: 'cat', eventAction: 'do', eventLabel: undefined, eventValue: undefined, nonInteraction: undefined, page: '/context.html', userId: null });
+          expect(ga).toHaveBeenCalledWith('send', 'event', { eventCategory: 'cat', eventAction: 'do', eventLabel: undefined, eventValue: undefined, nonInteraction: undefined, page: '/context.html', userId: null, hitCallback: undefined });
       })));
+       
+  it('should track events with hitCallback',
+    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
+        (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+          fixture = createRoot(RootCmp);
+          const callback = function() { };          
+          angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', hitCallback: callback } });
+          advance(fixture);
+          expect(ga).toHaveBeenCalledWith('send', 'event', { eventCategory: 'cat', eventAction: 'do', eventLabel: undefined, eventValue: undefined, nonInteraction: undefined, page: '/context.html', userId: null, hitCallback: callback });
+      })));      
 
   it('should track exceptions',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],

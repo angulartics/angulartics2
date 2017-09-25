@@ -55,7 +55,7 @@ describe('Angulartics2Piwik', () => {
       expect(_paq).toContain(['setUserId', 'testUser']);
     })));
 
-  it('should set user properties',
+  it('should set user properties as custom variable',
     fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
     (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
       fixture = createRoot(RootCmp);
@@ -63,5 +63,16 @@ describe('Angulartics2Piwik', () => {
       advance(fixture);
       expect(_paq).toContain(['setCustomVariable', { userId: '1', firstName: 'John', lastName: 'Doe' }]);
     })));
+
+    it('should set user properties as custom dimension',
+    fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
+        (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+            fixture = createRoot(RootCmp);
+            angulartics2.setUserProperties.next({dimension1: 'v1.2.3', dimension2: 'german', dimension43: 'green'});
+            advance(fixture);
+            expect(_paq).toContain(['setCustomDimension', 1, 'v1.2.3']);
+            expect(_paq).toContain(['setCustomDimension', 2, 'german']);
+            expect(_paq).toContain(['setCustomDimension', 43, 'green']);
+        })));
 
 });

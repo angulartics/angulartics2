@@ -9,7 +9,21 @@
 
 Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io](http://angulartics.github.io "Go to the website")
 
-## Install
+* [Installation](#installation)
+* [Usage](#usage)
+  + [Include it in your application](#include-it-in-your-application)
+  + [Tracking events](#tracking-events)
+  + [Tracking events in the code](#tracking-events-in-the-code)
+  + [Excluding routes from automatic pageview tracking](#excluding-routes-from-automatic-pageview-tracking)
+* [Supported providers](#supported-providers)
+  + [For other providers](#for-other-providers)
+  + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
+    - [Changes in the Google Analytics snippet](#changes-in-the-google-analytics-snippet)
+* [What else?](#what-else-)
+* [Contributing](#contributing)
+* [License](#license)
+  
+## Installation
 
 ```shell
 npm install angulartics2 --save
@@ -24,22 +38,9 @@ System.config({
 });
 ```
 
-## Minimal setup for Google Analytics
+## Usage
 
-Add the full tracking code from Google Tag Manager to the beginning of your body tag.
-
-### Changes in the Google Analytics snippet
-
-The snippet code provided by Google Analytics does an automatic pageview hit, but this is already done by Angulartics (unless you disable it) so make sure to delete the tracking line:
-
-```html
-      ...
-      ga('create', 'UA-XXXXXXXX-X', 'none'); // 'none' while you are working on localhost
-      ga('send', 'pageview');  // DELETE THIS LINE!
-    </script>
-```
-
-## Include it in your application
+### Include it in your application
 
 Bootstrapping the application with ```Angulartics2``` as provider and injecting ```Angulartics2GoogleAnalytics``` (or every provider you want to use) into the root component will hook into the router and send every route change to your analytics provider.
 
@@ -79,8 +80,7 @@ const ROUTES: Routes = [
 })
 ```
 
-
-## Tracking events
+### Tracking events
 
 To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsEvent``` and ```angularticsCategory```:
 
@@ -114,7 +114,7 @@ If you need event label, you can use
 ```
 
 
-## Tracking events in the code
+### Tracking events in the code
 Import Angulartics2
 ```ts
 import { Angulartics2 } from 'angulartics2';
@@ -135,6 +135,29 @@ If you need event label, you can use
 this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 'myCategory', label: 'myLabel' }});
 ```
 
+### Excluding routes from automatic pageview tracking
+
+You can use string literals and regular expressions to exclude routes from automatic pageview tracking, using an array of string literals and/or regular expressions.
+
+````ts
+import { Component } from '@angular/core';
+import { Angulartics2, Angulartics2GoogleAnalytics } from 'angulartics2';
+
+@Component({
+  selector: 'app',
+  template: `<router-outlet></router-outlet>` // Or what your root template is.
+})
+export class ExampleComponent {
+  constructor(angulartics2: Angulartics2) {
+    const excluded = [
+      /\/[0-9]{4}\/[0-9]{2}\/[a-zA-Z0-9|\-]*/,
+      '2017/03/article-title'
+    ];
+    this.angulartics2.excludeRoutes(excluded);
+  }
+}
+````
+
 ## Supported providers
 
 * [Google Analytics](https://github.com/angulartics/angulartics2/wiki/Google-Analytics)
@@ -146,12 +169,29 @@ this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 
 * Baidu Analytics
 * Facebook Pixel
 * Application Insights
+* Hubspot
+* Adobe Analytics (Omniture)
 
 ### For other providers
 
 [Browse the website for detailed instructions.](http://angulartics.github.io)
 
 If there's no Angulartics2 plugin for your analytics vendor of choice, please feel free to write yours and PR' it!
+
+### Minimal setup for Google Analytics
+
+Add the full tracking code from Google Tag Manager to the beginning of your body tag.
+
+#### Changes in the Google Analytics snippet
+
+The snippet code provided by Google Analytics does an automatic pageview hit, but this is already done by Angulartics (unless you disable it) so make sure to delete the tracking line:
+
+```html
+      ...
+      ga('create', 'UA-XXXXXXXX-X', 'none'); // 'none' while you are working on localhost
+      ga('send', 'pageview');  // DELETE THIS LINE!
+    </script>
+```
 
 ## What else?
 
@@ -175,5 +215,3 @@ Please see the [CONTRIBUTING](https://github.com/angulartics/angulartics2/blob/m
 [dep-status-url]: https://david-dm.org/angulartics/angulartics2
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg
 [license-url]: LICENSE
-[slack-image]: https://angulartics2.herokuapp.com/badge.svg
-[slack-url]: https://angulartics2.herokuapp.com
