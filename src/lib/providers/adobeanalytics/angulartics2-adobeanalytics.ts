@@ -81,10 +81,12 @@ export class Angulartics2AdobeAnalytics {
   }
 
   setUserProperties(properties: any) {
-    if (typeof properties === 'object') {
-      for (const key in properties) {
-        if (properties.hasOwnProperty(key)) {
-          s[key] = properties[key];
+    if (typeof s !== 'undefined' && s) {
+      if (typeof properties === 'object') {
+        for (const key in properties) {
+          if (properties.hasOwnProperty(key)) {
+            s[key] = properties[key];
+          }
         }
       }
     }

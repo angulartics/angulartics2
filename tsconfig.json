@@ -6,6 +6,7 @@
     "declaration": false,
     "baseUrl": "src",
     "moduleResolution": "node",
+    "noImplicitAny": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",

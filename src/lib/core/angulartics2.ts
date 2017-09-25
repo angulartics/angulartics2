@@ -82,7 +82,7 @@ export class Angulartics2 {
   virtualPageviews(value: boolean) {
     this.settings.pageTracking.autoTrackVirtualPages = value;
   }
-  excludeRoutes(routes: Array<string>) {
+  excludeRoutes(routes: Array<string|RegExp>) {
     this.settings.pageTracking.excludedRoutes = routes;
   }
   firstPageview(value: boolean) {

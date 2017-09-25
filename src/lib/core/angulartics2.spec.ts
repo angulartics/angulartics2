@@ -66,8 +66,8 @@ describe('angulartics2', () => {
     it('should configure excluded routes',
       inject([Angulartics2],
         (angulartics2: Angulartics2) => {
-          angulartics2.excludeRoutes(['/abc/def']);
-          expect(angulartics2.settings.pageTracking.excludedRoutes).toEqual(['/abc/def']);
+          angulartics2.excludeRoutes(['/abc/def', /\/[0-9]+/]);
+          expect(angulartics2.settings.pageTracking.excludedRoutes).toEqual(['/abc/def', /\/[0-9]+/]);
     }));
 
     it('should configure developer mode',
