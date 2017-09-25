@@ -107,7 +107,7 @@ export class Angulartics2 {
   }
 
   protected matchesExcludedRoute(url: string): boolean {
-    for (let excludedRoute of this.settings.pageTracking.excludedRoutes) {
+    for (const excludedRoute of this.settings.pageTracking.excludedRoutes) {
       if ((excludedRoute instanceof RegExp && excludedRoute.test(url)) || url.indexOf(excludedRoute) > -1) {
         return true;
       }
