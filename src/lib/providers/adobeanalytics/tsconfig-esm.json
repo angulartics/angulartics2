@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig-build.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../../../dist/packages-dist/adobeanalytics",
+    "declaration": true,
+    "removeComments": false
+  },
+  "files": [
+    "angulartics2-adobeanalytics.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "enableSummariesForJit": false,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "angulartics2/adobeanalytics"
+  }
+}
