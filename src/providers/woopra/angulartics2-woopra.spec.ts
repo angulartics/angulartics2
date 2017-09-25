@@ -70,6 +70,4 @@ describe('Angulartics2Woopra', () => {
           company: 'Test Co'
         });
       })));
-
-
 });
