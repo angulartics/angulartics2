@@ -50,7 +50,7 @@ export class Angulartics2Piwik {
     }
   }
 
-  setUsername(userId: string) {
+  setUsername(userId: string|boolean) {
     try {
       _paq.push(['setUserId', userId]);
     } catch (e) {
