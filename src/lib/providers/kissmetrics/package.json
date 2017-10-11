@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/angulartics/angulartics2.git"
   },
-  "main": "./bundles/kissmetrics.umd.js",
+  "main": "../bundles/kissmetrics.umd.js",
   "module": "index.js",
   "es2015": "es2015/index.js",
   "typings": "index.d.ts",
