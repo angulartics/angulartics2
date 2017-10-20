@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "module": "es2015",
+    "types": ["google.analytics", "applicationinsights-js"],
+    "paths": {
+      "angulartics2": ["./lib/core"]
+    }
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
+}

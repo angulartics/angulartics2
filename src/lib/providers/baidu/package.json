@@ -1,0 +1,18 @@
+{
+  "name": "angulartics2/baidu",
+  "description": "The baidu module",
+  "homepage": "http://angulartics2.github.io/",
+  "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
+  "bugs": {
+    "url": "http://github.com/angulartics/angulartics2/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angulartics/angulartics2.git"
+  },
+  "main": "../bundles/baidu.umd.js",
+  "module": "index.js",
+  "es2015": "es2015/index.js",
+  "typings": "index.d.ts",
+  "license": "MIT"
+}

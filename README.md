@@ -46,7 +46,7 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 
 ```ts
 // component
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { Component } from '@angular/core';
 
 @Component({
@@ -61,7 +61,8 @@ export class AppComponent {
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 const ROUTES: Routes = [
   { path: '',      component: HomeComponent },
@@ -100,7 +101,7 @@ import { Angulartics2Module } from 'angulartics2';
 
 @NgModule({
   imports: [
-    Angulartics2Module.forChild()
+    Angulartics2Module,
   ],
   declarations: [
     SongDownloadBox
@@ -141,7 +142,8 @@ You can use string literals and regular expressions to exclude routes from autom
 
 ````ts
 import { Component } from '@angular/core';
-import { Angulartics2, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2 } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 @Component({
   selector: 'app',

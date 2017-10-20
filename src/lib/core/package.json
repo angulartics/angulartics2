@@ -1,0 +1,49 @@
+{
+  "name": "angulartics2",
+  "version": "0.0.0-placeholder",
+  "description": "Vendor-agnostic web analytics for Angular2 applications",
+  "homepage": "http://angulartics2.github.io/",
+  "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
+  "bugs": {
+    "url": "http://github.com/angulartics/angulartics2/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angulartics/angulartics2.git"
+  },
+  "main": "./bundles/core.umd.js",
+  "module": "./angulartics2.es5.js",
+  "es2015": "./angulartics2.es2015.js",
+  "typings": "./index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "keywords": [
+    "angular2",
+    "ng2",
+    "angular",
+    "analytics",
+    "tracking",
+    "google analytics",
+    "google tag manager",
+    "woopra",
+    "splunk",
+    "piwik",
+    "page tracking",
+    "event tracking",
+    "scroll tracking",
+    "inspectlet"
+  ],
+  "peerDependencies": {
+    "@angular/animations": "^4.4.3",
+    "@angular/common": "^4.4.3",
+    "@angular/compiler": "^4.4.3",
+    "@angular/core": "^4.4.3",
+    "@angular/platform-browser": "^4.4.3",
+    "@angular/platform-browser-dynamic": "^4.4.3",
+    "@angular/router": "^4.4.3",
+    "rxjs": "^5.4.3",
+    "zone.js": "^0.8.17"
+  }
+}
