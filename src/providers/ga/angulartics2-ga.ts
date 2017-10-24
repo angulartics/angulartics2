@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { Angulartics2 } from '../../core/angulartics2';
 
 declare var _gaq: any;
