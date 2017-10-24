@@ -28,35 +28,27 @@ const MODULE_NAMES = {
 const GLOBALS = {
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
+  '@angular/forms': 'ng.forms',
+  '@angular/http': 'ng.http',
   '@angular/router': 'ng.router',
   '@angular/platform-browser': 'ng.platformBrowser',
-  'rxjs': 'Rx',
+  '@angular/platform-server': 'ng.platformServer',
+  '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
+
   'rxjs/Observable': 'Rx',
   'rxjs/Subject': 'Rx',
   'rxjs/Observer': 'Rx',
   'rxjs/Subscription': 'Rx',
   'rxjs/ReplaySubject': 'Rx',
+  'rxjs/operators': 'Rx.Observable',
   'rxjs/observable/merge': 'Rx.Observable',
-  'rxjs/operator/share': 'Rx.Observable.prototype',
-  'rxjs/operator/filter': 'Rx.Observable.prototype',
-  'rxjs/operator/observeOn': 'Rx.Observable.prototype',
-  'rxjs/observable/of': 'Rx.Observable.prototype',
-  'rxjs/operator/combineLatest': 'Rx.Observable.prototype',
-  'rxjs/operator/merge': 'Rx.Observable.prototype',
-  'rxjs/operator/map': 'Rx.Observable.prototype',
-  'rxjs/operator/auditTime': 'Rx.Observable.prototype',
-  'rxjs/operator/switchMap': 'Rx.Observable.prototype',
-  'rxjs/operator/do': 'Rx.Observable.prototype',
-  'rxjs/operator/skip': 'Rx.Observable.prototype',
-  'rxjs/operator/take': 'Rx.Observable.prototype',
-  'rxjs/operator/toArray': 'Rx.Observable.prototype',
-  'rxjs/operator/toPromise': 'Rx.Observable.prototype',
-  'rxjs/operator': 'Rx.Observable.prototype',
+  'rxjs/observable/of': 'Rx.Observable',
+
   'angulartics2': MODULE_NAMES['core'],
   'angulartics2/adobeanalytics': MODULE_NAMES['adobeanalytics'],
 };
 
-function createEntry(name, target, type= 'core') {
+function createEntry(name, target, type= 'core'): string {
   const ENTRIES = {
     core: `${process.cwd()}/dist/packages-dist/index.js`,
     adobeanalytics: `${process.cwd()}/dist/packages-dist/adobeanalytics/index.js`,
@@ -98,20 +90,20 @@ function spawnObservable(command: string, args: string[]) {
   });
 }
 
-function generateBundle(input, file, globals, name, format) {
+function generateBundle(input, file, name, format) {
   const plugins = [
     sourcemaps(),
   ];
   return rollup({
     input,
-    external: Object.keys(globals),
+    external: Object.keys(GLOBALS),
     file,
     plugins,
   }).then(bundle => {
     return bundle.write({
       file,
       name,
-      globals,
+      globals: GLOBALS,
       format,
       sourcemap: true,
     });
@@ -124,7 +116,6 @@ function createUmd(name: string) {
   return generateBundle(
     entry,
     `${process.cwd()}/dist/packages-dist/bundles/${name}.umd.js`,
-    GLOBALS,
     moduleName,
     'umd',
   );
@@ -136,7 +127,6 @@ function createEs(name: string, target: string, type: string) {
   return generateBundle(
     entry,
     `${process.cwd()}/dist/packages-dist/angulartics2.${target}.js`,
-    GLOBALS,
     moduleName,
     'es',
   );
@@ -157,18 +147,20 @@ function createBundles(name: string, type: string) {
 }
 
 function buildModulesProviders() {
-  const observables = Object.keys(MODULE_NAMES).map((name) => {
-    if (name === 'core') {
-      return Observable.fromPromise(Promise.resolve());
-    }
-    return buildModule(name, 'providers');
-  });
-  return Observable.forkJoin(observables);
+  return Observable.of(...Object.keys(MODULE_NAMES))
+    .mergeMap((name) => {
+      if (name === 'core') {
+        return Observable.fromPromise(Promise.resolve('hello'));
+      }
+      return buildModule(name, 'providers');
+    }, 2)
+    .combineAll();
 }
 
 function buildUmds() {
-  const observables = Object.keys(MODULE_NAMES).map((name) => Observable.from(createUmd(name)));
-  return Observable.forkJoin(observables);
+  return Observable.of(...Object.keys(MODULE_NAMES))
+    .mergeMap((name) => Observable.from(createUmd(name)), 2)
+    .combineAll();
 }
 
 function copyFilesCore() {
