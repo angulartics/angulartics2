@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Injectable } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class Angulartics2 {
