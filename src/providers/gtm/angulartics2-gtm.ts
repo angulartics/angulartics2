@@ -62,7 +62,8 @@ export class Angulartics2GoogleTagManager {
         label: properties.label,
         value: properties.value,
         interactionType: properties.noninteraction,
-        userId: this.angulartics2.settings.gtm.userId
+        userId: this.angulartics2.settings.gtm.userId,
+        ...properties.gtmCustom
       });
     }
   }
