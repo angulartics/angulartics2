@@ -22,6 +22,7 @@ const MODULE_NAMES = {
   mixpanel: 'angulartics2.mixpanel',
   piwik: 'angulartics2.piwik',
   segment: 'angulartics2.segment',
+  intercom: 'angulartics2.intercom',
 };
 
 const GLOBALS = {
@@ -69,6 +70,7 @@ function createEntry(name, target, type= 'core') {
     mixpanel: `${process.cwd()}/dist/packages-dist/mixpanel/index.js`,
     piwik: `${process.cwd()}/dist/packages-dist/piwik/index.js`,
     segment: `${process.cwd()}/dist/packages-dist/segment/index.js`,
+    intercom: `${process.cwd()}/dist/packages-dist/intercom/index.js`,
   };
   return ENTRIES[name];
 }
