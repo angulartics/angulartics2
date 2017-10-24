@@ -70,6 +70,13 @@ describe('angulartics2', () => {
           expect(angulartics2.settings.pageTracking.excludedRoutes).toEqual(['/abc/def', /\/[0-9]+/]);
     }));
 
+    it('should configure cleaning of ids',
+      inject([Angulartics2],
+        (angulartics2: Angulartics2) => {
+          angulartics2.clearIds(true);
+          expect(angulartics2.settings.pageTracking.clearIds).toBe(true);
+    }));
+
     it('should configure developer mode',
       fakeAsync(inject([Router, Location, Angulartics2],
          (router: Router, location: Location, angulartics2: Angulartics2) => {
@@ -211,6 +218,53 @@ describe('angulartics2', () => {
 
   });
 
+  describe('clearIds', function() {
+    var EventSpy: any;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule.withRoutes(RoutesConfig),
+          TestModule
+        ],
+        providers: [
+          { provide: Location, useClass: SpyLocation },
+          Angulartics2
+        ]
+      });
+
+      EventSpy = jasmine.createSpy('EventSpy');
+    })
+
+    it('should not clear ids by default',
+      inject([Angulartics2],
+        (angulartics2: Angulartics2) => {
+          expect(angulartics2.settings.pageTracking.clearIds).toBe(false);
+      }));
+
+    it('should not change url if clearIds is false',
+      fakeAsync(inject([Router, Location, Angulartics2],
+         (router: Router, location: Location, angulartics2: Angulartics2) => {
+          fixture = createRootWithRouter(router, RootCmp);
+          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.settings.pageTracking.clearIds = false;
+          (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
+          advance(fixture);
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/sections/123/pages/456', location: location });
+      })));
+
+    it('should remove ids from url if clearIds is true',
+      fakeAsync(inject([Router, Location, Angulartics2],
+        (router: Router, location: Location, angulartics2: Angulartics2) => {
+        fixture = createRootWithRouter(router, RootCmp);
+        angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.settings.pageTracking.clearIds = true;
+        (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
+        advance(fixture);
+        expect(EventSpy).toHaveBeenCalledWith({ path: '/sections/pages', location: location });
+      })));
+  });
+
   describe('EventEmiters', function() {
     var EventSpy: any;
 
@@ -254,7 +308,7 @@ describe('angulartics2', () => {
           advance(fixture);
 
           angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
-          
+
           expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
           expect(EventSpy).toHaveBeenCalledWith({ path: '/def', location: location });
           expect(EventSpy).toHaveBeenCalledWith({ path: '/ghi', location: location });
