@@ -39,7 +39,7 @@ export class Angulartics2Piwik {
   eventTrack(action: string, properties: any) {
     try {
       if (properties.value) {
-        var parsed = parseInt(properties.value, 10);
+        const parsed = parseInt(properties.value, 10);
         properties.value = isNaN(parsed) ? 0 : parsed;
       }
       _paq.push(['trackEvent', properties.category, action, properties.label, properties.value]);

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, NavigationStart, NavigationError } from '@angular/router';
-
-import { filter } from 'rxjs/operator/filter';
+import { filter } from 'rxjs/operators';
 
 import { Angulartics2 } from 'angulartics2';
 
@@ -38,14 +37,15 @@ export class Angulartics2AppInsights {
 
         this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
 
-        filter.call(this.router.events, event => event instanceof NavigationStart)
-            .subscribe(event => this.startTimer());
+        this.router.events.pipe(
+          filter(event => event instanceof NavigationStart),
+        ).subscribe(event => this.startTimer());
 
-        filter.call(this.router.events, event =>
-                (event instanceof NavigationError) ||
-                (event instanceof NavigationEnd)
-            )
-            .subscribe(error => this.stopTimer());
+        this.router.events.pipe(
+          filter(event => (event instanceof NavigationError) ||
+            (event instanceof NavigationEnd)
+          ),
+        ).subscribe(error => this.stopTimer());
     }
 
     startTimer() {

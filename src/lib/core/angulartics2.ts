@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Location } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operator/filter';
+import { Injectable } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class Angulartics2 {
@@ -16,67 +16,29 @@ export class Angulartics2 {
     developerMode: false
   };
 
-  /*
-    @Param: ({url: string, location: Location})
-   */
-  public pageTrack: ReplaySubject<any> = new ReplaySubject(10);
-
-  /*
-    @Param: ({action: any, properties: any})
-   */
-  public eventTrack: ReplaySubject<any> = new ReplaySubject(10);
-
-  /*
-    @Param: (properties: any)
-   */
-  public exceptionTrack: ReplaySubject<any> = new ReplaySubject(10);
-
-  /*
-    @Param: (alias: string)
-   */
-  public setAlias: ReplaySubject<any> = new ReplaySubject(10);
-
-  /*
-    @Param: (userId: string)
-   */
-  public setUsername: ReplaySubject<any> = new ReplaySubject(10);
-
-  /*
-    @Param: ({action: any, properties: any})
-   */
-  public setUserProperties: ReplaySubject<any> = new ReplaySubject(10);
-
-  /*
-    @Param: (properties: any)
-   */
-  public setUserPropertiesOnce: ReplaySubject<any> = new ReplaySubject(10);
-
-  /*
-    @Param: (properties: any)
-   */
-  public setSuperProperties: ReplaySubject<any> = new ReplaySubject(10);
-
-  /*
-    @Param: (properties: any)
-   */
-  public setSuperPropertiesOnce: ReplaySubject<any> = new ReplaySubject(10);
-
-  /*
-    @Param: (properties: any)
-   */
-  public userTimings: ReplaySubject<any> = new ReplaySubject(10);
+  pageTrack = new ReplaySubject<{ path?: string, location?: Location}>(10);
+  eventTrack = new ReplaySubject<{action: string} | any>(10);
+  exceptionTrack = new ReplaySubject<any>(10);
+  setAlias = new ReplaySubject<string>(10);
+  setUsername = new ReplaySubject<{userId: string | number} | string>(10);
+  setUserProperties = new ReplaySubject<any>(10);
+  setUserPropertiesOnce = new ReplaySubject<any>(10);
+  setSuperProperties = new ReplaySubject<any>(10);
+  setSuperPropertiesOnce = new ReplaySubject<any>(10);
+  userTimings = new ReplaySubject<any>(10);
 
   constructor(location: Location, router: Router) {
     this.trackLocation(location, router);
   }
 
   trackLocation(location: Location, router: Router) {
-      filter.call(router.events, event => event instanceof NavigationEnd)
-      .subscribe((event: NavigationEnd) => {
-        if (!this.settings.developerMode) {
-          this.trackUrlChange(event.urlAfterRedirects, location);
-        }
-      });
+    router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+    ).subscribe((event: NavigationEnd) => {
+      if (!this.settings.developerMode) {
+        this.trackUrlChange(event.urlAfterRedirects, location);
+      }
+    });
   }
 
   virtualPageviews(value: boolean) {
@@ -96,13 +58,14 @@ export class Angulartics2 {
   }
 
   protected trackUrlChange(url: string, location: Location) {
-    if (!this.settings.developerMode) {
-      if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
-        this.pageTrack.next({
-          path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + url : location.prepareExternalUrl(url),
-          location: location
-        });
-      }
+    if (this.settings.developerMode === true) {
+      return;
+    }
+    if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
+      this.pageTrack.next({
+        path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + url : location.prepareExternalUrl(url),
+        location: location
+      });
     }
   }
 
