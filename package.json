@@ -25,7 +25,7 @@
     "@angular/platform-browser-dynamic": "^4.4.6",
     "@angular/router": "^4.4.6",
     "core-js": "^2.5.1",
-    "rxjs": "^5.5.0",
+    "rxjs": "^5.5.2",
     "zone.js": "^0.8.18"
   },
   "devDependencies": {
@@ -34,9 +34,9 @@
     "@angular/language-service": "^4.4.6",
     "@types/applicationinsights-js": "^1.0.4",
     "@types/google.analytics": "0.0.35",
-    "@types/jasmine": "^2.6.0",
+    "@types/jasmine": "^2.6.1",
     "@types/jasminewd2": "^2.0.3",
-    "@types/node": "^8.0.46",
+    "@types/node": "^8.0.47",
     "codelyzer": "^3.2.2",
     "commitizen": "^2.9.6",
     "copy": "^0.3.1",
