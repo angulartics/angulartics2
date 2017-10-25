@@ -171,6 +171,7 @@ export class ExampleComponent {
 * Application Insights
 * Hubspot
 * Adobe Analytics (Omniture)
+* Intercom
 
 ### For other providers
 
