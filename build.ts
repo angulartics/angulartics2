@@ -16,6 +16,7 @@ const MODULE_NAMES = {
   baidu: 'angulartics2.baidu',
   facebook: 'angulartics2.facebook',
   ga: 'angulartics2.ga',
+  'ga-enhanced-ecom': 'angulartics2.ga-enhanced-ecom',
   gtm: 'angulartics2.gtm',
   hubspot: 'angulartics2.hubspot',
   kissmetrics: 'angulartics2.kissmetrics',
@@ -23,6 +24,7 @@ const MODULE_NAMES = {
   piwik: 'angulartics2.piwik',
   segment: 'angulartics2.segment',
   intercom: 'angulartics2.intercom',
+  woopra: 'angulartics2.woopra',
 };
 
 const GLOBALS = {
@@ -56,6 +58,7 @@ function createEntry(name, target, type= 'core'): string {
     baidu: `${process.cwd()}/dist/packages-dist/baidu/index.js`,
     facebook: `${process.cwd()}/dist/packages-dist/facebook/index.js`,
     ga: `${process.cwd()}/dist/packages-dist/ga/index.js`,
+    'ga-enhanced-ecom': `${process.cwd()}/dist/packages-dist/ga-enhanced-ecom/index.js`,
     gtm: `${process.cwd()}/dist/packages-dist/gtm/index.js`,
     hubspot: `${process.cwd()}/dist/packages-dist/hubspot/index.js`,
     kissmetrics: `${process.cwd()}/dist/packages-dist/kissmetrics/index.js`,
@@ -63,6 +66,7 @@ function createEntry(name, target, type= 'core'): string {
     piwik: `${process.cwd()}/dist/packages-dist/piwik/index.js`,
     segment: `${process.cwd()}/dist/packages-dist/segment/index.js`,
     intercom: `${process.cwd()}/dist/packages-dist/intercom/index.js`,
+    woopra: `${process.cwd()}/dist/packages-dist/woopra/index.js`,
   };
   return ENTRIES[name];
 }

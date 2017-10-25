@@ -4,7 +4,7 @@ import {
   GaEnhancedEcomActionFieldObject, GaEnhancedEcomImpressionFieldObject
 } from './angulartics2-ga-enhanced-ecom-options';
 
-declare var ga: any;
+declare var ga: UniversalAnalytics.ga;
 
 @Injectable()
 export class Angulartics2GoogleAnalyticsEnhancedEcommerce {
