@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { Angulartics2 } from 'angulartics2';
 
+declare var _gaq: any;
+declare var ga: any;
+declare var location: any;
+
 @Injectable()
 export class Angulartics2GoogleAnalytics {
 
