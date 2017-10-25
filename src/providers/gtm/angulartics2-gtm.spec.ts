@@ -41,9 +41,9 @@ describe('Angulartics2GoogleTagManager', () => {
     fakeAsync(inject([Angulartics2, Angulartics2GoogleTagManager],
         (angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
           fixture = createRoot(RootCmp);
-          angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
+          angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', gtmCustom: { customKey: 'customValue' } } });
           advance(fixture);
-          expect(dataLayer).toContain({ event: 'interaction', target: 'cat', action: 'do', label: undefined, value: undefined, interactionType: undefined, userId: null });
+          expect(dataLayer).toContain({ event: 'interaction', target: 'cat', action: 'do', customKey: 'customValue', label: undefined, value: undefined, interactionType: undefined, userId: null });
       })));
 
   it('should track exceptions',
