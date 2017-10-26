@@ -117,23 +117,18 @@ function generateBundle(input, file, name, format) {
 function createUmd(name: string) {
   const moduleName = MODULE_NAMES[name];
   const entry = createEntry(name, 'es5');
-  return generateBundle(
-    entry,
-    `${process.cwd()}/dist/packages-dist/bundles/${name}.umd.js`,
-    moduleName,
-    'umd',
-  );
+  let file = `${process.cwd()}/dist/packages-dist/bundles/${name}.umd.js`;
+  if (name === 'core') {
+    file = `${process.cwd()}/dist/packages-dist/bundles/angulartics2-core.umd.js`;
+  }
+  return generateBundle(entry, file, moduleName, 'umd');
 }
 
 function createEs(name: string, target: string, type: string) {
   const moduleName = MODULE_NAMES[name];
   const entry = createEntry(name, target);
-  return generateBundle(
-    entry,
-    `${process.cwd()}/dist/packages-dist/angulartics2.${target}.js`,
-    moduleName,
-    'es',
-  );
+  const file = `${process.cwd()}/dist/packages-dist/angulartics2.${target}.js`;
+  return generateBundle(entry, file, moduleName, 'es');
 }
 
 function buildModule(name: string, type: string) {
