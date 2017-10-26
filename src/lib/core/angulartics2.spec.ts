@@ -10,8 +10,7 @@ import { Angulartics2 } from 'angulartics2';
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
 describe('angulartics2', () => {
-
-  var fixture: ComponentFixture<any>;
+  let fixture: ComponentFixture<any>;
 
   it('is defined', () => {
     expect(Angulartics2).toBeDefined();
@@ -26,8 +25,8 @@ describe('angulartics2', () => {
           TestModule
         ],
         providers: [
-          Angulartics2
-        ]
+          Angulartics2,
+        ],
       });
     });
 
@@ -56,25 +55,11 @@ describe('angulartics2', () => {
       EventSpy = jasmine.createSpy('EventSpy');
     });
 
-    it('should configure virtualPageviews',
-      inject([Angulartics2],
-        (angulartics2: Angulartics2) => {
-          angulartics2.virtualPageviews(false);
-          expect(angulartics2.settings.pageTracking.autoTrackVirtualPages).toBe(false);
-    }));
-
-    it('should configure excluded routes',
-      inject([Angulartics2],
-        (angulartics2: Angulartics2) => {
-          angulartics2.excludeRoutes(['/abc/def', /\/[0-9]+/]);
-          expect(angulartics2.settings.pageTracking.excludedRoutes).toEqual(['/abc/def', /\/[0-9]+/]);
-    }));
-
     it('should configure developer mode',
       fakeAsync(inject([Router, Location, Angulartics2],
          (router: Router, location: Location, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
-          angulartics2.developerMode(true);
+          angulartics2.settings.developerMode = true;
           angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
