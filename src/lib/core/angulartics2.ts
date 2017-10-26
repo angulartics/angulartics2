@@ -10,10 +10,10 @@ export class Angulartics2 {
     pageTracking: {
       autoTrackVirtualPages: true,
       basePath: '',
-      excludedRoutes: []
+      excludedRoutes: [],
     },
     eventTracking: {},
-    developerMode: false
+    developerMode: false,
   };
 
   pageTrack = new ReplaySubject<{ path?: string, location?: Location}>(10);
@@ -34,11 +34,10 @@ export class Angulartics2 {
   trackLocation(location: Location, router: Router) {
     router.events.pipe(
       filter(event => event instanceof NavigationEnd),
-    ).subscribe((event: NavigationEnd) => {
-      if (!this.settings.developerMode) {
-        this.trackUrlChange(event.urlAfterRedirects, location);
-      }
-    });
+      filter(() => !this.settings.developerMode),
+    ).subscribe(
+      (event: NavigationEnd) => this.trackUrlChange(event.urlAfterRedirects, location),
+    );
   }
 
   virtualPageviews(value: boolean) {
