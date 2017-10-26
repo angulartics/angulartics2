@@ -21,7 +21,7 @@ export class Angulartics2Piwik {
     this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
   }
 
-  pageTrack(path: string, location: any) {
+  pageTrack(path: string, location?: any) {
     try {
       _paq.push(['setDocumentTitle', window.document.title]);
       _paq.push(['setCustomUrl', path]);
