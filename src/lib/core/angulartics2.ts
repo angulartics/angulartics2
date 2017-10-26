@@ -30,14 +30,24 @@ export class Angulartics2 {
   }
 
   trackLocation(location: Location, router: Router) {
-    router.events
-      .pipe(
-        filter(event => event instanceof NavigationEnd),
-        filter(() => !this.settings.developerMode),
-      )
-      .subscribe((event: NavigationEnd) =>
-        this.trackUrlChange(event.urlAfterRedirects, location),
-      );
+    router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      filter(() => !this.settings.developerMode),
+    ).subscribe((event: NavigationEnd) =>
+      this.trackUrlChange(event.urlAfterRedirects, location),
+    );
+  }
+  /** @deprecated */
+  virtualPageviews(value: boolean) {
+    this.settings.pageTracking.autoTrackVirtualPages = value;
+  }
+  /** @deprecated */
+  excludeRoutes(routes: Array<string|RegExp>) {
+    this.settings.pageTracking.excludedRoutes = routes;
+  }
+  /** @deprecated */
+  withBase(value: string) {
+    this.settings.pageTracking.basePath = value;
   }
 
   protected trackUrlChange(url: string, location: Location) {

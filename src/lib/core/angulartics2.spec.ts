@@ -55,6 +55,20 @@ describe('angulartics2', () => {
       EventSpy = jasmine.createSpy('EventSpy');
     });
 
+    it('should configure virtualPageviews',
+      inject([Angulartics2],
+        (angulartics2: Angulartics2) => {
+          angulartics2.virtualPageviews(false);
+          expect(angulartics2.settings.pageTracking.autoTrackVirtualPages).toBe(false);
+    }));
+
+    it('should configure excluded routes',
+      inject([Angulartics2],
+        (angulartics2: Angulartics2) => {
+          angulartics2.excludeRoutes(['/abc/def', /\/[0-9]+/]);
+          expect(angulartics2.settings.pageTracking.excludedRoutes).toEqual(['/abc/def', /\/[0-9]+/]);
+    }));
+
     it('should configure developer mode',
       fakeAsync(inject([Router, Location, Angulartics2],
          (router: Router, location: Location, angulartics2: Angulartics2) => {
