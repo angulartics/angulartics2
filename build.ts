@@ -101,6 +101,12 @@ function generateBundle(input, file, name, format) {
   return rollup({
     input,
     external: Object.keys(GLOBALS),
+    onwarn(warning) {
+      if (warning.code === 'THIS_IS_UNDEFINED') {
+        return;
+      }
+      console.log(warning.message);
+    },
     file,
     plugins,
   }).then(bundle => {

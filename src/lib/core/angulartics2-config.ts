@@ -1,5 +1,3 @@
-import { AppInsightsDefaults } from '../providers/appinsights';
-
 export interface GoogleAnalyticsSettings {
   /** array of additional account names (only works for analyticsjs) */
   additionalAccountNames: string[];
