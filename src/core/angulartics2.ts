@@ -10,7 +10,8 @@ export class Angulartics2 {
     pageTracking: {
       autoTrackVirtualPages: true,
       basePath: '',
-      excludedRoutes: []
+      excludedRoutes: [],
+      clearIds: false
     },
     eventTracking: {},
     developerMode: false
@@ -92,15 +93,19 @@ export class Angulartics2 {
   withBase(value: string) {
     this.settings.pageTracking.basePath = (value);
   }
+  clearIds(value: boolean) {
+    this.settings.pageTracking.clearIds = value;
+  }
   developerMode(value: boolean) {
     this.settings.developerMode = value;
   }
-  
+
   protected trackUrlChange(url: string, location: Location) {
     if (!this.settings.developerMode) {
       if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
+        const clearedUrl = this.clearUrl(url);
         this.pageTrack.next({
-          path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + url : location.prepareExternalUrl(url),
+          path: this.settings.pageTracking.basePath.length ? this.settings.pageTracking.basePath + clearedUrl : location.prepareExternalUrl(clearedUrl),
           location: location
         });
       }
@@ -114,5 +119,15 @@ export class Angulartics2 {
       }
     }
     return false;
+  }
+
+  protected clearUrl(url: string): string {
+    if (this.settings.pageTracking.clearIds) {
+      return url
+        .split('/')
+        .filter(part => !part.match(/\d+/))
+        .join('/')
+    }
+    return url;
   }
 }
