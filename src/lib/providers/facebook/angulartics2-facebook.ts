@@ -10,8 +10,6 @@ export class Angulartics2Facebook {
   constructor(
     private angulartics2: Angulartics2
   ) {
-    this.angulartics2.settings.pageTracking.trackRelativePath = true;
-
     this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
   }
 

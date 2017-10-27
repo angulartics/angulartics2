@@ -1,27 +1,26 @@
 import { Injectable } from '@angular/core';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2, GoogleTagManagerSettings } from 'angulartics2';
 
 declare var dataLayer: any;
+
+export class GoogleTagManagerDefaults implements GoogleTagManagerSettings {
+  userId = null;
+}
 
 @Injectable()
 export class Angulartics2GoogleTagManager {
 
   constructor(
-    private angulartics2: Angulartics2
+    private angulartics2: Angulartics2,
   ) {
-
     // The dataLayer needs to be initialized
     if (typeof dataLayer !== 'undefined' && dataLayer) {
       dataLayer = (<any>window).dataLayer = (<any>window).dataLayer || [];
     }
-
-    this.angulartics2.settings.pageTracking.trackRelativePath = true;
-
+    const defaults = new GoogleTagManagerDefaults;
     // Set the default settings for this module
-    this.angulartics2.settings.gtm = {
-      userId: null
-    };
+    this.angulartics2.settings.gtm = { ...defaults, ...this.angulartics2.settings.gtm };
 
     this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
 

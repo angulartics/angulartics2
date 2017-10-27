@@ -25,7 +25,6 @@ describe('Angulartics2GoogleAnalytics', () => {
         Angulartics2GoogleAnalytics
       ]
     });
-
     window.ga = ga = jasmine.createSpy('ga');
     window._gaq = _gaq = [];
   });
@@ -47,16 +46,16 @@ describe('Angulartics2GoogleAnalytics', () => {
           advance(fixture);
           expect(ga).toHaveBeenCalledWith('send', 'event', { eventCategory: 'cat', eventAction: 'do', eventLabel: undefined, eventValue: undefined, nonInteraction: undefined, page: '/context.html', userId: null, hitCallback: undefined });
       })));
-       
+
   it('should track events with hitCallback',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
         (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
           fixture = createRoot(RootCmp);
-          const callback = function() { };          
+          const callback = function() { };
           angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', hitCallback: callback } });
           advance(fixture);
           expect(ga).toHaveBeenCalledWith('send', 'event', { eventCategory: 'cat', eventAction: 'do', eventLabel: undefined, eventValue: undefined, nonInteraction: undefined, page: '/context.html', userId: null, hitCallback: callback });
-      })));      
+      })));
 
   it('should track exceptions',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
