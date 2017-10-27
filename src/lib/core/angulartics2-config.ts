@@ -20,11 +20,14 @@ export interface PageTrackingSettings {
   autoTrackVirtualPages: boolean;
   basePath: string;
   excludedRoutes: (string | RegExp)[];
+  /** drop ids from url `/sections/123/pages/456` -> `/sections/pages` */
+  clearIds: boolean;
 }
 
 export interface Angulartics2Settings {
   pageTracking: Partial<PageTrackingSettings>;
   eventTracking: any;
+  /** Disable page tracking */
   developerMode: boolean;
   ga: Partial<GoogleAnalyticsSettings>;
   appInsights: Partial<AppInsightsSettings>;
@@ -36,6 +39,7 @@ export class DefaultConfig implements Angulartics2Settings {
     autoTrackVirtualPages: true,
     basePath: '',
     excludedRoutes: [],
+    clearIds: false,
   };
   eventTracking = {};
   developerMode = false;
