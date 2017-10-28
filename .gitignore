@@ -32,6 +32,8 @@
 npm-debug.log
 testem.log
 /typings
+package-lock.json
+yarn-error.log
 
 # e2e
 /e2e/*.js
@@ -40,4 +42,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-package-lock.json
