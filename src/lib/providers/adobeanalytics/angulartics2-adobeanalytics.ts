@@ -12,7 +12,6 @@ export class Angulartics2AdobeAnalytics {
     private angulartics2: Angulartics2,
     private location: Location
   ) {
-    this.angulartics2.settings.pageTracking.trackRelativePath = true;
 
     this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
 

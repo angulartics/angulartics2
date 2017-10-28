@@ -1,25 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2, GoogleAnalyticsSettings } from 'angulartics2';
 
-declare var _gaq: any;
-declare var ga: any;
+declare var _gaq: GoogleAnalyticsCode;
+declare var ga: UniversalAnalytics.ga;
 declare var location: any;
+
+export class GoogleAnalyticsDefaults implements GoogleAnalyticsSettings {
+  additionalAccountNames = [];
+  userId = null;
+  transport = '';
+}
 
 @Injectable()
 export class Angulartics2GoogleAnalytics {
 
   constructor(
-    private angulartics2: Angulartics2
+    private angulartics2: Angulartics2,
   ) {
-    this.angulartics2.settings.pageTracking.trackRelativePath = true;
-
+    const defaults = new GoogleAnalyticsDefaults;
     // Set the default settings for this module
-    this.angulartics2.settings.ga = {
-      // array of additional account names (only works for analyticsjs)
-      additionalAccountNames: [],
-      userId: null
-    };
+    this.angulartics2.settings.ga = { ...defaults, ...this.angulartics2.settings.ga };
 
     this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
 
@@ -27,7 +28,7 @@ export class Angulartics2GoogleAnalytics {
 
     this.angulartics2.exceptionTrack.subscribe((x: any) => this.exceptionTrack(x));
 
-    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUsername.subscribe((x: string) => this.angulartics2.settings.ga.userId = x);
 
     this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
 
@@ -91,7 +92,6 @@ export class Angulartics2GoogleAnalytics {
 
       // add custom dimensions and metrics
       this.setDimensionsAndMetrics(properties);
-
       if (this.angulartics2.settings.ga.transport) {
         ga('send', 'event', eventOptions, { transport: this.angulartics2.settings.ga.transport });
       } else {
@@ -134,14 +134,6 @@ export class Angulartics2GoogleAnalytics {
     ga('send', 'exception', eventOptions);
   }
 
-  setUsername(userId: string) {
-    this.angulartics2.settings.ga.userId = userId;
-  }
-
-  setUserProperties(properties: any) {
-    this.setDimensionsAndMetrics(properties);
-  }
-
   /**
    * User Timings Event in GA
    * @name userTimings
@@ -166,20 +158,25 @@ export class Angulartics2GoogleAnalytics {
     }
   }
 
+  setUserProperties(properties: any) {
+    this.setDimensionsAndMetrics(properties);
+  }
+
   private setDimensionsAndMetrics(properties: any) {
-    if (ga) {
-      // add custom dimensions and metrics
-      for (let idx = 1; idx <= 200; idx++) {
-        if (properties['dimension' + idx.toString()]) {
-          ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
-        } else {
-          ga('set', 'dimension' + idx.toString(), undefined);
-        }
-        if (properties['metric' + idx.toString()]) {
-          ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
-        } else {
-          ga('set', 'metric' + idx.toString(), undefined);
-        }
+    if (!ga) {
+      return;
+    }
+    // add custom dimensions and metrics
+    for (let idx = 1; idx <= 200; idx++) {
+      if (properties['dimension' + idx.toString()]) {
+        ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
+      } else {
+        ga('set', 'dimension' + idx.toString(), undefined);
+      }
+      if (properties['metric' + idx.toString()]) {
+        ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
+      } else {
+        ga('set', 'metric' + idx.toString(), undefined);
       }
     }
   }
