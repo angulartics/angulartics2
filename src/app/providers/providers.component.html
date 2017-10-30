@@ -1,0 +1,36 @@
+<div class="container mb-3">
+  <div class="row">
+    <div class="col-12 mb-2">
+      <h3>Providers</h3>
+    </div>
+
+    <div class="col-6 col-md-4 col-lg-3 mb-4" *ngFor="let provider of providers">
+      <div class="card d-inline-block" style="width: 100%">
+        <a href="#">
+          <div class="px-5 border-bottom">
+            <mat-icon [svgIcon]="provider.name"></mat-icon>
+          </div>
+          <div class="card-body pt-3 pb-2">
+            <div class="row">
+              <div class="col-11 pr-1">
+                <h6 class="mb-0 text-truncate">{{ provider.display }}</h6>
+                <small class="text-muted">{{ provider.type }}</small>
+              </div>
+              <div class="col-1 pl-1">
+                <span class="mt-2" style="width: 12px; height: 12px; display: inline-block; transform: rotate(90deg);">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%"
+                    viewBox="0 0 16 16" style="display: block;">
+                    <g>
+                      <polygon fill="currentColor" points="14.3,12.6 8,6.3 1.7,12.6 0.3,11.1 8,3.4 15.7,11.1 "></polygon>
+                    </g>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

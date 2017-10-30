@@ -1,0 +1,16 @@
+.card {
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+}
+.card:hover {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px -5px;
+  transform: translateY(-4px);
+  border-color: #007bff;
+}
+.mat-icon {
+  height: 100px !important;
+  width: 100% !important;
+}
