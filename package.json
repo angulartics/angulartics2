@@ -13,7 +13,7 @@
     "lint:fix": "ng lint --type-check --fix",
     "e2e": "ng e2e --serve",
     "commit": "git-cz",
-    "semantic-release": "npm run build && cd dist/packages-dist && semantic-release pre && npm publish && semantic-release post --branch next --dry-run",
+    "semantic-release": "npm run build && cd dist/packages-dist && semantic-release pre && npm publish && semantic-release post",
     "ghpages": "ng build --prod --build-optimizer --aot --no-progress --baseHref='/angulartics2/'"
   },
   "private": true,
@@ -64,6 +64,10 @@
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
     "typescript": "^2.5.3"
+  },
+  "release": {
+    "branch": "next",
+    "dry-run": true
   },
   "publishConfig": {
     "tag": "next"

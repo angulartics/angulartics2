@@ -7,6 +7,10 @@
   "publishConfig": {
     "tag": "next"
   },
+  "release": {
+    "branch": "next",
+    "dry-run": true
+  },
   "bugs": {
     "url": "http://github.com/angulartics/angulartics2/issues"
   },
