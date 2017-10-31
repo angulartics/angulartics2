@@ -21,14 +21,13 @@ export class Angulartics2Segment {
     this.angulartics2.setAlias.subscribe((x: string) => this.setAlias(x));
   }
 
-  // https://segment.com/docs/libraries/analytics.js/#page
-  // analytics.page([category], [name], [properties], [options], [callback]);
-  // TODO : Support optional parameters where the parameter order and type changes their meaning
-  // e.g.
-  // (string) is (name)
-  // (string, string) is (category, name)
-  // (string, object) is (name, properties)
+  /**
+   * https://segment.com/docs/libraries/analytics.js/#page
+   *
+   * analytics.page([category], [name], [properties], [options], [callback]);
+   */
   pageTrack(path: string, location: any) {
+    // TODO : Support optional parameters where the parameter order and type changes their meaning
     try {
       analytics.page(path);
     } catch (e) {
@@ -38,8 +37,11 @@ export class Angulartics2Segment {
     }
   }
 
-  // https://segment.com/docs/libraries/analytics.js/#track
-  // analytics.track(event, [properties], [options], [callback]);
+  /**
+   * https://segment.com/docs/libraries/analytics.js/#track
+   *
+   * analytics.track(event, [properties], [options], [callback]);
+   */
   eventTrack(action: string, properties: any) {
     try {
       analytics.track(action, properties);
@@ -50,8 +52,11 @@ export class Angulartics2Segment {
     }
   }
 
-  // https://segment.com/docs/libraries/analytics.js/#identify
-  // analytics.identify([userId], [traits], [options], [callback]);
+  /**
+   * https://segment.com/docs/libraries/analytics.js/#identify
+   *
+   * analytics.identify([userId], [traits], [options], [callback]);
+   */
   setUserProperties(properties: any) {
     try {
       if (properties.userId) {
@@ -66,8 +71,11 @@ export class Angulartics2Segment {
     }
   }
 
-  // https://segment.com/docs/libraries/analytics.js/#alias
-  // analytics.alias(userId, previousId, options, callback);
+  /**
+   * https://segment.com/docs/libraries/analytics.js/#alias
+   *
+   * analytics.alias(userId, previousId, options, callback);
+   */
   setAlias(alias: any) {
     try {
       analytics.alias(alias);

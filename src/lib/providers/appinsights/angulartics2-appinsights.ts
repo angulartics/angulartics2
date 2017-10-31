@@ -68,14 +68,14 @@ export class Angulartics2AppInsights {
   }
 
   /**
-     * Page Track in Baidu Analytics
-     * @name pageTrack
-     *
-     * @param {string} path Required 'path' (string)
-     *
-     * @link https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#trackpageview
-     *
-     */
+   * Page Track in Baidu Analytics
+   * @name pageTrack
+   *
+   * @param {string} path Required 'path' (string)
+   *
+   * @link https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#trackpageview
+   *
+   */
   pageTrack(path: string) {
     appInsights.trackPageView(
       this.title.getTitle(),
@@ -87,26 +87,26 @@ export class Angulartics2AppInsights {
   }
 
   /**
-     * Log a user action or other occurrence.
-     * @param   name    A string to identify this event in the portal.
-     *
-     * @param   properties  map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
-     *
-     * @https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#trackevent
-     */
+   * Log a user action or other occurrence.
+   * @param   name    A string to identify this event in the portal.
+   *
+   * @param   properties  map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
+   *
+   * @https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#trackevent
+   */
   eventTrack(name: string, properties: any) {
     appInsights.trackEvent(name, properties, this.measurements);
   }
 
   /**
-     * Exception Track Event in GA
-     * @name exceptionTrack
-     *
-     * @param {any} properties Comprised of the mandatory fields 'appId' (string), 'appName' (string) and 'appVersion' (string) and
-     * optional  fields 'fatal' (boolean) and 'description' (string), error
-     *
-     * @link https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#trackexception
-     */
+   * Exception Track Event in GA
+   * @name exceptionTrack
+   *
+   * @param {any} properties Comprised of the mandatory fields 'appId' (string), 'appName' (string) and 'appVersion' (string) and
+   * optional  fields 'fatal' (boolean) and 'description' (string), error
+   *
+   * @link https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#trackexception
+   */
   exceptionTrack(properties: any) {
     const description = properties.event || properties.description || properties;
 
@@ -114,12 +114,11 @@ export class Angulartics2AppInsights {
   }
 
   /**
-     *
-     * @param userId
-     *
-     * @link https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#setauthenticatedusercontext
-     */
-
+   *
+   * @param userId
+   *
+   * @link https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#setauthenticatedusercontext
+   */
   setUsername(userId: string) {
     this.angulartics2.settings.appInsights.userId = userId;
     appInsights.setAuthenticatedUserContext(userId);
