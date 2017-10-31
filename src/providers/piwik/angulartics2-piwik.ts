@@ -7,9 +7,7 @@ declare var _paq: any;
 @Injectable()
 export class Angulartics2Piwik {
 
-  constructor(
-    private angulartics2: Angulartics2
-  ) {
+  constructor(private angulartics2: Angulartics2) {
     if (typeof (_paq) === 'undefined') {
       console.warn('Piwik not found');
     }
@@ -21,10 +19,9 @@ export class Angulartics2Piwik {
     this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
 
     this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
-
   }
 
-  pageTrack(path: string, location: any) {
+  pageTrack(path: string, location?: any) {
     try {
       _paq.push(['setDocumentTitle', window.document.title]);
       _paq.push(['setCustomUrl', path]);
@@ -36,13 +33,125 @@ export class Angulartics2Piwik {
     }
   }
 
+  /**
+   * @name eventTrack
+   * Track a basic event in Piwik, or send an ecommerce event.
+   *
+   * @param {string} action A string corresponding to the type of event that needs to be tracked.
+   * @param {object} properties The properties that need to be logged with the event.
+   */
   eventTrack(action: string, properties: any) {
     try {
-      if (properties.value) {
-        var parsed = parseInt(properties.value, 10);
-        properties.value = isNaN(parsed) ? 0 : parsed;
+      properties = properties || {};
+
+      switch (action) {
+
+        /**
+         * @description Sets the current page view as a product or category page view. When you call
+         * setEcommerceView it must be followed by a call to trackPageView to record the product or
+         * category page view.
+         *
+         * @link https://piwik.org/docs/ecommerce-analytics/#tracking-product-page-views-category-page-views-optional
+         * @link https://developer.piwik.org/api-reference/tracking-javascript#ecommerce
+         *
+         * @property productSKU (required) SKU: Product unique identifier
+         * @property productName (optional) Product name
+         * @property categoryName (optional) Product category, or array of up to 5 categories
+         * @property price (optional) Product Price as displayed on the page
+         */
+        case 'setEcommerceView':
+          _paq.push(['setEcommerceView',
+            properties.productSKU,
+            properties.productName,
+            properties.categoryName,
+            properties.price]);
+          break;
+
+        /**
+         * @description Adds a product into the ecommerce order. Must be called for each product in
+         * the order.
+         *
+         * @link https://piwik.org/docs/ecommerce-analytics/#tracking-ecommerce-orders-items-purchased-required
+         * @link https://developer.piwik.org/api-reference/tracking-javascript#ecommerce
+         *
+         * @property productSKU (required) SKU: Product unique identifier
+         * @property productName (optional) Product name
+         * @property categoryName (optional) Product category, or array of up to 5 categories
+         * @property price (recommended) Product price
+         * @property quantity (optional, default to 1) Product quantity
+         */
+        case 'addEcommerceItem':
+          _paq.push(['addEcommerceItem',
+            properties.productSKU,
+            properties.productName,
+            properties.productCategory,
+            properties.price,
+            properties.quantity]);
+          break;
+
+        /**
+         * @description Tracks a shopping cart. Call this javascript function every time a user is
+         * adding, updating or deleting a product from the cart.
+         *
+         * @link https://piwik.org/docs/ecommerce-analytics/#tracking-add-to-cart-items-added-to-the-cart-optional
+         * @link https://developer.piwik.org/api-reference/tracking-javascript#ecommerce
+         *
+         * @property grandTotal (required) Cart amount
+         */
+        case 'trackEcommerceCartUpdate':
+          _paq.push(['trackEcommerceCartUpdate', properties.grandTotal]);
+          break;
+
+        /**
+         * @description Tracks an Ecommerce order, including any ecommerce item previously added to
+         * the order. orderId and grandTotal (ie. revenue) are required parameters.
+         *
+         * @link https://piwik.org/docs/ecommerce-analytics/#tracking-ecommerce-orders-items-purchased-required
+         * @link https://developer.piwik.org/api-reference/tracking-javascript#ecommerce
+         *
+         * @property orderId (required) Unique Order ID
+         * @property grandTotal (required) Order Revenue grand total (includes tax, shipping, and subtracted discount)
+         * @property subTotal (optional) Order sub total (excludes shipping)
+         * @property tax (optional) Tax amount
+         * @property shipping (optional) Shipping amount
+         * @property discount (optional) Discount offered (set to false for unspecified parameter)
+         */
+        case 'trackEcommerceOrder':
+          _paq.push(['trackEcommerceOrder',
+            properties.orderId,
+            properties.grandTotal,
+            properties.subTotal,
+            properties.tax,
+            properties.shipping,
+            properties.discount]);
+          break;
+
+        /**
+         * @description Logs an event with an event category (Videos, Music, Games...), an event
+         * action (Play, Pause, Duration, Add Playlist, Downloaded, Clicked...), and an optional
+         * event name and optional numeric value.
+         *
+         * @link https://piwik.org/docs/event-tracking/
+         * @link https://developer.piwik.org/api-reference/tracking-javascript#using-the-tracker-object
+         *
+         * @property category
+         * @property action
+         * @property name (optional, recommended)
+         * @property value (optional)
+         */
+        default:
+          // PAQ requires that eventValue be an integer, see: http://piwik.org/docs/event-tracking
+          if (properties.value) {
+            let parsed = parseInt(properties.value, 10);
+            properties.value = isNaN(parsed) ? 0 : parsed;
+          }
+
+          _paq.push(['trackEvent',
+            properties.category,
+            action,
+            properties.name || properties.label, // Changed in favour of Piwik documentation. Added fallback so it's backwards compatible.
+            properties.value]);
       }
-      _paq.push(['trackEvent', properties.category, action, properties.label, properties.value]);
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
@@ -50,7 +159,7 @@ export class Angulartics2Piwik {
     }
   }
 
-  setUsername(userId: string|boolean) {
+  setUsername(userId: string | boolean) {
     try {
       _paq.push(['setUserId', userId]);
     } catch (e) {
@@ -92,5 +201,4 @@ export class Angulartics2Piwik {
     });
     return dimensions;
   }
-
 }
