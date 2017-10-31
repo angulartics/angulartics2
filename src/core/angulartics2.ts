@@ -53,6 +53,11 @@ export class Angulartics2 {
   public setUserPropertiesOnce: ReplaySubject<any> = new ReplaySubject(10);
 
   /*
+    @Param: (additionalAccountNames: string[])
+   */
+  public setAdditionalAccountNames: ReplaySubject<any> = new ReplaySubject(10);
+
+  /*
     @Param: (properties: any)
    */
   public setSuperProperties: ReplaySubject<any> = new ReplaySubject(10);

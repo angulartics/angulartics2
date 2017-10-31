@@ -30,6 +30,8 @@ export class Angulartics2GoogleAnalytics {
 
     this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
 
+    this.angulartics2.setAdditionalAccountNames.subscribe((x: string[]) => this.setAdditionalAccountNames(x));
+
     this.angulartics2.userTimings.subscribe((x: any) => this.userTimings(x));
   }
 
@@ -139,6 +141,10 @@ export class Angulartics2GoogleAnalytics {
 
   setUserProperties(properties: any) {
     this.setDimensionsAndMetrics(properties);
+  }
+
+  setAdditionalAccountNames(additionalAccountNames: string[]) {
+    this.angulartics2.settings.ga.additionalAccountNames = additionalAccountNames;
   }
 
   /**
