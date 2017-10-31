@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { LogosModule } from './logos/logos.module';
 import { ProvidersComponent } from './providers/providers.component';
 
 
@@ -23,10 +22,8 @@ import { ProvidersComponent } from './providers/providers.component';
 
     NgbCollapseModule.forRoot(),
     MatIconModule,
-
-    LogosModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
