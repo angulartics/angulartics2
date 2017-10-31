@@ -38,7 +38,7 @@ describe('angulartics2', () => {
   });
 
   describe('Configuration', function() {
-    var EventSpy: any;
+    let EventSpy: any;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -91,7 +91,7 @@ describe('angulartics2', () => {
   });
 
   describe('router support', function() {
-    var EventSpy: any;
+    let EventSpy: any;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -132,7 +132,7 @@ describe('angulartics2', () => {
   });
 
   describe('excludedRoutes', function() {
-    var EventSpy: any;
+    let EventSpy: any;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -219,7 +219,7 @@ describe('angulartics2', () => {
   });
 
   describe('clearIds', function() {
-    var EventSpy: any;
+    let EventSpy: any;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -234,7 +234,7 @@ describe('angulartics2', () => {
       });
 
       EventSpy = jasmine.createSpy('EventSpy');
-    })
+    });
 
     it('should not clear ids by default',
       inject([Angulartics2],
@@ -266,9 +266,9 @@ describe('angulartics2', () => {
   });
 
   describe('EventEmiters', function() {
-    var EventSpy: any;
+    let EventSpy: any;
 
-    var EventEmiters: Array<string> = [
+    const EventEmiters = [
       'pageTrack',
       'eventTrack',
       'exceptionTrack',
@@ -318,7 +318,7 @@ describe('angulartics2', () => {
       fakeAsync(inject([Angulartics2],
         (angulartics2: Angulartics2) => {
           fixture = createRoot(RootCmp);
-          for (var event of EventEmiters) {
+          for (const event of EventEmiters) {
             (<any>angulartics2)[event].subscribe((x: any) => EventSpy(x));
             (<any>angulartics2)[event].next(`test: ${event}`);
             advance(fixture);

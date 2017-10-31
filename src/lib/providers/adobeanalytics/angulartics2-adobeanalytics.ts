@@ -3,14 +3,14 @@ import { Location } from '@angular/common';
 
 import { Angulartics2 } from 'angulartics2';
 
-declare var s: any;
+declare const s: any;
 
 @Injectable()
 export class Angulartics2AdobeAnalytics {
 
   constructor(
     private angulartics2: Angulartics2,
-    private location: Location
+    private location: Location,
   ) {
 
     this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));

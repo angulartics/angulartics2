@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import {
   NavigationEnd,
@@ -108,7 +108,7 @@ export class Angulartics2AppInsights {
      * @link https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#trackexception
      */
   exceptionTrack(properties: any) {
-    let description = properties.event || properties.description || properties;
+    const description = properties.event || properties.description || properties;
 
     appInsights.trackException(description);
   }

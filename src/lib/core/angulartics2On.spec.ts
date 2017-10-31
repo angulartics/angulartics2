@@ -1,13 +1,12 @@
-import { Component, Injectable, Directive } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
 import { SpyLocation } from '@angular/common/testing';
-import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/testing';
+import { Component, Directive, Injectable } from '@angular/core';
+import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { advance, createRoot } from '../test.mocks';
-
-import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2 } from './angulartics2';
+import { Angulartics2Module } from './angulartics2.module';
 import { Angulartics2On } from './angulartics2On';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
@@ -16,6 +15,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 export class DummyProvider {
 
   constructor(
+    // tslint:disable-next-line:no-unused-variable
     private angulartics2: Angulartics2
   ) {}
 }
@@ -57,10 +57,9 @@ class RootCmp3 {
 }
 
 describe('angulartics2On', () => {
-
-  var fixture: ComponentFixture<any>;
-  var compiled: any;
-  var EventSpy: any;
+  let fixture: ComponentFixture<any>;
+  let compiled: any;
+  let EventSpy: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

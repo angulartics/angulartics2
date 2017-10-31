@@ -9,7 +9,7 @@
     "build": "rimraf dist && ts-node build.ts",
     "test": "ng test --single-run --code-coverage",
     "test-watch": "ng test",
-    "lint": "ng lint --type-check",
+    "lint": "ng lint --type-check --format stylish",
     "lint:fix": "ng lint --type-check --fix",
     "e2e": "ng e2e --serve",
     "commit": "git-cz",

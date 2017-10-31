@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { Angulartics2, GoogleAnalyticsSettings } from 'angulartics2';
 

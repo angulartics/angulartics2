@@ -37,7 +37,7 @@ export class Angulartics2On implements AfterContentInit {
 
   public eventTrack(event: any) {
     const action = this.angularticsEvent; // || this.inferEventName();
-    let properties: any = {
+    const properties: any = {
       eventType: event.type
     };
 

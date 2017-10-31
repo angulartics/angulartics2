@@ -11,9 +11,9 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
 
 describe('Angulartics2GoogleAnalytics', () => {
-  var ga: any;
-  var _gaq: Array<any>;
-  var fixture: ComponentFixture<any>;
+  let ga: any;
+  let _gaq: Array<any>;
+  let fixture: ComponentFixture<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

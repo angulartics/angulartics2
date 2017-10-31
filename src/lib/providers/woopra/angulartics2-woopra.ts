@@ -18,8 +18,6 @@ export class Angulartics2Woopra {
     this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
 
     this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
-
-
   }
 
   pageTrack(path: string, location: any) {
@@ -33,7 +31,6 @@ export class Angulartics2Woopra {
       }
     }
   }
-
 
   eventTrack(action: string, properties: any) {
     try {
