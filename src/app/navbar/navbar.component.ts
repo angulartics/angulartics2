@@ -7,8 +7,8 @@ import { MatIconRegistry } from '@angular/material';
   templateUrl: './navbar.component.html',
   styles: [`
     .mat-icon {
-      width: 1rem !important;
-      max-height: 1rem !important;
+      width: 1.1rem !important;
+      max-height: 1.1rem !important;
       vertical-align: text-top !important;
     }
   `],

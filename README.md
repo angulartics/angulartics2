@@ -7,7 +7,7 @@
 [![MIT license][license-image]][license-url]
 [![Gitter Chat](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angulartics/angulartics2)
 
-Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io](http://angulartics.github.io "Go to the website")
+Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io/angulartics2](https://angulartics.github.io/angulartics2 "Angulartics Docs")
 
 * [Installation](#installation)
 * [Usage](#usage)
