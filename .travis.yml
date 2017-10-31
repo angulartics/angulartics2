@@ -17,3 +17,10 @@ script:
   - ./node_modules/.bin/ng test --code-coverage --no-progress --browsers=ChromeHeadless
 after_success:
   - npm run semantic-release
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: dist
+  github_token: $GH_TOKEN
+  on:
+    branch: next
