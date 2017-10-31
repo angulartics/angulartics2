@@ -105,6 +105,9 @@ function generateBundle(input, file, name, format) {
       if (warning.code === 'THIS_IS_UNDEFINED') {
         return;
       }
+      if (warning.code === 'UNUSED_EXTERNAL_IMPORT') {
+        return;
+      }
       console.log(warning.message);
     },
     file,
