@@ -60,7 +60,7 @@
     "rimraf": "^2.6.2",
     "rollup": "^0.50.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
-    "semantic-release": "^8.2.0",
+    "semantic-release": "^9.1.0",
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.1"
