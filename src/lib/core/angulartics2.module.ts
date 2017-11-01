@@ -24,7 +24,7 @@ export class Angulartics2Module {
     }
   }
 
-  static forRoot(providers: any[] = [], settings: Partial<Angulartics2Settings> = {}): ModuleWithProviders {
+  static forRoot(providers: any[], settings: Partial<Angulartics2Settings> = {}): ModuleWithProviders {
     return {
       ngModule: Angulartics2Module,
       providers: [
