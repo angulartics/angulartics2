@@ -4,7 +4,7 @@ import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/test
 import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { Angulartics2 } from '../../core';
+import { Angulartics2 } from 'angulartics2';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 import { Angulartics2AppInsights } from './angulartics2-appinsights';
 

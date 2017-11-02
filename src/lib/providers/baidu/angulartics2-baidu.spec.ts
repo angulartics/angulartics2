@@ -4,7 +4,7 @@ import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/test
 
 import { TestModule, RootCmp, advance, createRoot } from '../../test.mocks';
 
-import { Angulartics2 } from '../../core';
+import { Angulartics2 } from 'angulartics2';
 import { Angulartics2BaiduAnalytics } from './angulartics2-baidu';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;

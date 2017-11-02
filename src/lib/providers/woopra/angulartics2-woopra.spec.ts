@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
 
-import { Angulartics2 } from '../../core';
+import { Angulartics2 } from 'angulartics2';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 import { Angulartics2Woopra } from './angulartics2-woopra';
 
