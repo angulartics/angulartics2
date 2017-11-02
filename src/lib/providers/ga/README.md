@@ -1,7 +1,7 @@
 <img 
-    src="https://raw.githubusercontent.com/angulartics/angulartics2/next/src/assets/svg/ga.svg" 
-    alt="triangle with all three sides equal"
-    height="150px"
-    width="150px" />
+    src="../../../assets/svg/ga.svg" 
+    alt="google analytics logo"
+    height="200px"
+    width="200px" />
 
 # Google Analytics Provider
