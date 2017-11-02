@@ -17,9 +17,9 @@
     "type": "git",
     "url": "https://github.com/angulartics/angulartics2.git"
   },
-  "main": "./bundles/angulartics2-core.umd.js",
-  "module": "./angulartics2.es5.js",
-  "es2015": "./angulartics2.es2015.js",
+  "main": "./bundles/core.umd.js",
+  "module": "./index.js",
+  "es2015": "./es2015/index.js",
   "typings": "./index.d.ts",
   "license": "MIT",
   "engines": {

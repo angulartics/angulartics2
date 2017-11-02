@@ -126,10 +126,7 @@ function generateBundle(input, file, name, format) {
 function createUmd(name: string) {
   const moduleName = MODULE_NAMES[name];
   const entry = createEntry(name, 'es5');
-  let file = `${process.cwd()}/dist/packages-dist/bundles/${name}.umd.js`;
-  if (name === 'core') {
-    file = `${process.cwd()}/dist/packages-dist/bundles/angulartics2-core.umd.js`;
-  }
+  const file = `${process.cwd()}/dist/packages-dist/bundles/${name}.umd.js`;
   return generateBundle(entry, file, moduleName, 'umd');
 }
 

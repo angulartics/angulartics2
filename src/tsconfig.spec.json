@@ -12,7 +12,7 @@
       "applicationinsights-js"
     ],
     "paths": {
-      "angulartics2": ["./lib/core"]
+      "angulartics2": ["./lib/core/public_api"]
     }
   },
   "files": [

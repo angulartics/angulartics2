@@ -6,7 +6,7 @@
     "module": "es2015",
     "types": ["google.analytics", "applicationinsights-js"],
     "paths": {
-      "angulartics2": ["./lib/core"]
+      "angulartics2": ["./lib/core/public_api"]
     }
   },
   "exclude": [
