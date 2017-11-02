@@ -19,7 +19,6 @@ Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io/angu
   + [For other providers](#for-other-providers)
   + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
     - [Changes in the Google Analytics snippet](#changes-in-the-google-analytics-snippet)
-* [What else?](#what-else-)
 * [Contributing](#contributing)
 * [License](#license)
   
@@ -196,9 +195,6 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
     </script>
 ```
 
-## What else?
-
-See more docs and samples at [Wiki](https://github.com/angulartics/angulartics2/wiki).
 
 ## Contributing
 
