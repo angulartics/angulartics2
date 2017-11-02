@@ -145,7 +145,7 @@ describe('Angulartics2AppInsights', () => {
         fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights],
             (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
                 angulartics2AppInsights.startTimer();
-                expect(angulartics2AppInsights.loadStartTime).toBe(Date.now());
+                expect(angulartics2AppInsights.loadStartTime).toBeLessThanOrEqual(Date.now());
                 expect(angulartics2AppInsights.loadTime).toBe(null);
             })));
 
