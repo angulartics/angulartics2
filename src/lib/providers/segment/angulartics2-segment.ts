@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Angulartics2 } from 'angulartics2';
 
-declare var analytics: any;
+declare var analytics: SegmentAnalytics.AnalyticsJS;
 
 @Injectable()
 export class Angulartics2Segment {
