@@ -15,10 +15,9 @@ export class Angulartics2Facebook {
 
   /**
    * Send interactions to the Pixel, i.e. for event tracking in Pixel
-   * @name eventTrack
    *
-   * @param {string} action Required 'action' (string) associated with the event
-   * @param {object} properties
+   * @param action Required action associated with the event
+   * @param properties
    */
   eventTrack(action: string, properties: any) {
     properties = properties || {};
@@ -36,9 +35,9 @@ export class Angulartics2Facebook {
     ];
 
    if (typeof fbq !== 'undefined' && fbq) {
-        eventList.indexOf(action) === -1 ?
-           fbq('trackCustom', action, properties) :
-           fbq('track', action, properties);
+      eventList.indexOf(action) === -1 ?
+        fbq('trackCustom', action, properties) :
+        fbq('track', action, properties);
     }
   }
 }
