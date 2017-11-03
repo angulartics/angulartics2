@@ -1,17 +1,13 @@
-import { Component, Injectable, NgModule } from '@angular/core';
-import {
-  Routes,
-  Router,
-} from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
-import { TestBed, tick, ComponentFixture } from '@angular/core/testing';
+import { Component, Injectable, NgModule } from '@angular/core';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { Router, Routes } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { Angulartics2Module } from 'angulartics2';
 
 @Injectable()
 export class DummyProvider {
-
   constructor() {}
 }
 
@@ -84,25 +80,23 @@ export function createRootWithRouter(router: Router, type: any): ComponentFixtur
     HelloCmp3,
     HelloCmp4,
     HelloCmp5,
-    RootCmp
+    RootCmp,
   ],
-
   exports: [
     HelloCmp,
     HelloCmp2,
     HelloCmp3,
     HelloCmp4,
     HelloCmp5,
-    RootCmp
+    RootCmp,
   ],
-
   declarations: [
     HelloCmp,
     HelloCmp2,
     HelloCmp3,
     HelloCmp4,
     HelloCmp5,
-    RootCmp
+    RootCmp,
   ]
 })
 export class TestModule {
