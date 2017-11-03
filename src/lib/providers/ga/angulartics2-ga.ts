@@ -28,7 +28,7 @@ export class Angulartics2GoogleAnalytics {
 
     this.angulartics2.exceptionTrack.subscribe((x: any) => this.exceptionTrack(x));
 
-    this.angulartics2.setUsername.subscribe((x: string) => this.angulartics2.settings.ga.userId = x);
+    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
 
     this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
 
@@ -156,6 +156,10 @@ export class Angulartics2GoogleAnalytics {
     if (ga) {
       ga('send', 'timing', properties);
     }
+  }
+
+  setUsername(userId: string) {
+    this.angulartics2.settings.ga.userId = userId;
   }
 
   setUserProperties(properties: any) {
