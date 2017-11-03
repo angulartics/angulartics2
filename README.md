@@ -19,6 +19,7 @@ Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io/angu
   + [For other providers](#for-other-providers)
   + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
     - [Changes in the Google Analytics snippet](#changes-in-the-google-analytics-snippet)
+* [SystemJS](#SystemJS)
 * [Contributing](#contributing)
 * [License](#license)
   
@@ -26,15 +27,6 @@ Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io/angu
 
 ```shell
 npm install angulartics2 --save
-```
-
-If you use SystemJS to load your files, you might have to update your config with this if you don't use `defaultJSExtensions: true`:
-```js
-System.config({
-    packages: {
-        "/angulartics2": {"defaultExtension": "js"}
-    }
-});
 ```
 
 ## Usage
@@ -161,22 +153,22 @@ export class ExampleComponent {
 
 ## Supported providers
 
-* [Google Analytics](https://github.com/angulartics/angulartics2/wiki/Google-Analytics)
-* [Google Tag Manager](https://github.com/angulartics/angulartics2/wiki/Google-Tag-Manager)
-* Kissmetrics
-* Mixpanel
-* Piwik
-* Segment
-* Baidu Analytics
-* Facebook Pixel
-* Application Insights
-* Hubspot
-* Adobe Analytics (Omniture)
-* Intercom
+* [Google Analytics](/src/lib/providers/ga)
+* [Google Tag Manager](/src/lib/providers/gtm)
+* [Google Enhanced Ecom](/src/lib/providers/ga-enhanced-ecom)
+* [Kissmetrics](/src/lib/providers/kissmetrics)
+* [Mixpanel](/src/lib/providers/mixpanel)
+* [Piwik](/src/lib/providers/piwik)
+* [Segment](/src/lib/providers/segment)
+* [Baidu Analytics](/src/lib/providers/baidu)
+* [Facebook Pixel](/src/lib/providers/facebook)
+* [Application Insights](/src/lib/providers/appinsights)
+* [Hubspot](/src/lib/providers/hubspot)
+* [Adobe Analytics (Omniture)](/src/lib/providers/adobeanalytics)
+* [Intercom](/src/lib/providers/intercom)
+* [Woopra](/src/lib/providers/woopra)
 
 ### For other providers
-
-[Browse the website for detailed instructions.](http://angulartics.github.io)
 
 If there's no Angulartics2 plugin for your analytics vendor of choice, please feel free to write yours and PR' it!
 
@@ -195,6 +187,15 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
     </script>
 ```
 
+## SystemJS
+If you use SystemJS to load your files, you might have to update your config with this if you don't use `defaultJSExtensions: true`:
+```js
+System.config({
+    packages: {
+        "/angulartics2": {"defaultExtension": "js"}
+    }
+});
+```
 
 ## Contributing
 
