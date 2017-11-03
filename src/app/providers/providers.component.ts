@@ -34,6 +34,10 @@ export class ProvidersComponent {
       display: 'Google Tag Manager',
       type: 'Analytics',
     }, {
+      name: 'ga-enhanced-ecom',
+      display: 'Google Analytics Enhanced Ecommerce',
+      type: 'Analytics',
+    }, {
       name: 'hubspot',
       display: 'HubSpot',
       type: 'Analytics',

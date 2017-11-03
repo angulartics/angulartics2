@@ -1,6 +1,6 @@
 {
-  "name": "angulartics2/adobeanalytics",
-  "description": "The adobeanalytics module",
+  "name": "angulartics2/mixpanel",
+  "description": "The mixpanel module",
   "homepage": "http://angulartics2.github.io/",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "bugs": {
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/angulartics/angulartics2.git"
   },
-  "main": "../bundles/adobeanalytics.umd.js",
+  "main": "../bundles/mixpanel.umd.js",
   "module": "index.js",
   "es2015": "es2015/index.js",
   "typings": "index.d.ts",

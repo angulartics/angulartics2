@@ -15,6 +15,7 @@ Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io/angu
   + [Tracking events](#tracking-events)
   + [Tracking events in the code](#tracking-events-in-the-code)
   + [Excluding routes from automatic pageview tracking](#excluding-routes-from-automatic-pageview-tracking)
+* [v4 Migration](#v4-migration)
 * [Supported providers](#supported-providers)
   + [For other providers](#for-other-providers)
   + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
@@ -150,6 +151,21 @@ export class ExampleComponent {
   }
 }
 ````
+
+## v4 Migration
+Bundle size has been greatly reduced, in some cases more than 80%. There's a new docs landing page https://angulartics.github.io/angulartics2/
+#### Breaking Changes:
+- rxjs v5.5.0 minimum
+- Imports have changed for all providers
+__Before__
+```ts
+import { Angulartics2, Angulartics2GoogleAnalytics } from 'angulartics2';
+```
+__After__
+```ts
+import { Angulartics2 } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+```
 
 ## Supported providers
 
