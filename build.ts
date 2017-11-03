@@ -177,10 +177,12 @@ function copyFilesCore() {
 }
 
 function copyFilesProviders() {
-  return Observable
-    .forkJoin(
-      copyAll(`${process.cwd()}/src/lib/providers/**/package.json`, `${process.cwd()}/dist/packages-dist`),
-    );
+  return Observable.of(...Object.keys(MODULE_NAMES))
+    .mergeMap((name) => {
+      console.log(name);
+      return copyAll(`${process.cwd()}/src/lib/providers/${name}/package.json*`, `${process.cwd()}/dist/packages-dist/${name}/`)
+    }, 2)
+    .combineAll();
 }
 
 function buildLibrary() {
@@ -189,8 +191,8 @@ function buildLibrary() {
     .switchMap(() => createBundles('core', 'core'))
     .switchMap(() => copyFilesCore())
     .switchMap(() => buildModulesProviders())
-    .switchMap(() => buildUmds())
-    .switchMap(() => copyFilesProviders());
+    .switchMap(() => copyFilesProviders())
+    .switchMap(() => buildUmds());
 }
 
 buildLibrary().subscribe(
