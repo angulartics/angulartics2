@@ -178,10 +178,11 @@ function copyFilesCore() {
 
 function copyFilesProviders() {
   return Observable.of(...Object.keys(MODULE_NAMES))
-    .mergeMap((name) => {
-      console.log(name);
-      return copyAll(`${process.cwd()}/src/lib/providers/${name}/package.json*`, `${process.cwd()}/dist/packages-dist/${name}/`)
-    }, 2)
+    .mergeMap((name) =>
+      copyAll(
+        `${process.cwd()}/src/lib/providers/${name}/package.json*`,
+        `${process.cwd()}/dist/packages-dist/${name}/`,
+      ), 2)
     .combineAll();
 }
 
