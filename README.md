@@ -84,7 +84,7 @@ import { Component } from '@angular/core';
     <div 
       angulartics2On="click" 
       angularticsEvent="DownloadClick" 
-      angularticsCategory="{{ song.name }}">
+      [angularticsCategory]="song.name">
       Click Me
     </div>`,
 })
