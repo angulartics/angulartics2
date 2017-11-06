@@ -19,13 +19,12 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.4.6",
-    "@angular/cdk": "^2.0.0-beta.12",
+    "@angular/cdk": "^5.0.0-rc0",
     "@angular/common": "^4.4.6",
     "@angular/compiler": "^4.4.6",
     "@angular/core": "^4.4.6",
     "@angular/forms": "^4.4.6",
-    "@angular/http": "^4.4.6",
-    "@angular/material": "^2.0.0-beta.12",
+    "@angular/material": "^5.0.0-rc0",
     "@angular/platform-browser": "^4.4.6",
     "@angular/platform-browser-dynamic": "^4.4.6",
     "@angular/router": "^4.4.6",
@@ -36,7 +35,7 @@
     "zone.js": "^0.8.18"
   },
   "devDependencies": {
-    "@angular/cli": "1.4.9",
+    "@angular/cli": "1.5.0",
     "@angular/compiler-cli": "^4.4.6",
     "@angular/language-service": "^4.4.6",
     "@types/applicationinsights-js": "^1.0.4",
