@@ -14,10 +14,11 @@ cache:
   directories:
     - node_modules
 script:
+  - yarn lint
   - ./node_modules/.bin/ng test --code-coverage --no-progress --browsers=ChromeHeadless
 after_success:
-  - npm run semantic-release
-  - npm run ghpages
+  - yarn semantic-release
+  - yarn ghpages
 deploy:
   provider: pages
   skip_cleanup: true

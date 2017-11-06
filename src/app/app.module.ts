@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule } from '@angular/material';
@@ -18,7 +18,7 @@ import { ProvidersComponent } from './providers/providers.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    HttpModule,
 
     NgbCollapseModule.forRoot(),
     MatIconModule,

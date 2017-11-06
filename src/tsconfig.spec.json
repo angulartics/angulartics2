@@ -9,7 +9,8 @@
       "jasmine",
       "node",
       "google.analytics",
-      "applicationinsights-js"
+      "applicationinsights-js",
+      "segment-analytics"
     ],
     "paths": {
       "angulartics2": ["./lib/core/public_api"]
