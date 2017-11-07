@@ -7,7 +7,7 @@
 [![MIT license][license-image]][license-url]
 [![Gitter Chat](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angulartics/angulartics2)
 
-Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io/angulartics2](https://angulartics.github.io/angulartics2 "Angulartics Docs")
+Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angulartics2](https://angulartics.github.io/angulartics2 "Angulartics Docs")
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -42,7 +42,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 const ROUTES: Routes = [
   { path: '',      component: HomeComponent },
-  { path: 'about', component: AboutComponent }
+  { path: 'about', component: AboutComponent },
 ];
 
 @NgModule({
@@ -51,7 +51,7 @@ const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES),
 
     // added to imports
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
