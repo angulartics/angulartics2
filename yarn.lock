@@ -253,7 +253,7 @@
   version "0.0.36"
   resolved "https://registry.yarnpkg.com/@types/google.analytics/-/google.analytics-0.0.36.tgz#2a71cfc91a7a7e2adc9777e051278bc8d667fa2c"
 
-"@types/jasmine@*", "@types/jasmine@^2.6.2":
+"@types/jasmine@*", "@types/jasmine@^2.6.3":
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.6.3.tgz#586963bfdd35e38f24a0a0b63a438cf521292ed9"
 
@@ -267,7 +267,7 @@
   version "6.0.90"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.90.tgz#0ed74833fa1b73dcdb9409dcb1c97ec0a8b13b02"
 
-"@types/node@^8.0.47":
+"@types/node@^8.0.49":
   version "8.0.49"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.49.tgz#417f86ab4829c629fe561779ee48751e0fe2a11b"
 
@@ -571,8 +571,8 @@ async@^1.4.0, async@^1.5.2:
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
 async@^2.0.1, async@^2.1.2, async@^2.1.4, async@^2.1.5, async@^2.4.1, async@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
   dependencies:
     lodash "^4.14.0"
 
@@ -6826,7 +6826,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^2.3.3, typescript@^2.5.3:
+typescript@^2.3.3, typescript@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.1.tgz#ef39cdea27abac0b500242d6726ab90e0c846631"
 
