@@ -24,7 +24,6 @@ export interface PageTrackingSettings {
 
 export interface Angulartics2Settings {
   pageTracking: Partial<PageTrackingSettings>;
-  eventTracking: any;
   /** Disable page tracking */
   developerMode: boolean;
   ga: Partial<GoogleAnalyticsSettings>;
@@ -39,7 +38,6 @@ export class DefaultConfig implements Angulartics2Settings {
     excludedRoutes: [],
     clearIds: false,
   };
-  eventTracking = {};
   developerMode = false;
   ga = {};
   appInsights = {};
