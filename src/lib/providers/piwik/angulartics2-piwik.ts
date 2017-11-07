@@ -34,11 +34,10 @@ export class Angulartics2Piwik {
   }
 
   /**
-   * @name eventTrack
    * Track a basic event in Piwik, or send an ecommerce event.
    *
-   * @param {string} action A string corresponding to the type of event that needs to be tracked.
-   * @param {object} properties The properties that need to be logged with the event.
+   * @param action A string corresponding to the type of event that needs to be tracked.
+   * @param properties The properties that need to be logged with the event.
    */
   eventTrack(action: string, properties: any) {
     try {
@@ -177,7 +176,7 @@ export class Angulartics2Piwik {
    * object is saved as a custom variable.
    *
    * If in doubt, prefer custom dimensions.
-   * @see https://piwik.org/docs/custom-variables/
+   * @link https://piwik.org/docs/custom-variables/
    */
   setUserProperties(properties: any) {
     try {

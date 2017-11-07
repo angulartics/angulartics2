@@ -70,6 +70,12 @@ export class Angulartics2 {
     }
   }
 
+  /**
+   * Use string literals or regular expressions to exclude routes
+   * from automatic pageview tracking.
+   *
+   * @param url location
+   */
   protected matchesExcludedRoute(url: string): boolean {
     for (const excludedRoute of this.settings.pageTracking.excludedRoutes) {
       const matchesRegex = excludedRoute instanceof RegExp && excludedRoute.test(url);
@@ -80,6 +86,12 @@ export class Angulartics2 {
     return false;
   }
 
+  /**
+   * Removes id's from tracked route.
+   *  EX: `/project/12981/feature` becomes `/project/feature`
+   *
+   * @param url current page path
+   */
   protected clearUrl(url: string): string {
     if (this.settings.pageTracking.clearIds) {
       return url

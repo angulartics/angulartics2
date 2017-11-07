@@ -7,7 +7,7 @@ export interface GoogleAnalyticsSettings {
 }
 
 export interface AppInsightsSettings {
-  userId: any;
+  userId: string;
 }
 
 export interface GoogleTagManagerSettings {

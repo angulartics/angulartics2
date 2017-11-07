@@ -55,13 +55,15 @@ export class Angulartics2GoogleAnalytics {
 
   /**
    * Track Event in GA
-   * @name eventTrack
    *
-   * @param {string} action Required 'action' (string) associated with the event
-   * @param {object} properties Comprised of the mandatory field 'category' (string) and optional  fields 'label' (string), 'value' (integer) and 'noninteraction' (boolean)
+   * @param action Associated with the event
+   * @param properties Comprised of:
+   *  - category (string) and optional
+   *  - label (string)
+   *  - value (integer)
+   *  - noninteraction (boolean)
    *
    * @link https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide#SettingUpEventTracking
-   *
    * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/events
    */
   eventTrack(action: string, properties: any) {
@@ -108,11 +110,10 @@ export class Angulartics2GoogleAnalytics {
 
   /**
    * Exception Track Event in GA
-   * @name exceptionTrack
    *
-   * @param {object} properties Comprised of the optional fields:
-   *     'fatal' (string),
-   *     'description' (string)
+   * @param properties Comprised of the optional fields:
+   *  - fatal (string)
+   *  - description (string)
    *
    * @https://developers.google.com/analytics/devguides/collection/analyticsjs/exceptions
    *
@@ -138,12 +139,12 @@ export class Angulartics2GoogleAnalytics {
    * User Timings Event in GA
    * @name userTimings
    *
-   * @param {object} properties Comprised of the mandatory fields:
-   *     'timingCategory' (string),
-   *     'timingVar' (string),
-   *     'timingValue' (number)
+   * @param properties Comprised of the mandatory fields:
+   *  - timingCategory (string)
+   *  - timingVar (string)
+   *  - timingValue (number)
    * Properties can also have the optional fields:
-   *     'timingLabel' (string)
+   *  - timingLabel (string)
    *
    * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/user-timings
    */

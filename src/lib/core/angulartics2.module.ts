@@ -3,6 +3,7 @@ import {
   ModuleWithProviders,
   Optional,
   SkipSelf,
+  Provider,
 } from '@angular/core';
 
 import { Angulartics2 } from './angulartics2';
@@ -24,7 +25,7 @@ export class Angulartics2Module {
     }
   }
 
-  static forRoot(providers: any[], settings: Partial<Angulartics2Settings> = {}): ModuleWithProviders {
+  static forRoot(providers: Provider[], settings: Partial<Angulartics2Settings> = {}): ModuleWithProviders {
     return {
       ngModule: Angulartics2Module,
       providers: [

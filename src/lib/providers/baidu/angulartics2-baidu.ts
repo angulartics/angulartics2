@@ -29,12 +29,10 @@ export class Angulartics2BaiduAnalytics {
 
   /**
    * Page Track in Baidu Analytics
-   * @name pageTrack
    *
-   * @param {string} path Required 'path' (string)
+   * @param path Required url 'path'
    *
    * @link http://tongji.baidu.com/open/api/more?p=ref_trackPageview
-   *
    */
   pageTrack(path: string) {
     if (typeof hmt !== 'undefined' && hmt) {
@@ -44,13 +42,14 @@ export class Angulartics2BaiduAnalytics {
 
   /**
    * Track Event in Baidu Analytics
-   * @name eventTrack
    *
-   * @param {string} action Required 'action' (string) associated with the event
-   * @param {object} properties Comprised of the mandatory field 'category' (string), 'opt_label'(string) and 'opt_value' (string)
+   * @param action Name associated with the event
+   * @param properties Comprised of:
+   *  - 'category' (string)
+   *  - 'opt_label' (string)
+   *  - 'opt_value' (string)
    *
    * @link http://tongji.baidu.com/open/api/more?p=ref_trackEvent
-   *
    */
   eventTrack(action: string, properties: any) {
     // baidu analytics requires category
