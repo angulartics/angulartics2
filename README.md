@@ -20,7 +20,7 @@ Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io/angu
   + [For other providers](#for-other-providers)
   + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
     - [Changes in the Google Analytics snippet](#changes-in-the-google-analytics-snippet)
-* [SystemJS](#SystemJS)
+* [SystemJS](#systemjs)
 * [Contributing](#contributing)
 * [License](#license)
   
