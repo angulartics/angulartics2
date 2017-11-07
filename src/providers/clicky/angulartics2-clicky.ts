@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Angulartics2 } from '../../core/angulartics2';
-import { ClickyProperties, EventType } from './properties.model';
+import { ClickyProperties} from './properties.model';
 
 declare var clicky: any;
 declare var window: any;
@@ -31,7 +31,7 @@ export class Angulartics2Clicky {
      */
     pageTrack (path: string): void {
         let title: string = this.titleService.getTitle();
-        clicky.log(path, title, EventType.Pageview);
+        clicky.log(path, title, 'pageview');
     }
 
     /**
@@ -48,7 +48,7 @@ export class Angulartics2Clicky {
     eventOrGoalTrack (action: string, properties: ClickyProperties): void {
         if( typeof (properties.goal) === 'undefined' ) {
             let title: string = properties.title || null;
-            let type: EventType = (properties.type != null)? properties.type : null;
+            let type: string = (properties.type != null)? this.validateType(properties.type) : null;
             clicky.log(action, title, type);
         } else {
             let goalId: string = properties.goal;
@@ -56,5 +56,9 @@ export class Angulartics2Clicky {
             clicky.goal(goalId, revenue, !!properties.noQueue);
         }
     }
-    
+
+    private validateType(type: string): string {
+        const EventType = ['pageview','click','download','outbound'];
+        return (EventType.indexOf(type) > -1)? type : 'pageview';
+    }
 }
