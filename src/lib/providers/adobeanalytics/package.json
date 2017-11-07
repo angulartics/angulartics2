@@ -6,25 +6,10 @@
   "bugs": {
     "url": "http://github.com/angulartics/angulartics2/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angulartics/angulartics2.git"
-  },
+  "repository": "angulartics/angulartics2",
   "main": "../bundles/adobeanalytics.umd.js",
   "module": "index.js",
   "es2015": "es2015/index.js",
   "typings": "index.d.ts",
-  "license": "MIT",
-  "peerDependencies": {
-    "angulartics2": "*",
-    "@angular/animations": "^4.4.3",
-    "@angular/common": "^4.4.3",
-    "@angular/compiler": "^4.4.3",
-    "@angular/core": "^4.4.3",
-    "@angular/platform-browser": "^4.4.3",
-    "@angular/platform-browser-dynamic": "^4.4.3",
-    "@angular/router": "^4.4.3",
-    "rxjs": "^5.4.3",
-    "zone.js": "^0.8.17"
-  }
+  "license": "MIT"
 }

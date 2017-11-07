@@ -76,10 +76,7 @@
   "bugs": {
     "url": "http://github.com/angulartics/angulartics2/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angulartics/angulartics2.git"
-  },
+  "repository": "angulartics/angulartics2",
   "engines": {
     "node": ">=6.9.0"
   },
