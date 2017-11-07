@@ -65,6 +65,14 @@ describe('Angulartics2Clicky', () => {
                 expect(clicky.log).toHaveBeenCalledWith('do', 'thing', 'click');
             })))
 
+        it('should track unsupported event types as pageviews', fakeAsync(inject([Location, Angulartics2, Angulartics2Clicky],
+            (location: Location, angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
+                fixture = createRoot(RootCmp);
+                angulartics2.eventTrack.next({ action: 'do', properties: { title: 'thing', type: 'unsupported-gibberish' } });
+                advance(fixture);
+                expect(clicky.log).toHaveBeenCalledWith('do', 'thing', 'pageview');
+            })))
+
         it('should track goals', fakeAsync(inject([Location, Angulartics2, Angulartics2Clicky],
             (location: Location, angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
                 fixture = createRoot(RootCmp);
