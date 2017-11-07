@@ -30,7 +30,6 @@ Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io/angu
 npm install angulartics2 --save
 ```
 
-## Usage
 ### Include it in your application
 1. Add `Angulartics2Module` to your root NgModule passing an array of providers to enable
 ```ts
@@ -69,6 +68,7 @@ export class AppComponent {
 }
 ```
 
+## Usage
 ### Tracking events
 
 To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsEvent``` and ```angularticsCategory```:
@@ -116,25 +116,17 @@ If you need event label, you can use
 
 
 ### Tracking events in the code
-Import Angulartics2
 ```ts
 import { Angulartics2 } from 'angulartics2';
-```
-and inject it
-```ts
-constructor(private angulartics2: Angulartics2) {}
-```
-
-Then you can use
-```ts
-this.angulartics2.eventTrack.next({ 
-  action: 'myAction', 
-  properties: { category: 'myCategory' }
-});
+constructor(private angulartics2: Angulartics2) {
+  this.angulartics2.eventTrack.next({ 
+    action: 'myAction', 
+    properties: { category: 'myCategory' }
+  });
+}
 ```
 
-If you need event label, you can use
-
+If you need event label
 ```ts
 this.angulartics2.eventTrack.next({ 
   action: 'myAction',
@@ -145,10 +137,9 @@ this.angulartics2.eventTrack.next({
 });
 ```
 
-### Excluding routes from automatic pageview tracking
+### Exclude routes from automatic pageview tracking
 
-You can use string literals and regular expressions to exclude routes from automatic pageview tracking, using an array of string literals and/or regular expressions.
-
+Pass string literals or regular expressions to exclude routes from automatic pageview tracking.
 ````ts
 Angulartics2Module.forRoot([providers], {
   pageTracking: {
@@ -160,10 +151,21 @@ Angulartics2Module.forRoot([providers], {
 }),
 ````
 
+### Remove ID's from url paths
+`/project/12981/feature` becomes `/project/feature`
+````ts
+Angulartics2Module.forRoot([providers], {
+  pageTracking: {
+    clearIds: true,
+  }
+}),
+````
+
 ## v4 Migration
 ### New Features:
 - Bundle size reduction, in some cases more than 80%. 
 - new project landing page https://angulartics.github.io/angulartics2/
+- typescript interface for all settings
 - pass settings to `Angulartics2Module.forRoot` as a second parameter
 ```ts
 Angulartics2Module.forRoot([...], {
@@ -225,12 +227,12 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
 ```
 
 ## SystemJS
-If you use SystemJS to load your files, you might have to update your config with this if you don't use `defaultJSExtensions: true`:
-```js
+Using SystemJS? If you aren't using `defaultJSExtensions: true` you may need to use:
+```ts
 System.config({
     packages: {
-        "/angulartics2": {"defaultExtension": "js"}
-    }
+        "/angulartics2": {"defaultExtension": "js"},
+    },
 });
 ```
 
