@@ -1,12 +1,12 @@
 /* tslint:disable:import-blacklist */
-// based on https://github.com/angular/angularfire2/blob/master/tools/build.js
-import { rollup } from 'rollup';
-import { spawn } from 'child_process';
-import { Observable } from 'rxjs';
-import * as copyfiles from 'copy';
-import * as sourcemaps from 'rollup-plugin-sourcemaps';
 
-const copyAll: ((s: string, s1: string) => any) = Observable.bindCallback(copyfiles);
+// build based on
+// https://github.com/angular/angularfire2/blob/master/tools/build.js
+import { spawn } from 'child_process';
+import { rollup } from 'rollup';
+import * as sourcemaps from 'rollup-plugin-sourcemaps';
+import { Observable } from 'rxjs';
+import { copy } from 'fs-extra';
 
 // Rollup globals
 const MODULE_NAMES = {
@@ -25,6 +25,7 @@ const MODULE_NAMES = {
   segment: 'angulartics2.segment',
   intercom: 'angulartics2.intercom',
   woopra: 'angulartics2.woopra',
+  clicky: 'angulartics2.clicky',
 };
 
 const GLOBALS = {
@@ -47,28 +48,13 @@ const GLOBALS = {
   'rxjs/observable/of': 'Rx.Observable',
 
   'angulartics2': MODULE_NAMES['core'],
-  'angulartics2/adobeanalytics': MODULE_NAMES['adobeanalytics'],
 };
 
-function createEntry(name, target, type= 'core'): string {
-  const ENTRIES = {
-    core: `${process.cwd()}/dist/packages-dist/index.js`,
-    adobeanalytics: `${process.cwd()}/dist/packages-dist/adobeanalytics/index.js`,
-    appinsights: `${process.cwd()}/dist/packages-dist/appinsights/index.js`,
-    baidu: `${process.cwd()}/dist/packages-dist/baidu/index.js`,
-    facebook: `${process.cwd()}/dist/packages-dist/facebook/index.js`,
-    ga: `${process.cwd()}/dist/packages-dist/ga/index.js`,
-    'ga-enhanced-ecom': `${process.cwd()}/dist/packages-dist/ga-enhanced-ecom/index.js`,
-    gtm: `${process.cwd()}/dist/packages-dist/gtm/index.js`,
-    hubspot: `${process.cwd()}/dist/packages-dist/hubspot/index.js`,
-    kissmetrics: `${process.cwd()}/dist/packages-dist/kissmetrics/index.js`,
-    mixpanel: `${process.cwd()}/dist/packages-dist/mixpanel/index.js`,
-    piwik: `${process.cwd()}/dist/packages-dist/piwik/index.js`,
-    segment: `${process.cwd()}/dist/packages-dist/segment/index.js`,
-    intercom: `${process.cwd()}/dist/packages-dist/intercom/index.js`,
-    woopra: `${process.cwd()}/dist/packages-dist/woopra/index.js`,
-  };
-  return ENTRIES[name];
+function createEntry(name): string {
+  if (name === 'core') {
+    return `${process.cwd()}/dist/packages-dist/index.js`;
+  }
+  return `${process.cwd()}/dist/packages-dist/${name}/index.js`;
 }
 
 
@@ -125,14 +111,14 @@ function generateBundle(input, file, name, format) {
 
 function createUmd(name: string) {
   const moduleName = MODULE_NAMES[name];
-  const entry = createEntry(name, 'es5');
+  const entry = createEntry(name);
   const file = `${process.cwd()}/dist/packages-dist/bundles/${name}.umd.js`;
   return generateBundle(entry, file, moduleName, 'umd');
 }
 
 function createEs(name: string, target: string, type: string) {
   const moduleName = MODULE_NAMES[name];
-  const entry = createEntry(name, target);
+  const entry = createEntry(name);
   const file = `${process.cwd()}/dist/packages-dist/angulartics2.${target}.js`;
   return generateBundle(entry, file, moduleName, 'es');
 }
@@ -152,13 +138,9 @@ function createBundles(name: string, type: string) {
 }
 
 function buildModulesProviders() {
-  return Observable.of(...Object.keys(MODULE_NAMES))
-    .mergeMap((name) => {
-      if (name === 'core') {
-        return Observable.fromPromise(Promise.resolve('hello'));
-      }
-      return buildModule(name, 'providers');
-    }, 2)
+  const providers = Object.keys(MODULE_NAMES).filter((n) => n !== 'core');
+  return Observable.of(...providers)
+    .mergeMap((name) => buildModule(name, 'providers'), 2)
     .combineAll();
 }
 
@@ -171,18 +153,24 @@ function buildUmds() {
 function copyFilesCore() {
   return Observable
     .forkJoin(
-      copyAll(`${process.cwd()}/*.md`, `${process.cwd()}/dist/packages-dist`),
-      copyAll(`${process.cwd()}/src/lib/core/package.json*`, `${process.cwd()}/dist/packages-dist`),
+      Observable.from(copy(
+        `${process.cwd()}/README.md`,
+        `${process.cwd()}/dist/packages-dist/README.md`,
+      )),
+      Observable.from(copy(
+        `${process.cwd()}/src/lib/core/package.json`,
+        `${process.cwd()}/dist/packages-dist/package.json`,
+      )),
     );
 }
 
 function copyFilesProviders() {
-  return Observable.of(...Object.keys(MODULE_NAMES))
-    .mergeMap((name) =>
-      copyAll(
-        `${process.cwd()}/src/lib/providers/${name}/package.json*`,
-        `${process.cwd()}/dist/packages-dist/${name}/`,
-      ), 2)
+  const providers = Object.keys(MODULE_NAMES).filter((n) => n !== 'core');
+  return Observable.of(...providers)
+    .mergeMap((name) => Observable.of(copy(
+      `${process.cwd()}/src/lib/providers/${name}/package.json`,
+      `${process.cwd()}/dist/packages-dist/${name}/package.json`,
+    )))
     .combineAll();
 }
 
