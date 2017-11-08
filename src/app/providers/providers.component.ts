@@ -65,6 +65,10 @@ export class ProvidersComponent {
       name: 'woopra',
       display: 'Woopra',
       type: 'Analytics',
+    }, {
+      name: 'clicky',
+      display: 'Clicky',
+      type: 'Analytics',
     },
   ];
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
