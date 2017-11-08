@@ -10,8 +10,7 @@ branches:
 addons:
   chrome: stable
 cache:
-  directories:
-    - node_modules
+  yarn: true
 script:
   - yarn lint
   - ./node_modules/.bin/ng test --code-coverage --no-progress --browsers=ChromeHeadless
