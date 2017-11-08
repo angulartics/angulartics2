@@ -194,8 +194,8 @@
     tree-kill "^1.0.0"
 
 "@schematics/angular@~0.1.0":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.1.1.tgz#e0ebb7206a4382fecee235a790f689281229defb"
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.1.2.tgz#4d24e385c21bf2cc9ce4d3c91a8dbdd81aa463ac"
   dependencies:
     "@angular-devkit/core" "0.0.20"
 
@@ -5699,9 +5699,9 @@ rollup-pluginutils@^2.0.1:
     estree-walker "^0.3.0"
     micromatch "^2.3.11"
 
-rollup@^0.51.0:
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.51.0.tgz#bee110391dd42a48d61f31804807a80be4a085e5"
+rollup@^0.51.1:
+  version "0.51.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.51.1.tgz#16288ceafbed0a629d3a127c1e92e503f182e8b1"
 
 run-async@^2.2.0:
   version "2.3.0"
@@ -7063,8 +7063,8 @@ ws@1.1.2:
     ultron "1.0.x"
 
 ws@^1.0.1:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.4.tgz#57f40d036832e5f5055662a397c4de76ed66bf61"
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.5.tgz#cbd9e6e75e09fc5d2c90015f21f0c40875e0dd51"
   dependencies:
     options ">=0.0.5"
     ultron "1.0.x"
