@@ -71,7 +71,7 @@ export class AppComponent {
 ## Usage
 ### Tracking events
 
-To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsEvent``` and ```angularticsCategory```:
+To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsAction``` and ```angularticsCategory```:
 
 
 ```ts
@@ -83,7 +83,7 @@ import { Component } from '@angular/core';
   template: `
     <div 
       angulartics2On="click" 
-      angularticsEvent="DownloadClick" 
+      angularticsAction="DownloadClick" 
       [angularticsCategory]="song.name">
       Click Me
     </div>`,
@@ -107,9 +107,11 @@ If you need event label, you can use
 ```html
 <div 
   angulartics2On="click" 
-  angularticsEvent="DownloadClick" 
+  angularticsAction="DownloadClick" 
+  angularticsLabel="label-name" 
+  angularticsValue="value" 
   [angularticsCategory]="song.name" 
-  [angularticsProperties]="{label: 'Fall Campaign'}">
+  [angularticsProperties]="{'custom-property': 'Fall Campaign'}">
   Click Me
 </div>
 ```
@@ -121,7 +123,7 @@ import { Angulartics2 } from 'angulartics2';
 constructor(private angulartics2: Angulartics2) {
   this.angulartics2.eventTrack.next({ 
     action: 'myAction', 
-    properties: { category: 'myCategory' }
+    properties: { category: 'myCategory' },
   });
 }
 ```
@@ -166,6 +168,7 @@ Angulartics2Module.forRoot([providers], {
 - Bundle size reduction, in some cases more than 80%. 
 - new project landing page https://angulartics.github.io/angulartics2/
 - typescript interface for all settings
+- added `angularticsLabel` and `angularticsValue` to angulartics2On
 - pass settings to `Angulartics2Module.forRoot` as a second parameter
 ```ts
 Angulartics2Module.forRoot([...], {
@@ -178,6 +181,7 @@ Angulartics2Module.forRoot([...], {
 
 ### Breaking Changes
 - rxjs v5.5.0 minimum
+- angulartics2On renamed input `angularticsEvent` to `angularticsAction`
 - Imports have changed for all providers
 
 __Before__

@@ -19,7 +19,11 @@ export class DummyProvider {
 
 @Component({
   selector: 'root-comp',
-  template: `<a [angulartics2On]="'click'" [angularticsEvent]="'InitiateSearch'"></a>`,
+  template: `
+    <a angulartics2On="click"
+      angularticsAction="InitiateSearch">
+    </a>
+  `,
 })
 class RootCmp {
   name: string;
@@ -29,7 +33,10 @@ class RootCmp {
   selector: 'root-comp',
   template: `
     <button (click)="triggerEvent($event)">Greet</button>
-    <a angulartics2On (customEvent)="eventTrack($event)" [angularticsEvent]="'InitiateSearch'"></a>
+    <a angulartics2On
+      (customEvent)="eventTrack($event)"
+      angularticsAction="InitiateSearch">
+    </a>
   `,
 })
 class RootCmp1 {
@@ -39,16 +46,27 @@ class RootCmp1 {
 @Component({
   selector: 'root-comp',
   template: `
-    <div [angulartics2On]="'click'" [angularticsEvent]="'InitiateSearch'" [angularticsCategory]="'Search'"></div>
+    <div
+      [angulartics2On]="'click'"
+      angularticsAction="InitiateSearch"
+      angularticsLabel="custom-label"
+      angularticsValue="custom-value"
+      [angularticsCategory]="angularticsCategory">
+    </div>
   `,
 })
 class RootCmp2 {
   name: string;
+  angularticsCategory = 'Search';
 }
 
 @Component({
   selector: 'root-comp',
-  template: `<a [angulartics2On]="'click'" [angularticsCategory]="'Search'">InitiateSearch</a>`,
+  template: `
+    <a angulartics2On="click" angularticsCategory="Search">
+      InitiateSearch
+    </a>
+  `,
 })
 class RootCmp3 {
   name: string;
@@ -119,7 +137,12 @@ describe('angulartics2On', () => {
         advance(fixture);
         expect(EventSpy).toHaveBeenCalledWith({
           action: 'InitiateSearch',
-          properties: { category: 'Search', eventType: 'click' },
+          properties: {
+            category: 'Search',
+            eventType: 'click',
+            label: 'custom-label',
+            value: 'custom-value',
+          },
         });
       }),
     ),

@@ -1,6 +1,11 @@
-import { Directive, Injectable, Input, ElementRef, AfterContentInit } from '@angular/core';
+import {
+  AfterContentInit,
+  Directive,
+  ElementRef,
+  Input,
+  Injectable,
+} from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
-// import { getDOM } from '@angular/platform-browser/src/dom/dom_adapter';
 
 import { Angulartics2 } from './angulartics2';
 
@@ -10,9 +15,11 @@ import { Angulartics2 } from './angulartics2';
 })
 export class Angulartics2On implements AfterContentInit {
   @Input('angulartics2On') angulartics2On: string;
-  @Input() angularticsEvent: string;
+  @Input() angularticsAction: string;
   @Input() angularticsCategory: string;
-  @Input() angularticsProperties: any;
+  @Input() angularticsLabel: string;
+  @Input() angularticsValue: string;
+  @Input() angularticsProperties: any = {};
 
   private el: any;
 
@@ -27,33 +34,36 @@ export class Angulartics2On implements AfterContentInit {
   ngAfterContentInit() {
     // Don't listen in server-side
     if (this.isBrowser()) {
-      this.eventManager.addEventListener(this.el, this.angulartics2On || 'click', (event: any) => this.eventTrack(event));
+      this.eventManager.addEventListener(
+        this.el,
+        this.angulartics2On || 'click',
+        (event: Event) => this.eventTrack(event),
+      );
     }
   }
-
-  public isBrowser() {
+  isBrowser() {
     return typeof(window) !== 'undefined';
   }
-
-  public eventTrack(event: any) {
-    const action = this.angularticsEvent; // || this.inferEventName();
+  eventTrack(event: Event) {
+    const action = this.angularticsAction; // || this.inferEventName();
     const properties: any = {
-      eventType: event.type
+      ...this.angularticsProperties,
+      eventType: event.type,
     };
 
     if (this.angularticsCategory) {
       properties.category = this.angularticsCategory;
     }
-
-    // Allow components to pass through an expression that gets merged on to the event properties
-    // eg. angulartics-properites='myComponentScope.someConfigExpression.$angularticsProperties'
-    if (this.angularticsProperties) {
-      Object.assign(properties, this.angularticsProperties);
+    if (this.angularticsLabel) {
+      properties.label = this.angularticsLabel;
+    }
+    if (this.angularticsValue) {
+      properties.value = this.angularticsValue;
     }
 
     this.angulartics2.eventTrack.next({
       action,
-      properties
+      properties,
     });
   }
 
