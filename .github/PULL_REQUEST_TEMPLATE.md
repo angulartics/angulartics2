@@ -1,4 +1,4 @@
-* **What kind of change does this PR introduce?** (Bug fix, feature, docs update, ...)
+* **What kind of change does this PR introduce?**
 
 
 

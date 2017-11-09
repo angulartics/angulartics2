@@ -7,7 +7,7 @@
 [![MIT license][license-image]][license-url]
 [![Gitter Chat](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angulartics/angulartics2)
 
-Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io](http://angulartics.github.io "Go to the website")
+Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angulartics2](https://angulartics.github.io/angulartics2 "Angulartics Docs")
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -15,57 +15,34 @@ Vendor-agnostic analytics for Angular2 applications. [angulartics.github.io](htt
   + [Tracking events](#tracking-events)
   + [Tracking events in the code](#tracking-events-in-the-code)
   + [Excluding routes from automatic pageview tracking](#excluding-routes-from-automatic-pageview-tracking)
+* [v4 Migration](#v4-migration)
 * [Supported providers](#supported-providers)
   + [For other providers](#for-other-providers)
   + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
     - [Changes in the Google Analytics snippet](#changes-in-the-google-analytics-snippet)
-* [What else?](#what-else-)
+* [SystemJS](#systemjs)
 * [Contributing](#contributing)
 * [License](#license)
   
 ## Installation
 
-```shell
+```sh
 npm install angulartics2 --save
 ```
 
-If you use SystemJS to load your files, you might have to update your config with this if you don't use `defaultJSExtensions: true`:
-```js
-System.config({
-    packages: {
-        "/angulartics2": {"defaultExtension": "js"}
-    }
-});
-```
-
-## Usage
-
 ### Include it in your application
-
-Bootstrapping the application with ```Angulartics2``` as provider and injecting ```Angulartics2GoogleAnalytics``` (or every provider you want to use) into the root component will hook into the router and send every route change to your analytics provider.
-
+1. Add `Angulartics2Module` to your root NgModule passing an array of providers to enable
 ```ts
-// component
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app',
-  template: `<router-outlet></router-outlet>` // Or what your root template is.
-})
-export class AppComponent {
-  constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
-}
-
-// bootstrap
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 const ROUTES: Routes = [
   { path: '',      component: HomeComponent },
-  { path: 'about', component: AboutComponent }
+  { path: 'about', component: AboutComponent },
 ];
 
 @NgModule({
@@ -73,16 +50,28 @@ const ROUTES: Routes = [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
 
-    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
+    // added to imports
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
   ],
-  declarations: [ AppComponent ],
-  bootstrap: [ AppComponent ]
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
 })
 ```
+2. __Required__: Import your providers in the root component. This starts the tracking of route changes.
+```ts
+// component
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
+@Component({  ...  })
+export class AppComponent {
+  constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
+}
+```
+
+## Usage
 ### Tracking events
 
-To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsEvent``` and ```angularticsCategory```:
+To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsAction``` and ```angularticsCategory```:
 
 
 ```ts
@@ -91,7 +80,13 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'song-download-box',
-  template: `<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}">Click Me</div>`,
+  template: `
+    <div 
+      angulartics2On="click" 
+      angularticsAction="DownloadClick" 
+      [angularticsCategory]="song.name">
+      Click Me
+    </div>`,
 })
 export class SongDownloadBox {}
 
@@ -100,88 +95,129 @@ import { Angulartics2Module } from 'angulartics2';
 
 @NgModule({
   imports: [
-    Angulartics2Module.forChild()
+    Angulartics2Module,
   ],
   declarations: [
-    SongDownloadBox
+    SongDownloadBox,
   ]
 })
 ```
 
 If you need event label, you can use
 ```html
-<div angulartics2On="click" angularticsEvent="DownloadClick" angularticsCategory="{{ song.name }}" [angularticsProperties]="{label: 'Fall Campaign'}">Click Me</div>
+<div 
+  angulartics2On="click" 
+  angularticsAction="DownloadClick" 
+  angularticsLabel="label-name" 
+  angularticsValue="value" 
+  [angularticsCategory]="song.name" 
+  [angularticsProperties]="{'custom-property': 'Fall Campaign'}">
+  Click Me
+</div>
 ```
 
 
 ### Tracking events in the code
-Import Angulartics2
 ```ts
 import { Angulartics2 } from 'angulartics2';
+constructor(private angulartics2: Angulartics2) {
+  this.angulartics2.eventTrack.next({ 
+    action: 'myAction', 
+    properties: { category: 'myCategory' },
+  });
+}
 ```
-and inject it
+
+If you need event label
 ```ts
-constructor(angulartics2: Angulartics2) {}
+this.angulartics2.eventTrack.next({ 
+  action: 'myAction',
+  properties: { 
+    category: 'myCategory', 
+    label: 'myLabel',
+  },
+});
 ```
 
-Then you can use
-```ts
-this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 'myCategory' }});
-```
+### Exclude routes from automatic pageview tracking
 
-If you need event label, you can use
-
-```ts
-this.angulartics2.eventTrack.next({ action: 'myAction', properties: { category: 'myCategory', label: 'myLabel' }});
-```
-
-### Excluding routes from automatic pageview tracking
-
-You can use string literals and regular expressions to exclude routes from automatic pageview tracking, using an array of string literals and/or regular expressions.
-
+Pass string literals or regular expressions to exclude routes from automatic pageview tracking.
 ````ts
-import { Component } from '@angular/core';
-import { Angulartics2, Angulartics2GoogleAnalytics } from 'angulartics2';
-
-@Component({
-  selector: 'app',
-  template: `<router-outlet></router-outlet>` // Or what your root template is.
-})
-export class ExampleComponent {
-  constructor(angulartics2: Angulartics2) {
-    const excluded = [
+Angulartics2Module.forRoot([providers], {
+  pageTracking: {
+    excludedRoutes: [
       /\/[0-9]{4}\/[0-9]{2}\/[a-zA-Z0-9|\-]*/,
       '2017/03/article-title'
-    ];
-    this.angulartics2.excludeRoutes(excluded);
+    ],
   }
-}
+}),
 ````
+
+### Remove ID's from url paths
+`/project/12981/feature` becomes `/project/feature`
+````ts
+Angulartics2Module.forRoot([providers], {
+  pageTracking: {
+    clearIds: true,
+  }
+}),
+````
+
+## v4 Migration
+### New Features:
+- Bundle size reduction, in some cases more than 80%. 
+- new project landing page https://angulartics.github.io/angulartics2/
+- typescript interface for all settings
+- added `angularticsLabel` and `angularticsValue` to angulartics2On
+- pass settings to `Angulartics2Module.forRoot` as a second parameter
+```ts
+Angulartics2Module.forRoot([...], {
+  developerMode: true,
+  pageTracking: {
+    clearIds: true,
+  },
+});
+```
+
+### Breaking Changes
+- rxjs v5.5.0 minimum
+- angulartics2On renamed input `angularticsEvent` to `angularticsAction`
+- Imports have changed for all providers
+
+__Before__
+```ts
+import { Angulartics2, Angulartics2GoogleAnalytics } from 'angulartics2';
+```
+__After__
+```ts
+import { Angulartics2 } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+```
 
 ## Supported providers
 
-* [Google Analytics](https://github.com/angulartics/angulartics2/wiki/Google-Analytics)
-* [Google Tag Manager](https://github.com/angulartics/angulartics2/wiki/Google-Tag-Manager)
-* Kissmetrics
-* Mixpanel
-* Piwik
-* Segment
-* Baidu Analytics
-* Facebook Pixel
-* Application Insights
-* Hubspot
-* Adobe Analytics (Omniture)
-* Intercom
+* [Google Analytics](/src/lib/providers/ga)
+* [Google Tag Manager](/src/lib/providers/gtm)
+* [Google Enhanced Ecom](/src/lib/providers/ga-enhanced-ecom)
+* [Kissmetrics](/src/lib/providers/kissmetrics)
+* [Mixpanel](/src/lib/providers/mixpanel)
+* [Piwik](/src/lib/providers/piwik)
+* [Segment](/src/lib/providers/segment)
+* [Baidu Analytics](/src/lib/providers/baidu)
+* [Facebook Pixel](/src/lib/providers/facebook)
+* [Application Insights](/src/lib/providers/appinsights)
+* [Hubspot](/src/lib/providers/hubspot)
+* [Adobe Analytics (Omniture)](/src/lib/providers/adobeanalytics)
+* [Intercom](/src/lib/providers/intercom)
+* [Woopra](/src/lib/providers/woopra)
 
 ### For other providers
-
-[Browse the website for detailed instructions.](http://angulartics.github.io)
 
 If there's no Angulartics2 plugin for your analytics vendor of choice, please feel free to write yours and PR' it!
 
 ### Minimal setup for Google Analytics
 
-Add the full tracking code from Google Tag Manager to the beginning of your body tag.
+Add the full Google [analytics.js](https://developers.google.com/analytics/devguides/collection/analyticsjs/) tracking code to the beginning of your body tag.
 
 #### Changes in the Google Analytics snippet
 
@@ -194,9 +230,15 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
     </script>
 ```
 
-## What else?
-
-See more docs and samples at [Wiki](https://github.com/angulartics/angulartics2/wiki).
+## SystemJS
+Using SystemJS? If you aren't using `defaultJSExtensions: true` you may need to use:
+```ts
+System.config({
+    packages: {
+        "/angulartics2": {"defaultExtension": "js"},
+    },
+});
+```
 
 ## Contributing
 

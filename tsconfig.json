@@ -1,25 +1,24 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "noImplicitAny": true,
-    "target": "es5",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "baseUrl": "src",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "declaration": true,
-    "moduleResolution": "node",
-    "types": [
-      "jasmine",
-      "node",
-      "applicationinsights-js"
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
     ],
-    "lib": ["es2015", "dom"],
-    "outDir": "dist"
-  },
-  "files": [
-    "src/index.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "bundles"
-  ],
-  "compileOnSave": false
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "angulartics2": ["./lib/core/public_api"]
+    }
+  }
 }

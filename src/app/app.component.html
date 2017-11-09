@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+<div class="jumbotron">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-11 col-lg-8 col-xl-7">
+        <div class="float-md-left text-center pr-3">
+          <img class="logo" src="assets/angulartics.png" alt="logo" />
+        </div>
+        <div class="ml-md-3 py-2 d-md-inline-block text-center text-md-left">
+          <h1 class="display-4">Angulartics 2</h1>
+          <p class="lead">Omnichannel Analytics for Angular</p>
+          <p class="lead">
+            <a class="btn btn-light" href="#getting-started" role="button">Get Started</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section id="providers" scrollby-offset="20%">
+  <app-providers></app-providers>
+</section>
+<section id="getting-started" data-offset="50">
+  <div class="container providers mb-3">
+    <div class="row">
+      <div class="col-12 mb-2">
+        <h3>Getting Started</h3>
+      </div>
+      <div class="col-12 mb-2">
+        <p>1. Install</p>
+        <pre><code>npm install angulartics2</code></pre>
+        <p>2. Import Angulartics2Module in root module</p>
+        <pre><code>{{ importModule }}</code></pre>
+        <p>3. Import all providers in root component</p>
+        <pre><code>{{ importComponent }}</code></pre>
+        <p>4. Follow setup instructions for active providers</p>
+        <p>ex:
+          <a href="https://github.com/angulartics/angulartics2/tree/master/src/lib/providers/ga">
+            Google Analytics Setup
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
