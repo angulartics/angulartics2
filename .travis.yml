@@ -23,4 +23,4 @@ deploy:
   local_dir: dist
   github_token: $GH_TOKEN
   on:
-    branch: next
+    branch: master

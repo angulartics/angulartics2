@@ -68,7 +68,7 @@
     "typescript": "^2.6.1"
   },
   "release": {
-    "branch": "next"
+    "branch": "master"
   },
   "publishConfig": {
     "tag": "next"

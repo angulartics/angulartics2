@@ -8,7 +8,7 @@
     "tag": "next"
   },
   "release": {
-    "branch": "next"
+    "branch": "master"
   },
   "bugs": {
     "url": "http://github.com/angulartics/angulartics2/issues"
