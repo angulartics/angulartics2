@@ -1,10 +1,10 @@
 # angulartics2
 
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-downloads-url]
+[![NPM version][https://img.shields.io/npm/v/angulartics2.svg]][https://npmjs.org/package/angulartics2] [![NPM downloads][npm-downloads-image]][npm-downloads-url]
 [![devDependency Status](https://david-dm.org/angulartics/angulartics2/dev-status.svg)](https://david-dm.org/angulartics/angulartics2#info=devDependencies)
-[![Build Status](https://img.shields.io/travis/angulartics/angulartics2/master.svg?style=flat)](https://travis-ci.org/angulartics/angulartics2)
+[![Build Status](https://api.travis-ci.org/angulartics/angulartics2.svg?branch=master)](https://travis-ci.org/angulartics/angulartics2)
 
-[![MIT license][license-image]][license-url]
+[![MIT license][http://img.shields.io/badge/license-MIT-blue.svg]][LICENSE]
 [![Gitter Chat](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/angulartics/angulartics2)
 
 Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angulartics2](https://angulartics.github.io/angulartics2 "Angulartics Docs")
@@ -247,14 +247,3 @@ Please see the [CONTRIBUTING](https://github.com/angulartics/angulartics2/blob/m
 ## License
 
 [MIT](LICENSE)
-
-[npm-image]: https://img.shields.io/npm/v/angulartics2.svg
-[npm-url]: https://npmjs.org/package/angulartics2
-[npm-downloads-image]: https://img.shields.io/npm/dm/angulartics2.svg
-[npm-downloads-url]: https://npmjs.org/package/angulartics2
-[bower-image]: https://img.shields.io/bower/v/angulartics2.svg
-[bower-url]: http://bower.io/search/?q=angulartics2
-[dep-status-image]: https://img.shields.io/david/angulartics/angulartics2.svg
-[dep-status-url]: https://david-dm.org/angulartics/angulartics2
-[license-image]: http://img.shields.io/badge/license-MIT-blue.svg
-[license-url]: LICENSE
