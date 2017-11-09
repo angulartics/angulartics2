@@ -70,9 +70,6 @@
   "release": {
     "branch": "master"
   },
-  "publishConfig": {
-    "tag": "next"
-  },
   "license": "MIT",
   "bugs": {
     "url": "http://github.com/angulartics/angulartics2/issues"
