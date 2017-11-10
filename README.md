@@ -15,7 +15,6 @@ Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angul
   + [Tracking events](#tracking-events)
   + [Tracking events in the code](#tracking-events-in-the-code)
   + [Excluding routes from automatic pageview tracking](#excluding-routes-from-automatic-pageview-tracking)
-* [v4 Migration](#v4-migration)
 * [Supported providers](#supported-providers)
   + [For other providers](#for-other-providers)
   + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
@@ -23,7 +22,12 @@ Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angul
 * [SystemJS](#systemjs)
 * [Contributing](#contributing)
 * [License](#license)
-  
+
+
+## v4.0.0 Migration and Breaking Changes
+See [Release Notes](https://github.com/angulartics/angulartics2/releases/tag/v4.0.0)
+
+
 ## Installation
 
 ```sh
@@ -162,37 +166,6 @@ Angulartics2Module.forRoot([providers], {
   }
 }),
 ````
-
-## v4 Migration
-### New Features:
-- Bundle size reduction, in some cases more than 80%. 
-- new project landing page https://angulartics.github.io/angulartics2/
-- typescript interface for all settings
-- added `angularticsLabel` and `angularticsValue` to angulartics2On
-- pass settings to `Angulartics2Module.forRoot` as a second parameter
-```ts
-Angulartics2Module.forRoot([...], {
-  developerMode: true,
-  pageTracking: {
-    clearIds: true,
-  },
-});
-```
-
-### Breaking Changes
-- rxjs v5.5.0 minimum
-- angulartics2On renamed input `angularticsEvent` to `angularticsAction`
-- Imports have changed for all providers
-
-__Before__
-```ts
-import { Angulartics2, Angulartics2GoogleAnalytics } from 'angulartics2';
-```
-__After__
-```ts
-import { Angulartics2 } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-```
 
 ## Supported providers
 
