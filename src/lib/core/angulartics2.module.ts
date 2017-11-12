@@ -1,8 +1,6 @@
 import {
   NgModule,
   ModuleWithProviders,
-  Optional,
-  SkipSelf,
   Provider,
 } from '@angular/core';
 
@@ -17,14 +15,6 @@ import { Angulartics2Settings } from './angulartics2-config';
   exports: [Angulartics2On],
 })
 export class Angulartics2Module {
-  constructor(@Optional() @SkipSelf() parentModule: Angulartics2Module) {
-    if (parentModule) {
-      throw new Error(
-        'Angulartics2Module.forRoot() called twice. Lazy loaded modules should use Angulartics2Module instead.',
-      );
-    }
-  }
-
   static forRoot(providers: Provider[], settings: Partial<Angulartics2Settings> = {}): ModuleWithProviders {
     return {
       ngModule: Angulartics2Module,
