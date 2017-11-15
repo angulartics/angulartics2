@@ -10,8 +10,8 @@ __docs__: [developer.piwik.org](https://developer.piwik.org)
 __import__: `import { Angulartics2Piwik } from 'angulartics2/piwik';`  
 
 ## Setup
-Add the sandard piwik track code:
-
+Add the sandard piwik track code inside your index.html head tag:
+```html
   <!-- Piwik -->
   <script type="text/javascript">
     var _paq = _paq || [];
@@ -27,12 +27,12 @@ Add the sandard piwik track code:
     })();
   </script>
   <!-- End Piwik Code -->
-  
+```
 Make sure "trackPageView" line is commented or deleted. It is not needed as page tracking will be trigger by the angular module on route change.
 
-replace YOUR-DOMAIN with your piwik domain (`//DOMAIN.innocraft.cloud` if you are using the innocraft cloud service).
+Replace YOUR-DOMAIN with your piwik domain (`//DOMAIN.innocraft.cloud` if you are using the innocraft cloud service).
 
-pass the Piwik provider to angulartics in app.module:
+Pass the Piwik provider to angulartics in app.module:
 ```typescript
 import { Angulartics2Module, Angulartics2Piwik } from 'angulartics2';
 @NgModule({
@@ -52,6 +52,6 @@ export class AppComponent {
 }
 ```
 
-to track full URLs if there is a hash (#), make sure to enable s`ettings=>websites=>settings=>page url fragments tracking` in the Piwik dashboard.
+To track full URLs if there is a hash (#), make sure to enable s`ettings=>websites=>settings=>page url fragments tracking` in the Piwik dashboard.
 
-Once setup, Angulartics [usage](https://github.com/angulartics/angulartics2#usage) is the same regardless of provider
+Once set up, Angulartics [usage](https://github.com/angulartics/angulartics2#usage) is the same regardless of provider
