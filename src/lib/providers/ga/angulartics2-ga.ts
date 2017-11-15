@@ -154,7 +154,7 @@ export class Angulartics2GoogleAnalytics {
       return;
     }
 
-    if (ga) {
+    if (typeof ga !== 'undefined') {
       ga('send', 'timing', properties);
     }
   }
@@ -168,7 +168,7 @@ export class Angulartics2GoogleAnalytics {
   }
 
   private setDimensionsAndMetrics(properties: any) {
-    if (!ga) {
+    if (typeof ga === 'undefined') {
       return;
     }
     // add custom dimensions and metrics
