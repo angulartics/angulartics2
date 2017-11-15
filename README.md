@@ -210,6 +210,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 * [Adobe Analytics (Omniture)](/src/lib/providers/adobeanalytics)
 * [Intercom](/src/lib/providers/intercom)
 * [Woopra](/src/lib/providers/woopra)
+* [Clicky](/src/lib/providers/clicky)
 
 ### For other providers
 
