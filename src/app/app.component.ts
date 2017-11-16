@@ -11,7 +11,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 })
 `;
 
-const importComponent = `import { Angulartics2GoogleAnalytics } from 'angulartics2';
+const importComponent = `import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 @Component({
   selector: 'app',
