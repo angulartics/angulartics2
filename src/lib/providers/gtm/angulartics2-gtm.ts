@@ -12,7 +12,7 @@ export class GoogleTagManagerDefaults implements GoogleTagManagerSettings {
 export class Angulartics2GoogleTagManager {
 
   constructor(
-    private angulartics2: Angulartics2,
+    protected angulartics2: Angulartics2,
   ) {
     // The dataLayer needs to be initialized
     if (typeof dataLayer !== 'undefined' && dataLayer) {
