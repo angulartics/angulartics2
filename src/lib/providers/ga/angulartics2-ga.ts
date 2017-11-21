@@ -14,6 +14,7 @@ export class GoogleAnalyticsDefaults implements GoogleAnalyticsSettings {
 
 @Injectable()
 export class Angulartics2GoogleAnalytics {
+  dimensionsAndMetrics = [];
 
   constructor(
     private angulartics2: Angulartics2,
@@ -171,18 +172,20 @@ export class Angulartics2GoogleAnalytics {
     if (typeof ga === 'undefined') {
       return;
     }
+    // clean previously used dimensions and metrics that will not be overriden
+    this.dimensionsAndMetrics.forEach((elem) => {
+      if (!properties.hasOwnProperty(elem)) {
+        ga('set', elem, undefined);
+      }
+    });
+    this.dimensionsAndMetrics = [];
+
     // add custom dimensions and metrics
-    for (let idx = 1; idx <= 200; idx++) {
-      if (properties['dimension' + idx.toString()]) {
-        ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
-      } else {
-        ga('set', 'dimension' + idx.toString(), undefined);
+    Object.keys(properties).forEach((key) => {
+      if (key.lastIndexOf('dimension', 0) === 0 || key.lastIndexOf('metric', 0) === 0) {
+        ga('set', key, properties[key]);
+        this.dimensionsAndMetrics.push(key);
       }
-      if (properties['metric' + idx.toString()]) {
-        ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
-      } else {
-        ga('set', 'metric' + idx.toString(), undefined);
-      }
-    }
+    });
   }
 }
