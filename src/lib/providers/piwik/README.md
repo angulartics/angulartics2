@@ -33,10 +33,10 @@ Make sure "trackPageView" line is commented or deleted. It is not needed as page
 Replace YOUR-DOMAIN with your piwik domain (`//DOMAIN.innocraft.cloud` if you are using the innocraft cloud service).
 
 Pass the Piwik provider to angulartics in app.module:
-```typescript
+```ts
 import { Angulartics2Module, Angulartics2Piwik } from 'angulartics2';
 @NgModule({
-	imports: [
+  imports: [
     Angulartics2Module.forRoot([Angulartics2Piwik]),
     ...
 ```
@@ -45,10 +45,8 @@ Inject angulartics into your root component (usually appComponent)
 ```
 import { Angulartics2Piwik } from 'angulartics2';
 export class AppComponent {
-	constructor(
-    // inject Angulartics2Piwik in root component to initialize it
-    private angulartics2Piwik: Angulartics2Piwik,
-	){ }
+  // inject Angulartics2Piwik in root component to initialize it
+  constructor(private angulartics2Piwik: Angulartics2Piwik){ }
 }
 ```
 
