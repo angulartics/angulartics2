@@ -116,37 +116,22 @@ function createUmd(name: string) {
   return generateBundle(entry, file, moduleName, 'umd');
 }
 
-function createEs(name: string, target: string, type: string) {
-  const moduleName = MODULE_NAMES[name];
-  const entry = createEntry(name);
-  const file = `${process.cwd()}/dist/packages-dist/angulartics2.${target}.js`;
-  return generateBundle(entry, file, moduleName, 'es');
-}
-
 function buildModule(name: string, type: string) {
   const es2015$ = spawnObservable(NGC, TSC_ARGS(type, name));
   const esm$ = spawnObservable(NGC, TSC_ARGS(type, name, 'esm'));
   return Observable.forkJoin(es2015$, esm$);
 }
 
-function createBundles(name: string, type: string) {
-  return Observable
-    .forkJoin(
-      Observable.from(createEs(name, 'es2015', type)),
-      Observable.from(createEs(name, 'es5', type)),
-    );
-}
-
 function buildModulesProviders() {
   const providers = Object.keys(MODULE_NAMES).filter((n) => n !== 'core');
   return Observable.of(...providers)
-    .mergeMap((name) => buildModule(name, 'providers'), 2)
+    .mergeMap((name) => buildModule(name, 'providers'), 3)
     .combineAll();
 }
 
 function buildUmds() {
   return Observable.of(...Object.keys(MODULE_NAMES))
-    .mergeMap((name) => Observable.from(createUmd(name)), 2)
+    .mergeMap((name) => Observable.from(createUmd(name)), 3)
     .combineAll();
 }
 
@@ -177,7 +162,6 @@ function copyFilesProviders() {
 function buildLibrary() {
   return Observable
     .forkJoin(buildModule('core', ''))
-    .switchMap(() => createBundles('core', 'core'))
     .switchMap(() => copyFilesCore())
     .switchMap(() => buildModulesProviders())
     .switchMap(() => copyFilesProviders())
