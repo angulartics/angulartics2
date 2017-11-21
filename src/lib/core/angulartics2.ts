@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Injectable, Inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators/filter';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';

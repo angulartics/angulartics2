@@ -43,7 +43,7 @@ const GLOBALS = {
   'rxjs/Observer': 'Rx',
   'rxjs/Subscription': 'Rx',
   'rxjs/ReplaySubject': 'Rx',
-  'rxjs/operators': 'Rx.Observable',
+  'rxjs/operators/filter': 'Rx.Observable',
   'rxjs/observable/merge': 'Rx.Observable',
   'rxjs/observable/of': 'Rx.Observable',
 
