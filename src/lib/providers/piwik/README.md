@@ -34,7 +34,8 @@ Replace YOUR-DOMAIN with your piwik domain (`//DOMAIN.innocraft.cloud` if you ar
 
 Pass the Piwik provider to angulartics in app.module:
 ```ts
-import { Angulartics2Module, Angulartics2Piwik } from 'angulartics2';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2Piwik } from 'angulartics2/piwik';
 @NgModule({
   imports: [
     Angulartics2Module.forRoot([Angulartics2Piwik]),
@@ -43,7 +44,7 @@ import { Angulartics2Module, Angulartics2Piwik } from 'angulartics2';
 
 Inject angulartics into your root component (usually appComponent)
 ```ts
-import { Angulartics2Piwik } from 'angulartics2';
+import { Angulartics2Piwik } from 'angulartics2/piwik';
 export class AppComponent {
   // inject Angulartics2Piwik in root component to initialize it
   constructor(private angulartics2Piwik: Angulartics2Piwik){ }
