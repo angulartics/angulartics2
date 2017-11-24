@@ -176,6 +176,10 @@ export class Angulartics2GoogleAnalytics {
     this.dimensionsAndMetrics.forEach((elem) => {
       if (!properties.hasOwnProperty(elem)) {
         ga('set', elem, undefined);
+
+        this.angulartics2.settings.ga.additionalAccountNames.forEach((accountName: string) => {
+          ga(`${accountName}.set`, elem, undefined);
+        });
       }
     });
     this.dimensionsAndMetrics = [];
@@ -184,6 +188,10 @@ export class Angulartics2GoogleAnalytics {
     Object.keys(properties).forEach((key) => {
       if (key.lastIndexOf('dimension', 0) === 0 || key.lastIndexOf('metric', 0) === 0) {
         ga('set', key, properties[key]);
+
+        this.angulartics2.settings.ga.additionalAccountNames.forEach((accountName: string) => {
+          ga(`${accountName}.set`, key, properties[key]);
+        });
         this.dimensionsAndMetrics.push(key);
       }
     });

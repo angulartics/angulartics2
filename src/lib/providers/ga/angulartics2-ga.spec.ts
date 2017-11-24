@@ -75,7 +75,7 @@ describe('Angulartics2GoogleAnalytics', () => {
           expect(angulartics2.settings.ga.userId).toBe('testuser');
       })));
 
-  it('should set user porperties',
+  it('should set user properties',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
         (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
           fixture = createRoot(RootCmp);
@@ -86,6 +86,24 @@ describe('Angulartics2GoogleAnalytics', () => {
           advance(fixture);
           expect(ga).toHaveBeenCalledWith('set', 'metric1', 'test');
       })));
+
+    it('should set user properties on all account names',
+      fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
+          (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+            fixture = createRoot(RootCmp);
+            angulartics2.settings.ga.additionalAccountNames.push('additionalAccountName');
+            angulartics2.settings.ga.additionalAccountNames.push('additionalAccountNameTwo');
+            angulartics2.setUserProperties.next({ dimension1: 'test' });
+            advance(fixture);
+            expect(ga).toHaveBeenCalledWith('set', 'dimension1', 'test');
+            expect(ga).toHaveBeenCalledWith('additionalAccountName.set', 'dimension1', 'test');
+            expect(ga).toHaveBeenCalledWith('additionalAccountNameTwo.set', 'dimension1', 'test');
+            angulartics2.setUserProperties.next({ metric1: 'test' });
+            advance(fixture);
+            expect(ga).toHaveBeenCalledWith('set', 'metric1', 'test');
+            expect(ga).toHaveBeenCalledWith('additionalAccountName.set', 'metric1', 'test');
+            expect(ga).toHaveBeenCalledWith('additionalAccountNameTwo.set', 'metric1', 'test');
+        })));
 
   it('should track user timings',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
