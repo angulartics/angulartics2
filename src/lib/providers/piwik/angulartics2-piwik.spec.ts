@@ -71,6 +71,29 @@ describe('Angulartics2Piwik', () => {
       ),
     );
 
+
+    it('should track goals',
+      fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
+        (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+          fixture = createRoot(RootCmp);
+
+          const piwikGoal = {
+            goalId: 1,
+            value: 35,
+          };
+
+          angulartics2.eventTrack.next({action: 'trackGoal', properties: piwikGoal});
+          advance(fixture);
+
+          expect(_paq).toContain([
+            'trackGoal',
+            piwikGoal.goalId,
+            piwikGoal.value,
+          ]);
+        }),
+      ),
+    );
+
     it('should track add ecommerce item events',
       fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
         (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
