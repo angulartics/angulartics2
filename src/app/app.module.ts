@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatIconModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
