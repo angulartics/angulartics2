@@ -36,11 +36,11 @@
     "zone.js": "^0.8.18"
   },
   "devDependencies": {
-    "@angular/cli": "1.5.3",
+    "@angular/cli": "1.5.4",
     "@angular/compiler-cli": "^4.4.6",
     "@angular/language-service": "^4.4.6",
-    "@types/applicationinsights-js": "^1.0.4",
-    "@types/fs-extra": "^4.0.3",
+    "@types/applicationinsights-js": "^1.0.5",
+    "@types/fs-extra": "^4.0.5",
     "@types/google.analytics": "^0.0.36",
     "@types/jasmine": "^2.8.2",
     "@types/jasminewd2": "^2.0.3",
