@@ -185,19 +185,5 @@ describe('angulartics2On', () => {
         },
       });
     });
-
-    it('should not bind event',
-      fakeAsync(
-        inject([Angulartics2], (angulartics2: Angulartics2) => {
-          fixture = createRoot(RootCmp);
-          expect(EventSpy).not.toHaveBeenCalled();
-          angulartics2.eventTrack.subscribe((x: any) => EventSpy(x));
-          compiled = fixture.debugElement.nativeElement.children[0];
-          compiled.click();
-          advance(fixture);
-          expect(EventSpy).not.toHaveBeenCalled();
-        }),
-      ),
-    );
   });
 });
