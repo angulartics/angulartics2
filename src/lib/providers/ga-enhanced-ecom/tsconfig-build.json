@@ -26,6 +26,7 @@
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableSummariesForJit": false
+    "enableSummariesForJit": false,
+    "annotationsAs": "decorators"
   }
 }

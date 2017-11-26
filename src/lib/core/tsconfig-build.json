@@ -23,6 +23,7 @@
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "enableSummariesForJit": true,
+    "annotationsAs": "decorators",
     "flatModuleOutFile": "index.js",
     "flatModuleId": "angulartics2"
   }
