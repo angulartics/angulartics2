@@ -20,15 +20,11 @@ export class Angulartics2On implements AfterContentInit {
   @Input() angularticsValue: string;
   @Input() angularticsProperties: any = {};
 
-  private el: HTMLElement;
-
   constructor(
     private elRef: ElementRef,
     private angulartics2: Angulartics2,
     private renderer: Renderer2
-  ) {
-    this.el = this.elRef.nativeElement;
-  }
+  ) { }
 
   ngAfterContentInit() {
     this.renderer.listen(this.elRef.nativeElement, this.angulartics2On || 'click', (event: Event) => this.eventTrack(event));
