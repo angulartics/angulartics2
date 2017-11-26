@@ -22,6 +22,10 @@ export class ProvidersComponent {
       display: 'Baidu',
       type: 'Analytics',
     }, {
+      name: 'clicky',
+      display: 'Clicky',
+      type: 'Analytics',
+    }, {
       name: 'facebook',
       display: 'Facebook Pixel',
       type: 'Advertising',
@@ -64,10 +68,6 @@ export class ProvidersComponent {
     }, {
       name: 'woopra',
       display: 'Woopra',
-      type: 'Analytics',
-    }, {
-      name: 'clicky',
-      display: 'Clicky',
       type: 'Analytics',
     },
   ];
