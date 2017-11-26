@@ -4,9 +4,8 @@ import {
   ElementRef,
   Input,
   Injectable,
+  Renderer2,
 } from '@angular/core';
-import { EventManager } from '@angular/platform-browser';
-
 import { Angulartics2 } from './angulartics2';
 
 @Injectable()
@@ -21,29 +20,16 @@ export class Angulartics2On implements AfterContentInit {
   @Input() angularticsValue: string;
   @Input() angularticsProperties: any = {};
 
-  private el: any;
-
   constructor(
     private elRef: ElementRef,
     private angulartics2: Angulartics2,
-    private eventManager: EventManager
-  ) {
-    this.el = this.elRef.nativeElement;
-  }
+    private renderer: Renderer2
+  ) { }
 
   ngAfterContentInit() {
-    // Don't listen in server-side
-    if (this.isBrowser()) {
-      this.eventManager.addEventListener(
-        this.el,
-        this.angulartics2On || 'click',
-        (event: Event) => this.eventTrack(event),
-      );
-    }
+    this.renderer.listen(this.elRef.nativeElement, this.angulartics2On || 'click', (event: Event) => this.eventTrack(event));
   }
-  isBrowser() {
-    return typeof(window) !== 'undefined';
-  }
+
   eventTrack(event: Event) {
     const action = this.angularticsAction; // || this.inferEventName();
     const properties: any = {
