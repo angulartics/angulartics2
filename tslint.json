@@ -120,7 +120,6 @@
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": false,
-    "directive-class-suffix": false,
-    "invoke-injectable": true
+    "directive-class-suffix": false
   }
 }
