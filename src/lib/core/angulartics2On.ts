@@ -9,9 +9,7 @@ import {
 import { Angulartics2 } from './angulartics2';
 
 @Injectable()
-@Directive({
-  selector: '[angulartics2On]'
-})
+@Directive({ selector: '[angulartics2On]' })
 export class Angulartics2On implements AfterContentInit {
   @Input('angulartics2On') angulartics2On: string;
   @Input() angularticsAction: string;
@@ -27,7 +25,11 @@ export class Angulartics2On implements AfterContentInit {
   ) { }
 
   ngAfterContentInit() {
-    this.renderer.listen(this.elRef.nativeElement, this.angulartics2On || 'click', (event: Event) => this.eventTrack(event));
+    this.renderer.listen(
+      this.elRef.nativeElement,
+      this.angulartics2On || 'click',
+      (event: Event) => this.eventTrack(event),
+    );
   }
 
   eventTrack(event: Event) {

@@ -11,7 +11,7 @@ import { ANGULARTICS2_TOKEN, Angulartics2Token } from './angulartics2-token';
 export class Angulartics2 {
   settings: Angulartics2Settings;
 
-  pageTrack = new ReplaySubject<{ path?: string; location?: Location }>(10);
+  pageTrack = new ReplaySubject<Partial<{ path: string; location: Location }>>(10);
   eventTrack = new ReplaySubject<{ action: string, properties: any }>(10);
   exceptionTrack = new ReplaySubject<any>(10);
   setAlias = new ReplaySubject<string>(10);
@@ -22,7 +22,11 @@ export class Angulartics2 {
   setSuperPropertiesOnce = new ReplaySubject<any>(10);
   userTimings = new ReplaySubject<any>(10);
 
-  constructor(location: Location, router: Router, @Inject(ANGULARTICS2_TOKEN) setup: Angulartics2Token) {
+  constructor(
+    location: Location,
+    router: Router,
+    @Inject(ANGULARTICS2_TOKEN) setup: Angulartics2Token,
+  ) {
     const defaultConfig = new DefaultConfig;
     this.settings = { ...defaultConfig, ...setup.settings };
     this.settings.pageTracking = { ...defaultConfig.pageTracking, ...setup.settings.pageTracking };
@@ -61,12 +65,13 @@ export class Angulartics2 {
   protected trackUrlChange(url: string, location: Location) {
     if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
       const clearedUrl = this.clearUrl(url);
-      this.pageTrack.next({
-        path: this.settings.pageTracking.basePath.length
-          ? this.settings.pageTracking.basePath + clearedUrl
-          : location.prepareExternalUrl(clearedUrl),
-        location: location,
-      });
+      let path: string;
+      if (this.settings.pageTracking.basePath.length) {
+        path = this.settings.pageTracking.basePath + clearedUrl;
+      } else {
+        path = location.prepareExternalUrl(clearedUrl);
+      }
+      this.pageTrack.next({ path, location });
     }
   }
 
