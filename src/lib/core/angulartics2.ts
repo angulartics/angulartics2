@@ -1,18 +1,20 @@
 import { Location } from '@angular/common';
 import { Injectable, Inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+
 import { filter } from 'rxjs/operators/filter';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';
 import { ANGULARTICS2_TOKEN, Angulartics2Token } from './angulartics2-token';
+import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';
 
 @Injectable()
 export class Angulartics2 {
   settings: Angulartics2Settings;
 
-  pageTrack = new ReplaySubject<Partial<{ path: string; location: Location }>>(10);
-  eventTrack = new ReplaySubject<{ action: string, properties: any }>(10);
+  pageTrack = new ReplaySubject<Partial<PageTrack>>(10);
+  eventTrack = new ReplaySubject<Partial<EventTrack>>(10);
   exceptionTrack = new ReplaySubject<any>(10);
   setAlias = new ReplaySubject<string>(10);
   setUsername = new ReplaySubject<{ userId: string | number } | string>(10);
@@ -20,33 +22,38 @@ export class Angulartics2 {
   setUserPropertiesOnce = new ReplaySubject<any>(10);
   setSuperProperties = new ReplaySubject<any>(10);
   setSuperPropertiesOnce = new ReplaySubject<any>(10);
-  userTimings = new ReplaySubject<any>(10);
+  userTimings = new ReplaySubject<UserTimings>(10);
 
   constructor(
     location: Location,
     router: Router,
     @Inject(ANGULARTICS2_TOKEN) setup: Angulartics2Token,
   ) {
-    const defaultConfig = new DefaultConfig;
+    const defaultConfig = new DefaultConfig();
     this.settings = { ...defaultConfig, ...setup.settings };
-    this.settings.pageTracking = { ...defaultConfig.pageTracking, ...setup.settings.pageTracking };
+    this.settings.pageTracking = {
+      ...defaultConfig.pageTracking,
+      ...setup.settings.pageTracking,
+    };
     this.trackLocation(location, router);
   }
 
   trackLocation(location: Location, router: Router) {
-    router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      filter(() => !this.settings.developerMode),
-    ).subscribe((event: NavigationEnd) =>
-      this.trackUrlChange(event.urlAfterRedirects, location),
-    );
+    router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        filter(() => !this.settings.developerMode),
+      )
+      .subscribe((event: NavigationEnd) =>
+        this.trackUrlChange(event.urlAfterRedirects, location),
+      );
   }
   /** @deprecated */
   virtualPageviews(value: boolean) {
     this.settings.pageTracking.autoTrackVirtualPages = value;
   }
   /** @deprecated */
-  excludeRoutes(routes: Array<string|RegExp>) {
+  excludeRoutes(routes: Array<string | RegExp>) {
     this.settings.pageTracking.excludedRoutes = routes;
   }
   /** @deprecated */
@@ -63,7 +70,10 @@ export class Angulartics2 {
   }
 
   protected trackUrlChange(url: string, location: Location) {
-    if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
+    if (
+      this.settings.pageTracking.autoTrackVirtualPages &&
+      !this.matchesExcludedRoute(url)
+    ) {
       const clearedUrl = this.clearUrl(url);
       let path: string;
       if (this.settings.pageTracking.basePath.length) {

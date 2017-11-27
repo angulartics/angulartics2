@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Angulartics2, GoogleAnalyticsSettings } from 'angulartics2';
+import {
+  Angulartics2,
+  GoogleAnalyticsSettings,
+  UserTimings,
+} from 'angulartics2';
 
 declare var _gaq: GoogleAnalyticsCode;
 declare var ga: UniversalAnalytics.ga;
@@ -16,18 +20,19 @@ export class GoogleAnalyticsDefaults implements GoogleAnalyticsSettings {
 export class Angulartics2GoogleAnalytics {
   dimensionsAndMetrics = [];
 
-  constructor(
-    private angulartics2: Angulartics2,
-  ) {
-    const defaults = new GoogleAnalyticsDefaults;
+  constructor(private angulartics2: Angulartics2) {
+    const defaults = new GoogleAnalyticsDefaults();
     // Set the default settings for this module
-    this.angulartics2.settings.ga = { ...defaults, ...this.angulartics2.settings.ga };
-    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path));
-    this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
-    this.angulartics2.exceptionTrack.subscribe((x) => this.exceptionTrack(x));
+    this.angulartics2.settings.ga = {
+      ...defaults,
+      ...this.angulartics2.settings.ga,
+    };
+    this.angulartics2.pageTrack.subscribe(x => this.pageTrack(x.path));
+    this.angulartics2.eventTrack.subscribe(x => this.eventTrack(x.action, x.properties));
+    this.angulartics2.exceptionTrack.subscribe(x => this.exceptionTrack(x));
     this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties.subscribe((x) => this.setUserProperties(x));
-    this.angulartics2.userTimings.subscribe((x) => this.userTimings(x));
+    this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
+    this.angulartics2.userTimings.subscribe(x => this.userTimings(x));
   }
 
   pageTrack(path: string) {
@@ -84,13 +89,15 @@ export class Angulartics2GoogleAnalytics {
         nonInteraction: properties.noninteraction,
         page: properties.page || location.hash.substring(1) || location.pathname,
         userId: this.angulartics2.settings.ga.userId,
-        hitCallback: properties.hitCallback
+        hitCallback: properties.hitCallback,
       };
 
       // add custom dimensions and metrics
       this.setDimensionsAndMetrics(properties);
       if (this.angulartics2.settings.ga.transport) {
-        ga('send', 'event', eventOptions, { transport: this.angulartics2.settings.ga.transport });
+        ga('send', 'event', eventOptions, {
+          transport: this.angulartics2.settings.ga.transport,
+        });
       } else {
         ga('send', 'event', eventOptions);
       }
@@ -99,7 +106,14 @@ export class Angulartics2GoogleAnalytics {
         ga(accountName + '.send', 'event', eventOptions);
       }
     } else if (typeof _gaq !== 'undefined') {
-      _gaq.push(['_trackEvent', properties.category, action, properties.label, properties.value, properties.noninteraction]);
+      _gaq.push([
+        '_trackEvent',
+        properties.category,
+        action,
+        properties.label,
+        properties.value,
+        properties.noninteraction,
+      ]);
     }
   }
 
@@ -124,7 +138,7 @@ export class Angulartics2GoogleAnalytics {
 
     const eventOptions = {
       exFatal: properties.fatal,
-      exDescription: properties.description
+      exDescription: properties.description,
     };
 
     ga('send', 'exception', eventOptions);
@@ -143,9 +157,16 @@ export class Angulartics2GoogleAnalytics {
    *
    * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/user-timings
    */
-  userTimings(properties: any) {
-    if (!properties || !properties.timingCategory || !properties.timingVar || !properties.timingValue) {
-      console.error('Properties timingCategory, timingVar, and timingValue are required to be set.');
+  userTimings(properties: UserTimings) {
+    if (
+      !properties ||
+      !properties.timingCategory ||
+      !properties.timingVar ||
+      !properties.timingValue
+    ) {
+      console.error(
+        'Properties timingCategory, timingVar, and timingValue are required to be set.',
+      );
       return;
     }
 
@@ -167,25 +188,32 @@ export class Angulartics2GoogleAnalytics {
       return;
     }
     // clean previously used dimensions and metrics that will not be overriden
-    this.dimensionsAndMetrics.forEach((elem) => {
+    this.dimensionsAndMetrics.forEach(elem => {
       if (!properties.hasOwnProperty(elem)) {
         ga('set', elem, undefined);
 
-        this.angulartics2.settings.ga.additionalAccountNames.forEach((accountName: string) => {
-          ga(`${accountName}.set`, elem, undefined);
-        });
+        this.angulartics2.settings.ga.additionalAccountNames.forEach(
+          (accountName: string) => {
+            ga(`${accountName}.set`, elem, undefined);
+          },
+        );
       }
     });
     this.dimensionsAndMetrics = [];
 
     // add custom dimensions and metrics
-    Object.keys(properties).forEach((key) => {
-      if (key.lastIndexOf('dimension', 0) === 0 || key.lastIndexOf('metric', 0) === 0) {
+    Object.keys(properties).forEach(key => {
+      if (
+        key.lastIndexOf('dimension', 0) === 0 ||
+        key.lastIndexOf('metric', 0) === 0
+      ) {
         ga('set', key, properties[key]);
 
-        this.angulartics2.settings.ga.additionalAccountNames.forEach((accountName: string) => {
-          ga(`${accountName}.set`, key, properties[key]);
-        });
+        this.angulartics2.settings.ga.additionalAccountNames.forEach(
+          (accountName: string) => {
+            ga(`${accountName}.set`, key, properties[key]);
+          },
+        );
         this.dimensionsAndMetrics.push(key);
       }
     });
