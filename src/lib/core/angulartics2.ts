@@ -12,7 +12,7 @@ export class Angulartics2 {
   settings: Angulartics2Settings;
 
   pageTrack = new ReplaySubject<{ path?: string; location?: Location }>(10);
-  eventTrack = new ReplaySubject<{ action: string } | any>(10);
+  eventTrack = new ReplaySubject<{ action: string, properties: any }>(10);
   exceptionTrack = new ReplaySubject<any>(10);
   setAlias = new ReplaySubject<string>(10);
   setUsername = new ReplaySubject<{ userId: string | number } | string>(10);

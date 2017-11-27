@@ -11,14 +11,10 @@ export class Angulartics2Piwik {
     if (typeof (_paq) === 'undefined') {
       console.warn('Piwik not found');
     }
-
-    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path, x.location));
-
-    this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
-
+    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path, x.location));
+    this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
     this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
-
-    this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
+    this.angulartics2.setUserProperties.subscribe((x) => this.setUserProperties(x));
   }
 
   pageTrack(path: string, location?: any) {
@@ -202,8 +198,8 @@ export class Angulartics2Piwik {
    * @link https://piwik.org/docs/custom-variables/
    */
   setUserProperties(properties: any) {
+    const dimensions = this.setCustomDimensions(properties);
     try {
-      const dimensions = this.setCustomDimensions(properties);
       if (dimensions.length === 0) {
         _paq.push(['setCustomVariable', properties]);
       }
@@ -216,7 +212,8 @@ export class Angulartics2Piwik {
 
   private setCustomDimensions(properties: any): string[] {
     const dimensionRegex: RegExp = /dimension[1-9]\d*/;
-    const dimensions = Object.keys(properties).filter(key => dimensionRegex.exec(key));
+    const dimensions = Object.keys(properties)
+      .filter(key => dimensionRegex.exec(key));
     dimensions.forEach(dimension => {
       const number = Number(dimension.substr(9));
       _paq.push(['setCustomDimension', number, properties[dimension]]);

@@ -82,7 +82,7 @@ describe('angulartics2', () => {
           fixture = createRootWithRouter(router, RootCmp);
           // angulartics2.settings.developerMode = true;
           angulartics2.developerMode(true);
-          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
           expect(EventSpy).not.toHaveBeenCalledWith({ path: '/abc', location: location });
@@ -112,7 +112,7 @@ describe('angulartics2', () => {
       fakeAsync(inject([Router, Location, Angulartics2],
         (router: Router, location: Location, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
-          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           router.navigateByUrl('/abc');
           advance(fixture);
           router.navigate(['def']);
@@ -124,7 +124,7 @@ describe('angulartics2', () => {
     it('should track initial page',
       fakeAsync(inject([Router, Location, Angulartics2],
         (router: Router, location: Location, angulartics2: Angulartics2) => {
-          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           fixture = createRootWithRouter(router, RootCmp);
           advance(fixture);
           expect(EventSpy).toHaveBeenCalledWith({ path: '/', location: location });
@@ -158,7 +158,7 @@ describe('angulartics2', () => {
       fakeAsync(inject([Router, Location, Angulartics2],
          (router: Router, location: Location, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
-          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           angulartics2.settings.pageTracking.excludedRoutes = [];
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
@@ -169,7 +169,7 @@ describe('angulartics2', () => {
       fakeAsync(inject([Router, Location, Angulartics2],
          (router: Router, location: Location, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
-          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           angulartics2.settings.pageTracking.excludedRoutes = ['/def'];
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
@@ -180,7 +180,7 @@ describe('angulartics2', () => {
       fakeAsync(inject([Router, Location, Angulartics2],
          (router: Router, location: Location, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
-          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           angulartics2.settings.pageTracking.excludedRoutes = ['/abc'];
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
@@ -191,7 +191,7 @@ describe('angulartics2', () => {
       fakeAsync(inject([Router, Location, Angulartics2],
          (router: Router, location: Location, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
-          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           // Ignore excluded route
           angulartics2.settings.pageTracking.excludedRoutes = ['/def', '/abc'];
           (<SpyLocation>location).simulateUrlPop('/abc');
@@ -209,7 +209,7 @@ describe('angulartics2', () => {
       fakeAsync(inject([Router, Location, Angulartics2],
          (router: Router, location: Location, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
-          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           angulartics2.settings.pageTracking.excludedRoutes = [/\/sections\/\d+\/pages\/\d+/];
           (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
           advance(fixture);
@@ -246,7 +246,7 @@ describe('angulartics2', () => {
       fakeAsync(inject([Router, Location, Angulartics2],
          (router: Router, location: Location, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
-          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           angulartics2.settings.pageTracking.clearIds = false;
           (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
           advance(fixture);
@@ -257,7 +257,7 @@ describe('angulartics2', () => {
       fakeAsync(inject([Router, Location, Angulartics2],
         (router: Router, location: Location, angulartics2: Angulartics2) => {
         fixture = createRootWithRouter(router, RootCmp);
-        angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.pageTrack.subscribe((x) => EventSpy(x));
         angulartics2.settings.pageTracking.clearIds = true;
         (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
         advance(fixture);
@@ -307,7 +307,7 @@ describe('angulartics2', () => {
           (<SpyLocation>location).simulateUrlPop('/ghi');
           advance(fixture);
 
-          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
 
           expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
           expect(EventSpy).toHaveBeenCalledWith({ path: '/def', location: location });

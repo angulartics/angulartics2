@@ -14,11 +14,9 @@ export class Angulartics2Hubspot {
       _hsq = [];
     }
 
-    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path, x.location));
-
-    this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
-
-    this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
+    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path, x.location));
+    this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
+    this.angulartics2.setUserProperties.subscribe((x) => this.setUserProperties(x));
   }
 
   pageTrack(path: string, location: any) {

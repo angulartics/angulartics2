@@ -22,18 +22,12 @@ export class Angulartics2GoogleAnalytics {
     const defaults = new GoogleAnalyticsDefaults;
     // Set the default settings for this module
     this.angulartics2.settings.ga = { ...defaults, ...this.angulartics2.settings.ga };
-
-    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
-
-    this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
-
-    this.angulartics2.exceptionTrack.subscribe((x: any) => this.exceptionTrack(x));
-
+    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path));
+    this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
+    this.angulartics2.exceptionTrack.subscribe((x) => this.exceptionTrack(x));
     this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
-
-    this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
-
-    this.angulartics2.userTimings.subscribe((x: any) => this.userTimings(x));
+    this.angulartics2.setUserProperties.subscribe((x) => this.setUserProperties(x));
+    this.angulartics2.userTimings.subscribe((x) => this.userTimings(x));
   }
 
   pageTrack(path: string) {

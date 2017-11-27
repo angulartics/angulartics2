@@ -10,15 +10,11 @@ export class Angulartics2Segment {
   constructor(
     private angulartics2: Angulartics2
   ) {
-    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path, x.location));
-
-    this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
-
-    this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
-
-    this.angulartics2.setUserPropertiesOnce.subscribe((x: any) => this.setUserProperties(x));
-
-    this.angulartics2.setAlias.subscribe((x: string) => this.setAlias(x));
+    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path, x.location));
+    this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
+    this.angulartics2.setUserProperties.subscribe((x) => this.setUserProperties(x));
+    this.angulartics2.setUserPropertiesOnce.subscribe((x) => this.setUserProperties(x));
+    this.angulartics2.setAlias.subscribe((x) => this.setAlias(x));
   }
 
   /**

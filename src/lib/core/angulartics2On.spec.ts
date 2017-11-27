@@ -96,7 +96,7 @@ describe('angulartics2On', () => {
       inject([Angulartics2], (angulartics2: Angulartics2) => {
         fixture = createRoot(RootCmp);
         expect(EventSpy).not.toHaveBeenCalled();
-        angulartics2.eventTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.eventTrack.subscribe((x) => EventSpy(x));
         compiled = fixture.debugElement.nativeElement.children[0];
         compiled.click();
         advance(fixture);
@@ -114,7 +114,7 @@ describe('angulartics2On', () => {
       inject([Angulartics2], (angulartics2: Angulartics2) => {
         fixture = createRoot(RootCmp1);
         expect(EventSpy).not.toHaveBeenCalled();
-        angulartics2.eventTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.eventTrack.subscribe((x) => EventSpy(x));
         compiled = fixture.debugElement.nativeElement.children[0];
         compiled.click();
         advance(fixture);
@@ -131,7 +131,7 @@ describe('angulartics2On', () => {
       inject([Angulartics2], (angulartics2: Angulartics2) => {
         fixture = createRoot(RootCmp2);
         expect(EventSpy).not.toHaveBeenCalled();
-        angulartics2.eventTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.eventTrack.subscribe((x) => EventSpy(x));
         compiled = fixture.debugElement.nativeElement.children[0];
         compiled.click();
         advance(fixture);
@@ -154,7 +154,7 @@ describe('angulartics2On', () => {
       inject([Angulartics2], (angulartics2: Angulartics2) => {
         fixture = createRoot(RootCmp3);
         expect(EventSpy).not.toHaveBeenCalled();
-        angulartics2.eventTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.eventTrack.subscribe((x) => EventSpy(x));
         compiled = fixture.debugElement.nativeElement.children[0];
         compiled.click();
         advance(fixture);

@@ -42,7 +42,10 @@ describe('Angulartics2Hubspot', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2Hubspot],
       (location: Location, angulartics2: Angulartics2, angulartics2Hubspot: Angulartics2Hubspot) => {
         fixture = createRoot(RootCmp);
-        angulartics2.eventTrack.next({ properties: { id: 'Clicked Buy Now button', value: 20.5 }});
+        angulartics2.eventTrack.next({
+          action: 'unused',
+          properties: { id: 'Clicked Buy Now button', value: 20.5 },
+        });
         advance(fixture);
         expect(_hsq).toContain(['trackEvent', { id: 'Clicked Buy Now button', value: 20.5 }]);
       }),
