@@ -39,6 +39,7 @@
     "@angular/compiler-cli": "^5.0.3",
     "@angular/language-service": "^5.0.3",
     "@types/applicationinsights-js": "^1.0.5",
+    "@types/facebook-pixel": "^0.0.19",
     "@types/fs-extra": "^4.0.5",
     "@types/google.analytics": "^0.0.36",
     "@types/jasmine": "^2.8.2",

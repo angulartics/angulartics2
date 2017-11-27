@@ -239,6 +239,10 @@
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@types/applicationinsights-js/-/applicationinsights-js-1.0.5.tgz#b0bab755e67ed584ac3bf75869fc12589a338a2c"
 
+"@types/facebook-pixel@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@types/facebook-pixel/-/facebook-pixel-0.0.19.tgz#37f6b8eeab00ff58b3d3b7a90d7c5d277ff5c5ae"
+
 "@types/fs-extra@^4.0.5":
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-4.0.5.tgz#8aa6033c0e87c653b09a6711686916864b48ec9e"
