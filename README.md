@@ -14,7 +14,7 @@ Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angul
   + [Include it in your application](#include-it-in-your-application)
   + [Tracking events](#tracking-events)
   + [Tracking events in the code](#tracking-events-in-the-code)
-  + [Excluding routes from automatic pageview tracking](#excluding-routes-from-automatic-pageview-tracking)
+  + [Excluding routes from automatic pageview tracking](#exclude-routes-from-automatic-pageview-tracking)
 * [Supported providers](#supported-providers)
   + [For other providers](#for-other-providers)
   + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
