@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "noImplicitAny": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "es2015",
@@ -20,13 +19,12 @@
       "angulartics2": ["../../../../dist/packages-dist/index"]
     }
   },
-  "files": [
-    "angulartics2-adobeanalytics.ts"
-  ],
-  "compileOnSave": false,
+  "files": ["angulartics2-adobeanalytics.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableSummariesForJit": false
+    "enableSummariesForJit": true,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "angulartics2/adobeanalytics"
   }
 }

@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "noImplicitAny": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "es2015",
@@ -23,10 +22,11 @@
   "files": [
     "angulartics2-appinsights.ts"
   ],
-  "compileOnSave": false,
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableSummariesForJit": false
+    "enableSummariesForJit": true,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "angulartics2/appinsights"
   }
 }

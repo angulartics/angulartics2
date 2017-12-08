@@ -6,13 +6,11 @@
     "declaration": true,
     "removeComments": false
   },
-  "files": [
-    "angulartics2-hubspot.ts"
-  ],
+  "files": ["angulartics2-hubspot.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableSummariesForJit": false,
+    "enableSummariesForJit": true,
     "flatModuleOutFile": "index.js",
     "flatModuleId": "angulartics2/hubspot"
   }

@@ -19,13 +19,12 @@
       "angulartics2": ["../../../../dist/packages-dist/index"]
     }
   },
-  "files": [
-    "angulartics2-ga.ts"
-  ],
-  "compileOnSave": false,
+  "files": ["angulartics2-ga.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableSummariesForJit": false
+    "enableSummariesForJit": true,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "angulartics2/ga"
   }
 }

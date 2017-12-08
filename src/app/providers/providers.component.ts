@@ -14,12 +14,20 @@ export class ProvidersComponent {
       display: 'Adobe Analytics',
       type: 'Analytics',
     }, {
+      name: 'amplitude',
+      display: 'Amplitude',
+      type: 'Analytics',
+    }, {
       name: 'appinsights',
       display: 'Azure Application Insights',
       type: 'Analytics',
     }, {
       name: 'baidu',
       display: 'Baidu',
+      type: 'Analytics',
+    }, {
+      name: 'clicky',
+      display: 'Clicky',
       type: 'Analytics',
     }, {
       name: 'facebook',
@@ -30,12 +38,12 @@ export class ProvidersComponent {
       display: 'Google Analytics',
       type: 'Analytics',
     }, {
-      name: 'gtm',
-      display: 'Google Tag Manager',
-      type: 'Analytics',
-    }, {
       name: 'ga-enhanced-ecom',
       display: 'Google Analytics Enhanced Ecommerce',
+      type: 'Analytics',
+    }, {
+      name: 'gtm',
+      display: 'Google Tag Manager',
       type: 'Analytics',
     }, {
       name: 'hubspot',
@@ -64,14 +72,6 @@ export class ProvidersComponent {
     }, {
       name: 'woopra',
       display: 'Woopra',
-      type: 'Analytics',
-    }, {
-      name: 'clicky',
-      display: 'Clicky',
-      type: 'Analytics',
-    }, {
-      name: 'amplitude',
-      display: 'Amplitude',
       type: 'Analytics',
     },
   ];
