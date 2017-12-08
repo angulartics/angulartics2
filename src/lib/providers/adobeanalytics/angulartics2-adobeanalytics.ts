@@ -26,9 +26,8 @@ export class Angulartics2AdobeAnalytics {
 
   /**
    * Track Event in Adobe Analytics
-   * @name eventTrack
    *
-   * @param action Required 'action' (string) associated with the event
+   * @param action associated with the event
    * @param properties Comprised of the mandatory field 'category' (string) and optional  fields 'label' (string), 'value' (integer) and 'noninteraction' (boolean)
    *
    * @link https://marketing.adobe.com/resources/help/en_US/sc/implement/js_implementation.html
