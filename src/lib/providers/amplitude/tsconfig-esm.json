@@ -2,16 +2,16 @@
   "extends": "./tsconfig-build.json",
   "compilerOptions": {
     "target": "es5",
-    "outDir": "../../../../dist/packages-dist/clicky",
+    "outDir": "../../../../dist/packages-dist/amplitude",
     "declaration": true,
     "removeComments": false
   },
-  "files": ["angulartics2-clicky.ts"],
+  "files": ["angulartics2-amplitude.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "enableSummariesForJit": true,
     "flatModuleOutFile": "index.js",
-    "flatModuleId": "angulartics2/clicky"
+    "flatModuleId": "angulartics2/amplitude"
   }
 }

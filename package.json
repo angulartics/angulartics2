@@ -76,7 +76,7 @@
   },
   "repository": "angulartics/angulartics2",
   "engines": {
-    "node": ">=6.9.0"
+    "node": ">=8"
   },
   "config": {
     "commitizen": {

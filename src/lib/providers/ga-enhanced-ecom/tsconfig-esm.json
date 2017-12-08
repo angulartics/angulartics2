@@ -6,14 +6,11 @@
     "declaration": true,
     "removeComments": false
   },
-  "files": [
-    "angulartics2-ga-enhanced-ecom.ts"
-  ],
+  "files": ["angulartics2-ga-enhanced-ecom.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableSummariesForJit": false,
-    "annotationsAs": "decorators",
+    "enableSummariesForJit": true,
     "flatModuleOutFile": "index.js",
     "flatModuleId": "angulartics2/ga-enhanced-ecom"
   }

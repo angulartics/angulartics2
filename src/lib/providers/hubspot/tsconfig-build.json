@@ -19,14 +19,12 @@
       "angulartics2": ["../../../../dist/packages-dist/index"]
     }
   },
-  "files": [
-    "angulartics2-hubspot.ts"
-  ],
-  "compileOnSave": false,
+  "files": ["angulartics2-hubspot.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableSummariesForJit": false,
-    "annotationsAs": "decorators"
+    "enableSummariesForJit": true,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "angulartics2/hubspot"
   }
 }

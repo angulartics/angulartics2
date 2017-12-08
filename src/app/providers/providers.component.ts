@@ -14,6 +14,10 @@ export class ProvidersComponent {
       display: 'Adobe Analytics',
       type: 'Analytics',
     }, {
+      name: 'amplitude',
+      display: 'Amplitude',
+      type: 'Analytics',
+    }, {
       name: 'appinsights',
       display: 'Azure Application Insights',
       type: 'Analytics',
@@ -34,12 +38,12 @@ export class ProvidersComponent {
       display: 'Google Analytics',
       type: 'Analytics',
     }, {
-      name: 'gtm',
-      display: 'Google Tag Manager',
-      type: 'Analytics',
-    }, {
       name: 'ga-enhanced-ecom',
       display: 'Google Analytics Enhanced Ecommerce',
+      type: 'Analytics',
+    }, {
+      name: 'gtm',
+      display: 'Google Tag Manager',
       type: 'Analytics',
     }, {
       name: 'hubspot',

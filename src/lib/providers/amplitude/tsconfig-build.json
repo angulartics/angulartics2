@@ -6,7 +6,7 @@
     "module": "es2015",
     "target": "es2015",
     "noImplicitAny": false,
-    "outDir": "../../../../dist/packages-dist/kissmetrics/es2015",
+    "outDir": "../../../../dist/packages-dist/amplitude/es2015",
     "rootDir": ".",
     "sourceMap": true,
     "inlineSources": true,
@@ -19,12 +19,15 @@
       "angulartics2": ["../../../../dist/packages-dist/index"]
     }
   },
-  "files": ["angulartics2-kissmetrics.ts"],
+  "files": [
+    "angulartics2-amplitude.ts"
+  ],
+  "compileOnSave": false,
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "enableSummariesForJit": true,
     "flatModuleOutFile": "index.js",
-    "flatModuleId": "angulartics2/kissmetrics"
+    "flatModuleId": "angulartics2/amplitude"
   }
 }

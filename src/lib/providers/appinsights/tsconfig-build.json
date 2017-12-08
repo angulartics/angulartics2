@@ -22,11 +22,11 @@
   "files": [
     "angulartics2-appinsights.ts"
   ],
-  "compileOnSave": false,
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableSummariesForJit": false,
-    "annotationsAs": "decorators"
+    "enableSummariesForJit": true,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "angulartics2/appinsights"
   }
 }
