@@ -69,6 +69,10 @@ export class ProvidersComponent {
       name: 'clicky',
       display: 'Clicky',
       type: 'Analytics',
+    }, {
+      name: 'amplitude',
+      display: 'Amplitude',
+      type: 'Analytics',
     },
   ];
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {

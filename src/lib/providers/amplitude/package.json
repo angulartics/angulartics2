@@ -1,13 +1,13 @@
 {
-  "name": "angulartics2/intercom",
-  "description": "The intercom module",
+  "name": "angulartics2/amplitude",
+  "description": "The amplitude module",
   "homepage": "https://angulartics.github.io/angulartics2/",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "bugs": {
     "url": "http://github.com/angulartics/angulartics2/issues"
   },
   "repository": "angulartics/angulartics2",
-  "main": "../bundles/intercom.umd.js",
+  "main": "../bundles/amplitude.umd.js",
   "module": "index.js",
   "es2015": "es2015/index.js",
   "typings": "index.d.ts",

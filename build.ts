@@ -26,6 +26,7 @@ const MODULE_NAMES = {
   intercom: 'angulartics2.intercom',
   woopra: 'angulartics2.woopra',
   clicky: 'angulartics2.clicky',
+  amplitude: 'angulartics2.amplitude',
 };
 
 const GLOBALS = {
