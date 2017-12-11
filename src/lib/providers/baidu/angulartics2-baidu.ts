@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 
 
-declare var hmt: any;
+declare var _hmt: any;
 
 @Injectable()
 export class Angulartics2BaiduAnalytics {
   constructor(private angulartics2: Angulartics2) {
-    if (typeof hmt === 'undefined') {
-      hmt = [];
+    if (typeof _hmt === 'undefined') {
+      _hmt = [];
     } else {
-      hmt.push(['_ setAutoPageview', false]);
+      _hmt.push(['_setAutoPageview', false]);
     }
 
     this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
@@ -35,8 +35,8 @@ export class Angulartics2BaiduAnalytics {
    * @link http://tongji.baidu.com/open/api/more?p=ref_trackPageview
    */
   pageTrack(path: string) {
-    if (typeof hmt !== 'undefined' && hmt) {
-      hmt.push(['_trackPageview', path]);
+    if (typeof _hmt !== 'undefined' && _hmt) {
+      _hmt.push(['_trackPageview', path]);
     }
   }
 
@@ -60,8 +60,8 @@ export class Angulartics2BaiduAnalytics {
       properties.opt_value = 'default';
     }
 
-    if (typeof hmt !== 'undefined' && hmt) {
-      hmt.push([
+    if (typeof _hmt !== 'undefined' && _hmt) {
+      _hmt.push([
         '_trackEvent',
         properties.category,
         action,
@@ -73,10 +73,10 @@ export class Angulartics2BaiduAnalytics {
 
   setUsername(userId: string) {
     // set default custom variables name to 'identity' and 'value'
-    hmt.push(['_setCustomVar', 1, 'identity', userId]);
+    _hmt.push(['_setCustomVar', 1, 'identity', userId]);
   }
 
   setUserProperties(properties: any) {
-    hmt.push(['_setCustomVar', 2, 'user', JSON.stringify(properties)]);
+    _hmt.push(['_setCustomVar', 2, 'user', JSON.stringify(properties)]);
   }
 }
