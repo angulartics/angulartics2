@@ -11,7 +11,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
 
 describe('Angulartics2BaiduAnalytics', () => {
-  let hmt: Array<any>;
+  let _hmt: Array<any>;
   let fixture: ComponentFixture<any>;
 
     beforeEach(() => {
@@ -23,7 +23,7 @@ describe('Angulartics2BaiduAnalytics', () => {
         ],
       });
 
-      window.hmt = hmt = [];
+      window._hmt = _hmt = [];
     });
 
   it('should track pages',
@@ -32,7 +32,7 @@ describe('Angulartics2BaiduAnalytics', () => {
         fixture = createRoot(RootCmp);
         angulartics2.pageTrack.next({ path: '/abc', location: location });
         advance(fixture);
-        expect(hmt).toContain(['_trackPageview', '/abc']);
+        expect(_hmt).toContain(['_trackPageview', '/abc']);
       }),
     ),
   );
@@ -43,7 +43,7 @@ describe('Angulartics2BaiduAnalytics', () => {
         fixture = createRoot(RootCmp);
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', opt_label: 'label', opt_value: 'value' } });
         advance(fixture);
-        expect(hmt).toContain(['_trackEvent', 'cat', 'do', 'label', 'value']);
+        expect(_hmt).toContain(['_trackEvent', 'cat', 'do', 'label', 'value']);
       }),
     ),
   );
@@ -54,7 +54,7 @@ describe('Angulartics2BaiduAnalytics', () => {
         fixture = createRoot(RootCmp);
         angulartics2.setUsername.next('testUser');
         advance(fixture);
-        expect(hmt).toContain(['_setCustomVar', 1, 'identity', 'testUser']);
+        expect(_hmt).toContain(['_setCustomVar', 1, 'identity', 'testUser']);
       }),
     ),
   );
@@ -65,7 +65,7 @@ describe('Angulartics2BaiduAnalytics', () => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserProperties.next({ userId: '1', firstName: 'John', lastName: 'Doe' });
         advance(fixture);
-        expect(hmt).toContain(['_setCustomVar', 2, 'user', '{"userId":"1","firstName":"John","lastName":"Doe"}']);
+        expect(_hmt).toContain(['_setCustomVar', 2, 'user', '{"userId":"1","firstName":"John","lastName":"Doe"}']);
       }),
     ),
   );
