@@ -8,8 +8,8 @@
   },
   "repository": "angulartics/angulartics2",
   "main": "../bundles/ga-enhanced-ecom.umd.js",
-  "module": "index.js",
-  "es2015": "es2015/index.js",
+  "module": "ga-enhanced-ecom.es5.js",
+  "es2015": "ga-enhanced-ecom.es2015.js",
   "typings": "index.d.ts",
   "license": "MIT"
 }

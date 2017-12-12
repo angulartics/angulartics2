@@ -8,8 +8,8 @@
   },
   "repository": "angulartics/angulartics2",
   "main": "../bundles/intercom.umd.js",
-  "module": "index.js",
-  "es2015": "es2015/index.js",
+  "module": "intercom.es5.js",
+  "es2015": "intercom.es2015.js",
   "typings": "index.d.ts",
   "license": "MIT"
 }

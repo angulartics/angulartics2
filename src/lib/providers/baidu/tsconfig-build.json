@@ -6,17 +6,17 @@
     "module": "es2015",
     "target": "es2015",
     "noImplicitAny": false,
-    "outDir": "../../../../dist/packages-dist/baidu/es2015",
+    "outDir": "../../../../dist/baidu/es2015",
     "rootDir": ".",
     "sourceMap": true,
     "inlineSources": true,
-    "declaration": false,
+    "declaration": true,
     "removeComments": false,
     "lib": ["es2015", "dom"],
     "skipLibCheck": true,
     "moduleResolution": "node",
     "paths": {
-      "angulartics2": ["../../../../dist/packages-dist/index"]
+      "angulartics2": ["../../../../dist/es2015/index"]
     }
   },
   "files": ["angulartics2-baidu.ts"],

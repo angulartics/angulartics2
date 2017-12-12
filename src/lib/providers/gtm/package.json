@@ -8,8 +8,8 @@
   },
   "repository": "angulartics/angulartics2",
   "main": "../bundles/gtm.umd.js",
-  "module": "index.js",
-  "es2015": "es2015/index.js",
+  "module": "gtm.es5.js",
+  "es2015": "gtm.es2015.js",
   "typings": "index.d.ts",
   "license": "MIT"
 }

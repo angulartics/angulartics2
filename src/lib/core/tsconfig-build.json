@@ -5,25 +5,21 @@
     "emitDecoratorMetadata": true,
     "module": "es2015",
     "target": "es2015",
-    "outDir": "../../../dist/packages-dist/es2015",
+    "outDir": "../../../dist/es2015",
     "rootDir": ".",
     "sourceMap": true,
     "inlineSources": true,
-    "declaration": false,
-    "removeComments": true,
+    "declaration": true,
+    "removeComments": false,
     "lib": ["es2015", "dom"],
     "skipLibCheck": true,
     "moduleResolution": "node"
   },
-  "files": [
-    "public_api.ts"
-  ],
-  "compileOnSave": false,
+  "files": ["public_api.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "enableSummariesForJit": true,
-    "annotationsAs": "decorators",
     "flatModuleOutFile": "index.js",
     "flatModuleId": "angulartics2"
   }

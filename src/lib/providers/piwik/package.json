@@ -8,8 +8,8 @@
   },
   "repository": "angulartics/angulartics2",
   "main": "../bundles/piwik.umd.js",
-  "module": "index.js",
-  "es2015": "es2015/index.js",
+  "module": "piwik.es5.js",
+  "es2015": "piwik.es2015.js",
   "typings": "index.d.ts",
   "license": "MIT"
 }

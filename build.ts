@@ -3,10 +3,16 @@
 // build based on
 // https://github.com/angular/angularfire2/blob/master/tools/build.js
 import { spawn } from 'child_process';
+import * as copyfiles from 'copy';
 import { rollup } from 'rollup';
+import * as filesize from 'rollup-plugin-filesize';
 import * as sourcemaps from 'rollup-plugin-sourcemaps';
 import { Observable } from 'rxjs';
 import { copy } from 'fs-extra';
+
+const copyAll: ((s: string, s1: string) => any) = Observable.bindCallback(
+  copyfiles,
+);
 
 // Rollup globals
 const MODULE_NAMES = {
@@ -53,9 +59,9 @@ const GLOBALS = {
 
 function createEntry(name): string {
   if (name === 'core') {
-    return `${process.cwd()}/dist/packages-dist/index.js`;
+    return `${process.cwd()}/dist/es5/index.js`;
   }
-  return `${process.cwd()}/dist/packages-dist/${name}/index.js`;
+  return `${process.cwd()}/dist/${name}/es5/index.js`;
 }
 
 
@@ -84,6 +90,7 @@ function spawnObservable(command: string, args: string[]) {
 function generateBundle(input, file, name, format) {
   const plugins = [
     sourcemaps(),
+    filesize(),
   ];
   return rollup({
     input,
@@ -117,6 +124,21 @@ function createUmd(name: string) {
   return generateBundle(entry, file, moduleName, 'umd');
 }
 
+function createEs(name: string, target: string) {
+  const moduleName = MODULE_NAMES[name];
+  const entry = createEntry(name);
+  let output = `${process.cwd()}/dist/packages-dist/${name}/${name}.${target}.js`;
+  if (name === 'core') {
+    output = `${process.cwd()}/dist/packages-dist/${name}.${target}.js`;
+  }
+  return generateBundle(
+    entry,
+    output,
+    name,
+    'es',
+  );
+}
+
 function buildModule(name: string, type: string) {
   const es2015$ = spawnObservable(NGC, TSC_ARGS(type, name));
   const esm$ = spawnObservable(NGC, TSC_ARGS(type, name, 'esm'));
@@ -132,13 +154,21 @@ function buildModulesProviders() {
 
 function buildUmds() {
   return Observable.of(...Object.keys(MODULE_NAMES))
-    .mergeMap((name) => Observable.from(createUmd(name)), 3)
+    .mergeMap((name) => Observable.forkJoin(
+      Observable.from(createUmd(name)),
+      Observable.from(createEs(name, 'es2015')),
+      Observable.from(createEs(name, 'es5')),
+    ).combineAll(), 3)
     .combineAll();
 }
 
 function copyFilesCore() {
   return Observable
     .forkJoin(
+      copyAll(
+        `${process.cwd()}/dist/es2015/**/*.d.ts`,
+        `${process.cwd()}/dist/packages-dist`,
+      ),
       Observable.from(copy(
         `${process.cwd()}/README.md`,
         `${process.cwd()}/dist/packages-dist/README.md`,
@@ -147,24 +177,40 @@ function copyFilesCore() {
         `${process.cwd()}/src/lib/core/package.json`,
         `${process.cwd()}/dist/packages-dist/package.json`,
       )),
+      Observable.of(copy(
+        `${process.cwd()}/dist/es2015/index.metadata.json`,
+        `${process.cwd()}/dist/packages-dist/index.metadata.json`,
+      )),
     );
 }
 
 function copyFilesProviders() {
   const providers = Object.keys(MODULE_NAMES).filter((n) => n !== 'core');
   return Observable.of(...providers)
-    .mergeMap((name) => Observable.of(copy(
-      `${process.cwd()}/src/lib/providers/${name}/package.json`,
-      `${process.cwd()}/dist/packages-dist/${name}/package.json`,
-    )))
+    .mergeMap((name) =>  Observable
+      .forkJoin(
+        copyAll(
+          `${process.cwd()}/dist/${name}/es2015/**/*.d.ts`,
+          `${process.cwd()}/dist/packages-dist/${name}`,
+        ),
+        Observable.of(copy(
+          `${process.cwd()}/src/lib/providers/${name}/package.json`,
+          `${process.cwd()}/dist/packages-dist/${name}/package.json`,
+        )),
+        Observable.of(copy(
+          `${process.cwd()}/dist/${name}/es2015/index.metadata.json`,
+          `${process.cwd()}/dist/packages-dist/${name}/index.metadata.json`,
+        )),
+      ),
+    )
     .combineAll();
 }
 
 function buildLibrary() {
   return Observable
     .forkJoin(buildModule('core', ''))
-    .switchMap(() => copyFilesCore())
     .switchMap(() => buildModulesProviders())
+    .switchMap(() => copyFilesCore())
     .switchMap(() => copyFilesProviders())
     .switchMap(() => buildUmds());
 }

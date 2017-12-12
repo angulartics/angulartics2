@@ -8,8 +8,8 @@
   },
   "repository": "angulartics/angulartics2",
   "main": "../bundles/woopra.umd.js",
-  "module": "index.js",
-  "es2015": "es2015/index.js",
+  "module": "woopra.es5.js",
+  "es2015": "woopra.es2015.js",
   "typings": "index.d.ts",
   "license": "MIT"
 }

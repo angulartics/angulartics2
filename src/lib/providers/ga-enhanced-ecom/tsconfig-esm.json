@@ -2,15 +2,15 @@
   "extends": "./tsconfig-build.json",
   "compilerOptions": {
     "target": "es5",
-    "outDir": "../../../../dist/packages-dist/ga-enhanced-ecom",
-    "declaration": true,
-    "removeComments": false
+    "outDir": "../../../../dist/ga-enhanced-ecom/es5",
+    "declaration": false,
+    "removeComments": true
   },
   "files": ["angulartics2-ga-enhanced-ecom.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableSummariesForJit": true,
+    "enableSummariesForJit": false,
     "flatModuleOutFile": "index.js",
     "flatModuleId": "angulartics2/ga-enhanced-ecom"
   }
