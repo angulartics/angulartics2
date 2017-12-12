@@ -166,6 +166,32 @@ Angulartics2Module.forRoot([providers], {
   }
 }),
 ````
+By default, it removes IDs matching this pattern (ie. either all numeric or UUID) : `^\d+$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`.
+
+You can set your own regexp if you need to : 
+
+ `/project/a01/feature` becomes `/project/feature`
+ ````ts
+ Angulartics2Module.forRoot([providers], {
+   pageTracking: {
+     clearIds: true,
+     idsRegExp: /^[a-z]\d+$/,
+   }
+ }),
+ ````
+
+### Remove Query Params from url paths
+This can be combined with clearIds and idsRegExp
+
+`/project/12981/feature?param=12` becomes `/project/12981/feature`
+````ts
+Angulartics2Module.forRoot([providers], {
+  pageTracking: {
+    clearQueryParams: true,
+  }
+}),
+````
+
 
 ## Supported providers
 

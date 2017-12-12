@@ -93,10 +93,11 @@ export class Angulartics2 {
    * @param url current page path
    */
   protected clearUrl(url: string): string {
-    if (this.settings.pageTracking.clearIds) {
+    if (this.settings.pageTracking.clearIds || this.settings.pageTracking.clearQueryParams) {
       return url
         .split('/')
-        .filter(part => !part.match(/\d+/))
+        .map(part => this.settings.pageTracking.clearQueryParams ? part.split('?')[0] : part)
+        .filter(part => !this.settings.pageTracking.clearIds || !part.match(this.settings.pageTracking.idsRegExp))
         .join('/');
     }
     return url;
