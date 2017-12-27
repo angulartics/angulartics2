@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { RoutesConfig, TestModule, RootCmp, advance, createRoot, createRootWithRouter } from '../test.mocks';
 import { Angulartics2 } from 'angulartics2';
+import { RouterlessTracking } from './routing/routerless';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
@@ -129,6 +130,32 @@ describe('angulartics2', () => {
           advance(fixture);
           expect(EventSpy).toHaveBeenCalledWith({ path: '/', location: location });
         })));
+  });
+
+  describe('routerless support', function() {
+    let EventSpy: any;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [TestModule],
+        providers: [
+          { provide: Location, useClass: SpyLocation },
+          { provide: RouterlessTracking, useClass: RouterlessTracking },
+          Angulartics2
+        ]
+      });
+      EventSpy = jasmine.createSpy('EventSpy');
+    });
+
+    it('should track initial page',
+      inject([Router, Location, Angulartics2],
+        (router: Router, location: Location, angulartics2: Angulartics2) => {
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
+          TestBed.createComponent(RootCmp);
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/', location: location });
+        },
+      ),
+    );
   });
 
   describe('excludedRoutes', function() {

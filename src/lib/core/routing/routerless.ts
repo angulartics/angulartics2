@@ -11,7 +11,7 @@ export class RouterlessTracking {
   trackLocation(
     settings: Angulartics2Settings,
   ): Observable<TrackNavigationEnd> {
-    const subject = new BehaviorSubject<TrackNavigationEnd>({ url: '' });
+    const subject = new BehaviorSubject<TrackNavigationEnd>({ url: '/' });
     return subject;
   }
 }
