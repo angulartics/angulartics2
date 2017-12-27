@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  GaEnhancedEcomProductFieldObject,
   GaEnhancedEcomAction,
   GaEnhancedEcomActionFieldObject,
   GaEnhancedEcomImpressionFieldObject,
+  GaEnhancedEcomProductFieldObject,
 } from './angulartics2-ga-enhanced-ecom-options';
 
 declare var ga: UniversalAnalytics.ga;

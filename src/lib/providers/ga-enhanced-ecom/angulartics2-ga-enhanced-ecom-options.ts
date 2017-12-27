@@ -61,7 +61,10 @@ export interface GaEnhancedEcomProductFieldObject {
   name: string;
   /** The brand associated with the product (e.g. Google). */
   brand: string;
-  /** The category to which the product belongs (e.g. Apparel). Use / as a delimiter to specify up to 5-levels of hierarchy (e.g. Apparel/Men/T-Shirts). */
+  /**
+   * The category to which the product belongs (e.g. Apparel).
+   * Use / as a delimiter to specify up to 5-levels of hierarchy (e.g. Apparel/Men/T-Shirts).
+   */
   category: string;
   /** The variant of the product (e.g. Black). */
   variant: string;
@@ -108,7 +111,13 @@ export interface GaEnhancedEcomActionFieldObject {
   id: string;
   /** The store or affiliation from which this transaction occurred (e.g. Google Store). */
   affilation: string;
-  /** Specifies the total revenue or grand total associated with the transaction (e.g. 11.99). This value may include shipping, tax costs, or other adjustments to total revenue that you want to include as part of your revenue calculations. Note: if revenue is not set, its value will be automatically calculated using the product quantity and price fields of all products in the same hit. */
+  /**
+   * Specifies the total revenue or grand total associated with the transaction (e.g. 11.99).
+   * This value may include shipping, tax costs, or other adjustments to total revenue that
+   * you want to include as part of your revenue calculations. Note: if revenue is not set,
+   * its value will be automatically calculated using the product quantity and price fields
+   * of all products in the same hit.
+   */
   revenue: number;
   /** The total tax associated with the transaction. */
   tax: number;
@@ -120,6 +129,9 @@ export interface GaEnhancedEcomActionFieldObject {
   list: string;
   /** A number representing a step in the checkout process. Optional on checkout actions. */
   step: number;
-  /** Additional field for checkout and checkout_option actions that can describe option information on the checkout page, like selected payment method. */
+  /**
+   * Additional field for checkout and checkout_option actions that can describe
+   * option information on the checkout page, like selected payment method.
+   */
   option: string;
 }

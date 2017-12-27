@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
+import { Injectable } from '@angular/core';
 
 import { Angulartics2 } from 'angulartics2';
 
@@ -28,7 +28,11 @@ export class Angulartics2AdobeAnalytics {
    * Track Event in Adobe Analytics
    *
    * @param action associated with the event
-   * @param properties Comprised of the mandatory field 'category' (string) and optional  fields 'label' (string), 'value' (integer) and 'noninteraction' (boolean)
+   * @param properties action detials
+   * @param {string} properties.category
+   * @param {string} [properties.label]
+   * @param {number} [properties.value]
+   * @param {boolean} [properties.noninteraction]
    *
    * @link https://marketing.adobe.com/resources/help/en_US/sc/implement/js_implementation.html
    */

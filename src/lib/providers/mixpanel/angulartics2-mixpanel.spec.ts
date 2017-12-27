@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/testing';
+import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TestModule, RootCmp, advance, createRoot } from '../../test.mocks';
+import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 
 import { Angulartics2 } from 'angulartics2';
 import { Angulartics2Mixpanel } from './angulartics2-mixpanel';

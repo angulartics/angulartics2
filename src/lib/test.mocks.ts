@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Injectable, NgModule } from '@angular/core';
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -11,39 +11,37 @@ export class DummyProvider {
   constructor() {}
 }
 
-@Component({ selector: 'hello-cmp', template: `{{greeting}}` })
+@Component({ selector: 'hello-cmp', template: `{{ greeting }}` })
 export class HelloCmp {
   greeting: string;
-  constructor() { this.greeting = 'hello'; }
+  constructor() {
+    this.greeting = 'hello';
+  }
 }
 
 @Component({ selector: 'hello-cmp2', template: `<div>2</div>` })
-export class HelloCmp2 {
-}
+export class HelloCmp2 {}
 
 @Component({ selector: 'hello-cmp3', template: `<div>3</div>` })
-export class HelloCmp3 {
-}
+export class HelloCmp3 {}
 
 @Component({ selector: 'hello-cmp4', template: `<div>4</div>` })
-export class HelloCmp4 {
-}
+export class HelloCmp4 {}
 
 @Component({ selector: 'hello-cmp5', template: `<div>5</div>` })
-export class HelloCmp5 {
-}
+export class HelloCmp5 {}
 
 export const RoutesConfig: Routes = [
   { path: '', component: HelloCmp },
   { path: 'abc', component: HelloCmp2 },
   { path: 'def', component: HelloCmp3 },
   { path: 'ghi', component: HelloCmp4 },
-  { path: 'sections/123/pages/456', component: HelloCmp5 }
+  { path: 'sections/123/pages/456', component: HelloCmp5 },
 ];
 
 @Component({
   selector: 'root-comp',
-  template: `<router-outlet></router-outlet>`
+  template: `<router-outlet></router-outlet>`,
 })
 export class RootCmp {
   name: string;
@@ -60,7 +58,10 @@ export function createRoot(type: any): ComponentFixture<any> {
   return f;
 }
 
-export function createRootWithRouter(router: Router, type: any): ComponentFixture<any> {
+export function createRootWithRouter(
+  router: Router,
+  type: any,
+): ComponentFixture<any> {
   const f = TestBed.createComponent(type);
   advance(f);
   router.initialNavigation();
@@ -72,7 +73,7 @@ export function createRootWithRouter(router: Router, type: any): ComponentFixtur
   imports: [
     CommonModule,
     RouterTestingModule,
-    Angulartics2Module.forRoot([ DummyProvider ])
+    Angulartics2Module.forRoot([ DummyProvider ]),
   ],
   entryComponents: [
     HelloCmp,
