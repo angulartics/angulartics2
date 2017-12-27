@@ -10,7 +10,7 @@
     "test": "ng test --single-run --code-coverage",
     "test-watch": "ng test",
     "lint": "ng lint --type-check --format stylish",
-    "lint:fix": "ng lint --type-check --fix",
+    "lint:fix": "ng lint --type-check --fix --format stylish",
     "e2e": "ng e2e --serve",
     "commit": "git-cz",
     "semantic-release": "npm run build && cp -R .git dist/packages-dist && cd dist/packages-dist && semantic-release",

@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Angulartics2 } from 'angulartics2';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
@@ -15,13 +15,11 @@ describe('Angulartics2GoogleTagManager', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TestModule
-      ],
+      imports: [TestModule],
       providers: [
         { provide: Location, useClass: SpyLocation },
-        Angulartics2GoogleTagManager
-      ]
+        Angulartics2GoogleTagManager,
+      ],
     });
 
     window.dataLayer = dataLayer = [];
@@ -44,7 +42,16 @@ describe('Angulartics2GoogleTagManager', () => {
         fixture = createRoot(RootCmp);
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', gtmCustom: { customKey: 'customValue' } } });
         advance(fixture);
-        expect(dataLayer).toContain({ event: 'interaction', target: 'cat', action: 'do', customKey: 'customValue', label: undefined, value: undefined, interactionType: undefined, userId: null });
+        expect(dataLayer).toContain({
+          event: 'interaction',
+          target: 'cat',
+          action: 'do',
+          customKey: 'customValue',
+          label: undefined,
+          value: undefined,
+          interactionType: undefined,
+          userId: null,
+        });
       }),
     ),
   );
@@ -55,7 +62,15 @@ describe('Angulartics2GoogleTagManager', () => {
         fixture = createRoot(RootCmp);
         angulartics2.exceptionTrack.next({ appId: 'app', appName: 'Test App', appVersion: '0.1' });
         advance(fixture);
-        expect(dataLayer).toContain({ event: 'interaction', target: 'Exception', action: 'Exception thrown for Test App <app@0.1>', label: undefined, value: undefined, interactionType: undefined, userId: null });
+        expect(dataLayer).toContain({
+          event: 'interaction',
+          target: 'Exception',
+          action: 'Exception thrown for Test App <app@0.1>',
+          label: undefined,
+          value: undefined,
+          interactionType: undefined,
+          userId: null,
+        });
       }),
     ),
   );

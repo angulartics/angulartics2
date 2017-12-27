@@ -1,11 +1,23 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { TestBed, ComponentFixture, fakeAsync, inject } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  fakeAsync,
+  inject,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { RoutesConfig, TestModule, RootCmp, advance, createRoot, createRootWithRouter } from '../test.mocks';
 import { Angulartics2 } from 'angulartics2';
+import {
+  advance,
+  createRoot,
+  createRootWithRouter,
+  RootCmp,
+  RoutesConfig,
+  TestModule,
+} from '../test.mocks';
 import { RouterlessTracking } from './routing/routerless';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;

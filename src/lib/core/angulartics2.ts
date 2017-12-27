@@ -1,12 +1,13 @@
 import { Location } from '@angular/common';
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
-import { filter } from 'rxjs/operators/filter';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { filter } from 'rxjs/operators/filter';
 
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';
-import { ANGULARTICS2_TOKEN, Angulartics2Token } from './angulartics2-token';
 import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';
+import { Angulartics2Token, ANGULARTICS2_TOKEN } from './angulartics2-token';
 import { RouterlessTracking, TrackNavigationEnd } from './routing/routerless';
 
 @Injectable()
