@@ -13,7 +13,7 @@ cache:
   yarn: true
 script:
   - yarn lint
-  - ./node_modules/.bin/ng test --code-coverage --no-progress --browsers=ChromeHeadless
+  - yarn test-ci
 after_success:
   - yarn semantic-release
   - yarn ghpages
