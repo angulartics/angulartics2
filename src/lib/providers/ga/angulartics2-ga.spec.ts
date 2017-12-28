@@ -29,30 +29,34 @@ describe('Angulartics2GoogleAnalytics', () => {
 
   it('should track pages',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          fixture = createRoot(RootCmp);
-          angulartics2.pageTrack.next({ path: '/abc', location: location });
-          advance(fixture);
-          expect(ga).toHaveBeenCalledWith('send', 'pageview', '/abc');
-      })));
+      (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+        fixture = createRoot(RootCmp);
+        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        advance(fixture);
+        expect(ga).toHaveBeenCalledWith('send', 'pageview', '/abc');
+      }),
+    ),
+  );
 
   it('should track events',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          fixture = createRoot(RootCmp);
-          angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
-          advance(fixture);
-          expect(ga).toHaveBeenCalledWith('send', 'event', {
-            eventCategory: 'cat',
-            eventAction: 'do',
-            eventLabel: undefined,
-            eventValue: undefined,
-            nonInteraction: undefined,
-            page: '/context.html',
-            userId: null,
-            hitCallback: undefined,
-          });
-      })));
+      (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+        fixture = createRoot(RootCmp);
+        angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
+        advance(fixture);
+        expect(ga).toHaveBeenCalledWith('send', 'event', {
+          eventCategory: 'cat',
+          eventAction: 'do',
+          eventLabel: undefined,
+          eventValue: undefined,
+          nonInteraction: undefined,
+          page: '/',
+          userId: null,
+          hitCallback: undefined,
+        });
+      },
+    )),
+  );
 
   it('should track events with hitCallback',
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
@@ -67,7 +71,7 @@ describe('Angulartics2GoogleAnalytics', () => {
             eventLabel: undefined,
             eventValue: undefined,
             nonInteraction: undefined,
-            page: '/context.html',
+            page: '/',
             userId: null,
             hitCallback: callback,
           });

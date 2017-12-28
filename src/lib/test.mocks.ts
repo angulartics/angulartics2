@@ -3,6 +3,7 @@ import { Component, Injectable, NgModule } from '@angular/core';
 import { tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Ng2StateDeclaration, UIRouterModule } from '@uirouter/angular';
 
 import { Angulartics2Module } from 'angulartics2';
 
@@ -47,6 +48,19 @@ export class RootCmp {
   name: string;
 }
 
+@Component({
+  selector: 'root-comp',
+  template: `<ui-view></ui-view>`,
+})
+export class UIRootCmp {
+  name: string;
+}
+
+export const UIRoutesConfig = [
+  { name: 'home', component: HelloCmp, url: '/home' },
+  { name: 'def', component: HelloCmp2, url: '/' },
+];
+
 export function advance(fixture: ComponentFixture<any>): void {
   tick();
   fixture.detectChanges();
@@ -72,25 +86,30 @@ export function createRootWithRouter(
 @NgModule({
   imports: [
     CommonModule,
+    UIRouterModule.forRoot({
+      states: UIRoutesConfig,
+      useHash: true,
+      otherwise: { state: 'home' },
+    }),
+    Angulartics2Module.forRoot([ DummyProvider ]),
+  ],
+  entryComponents: [UIRootCmp],
+  declarations: [
+    HelloCmp,
+    HelloCmp2,
+    UIRootCmp,
+  ],
+})
+export class UITestModule {
+}
+
+@NgModule({
+  imports: [
+    CommonModule,
     RouterTestingModule,
     Angulartics2Module.forRoot([ DummyProvider ]),
   ],
-  entryComponents: [
-    HelloCmp,
-    HelloCmp2,
-    HelloCmp3,
-    HelloCmp4,
-    HelloCmp5,
-    RootCmp,
-  ],
-  exports: [
-    HelloCmp,
-    HelloCmp2,
-    HelloCmp3,
-    HelloCmp4,
-    HelloCmp5,
-    RootCmp,
-  ],
+  entryComponents: [RootCmp],
   declarations: [
     HelloCmp,
     HelloCmp2,
@@ -98,7 +117,7 @@ export function createRootWithRouter(
     HelloCmp4,
     HelloCmp5,
     RootCmp,
-  ]
+  ],
 })
 export class TestModule {
 }

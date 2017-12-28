@@ -8,6 +8,7 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { StateService, UIRouterModule } from '@uirouter/angular';
 
 import { Angulartics2 } from 'angulartics2';
 import {
@@ -17,8 +18,12 @@ import {
   RootCmp,
   RoutesConfig,
   TestModule,
+  UIRootCmp,
+  UIRoutesConfig,
+  UITestModule,
 } from '../test.mocks';
 import { RouterlessTracking } from './routing/routerless';
+import { UIRouterTracking } from './routing/ui-router';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
@@ -37,9 +42,7 @@ describe('angulartics2', () => {
           RouterTestingModule.withRoutes(RoutesConfig),
           TestModule
         ],
-        providers: [
-          Angulartics2,
-        ],
+        providers: [Angulartics2],
       });
     });
 
@@ -47,7 +50,8 @@ describe('angulartics2', () => {
       inject([Angulartics2],
         (angulartics2: Angulartics2) => {
           expect(angulartics2.settings.pageTracking.autoTrackVirtualPages).toBe(true);
-    }));
+      }),
+    );
   });
 
   describe('Configuration', function() {
@@ -103,6 +107,39 @@ describe('angulartics2', () => {
 
   });
 
+  describe('ui-router support', function() {
+    let EventSpy: any;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [UITestModule],
+        providers: [
+          { provide: Location, useClass: SpyLocation },
+          { provide: RouterlessTracking, useClass: UIRouterTracking },
+          Angulartics2,
+        ]
+      });
+
+      EventSpy = jasmine.createSpy('EventSpy');
+    });
+
+    it('should track pages on ui router',
+      fakeAsync(inject([StateService, Location, Angulartics2],
+        (state: StateService, location: Location, angulartics2: Angulartics2) => {
+          fixture = TestBed.createComponent(UIRootCmp);
+          advance(fixture);
+          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
+          state.go('home');
+          advance(fixture);
+          state.go('def');
+          advance(fixture);
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/home', location: location });
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/', location: location });
+        }),
+      ),
+    );
+  });
+
   describe('router support', function() {
     let EventSpy: any;
 
@@ -114,7 +151,7 @@ describe('angulartics2', () => {
         ],
         providers: [
           { provide: Location, useClass: SpyLocation },
-          Angulartics2
+          Angulartics2,
         ]
       });
 
@@ -153,7 +190,7 @@ describe('angulartics2', () => {
         providers: [
           { provide: Location, useClass: SpyLocation },
           { provide: RouterlessTracking, useClass: RouterlessTracking },
-          Angulartics2
+          Angulartics2,
         ]
       });
       EventSpy = jasmine.createSpy('EventSpy');
