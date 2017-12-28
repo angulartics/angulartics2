@@ -1,11 +1,11 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 import { filter } from 'rxjs/operators/filter';
 import { map } from 'rxjs/operators/map';
 
-import { RouterlessTracking, TrackNavigationEnd } from './routerless';
 import { Observable } from 'rxjs/Observable';
+import { RouterlessTracking, TrackNavigationEnd } from './routerless';
 
 /**
  * Track Route changes for applications using Angular's

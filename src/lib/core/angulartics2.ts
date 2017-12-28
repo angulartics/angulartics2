@@ -1,9 +1,7 @@
 import { Location } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { filter } from 'rxjs/operators/filter';
 
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';
 import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';
