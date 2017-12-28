@@ -8,7 +8,7 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { StateService, UIRouterModule } from '@uirouter/angular';
+import { StateService } from '@uirouter/angular';
 
 import { Angulartics2 } from 'angulartics2';
 import {
@@ -19,7 +19,6 @@ import {
   RoutesConfig,
   TestModule,
   UIRootCmp,
-  UIRoutesConfig,
   UITestModule,
 } from '../test.mocks';
 import { RouterlessTracking } from './routing/routerless';

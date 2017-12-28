@@ -1,9 +1,7 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Transition, TransitionService } from '@uirouter/core';
 
 import { Subject } from 'rxjs/Subject';
-import { filter } from 'rxjs/operators/filter';
-import { map } from 'rxjs/operators/map';
 
 import { Observable } from 'rxjs/Observable';
 import { RouterlessTracking, TrackNavigationEnd } from './routerless';

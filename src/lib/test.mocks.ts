@@ -3,7 +3,7 @@ import { Component, Injectable, NgModule } from '@angular/core';
 import { tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Ng2StateDeclaration, UIRouterModule } from '@uirouter/angular';
+import { UIRouterModule } from '@uirouter/angular';
 
 import { Angulartics2Module } from 'angulartics2';
 
