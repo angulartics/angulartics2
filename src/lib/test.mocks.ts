@@ -5,11 +5,15 @@ import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UIRouterModule } from '@uirouter/angular';
 
-import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2, Angulartics2Module } from 'angulartics2';
 
 @Injectable()
 export class DummyProvider {
-  constructor() {}
+  eventSpy: any;
+  constructor(private angulartics2: Angulartics2) {
+    this.eventSpy = jasmine.createSpy('eventSpy');
+    angulartics2.pageTrack.subscribe((x) => this.eventSpy(x));
+  }
 }
 
 @Component({ selector: 'hello-cmp', template: `{{ greeting }}` })
@@ -45,7 +49,15 @@ export const RoutesConfig: Routes = [
   template: `<router-outlet></router-outlet>`,
 })
 export class RootCmp {
-  name: string;
+  constructor(dummy: DummyProvider) {}
+}
+
+@Component({
+  selector: 'root-dummy-comp',
+  template: `hello`,
+})
+export class RouterlessRootCmp {
+  constructor(dummy: DummyProvider) {}
 }
 
 @Component({
@@ -53,7 +65,7 @@ export class RootCmp {
   template: `<ui-view></ui-view>`,
 })
 export class UIRootCmp {
-  name: string;
+  constructor(dummy: DummyProvider) {}
 }
 
 export const UIRoutesConfig = [

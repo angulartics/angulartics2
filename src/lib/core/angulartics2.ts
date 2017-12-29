@@ -63,10 +63,7 @@ export class Angulartics2 {
   }
 
   protected trackUrlChange(url: string) {
-    if (
-      this.settings.pageTracking.autoTrackVirtualPages &&
-      !this.matchesExcludedRoute(url)
-    ) {
+    if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
       const clearedUrl = this.clearUrl(url);
       let path: string;
       if (this.settings.pageTracking.basePath.length) {
@@ -74,7 +71,7 @@ export class Angulartics2 {
       } else {
         path = this.location.prepareExternalUrl(clearedUrl);
       }
-      this.pageTrack.next({ path, location: this.location });
+      this.pageTrack.next({ path });
     }
   }
 

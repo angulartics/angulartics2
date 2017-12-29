@@ -31,7 +31,7 @@ describe('Angulartics2Intercom', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2Intercom],
       (location: Location, angulartics2: Angulartics2, angulartics2Intercom: Angulartics2Intercom) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(Intercom).toHaveBeenCalledWith('trackEvent', 'Pageview', { url: '/abc' });
       }),

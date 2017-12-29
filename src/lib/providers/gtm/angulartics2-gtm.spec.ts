@@ -29,7 +29,7 @@ describe('Angulartics2GoogleTagManager', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleTagManager],
       (location: Location, angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(dataLayer).toContain({ event: 'Page View', 'content-name': '/abc', userId: null });
       }),

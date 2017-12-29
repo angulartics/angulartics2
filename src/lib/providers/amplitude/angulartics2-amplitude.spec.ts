@@ -38,10 +38,10 @@ describe('Angulartics2Amplitude', () => {
   });
 
   it('should track pages',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Amplitude],
-      (location: Location, angulartics2: Angulartics2, angulartics2Amplitude: Angulartics2Amplitude) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Amplitude],
+      (angulartics2: Angulartics2, angulartics2Amplitude: Angulartics2Amplitude) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(amplitudeMock.logEvent).toHaveBeenCalledWith('Pageview', { url: '/abc' });
       }),
@@ -49,8 +49,8 @@ describe('Angulartics2Amplitude', () => {
   );
 
   it('should track events',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Amplitude],
-      (location: Location, angulartics2: Angulartics2, angulartics2Amplitude: Angulartics2Amplitude) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Amplitude],
+      (angulartics2: Angulartics2, angulartics2Amplitude: Angulartics2Amplitude) => {
         fixture = createRoot(RootCmp);
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
         advance(fixture);
@@ -60,8 +60,8 @@ describe('Angulartics2Amplitude', () => {
   );
 
   it('should set user properties',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Amplitude],
-      (location: Location, angulartics2: Angulartics2, angulartics2Amplitude: Angulartics2Amplitude) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Amplitude],
+      (angulartics2: Angulartics2, angulartics2Amplitude: Angulartics2Amplitude) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserProperties.next({ userId: '1', firstName: 'John', lastName: 'Doe' });
         advance(fixture);
@@ -75,8 +75,8 @@ describe('Angulartics2Amplitude', () => {
   );
 
   it('should set user properties once',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Amplitude],
-      (location: Location, angulartics2: Angulartics2, angulartics2Amplitude: Angulartics2Amplitude) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Amplitude],
+      (angulartics2: Angulartics2, angulartics2Amplitude: Angulartics2Amplitude) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserPropertiesOnce.next({ userId: '1', firstName: 'John', lastName: 'Doe' });
         advance(fixture);
@@ -90,8 +90,8 @@ describe('Angulartics2Amplitude', () => {
   );
 
   it('should set user name',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Amplitude],
-      (location: Location, angulartics2: Angulartics2, angulartics2Amplitude: Angulartics2Amplitude) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Amplitude],
+      (angulartics2: Angulartics2, angulartics2Amplitude: Angulartics2Amplitude) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUsername.next('John');
         advance(fixture);

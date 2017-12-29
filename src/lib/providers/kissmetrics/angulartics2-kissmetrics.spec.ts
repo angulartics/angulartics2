@@ -29,7 +29,7 @@ describe('Angulartics2Kissmetrics', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2Kissmetrics],
       (location: Location, angulartics2: Angulartics2, angulartics2Kissmetrics: Angulartics2Kissmetrics) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(_kmq).toContain(['record', 'Pageview', { 'Page': '/abc' }]);
       }),

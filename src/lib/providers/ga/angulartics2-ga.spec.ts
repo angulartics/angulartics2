@@ -31,7 +31,7 @@ describe('Angulartics2GoogleAnalytics', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
       (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(ga).toHaveBeenCalledWith('send', 'pageview', '/abc');
       }),

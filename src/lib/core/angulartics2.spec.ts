@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StateService } from '@uirouter/angular';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2, Angulartics2Module, ANGULARTICS2_TOKEN } from 'angulartics2';
 import {
   advance,
   createRoot,
   createRootWithRouter,
+  DummyProvider,
+  HelloCmp,
   RootCmp,
+  RouterlessRootCmp,
   RoutesConfig,
   TestModule,
   UIRootCmp,
@@ -39,7 +42,7 @@ describe('angulartics2', () => {
       TestBed.configureTestingModule({
         imports: [
           RouterTestingModule.withRoutes(RoutesConfig),
-          TestModule
+          TestModule,
         ],
         providers: [Angulartics2],
       });
@@ -60,11 +63,11 @@ describe('angulartics2', () => {
       TestBed.configureTestingModule({
         imports: [
           RouterTestingModule.withRoutes(RoutesConfig),
-          TestModule
+          TestModule,
         ],
         providers: [
           { provide: Location, useClass: SpyLocation },
-          Angulartics2
+          Angulartics2,
         ]
       });
 
@@ -72,37 +75,39 @@ describe('angulartics2', () => {
     });
 
     it('should configure virtualPageviews',
-      inject([Angulartics2],
-        (angulartics2: Angulartics2) => {
-          angulartics2.virtualPageviews(false);
-          expect(angulartics2.settings.pageTracking.autoTrackVirtualPages).toBe(false);
-    }));
+      inject([Angulartics2], (angulartics2: Angulartics2) => {
+        angulartics2.virtualPageviews(false);
+        expect(angulartics2.settings.pageTracking.autoTrackVirtualPages).toBe(false);
+      }),
+    );
 
     it('should configure excluded routes',
-      inject([Angulartics2],
-        (angulartics2: Angulartics2) => {
-          angulartics2.excludeRoutes(['/abc/def', /\/[0-9]+/]);
-          expect(angulartics2.settings.pageTracking.excludedRoutes).toEqual(['/abc/def', /\/[0-9]+/]);
-    }));
+      inject([Angulartics2], (angulartics2: Angulartics2) => {
+        angulartics2.excludeRoutes(['/abc/def', /\/[0-9]+/]);
+        expect(angulartics2.settings.pageTracking.excludedRoutes).toEqual(['/abc/def', /\/[0-9]+/]);
+      }),
+    );
 
     it('should configure cleaning of ids',
-      inject([Angulartics2],
-        (angulartics2: Angulartics2) => {
-          angulartics2.clearIds(true);
-          expect(angulartics2.settings.pageTracking.clearIds).toBe(true);
-    }));
+      inject([Angulartics2], (angulartics2: Angulartics2) => {
+        angulartics2.clearIds(true);
+        expect(angulartics2.settings.pageTracking.clearIds).toBe(true);
+      }),
+    );
 
     it('should configure developer mode',
       fakeAsync(inject([Router, Location, Angulartics2],
-         (router: Router, location: Location, angulartics2: Angulartics2) => {
+        (router: Router, location: Location, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
           // angulartics2.settings.developerMode = true;
           angulartics2.developerMode(true);
           angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
-          expect(EventSpy).not.toHaveBeenCalledWith({ path: '/abc', location: location });
-        })));
+          expect(EventSpy).not.toHaveBeenCalledWith({ path: '/abc' });
+        }),
+      ),
+    );
 
   });
 
@@ -123,8 +128,8 @@ describe('angulartics2', () => {
     });
 
     it('should track pages on ui router',
-      fakeAsync(inject([StateService, Location, Angulartics2],
-        (state: StateService, location: Location, angulartics2: Angulartics2) => {
+      fakeAsync(inject([StateService, Angulartics2],
+        (state: StateService, angulartics2: Angulartics2) => {
           fixture = TestBed.createComponent(UIRootCmp);
           advance(fixture);
           angulartics2.pageTrack.subscribe((x) => EventSpy(x));
@@ -132,8 +137,8 @@ describe('angulartics2', () => {
           advance(fixture);
           state.go('def');
           advance(fixture);
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/home', location: location });
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/', location: location });
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/home' });
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/' });
         }),
       ),
     );
@@ -157,52 +162,55 @@ describe('angulartics2', () => {
       EventSpy = jasmine.createSpy('EventSpy');
     });
 
-    it('should track pages on route v3 change',
-      fakeAsync(inject([Router, Location, Angulartics2],
-        (router: Router, location: Location, angulartics2: Angulartics2) => {
+    it('should track pages on route change',
+      fakeAsync(inject([Router, Angulartics2],
+        (router: Router, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
           angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           router.navigateByUrl('/abc');
           advance(fixture);
           router.navigate(['def']);
           advance(fixture);
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/def', location: location });
-        })));
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/abc' });
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/def' });
+        }),
+      ),
+    );
 
     it('should track initial page',
-      fakeAsync(inject([Router, Location, Angulartics2],
-        (router: Router, location: Location, angulartics2: Angulartics2) => {
+      fakeAsync(inject([Router, Angulartics2],
+        (router: Router, angulartics2: Angulartics2) => {
           angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           fixture = createRootWithRouter(router, RootCmp);
           advance(fixture);
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/', location: location });
-        })));
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/' });
+        }),
+      ),
+    );
   });
 
-  describe('routerless support', function() {
-    let EventSpy: any;
+  describe('routerless tracking', function() {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [TestModule],
+        declarations: [RouterlessRootCmp],
+        imports: [],
         providers: [
           { provide: Location, useClass: SpyLocation },
           { provide: RouterlessTracking, useClass: RouterlessTracking },
+          { provide: ANGULARTICS2_TOKEN, useValue: { providers: [DummyProvider], settings: {} } },
           Angulartics2,
-        ]
+          DummyProvider,
+        ],
       });
-      EventSpy = jasmine.createSpy('EventSpy');
     });
 
     it('should track initial page',
-      inject([Router, Location, Angulartics2],
-        (router: Router, location: Location, angulartics2: Angulartics2) => {
-          angulartics2.pageTrack.subscribe((x) => EventSpy(x));
-          TestBed.createComponent(RootCmp);
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/', location: location });
-        },
-      ),
+      fakeAsync(inject([DummyProvider], (dummy: DummyProvider) => {
+        fixture = TestBed.createComponent(RouterlessRootCmp);
+        advance(fixture);
+        expect(dummy.eventSpy).toHaveBeenCalledWith({ path: '/' });
+      })),
     );
   });
 
@@ -213,12 +221,12 @@ describe('angulartics2', () => {
       TestBed.configureTestingModule({
         imports: [
           RouterTestingModule.withRoutes(RoutesConfig),
-          TestModule
+          TestModule,
         ],
         providers: [
           { provide: Location, useClass: SpyLocation },
-          Angulartics2
-        ]
+          Angulartics2,
+        ],
       });
 
       EventSpy = jasmine.createSpy('EventSpy');
@@ -237,7 +245,7 @@ describe('angulartics2', () => {
           angulartics2.settings.pageTracking.excludedRoutes = [];
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/abc' });
         })));
 
     it('should trigger page track if excludeRoutes do not match current route',
@@ -248,7 +256,7 @@ describe('angulartics2', () => {
           angulartics2.settings.pageTracking.excludedRoutes = ['/def'];
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/abc' });
         })));
 
     it('should not trigger page track if current route is excluded',
@@ -259,7 +267,7 @@ describe('angulartics2', () => {
           angulartics2.settings.pageTracking.excludedRoutes = ['/abc'];
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
-          expect(EventSpy).not.toHaveBeenCalledWith({ path: '/abc', location: location });
+          expect(EventSpy).not.toHaveBeenCalledWith({ path: '/abc' });
         })));
 
     it('should not allow for multiple route exclusions to be specified',
@@ -271,13 +279,13 @@ describe('angulartics2', () => {
           angulartics2.settings.pageTracking.excludedRoutes = ['/def', '/abc'];
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
-          expect(EventSpy).not.toHaveBeenCalledWith({ path: '/abc', location: location });
+          expect(EventSpy).not.toHaveBeenCalledWith({ path: '/abc' });
           (<SpyLocation>location).simulateUrlPop('/def');
           advance(fixture);
-          expect(EventSpy).not.toHaveBeenCalledWith({ path: '/def', location: location });
+          expect(EventSpy).not.toHaveBeenCalledWith({ path: '/def' });
           (<SpyLocation>location).simulateUrlPop('/ghi');
           advance(fixture);
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/ghi', location: location });
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/ghi' });
         })));
 
     it('should allow specifying excluded routes as regular expressions',
@@ -288,7 +296,7 @@ describe('angulartics2', () => {
           angulartics2.settings.pageTracking.excludedRoutes = [/\/sections\/\d+\/pages\/\d+/];
           (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
           advance(fixture);
-          expect(EventSpy).not.toHaveBeenCalledWith({ path: '/sections/123/pages/456', location: location });
+          expect(EventSpy).not.toHaveBeenCalledWith({ path: '/sections/123/pages/456' });
         })));
 
   });
@@ -325,7 +333,7 @@ describe('angulartics2', () => {
           angulartics2.settings.pageTracking.clearIds = false;
           (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
           advance(fixture);
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/sections/123/pages/456', location: location });
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/sections/123/pages/456' });
       })));
 
     it('should remove ids from url if clearIds is true',
@@ -336,7 +344,7 @@ describe('angulartics2', () => {
         angulartics2.settings.pageTracking.clearIds = true;
         (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
         advance(fixture);
-        expect(EventSpy).toHaveBeenCalledWith({ path: '/sections/pages', location: location });
+        expect(EventSpy).toHaveBeenCalledWith({ path: '/sections/pages' });
       })));
   });
 
@@ -384,10 +392,12 @@ describe('angulartics2', () => {
 
           angulartics2.pageTrack.subscribe((x) => EventSpy(x));
 
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/abc', location: location });
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/def', location: location });
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/ghi', location: location });
-        })));
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/abc' });
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/def' });
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/ghi' });
+        },
+      )),
+    );
 
     it('should subscribe to and emit from ' + event,
       fakeAsync(inject([Angulartics2],
@@ -399,7 +409,9 @@ describe('angulartics2', () => {
             advance(fixture);
             expect(EventSpy).toHaveBeenCalledWith(`test: ${event}`);
           }
-        })));
+        }),
+      ),
+    );
 
   });
 

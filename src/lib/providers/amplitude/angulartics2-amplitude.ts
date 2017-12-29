@@ -14,7 +14,7 @@ declare var amplitude: {
 export class Angulartics2Amplitude {
 
   constructor(private angulartics2: Angulartics2) {
-    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path, x.location));
+    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
 
     this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
 
@@ -25,7 +25,7 @@ export class Angulartics2Amplitude {
     this.angulartics2.setUserPropertiesOnce.subscribe((x: any) => this.setUserProperties(x));
   }
 
-  pageTrack(path: string, location: any) {
+  pageTrack(path: string) {
     try {
       this.eventTrack('Pageview', {
         url: path

@@ -35,7 +35,7 @@ describe('Angulartics2Woopra', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2Woopra],
       (location: Location, angulartics2: Angulartics2, angulartics2Woopra: Angulartics2Woopra) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({path: '/abc', location: location});
+        angulartics2.pageTrack.next({path: '/abc' });
         advance(fixture);
         expect(woopra.track).toHaveBeenCalledWith('pv', {url: '/abc'});
       }),

@@ -30,7 +30,7 @@ describe('Angulartics2BaiduAnalytics', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2BaiduAnalytics],
       (location: Location, angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(_hmt).toContain(['_trackPageview', '/abc']);
       }),
