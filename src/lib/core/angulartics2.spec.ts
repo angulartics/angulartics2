@@ -10,7 +10,11 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StateService } from '@uirouter/angular';
 
-import { Angulartics2, Angulartics2Module, ANGULARTICS2_TOKEN } from 'angulartics2';
+import {
+  Angulartics2,
+  Angulartics2Module,
+  ANGULARTICS2_TOKEN,
+} from 'angulartics2';
 import {
   advance,
   createRoot,
@@ -24,8 +28,8 @@ import {
   UIRootCmp,
   UITestModule,
 } from '../test.mocks';
-import { RouterlessTracking } from './routing/routerless';
-import { UIRouterTracking } from './routing/ui-router';
+import { RouterlessTracking } from './routerless';
+import { UIRouterTracking } from './uirouter/uirouter';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 

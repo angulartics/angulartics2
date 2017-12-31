@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "es2015",
+    "target": "es2015",
+    "noImplicitAny": false,
+    "outDir": "../../../../dist/uirouter/es2015",
+    "sourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
+    "removeComments": false,
+    "lib": ["es2015", "dom"],
+    "skipLibCheck": true,
+    "moduleResolution": "node"
+  },
+  "files": ["public_api.ts"],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "enableSummariesForJit": true,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "angulartics2/uirouter"
+  }
+}

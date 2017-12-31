@@ -6,7 +6,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';
 import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';
 import { Angulartics2Token, ANGULARTICS2_TOKEN } from './angulartics2-token';
-import { RouterlessTracking, TrackNavigationEnd } from './routing/routerless';
+import { RouterlessTracking, TrackNavigationEnd } from './routerless';
 
 @Injectable()
 export class Angulartics2 {

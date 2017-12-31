@@ -4,12 +4,12 @@ import {
   Provider,
 } from '@angular/core';
 
-import { AngularRouterTracking } from './angular-router';
-import { Angulartics2 } from './angulartics2';
-import { Angulartics2Settings } from './angulartics2-config';
-import { ANGULARTICS2_TOKEN } from './angulartics2-token';
-import { Angulartics2On } from './angulartics2On';
-import { RouterlessTracking } from './routerless';
+import { Angulartics2 } from '../angulartics2';
+import { Angulartics2Settings } from '../angulartics2-config';
+import { ANGULARTICS2_TOKEN } from '../angulartics2-token';
+import { Angulartics2On } from '../angulartics2On';
+import { RouterlessTracking } from '../routerless';
+import { UIRouterTracking } from './uirouter';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ export class Angulartics2Module {
       providers: [
         { provide: ANGULARTICS2_TOKEN, useValue: { providers, settings } },
         Angulartics2,
-        { provide: RouterlessTracking, useClass: AngularRouterTracking },
+        { provide: RouterlessTracking, useClass: UIRouterTracking },
         ...providers,
       ],
     };

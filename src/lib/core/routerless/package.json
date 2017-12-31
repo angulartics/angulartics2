@@ -1,0 +1,15 @@
+{
+  "name": "angulartics2/routerless",
+  "description": "The routerless module",
+  "homepage": "https://angulartics.github.io/angulartics2/",
+  "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
+  "bugs": {
+    "url": "http://github.com/angulartics/angulartics2/issues"
+  },
+  "repository": "angulartics/angulartics2",
+  "main": "../bundles/routerless.umd.js",
+  "module": "routerless.es5.js",
+  "es2015": "routerless.es2015.js",
+  "typings": "index.d.ts",
+  "license": "MIT"
+}
