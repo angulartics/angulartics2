@@ -12,7 +12,6 @@ import { StateService } from '@uirouter/angular';
 
 import {
   Angulartics2,
-  Angulartics2Module,
   ANGULARTICS2_TOKEN,
 } from 'angulartics2';
 import {
@@ -20,7 +19,6 @@ import {
   createRoot,
   createRootWithRouter,
   DummyProvider,
-  HelloCmp,
   RootCmp,
   RouterlessRootCmp,
   RoutesConfig,

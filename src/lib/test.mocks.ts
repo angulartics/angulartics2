@@ -10,7 +10,7 @@ import { Angulartics2, Angulartics2Module } from 'angulartics2';
 @Injectable()
 export class DummyProvider {
   eventSpy: any;
-  constructor(private angulartics2: Angulartics2) {
+  constructor(angulartics2: Angulartics2) {
     this.eventSpy = jasmine.createSpy('eventSpy');
     angulartics2.pageTrack.subscribe((x) => this.eventSpy(x));
   }
