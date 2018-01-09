@@ -16,13 +16,13 @@ import { UIRouterTracking } from './uirouter';
   declarations: [Angulartics2On],
   exports: [Angulartics2On],
 })
-export class Angulartics2Module {
+export class Angulartics2UirouterModule {
   static forRoot(
     providers: Provider[],
     settings: Partial<Angulartics2Settings> = {},
   ): ModuleWithProviders {
     return {
-      ngModule: Angulartics2Module,
+      ngModule: Angulartics2UirouterModule,
       providers: [
         { provide: ANGULARTICS2_TOKEN, useValue: { providers, settings } },
         Angulartics2,

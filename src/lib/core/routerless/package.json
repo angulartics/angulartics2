@@ -10,6 +10,6 @@
   "main": "../bundles/routerless.umd.js",
   "module": "routerless.es5.js",
   "es2015": "routerless.es2015.js",
-  "typings": "index.d.ts",
+  "typings": "routerless/index.d.ts",
   "license": "MIT"
 }

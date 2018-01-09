@@ -211,6 +211,10 @@ function copyFilesCore() {
         `${process.cwd()}/dist/routerless/es2015/routerless/index.metadata.json`,
         `${process.cwd()}/dist/packages-dist/routerless/index.metadata.json`,
       )),
+      Observable.of(copy(
+        `${process.cwd()}/src/lib/core/routerless/package.json`,
+        `${process.cwd()}/dist/packages-dist/routerless/package.json`,
+      )),
       copyAll(
         `${process.cwd()}/dist/uirouter/es2015/**/*.d.ts`,
         `${process.cwd()}/dist/packages-dist/uirouter`,
@@ -218,6 +222,10 @@ function copyFilesCore() {
       Observable.of(copy(
         `${process.cwd()}/dist/uirouter/es2015/uirouter/index.metadata.json`,
         `${process.cwd()}/dist/packages-dist/uirouter/index.metadata.json`,
+      )),
+      Observable.of(copy(
+        `${process.cwd()}/src/lib/core/uirouter/package.json`,
+        `${process.cwd()}/dist/packages-dist/uirouter/package.json`,
       )),
     );
 }

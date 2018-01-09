@@ -10,6 +10,6 @@
   "main": "../bundles/uirouter.umd.js",
   "module": "uirouter.es5.js",
   "es2015": "uirouter.es2015.js",
-  "typings": "index.d.ts",
+  "typings": "uirouter/index.d.ts",
   "license": "MIT"
 }
