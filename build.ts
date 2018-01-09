@@ -14,13 +14,13 @@ const copyAll: ((s: string, s1: string) => any) = Observable.bindCallback(
   copyfiles,
 );
 
-const core = ['core', 'uirouter', 'routerless'];
+const core = ['core', 'uiroutermodule', 'routerlessmodule'];
 
 // Rollup globals
 const MODULE_NAMES = {
   core: 'angulartics2',
-  uirouter: 'angulartics2.uirouter',
-  routerless: 'angulartics2.routerless',
+  uiroutermodule: 'angulartics2.uiroutermodule',
+  routerlessmodule: 'angulartics2.routerlessmodule',
   adobeanalytics: 'angulartics2.adobeanalytics',
   appinsights: 'angulartics2.appinsights',
   baidu: 'angulartics2.baidu',
@@ -73,9 +73,6 @@ function createEntry(name): string {
   if (name === 'core') {
     return `${process.cwd()}/dist/es5/index.js`;
   }
-  if (name === 'routerless' || name === 'uirouter') {
-    return `${process.cwd()}/dist/${name}/es5/${name}/index.js`;
-  }
   return `${process.cwd()}/dist/${name}/es5/index.js`;
 }
 
@@ -83,11 +80,8 @@ function createEntry(name): string {
 // Constants for running typescript commands
 const NGC = './node_modules/.bin/ngc';
 const TSC_ARGS = (type: string, name: string, config= 'build') => {
-  if (!type) {
+  if (!type || type === 'routerlessmodule' || type === 'uiroutermodule') {
     return ['-p', `${process.cwd()}/src/lib/${name}/tsconfig-${config}.json`];
-  }
-  if (type === 'routerless' || type === 'uirouter') {
-    return ['-p', `${process.cwd()}/src/lib/core/${name}/tsconfig-${config}.json`];
   }
   return ['-p', `${process.cwd()}/src/lib/${type}/${name}/tsconfig-${config}.json`];
 };
@@ -149,12 +143,6 @@ function createEs(name: string, target: string) {
   if (name === 'core') {
     output = `${process.cwd()}/dist/packages-dist/${name}.${target}.js`;
   }
-  if (name === 'uirouter') {
-    output = `${process.cwd()}/dist/packages-dist/uirouter/${name}.${target}.js`;
-  }
-  if (name === 'routerless') {
-    output = `${process.cwd()}/dist/packages-dist/routerless/${name}.${target}.js`;
-  }
   return generateBundle(
     entry,
     output,
@@ -204,28 +192,28 @@ function copyFilesCore() {
         `${process.cwd()}/dist/packages-dist/index.metadata.json`,
       )),
       copyAll(
-        `${process.cwd()}/dist/routerless/es2015/**/*.d.ts`,
-        `${process.cwd()}/dist/packages-dist/routerless`,
+        `${process.cwd()}/dist/routerlessmodule/es2015/**/*.d.ts`,
+        `${process.cwd()}/dist/packages-dist/routerlessmodule`,
       ),
       Observable.of(copy(
-        `${process.cwd()}/dist/routerless/es2015/routerless/index.metadata.json`,
-        `${process.cwd()}/dist/packages-dist/routerless/index.metadata.json`,
+        `${process.cwd()}/dist/routerlessmodule/es2015/index.metadata.json`,
+        `${process.cwd()}/dist/packages-dist/routerlessmodule/index.metadata.json`,
       )),
       Observable.of(copy(
-        `${process.cwd()}/src/lib/core/routerless/package.json`,
-        `${process.cwd()}/dist/packages-dist/routerless/package.json`,
+        `${process.cwd()}/src/lib/routerlessmodule/package.json`,
+        `${process.cwd()}/dist/packages-dist/routerlessmodule/package.json`,
       )),
       copyAll(
-        `${process.cwd()}/dist/uirouter/es2015/**/*.d.ts`,
-        `${process.cwd()}/dist/packages-dist/uirouter`,
+        `${process.cwd()}/dist/uiroutermodule/es2015/**/*.d.ts`,
+        `${process.cwd()}/dist/packages-dist/uiroutermodule`,
       ),
       Observable.of(copy(
-        `${process.cwd()}/dist/uirouter/es2015/uirouter/index.metadata.json`,
-        `${process.cwd()}/dist/packages-dist/uirouter/index.metadata.json`,
+        `${process.cwd()}/dist/uiroutermodule/es2015/index.metadata.json`,
+        `${process.cwd()}/dist/packages-dist/uiroutermodule/index.metadata.json`,
       )),
       Observable.of(copy(
-        `${process.cwd()}/src/lib/core/uirouter/package.json`,
-        `${process.cwd()}/dist/packages-dist/uirouter/package.json`,
+        `${process.cwd()}/src/lib/uiroutermodule/package.json`,
+        `${process.cwd()}/dist/packages-dist/uiroutermodule/package.json`,
       )),
     );
 }
@@ -253,15 +241,20 @@ function copyFilesProviders() {
 }
 
 async function buildLibrary() {
-  await Observable.zip(
-    buildModule('core', ''),
-    buildModule('routerless', 'routerless'),
-    buildModule('uirouter', 'uirouter'),
-  )
-  .toPromise();
-  await buildModulesProviders().toPromise();
-  await Observable.zip(copyFilesCore(), copyFilesProviders()).toPromise();
-  await buildUmds().toPromise();
+  // TODO: just use promises...
+  try {
+    await Observable.zip(
+      buildModule('core', ''),
+    )
+    .toPromise();
+    await Observable.zip(buildModule('routerlessmodule', 'routerlessmodule')).toPromise();
+    await Observable.zip(buildModule('uiroutermodule', 'uiroutermodule')).toPromise();
+    await buildModulesProviders().toPromise();
+    await Observable.zip(copyFilesCore(), copyFilesProviders()).toPromise();
+    await buildUmds().toPromise();
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 buildLibrary()

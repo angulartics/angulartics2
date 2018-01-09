@@ -1,25 +1,30 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "es2015",
     "target": "es2015",
     "noImplicitAny": false,
-    "outDir": "../../../../dist/routerless/es2015",
+    "outDir": "../../../dist/routerlessmodule/es2015",
+    "rootDir": ".",
     "sourceMap": true,
     "inlineSources": true,
     "declaration": true,
     "removeComments": false,
     "lib": ["es2015", "dom"],
     "skipLibCheck": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "angulartics2": ["../../../dist/es2015/index"]
+    }
   },
-  "files": ["public_api.ts"],
+  "files": ["routerless.module.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "enableSummariesForJit": true,
     "flatModuleOutFile": "index.js",
-    "flatModuleId": "angulartics2/routerless"
+    "flatModuleId": "angulartics2/routerlessmodule"
   }
 }

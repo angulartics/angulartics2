@@ -4,11 +4,13 @@ import {
   Provider,
 } from '@angular/core';
 
-import { Angulartics2 } from '../angulartics2';
-import { Angulartics2Settings } from '../angulartics2-config';
-import { ANGULARTICS2_TOKEN } from '../angulartics2-token';
-import { Angulartics2On } from '../angulartics2On';
-import { RouterlessTracking } from '../routerless';
+import {
+  Angulartics2,
+  Angulartics2On,
+  Angulartics2Settings,
+  ANGULARTICS2_TOKEN,
+  RouterlessTracking,
+} from 'angulartics2';
 import { UIRouterTracking } from './uirouter';
 
 

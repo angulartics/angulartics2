@@ -2,7 +2,7 @@
   "extends": "./tsconfig-build.json",
   "compilerOptions": {
     "target": "es5",
-    "outDir": "../../../../dist/routerless/es5",
+    "outDir": "../../../dist/uirouter/es5",
     "declaration": false,
     "removeComments": true,
     "importHelpers": true
@@ -13,6 +13,6 @@
     "strictMetadataEmit": true,
     "enableSummariesForJit": false,
     "flatModuleOutFile": "index.js",
-    "flatModuleId": "angulartics2/routerless"
+    "flatModuleId": "angulartics2/uirouter"
   }
 }
