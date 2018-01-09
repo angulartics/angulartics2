@@ -20,6 +20,10 @@ export interface PageTrackingSettings {
   excludedRoutes: (string | RegExp)[];
   /** drop ids from url `/sections/123/pages/456` -> `/sections/pages` */
   clearIds: boolean;
+  /** drop query params from url `/sections/123/pages?param=456&param2=789` -> `/sections/123/pages` */
+  clearQueryParams: boolean;
+  /** used with clearIds, define the matcher to clear url parts */
+  idsRegExp: RegExp;
 }
 
 export interface Angulartics2Settings {
@@ -37,6 +41,8 @@ export class DefaultConfig implements Angulartics2Settings {
     basePath: '',
     excludedRoutes: [],
     clearIds: false,
+    clearQueryParams: false,
+    idsRegExp: /^\d+$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
   };
   developerMode = false;
   ga = {};

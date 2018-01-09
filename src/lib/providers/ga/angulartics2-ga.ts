@@ -45,6 +45,9 @@ export class Angulartics2GoogleAnalytics {
     if (typeof ga !== 'undefined' && ga) {
       if (this.angulartics2.settings.ga.userId) {
         ga('set', '&uid', this.angulartics2.settings.ga.userId);
+        for (const accountName of this.angulartics2.settings.ga.additionalAccountNames) {
+          ga(accountName + '.set', '&uid', this.angulartics2.settings.ga.userId);
+        }
       }
       ga('send', 'pageview', path);
       for (const accountName of this.angulartics2.settings.ga.additionalAccountNames) {
@@ -142,6 +145,9 @@ export class Angulartics2GoogleAnalytics {
     };
 
     ga('send', 'exception', eventOptions);
+    for (const accountName of this.angulartics2.settings.ga.additionalAccountNames) {
+      ga(accountName + '.send', 'exception', eventOptions);
+    }
   }
 
   /**
@@ -172,6 +178,9 @@ export class Angulartics2GoogleAnalytics {
 
     if (typeof ga !== 'undefined') {
       ga('send', 'timing', properties);
+      for (const accountName of this.angulartics2.settings.ga.additionalAccountNames) {
+        ga(accountName + '.send', 'timing', properties);
+      }
     }
   }
 

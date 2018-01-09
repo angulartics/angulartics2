@@ -37,6 +37,9 @@ export const RoutesConfig: Routes = [
   { path: 'def', component: HelloCmp3 },
   { path: 'ghi', component: HelloCmp4 },
   { path: 'sections/123/pages/456', component: HelloCmp5 },
+  { path: 'sections/01234567-9ABC-DEF0-1234-56789ABCDEF0/pages/456', component: HelloCmp5 },
+  { path: '0sections0/01234567-9ABC-DEF0-1234-56789ABCDEF0/pages', component: HelloCmp5 },
+  { path: '0sections0/a01/pages/page/2/summary', component: HelloCmp5 },
 ];
 
 @Component({
