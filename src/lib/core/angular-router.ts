@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
@@ -15,7 +16,10 @@ import { RouterlessTracking, TrackNavigationEnd } from './routerless';
  */
 @Injectable()
 export class AngularRouterTracking implements RouterlessTracking {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private location: Location,
+  ) {}
 
   trackLocation(settings): Observable<TrackNavigationEnd> {
     return this.router.events.pipe(
@@ -25,5 +29,9 @@ export class AngularRouterTracking implements RouterlessTracking {
         return { url: e.urlAfterRedirects };
       }),
     );
+  }
+
+  prepareExternalUrl(url: string): string {
+    return this.location.prepareExternalUrl(url);
   }
 }

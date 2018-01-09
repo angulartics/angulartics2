@@ -5,6 +5,7 @@ import {
   Angulartics2OnModule,
   Angulartics2Settings,
   ANGULARTICS2_TOKEN,
+  RouterlessTracking,
 } from 'angulartics2';
 
 @NgModule({
@@ -19,6 +20,7 @@ export class Angulartics2RouterlessModule {
       ngModule: Angulartics2RouterlessModule,
       providers: [
         { provide: ANGULARTICS2_TOKEN, useValue: { providers, settings } },
+        RouterlessTracking,
         Angulartics2,
         ...providers,
       ],

@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -24,7 +23,6 @@ export class Angulartics2 {
   userTimings = new ReplaySubject<UserTimings>(10);
 
   constructor(
-    private location: Location,
     private tracker: RouterlessTracking,
     @Inject(ANGULARTICS2_TOKEN) setup: Angulartics2Token,
   ) {
@@ -69,7 +67,7 @@ export class Angulartics2 {
       if (this.settings.pageTracking.basePath.length) {
         path = this.settings.pageTracking.basePath + clearedUrl;
       } else {
-        path = this.location.prepareExternalUrl(clearedUrl);
+        path = this.tracker.prepareExternalUrl(clearedUrl);
       }
       this.pageTrack.next({ path });
     }

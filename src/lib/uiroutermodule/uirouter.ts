@@ -3,8 +3,8 @@ import { Transition, TransitionService } from '@uirouter/core';
 
 import { Subject } from 'rxjs/Subject';
 
-import { Observable } from 'rxjs/Observable';
 import { RouterlessTracking, TrackNavigationEnd } from 'angulartics2';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Track Route changes for applications using UI-Router
@@ -33,5 +33,9 @@ export class UIRouterTracking implements RouterlessTracking {
       },
     );
     return subject;
+  }
+
+  prepareExternalUrl(url: string): string {
+    return url;
   }
 }

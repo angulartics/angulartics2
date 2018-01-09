@@ -8,9 +8,10 @@ export interface TrackNavigationEnd {
 }
 
 export class RouterlessTracking {
-  trackLocation(
-    settings: Angulartics2Settings,
-  ): Observable<TrackNavigationEnd> {
+  trackLocation(settings: Angulartics2Settings): Observable<TrackNavigationEnd> {
     return new BehaviorSubject<TrackNavigationEnd>({ url: '/' });
+  }
+  prepareExternalUrl(url: string): string {
+    return url;
   }
 }
