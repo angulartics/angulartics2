@@ -26,8 +26,8 @@ import {
   UIRootCmp,
   UITestModule,
 } from '../test.mocks';
+import { UIRouterTracking } from '../uiroutermodule/uirouter';
 import { RouterlessTracking } from './routerless';
-import { UIRouterTracking } from './uirouter/uirouter';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
