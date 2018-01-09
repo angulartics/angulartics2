@@ -322,10 +322,10 @@ describe('angulartics2', () => {
     });
 
     it('should not clear ids by default',
-      inject([Angulartics2],
-        (angulartics2: Angulartics2) => {
-          expect(angulartics2.settings.pageTracking.clearIds).toBe(false);
-      }));
+      inject([Angulartics2], (angulartics2: Angulartics2) => {
+        expect(angulartics2.settings.pageTracking.clearIds).toBe(false);
+      }),
+    );
 
     it('should not change url if clearIds is false',
       fakeAsync(inject([Router, Location, Angulartics2],
@@ -333,21 +333,58 @@ describe('angulartics2', () => {
           fixture = createRootWithRouter(router, RootCmp);
           angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           angulartics2.settings.pageTracking.clearIds = false;
-          (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
+          (<SpyLocation>location).simulateUrlPop('/sections/01234567-9ABC-DEF0-1234-56789ABCDEF0/pages/456');
           advance(fixture);
-          expect(EventSpy).toHaveBeenCalledWith({ path: '/sections/123/pages/456' });
+          expect(EventSpy).toHaveBeenCalledWith({
+            path: '/sections/01234567-9ABC-DEF0-1234-56789ABCDEF0/pages/456',
+          });
       })));
 
-    it('should remove ids from url if clearIds is true',
+    it('should remove ids and uuids from url if clearIds is true',
       fakeAsync(inject([Router, Location, Angulartics2],
         (router: Router, location: Location, angulartics2: Angulartics2) => {
-        fixture = createRootWithRouter(router, RootCmp);
-        angulartics2.pageTrack.subscribe((x) => EventSpy(x));
-        angulartics2.settings.pageTracking.clearIds = true;
-        (<SpyLocation>location).simulateUrlPop('/sections/123/pages/456');
-        advance(fixture);
-        expect(EventSpy).toHaveBeenCalledWith({ path: '/sections/pages' });
-      })));
+          fixture = createRootWithRouter(router, RootCmp);
+          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.settings.pageTracking.clearIds = true;
+          (<SpyLocation>location).simulateUrlPop('/0sections0/01234567-9ABC-DEF0-1234-56789ABCDEF0/pages?param=456');
+          advance(fixture);
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/0sections0/pages?param=456' });
+        })));
+
+    it('should remove ids using custom regex if idsRegExp is set',
+      fakeAsync(inject([Router, Location, Angulartics2],
+        (router: Router, location: Location, angulartics2: Angulartics2) => {
+          fixture = createRootWithRouter(router, RootCmp);
+          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.settings.pageTracking.clearIds = true;
+          angulartics2.settings.pageTracking.idsRegExp = /^[a-z]\d+$/;
+          (<SpyLocation>location).simulateUrlPop('/0sections0/a01/pages/page/2/summary?param=456');
+          advance(fixture);
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/0sections0/pages/page/2/summary?param=456', location: location });
+        })));
+
+    it('should remove query params if clearQueryParams is set',
+      fakeAsync(inject([Router, Location, Angulartics2],
+        (router: Router, location: Location, angulartics2: Angulartics2) => {
+          fixture = createRootWithRouter(router, RootCmp);
+          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.settings.pageTracking.clearQueryParams = true;
+          (<SpyLocation>location).simulateUrlPop('/0sections0/a01/pages/page/2/summary?param=456');
+          advance(fixture);
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/0sections0/a01/pages/page/2/summary', location: location });
+        })));
+
+    it('should remove ids and query params if clearQueryParams and clearIds are set',
+      fakeAsync(inject([Router, Location, Angulartics2],
+        (router: Router, location: Location, angulartics2: Angulartics2) => {
+          fixture = createRootWithRouter(router, RootCmp);
+          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.settings.pageTracking.clearQueryParams = true;
+          angulartics2.settings.pageTracking.clearIds = true;
+          (<SpyLocation>location).simulateUrlPop('/0sections0/01234567-9ABC-DEF0-1234-56789ABCDEF0/pages?param=456');
+          advance(fixture);
+          expect(EventSpy).toHaveBeenCalledWith({ path: '/0sections0/pages', location: location });
+        })));
   });
 
   describe('EventEmiters', function() {
