@@ -7,9 +7,9 @@
     "url": "http://github.com/angulartics/angulartics2/issues"
   },
   "repository": "angulartics/angulartics2",
-  "main": "../bundles/routerless.umd.js",
-  "module": "routerless.es5.js",
-  "es2015": "routerless.es2015.js",
+  "main": "../bundles/routerlessmodule.umd.js",
+  "module": "routerlessmodule.es5.js",
+  "es2015": "routerlessmodule.es2015.js",
   "typings": "index.d.ts",
   "license": "MIT"
 }

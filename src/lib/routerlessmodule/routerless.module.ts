@@ -2,14 +2,13 @@ import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 
 import {
   Angulartics2,
-  Angulartics2On,
+  Angulartics2OnModule,
   Angulartics2Settings,
   ANGULARTICS2_TOKEN,
 } from 'angulartics2';
 
 @NgModule({
-  declarations: [Angulartics2On],
-  exports: [Angulartics2On],
+  imports: [Angulartics2OnModule],
 })
 export class Angulartics2RouterlessModule {
   static forRoot(

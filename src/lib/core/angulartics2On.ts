@@ -4,6 +4,7 @@ import {
   ElementRef,
   Injectable,
   Input,
+  NgModule,
   Renderer2,
 } from '@angular/core';
 import { Angulartics2 } from './angulartics2';
@@ -65,3 +66,9 @@ export class Angulartics2On implements AfterContentInit {
     return getDOM().getProperty(this.el, 'id') || getDOM().getProperty(this.el, 'name') || getDOM().tagName(this.el);
   }*/
 }
+
+@NgModule({
+  declarations: [Angulartics2On],
+  exports: [Angulartics2On],
+})
+export class Angulartics2OnModule {}

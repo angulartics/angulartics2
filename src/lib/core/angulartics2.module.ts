@@ -8,13 +8,12 @@ import { AngularRouterTracking } from './angular-router';
 import { Angulartics2 } from './angulartics2';
 import { Angulartics2Settings } from './angulartics2-config';
 import { ANGULARTICS2_TOKEN } from './angulartics2-token';
-import { Angulartics2On } from './angulartics2On';
+import { Angulartics2OnModule } from './angulartics2On';
 import { RouterlessTracking } from './routerless';
 
 
 @NgModule({
-  declarations: [Angulartics2On],
-  exports: [Angulartics2On],
+  imports: [Angulartics2OnModule],
 })
 export class Angulartics2Module {
   static forRoot(

@@ -6,7 +6,7 @@
     "module": "es2015",
     "target": "es2015",
     "noImplicitAny": false,
-    "outDir": "../../../dist/uirouter/es2015",
+    "outDir": "../../../dist/uiroutermodule/es2015",
     "rootDir": ".",
     "sourceMap": true,
     "inlineSources": true,
@@ -25,6 +25,6 @@
     "strictMetadataEmit": true,
     "enableSummariesForJit": true,
     "flatModuleOutFile": "index.js",
-    "flatModuleId": "angulartics2/uirouter"
+    "flatModuleId": "angulartics2/uiroutermodule"
   }
 }

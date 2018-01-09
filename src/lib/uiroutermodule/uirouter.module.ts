@@ -6,7 +6,7 @@ import {
 
 import {
   Angulartics2,
-  Angulartics2On,
+  Angulartics2OnModule,
   Angulartics2Settings,
   ANGULARTICS2_TOKEN,
   RouterlessTracking,
@@ -15,8 +15,7 @@ import { UIRouterTracking } from './uirouter';
 
 
 @NgModule({
-  declarations: [Angulartics2On],
-  exports: [Angulartics2On],
+  imports: [Angulartics2OnModule],
 })
 export class Angulartics2UirouterModule {
   static forRoot(
