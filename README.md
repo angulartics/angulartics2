@@ -9,23 +9,24 @@
 
 Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angulartics2](https://angulartics.github.io/angulartics2 "Angulartics Docs")
 
-* [Installation](#installation)
-* [Usage](#usage)
-  + [Include it in your application](#include-it-in-your-application)
-  + [Tracking events](#tracking-events)
-  + [Tracking events in the code](#tracking-events-in-the-code)
-  + [Excluding routes from automatic pageview tracking](#exclude-routes-from-automatic-pageview-tracking)
-* [Supported providers](#supported-providers)
-  + [For other providers](#for-other-providers)
-  + [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
-    - [Changes in the Google Analytics snippet](#changes-in-the-google-analytics-snippet)
-* [SystemJS](#systemjs)
-* [Contributing](#contributing)
-* [License](#license)
-
-
-## v4.0.0 Migration and Breaking Changes
-See [Release Notes](https://github.com/angulartics/angulartics2/releases/tag/v4.0.0)
+- [angulartics2](#angulartics2)
+  - [Installation](#installation)
+    - [Include it in your application](#include-it-in-your-application)
+  - [Usage](#usage)
+    - [Tracking events](#tracking-events)
+    - [Tracking events in the code](#tracking-events-in-the-code)
+    - [Exclude routes from automatic pageview tracking](#exclude-routes-from-automatic-pageview-tracking)
+    - [Remove ID's from url paths](#remove-ids-from-url-paths)
+    - [Remove Query Params from url paths](#remove-query-params-from-url-paths)
+    - [Using Without A router](#using-without-a-router)
+    - [Using With UI-Router](#using-with-ui-router)
+  - [Supported providers](#supported-providers)
+    - [For other providers](#for-other-providers)
+    - [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
+  - [v4 Migration and Breaking Changes](#v4-migration-and-breaking-changes)
+  - [SystemJS](#systemjs)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 
 ## Installation
@@ -192,6 +193,33 @@ Angulartics2Module.forRoot([providers], {
 }),
 ````
 
+### Using Without A router
+__Warning:__ this support is still experiemental  
+`@angular/router` must still be installed! However, it will not be used.
+````ts
+import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
+@NgModule({
+  // ...
+  imports: [
+    BrowserModule,
+    Angulartics2RouterlessModule.forRoot([Angulartics2GoogleAnalytics]),
+  ],
+})
+````
+
+### Using With UI-Router
+__Warning:__ this support is still experiemental  
+`@angular/router` must still be installed! However, it will not be used.  
+````ts
+import { Angulartics2UirouterModule } from 'angulartics2/uiroutermodule';
+@NgModule({
+  // ...
+  imports: [
+    BrowserModule,
+    Angulartics2UirouterModule.forRoot([Angulartics2GoogleAnalytics]),
+  ],
+})
+````
 
 ## Supported providers
 
@@ -229,6 +257,9 @@ The snippet code provided by Google Analytics does an automatic pageview hit, bu
       ga('send', 'pageview');  // DELETE THIS LINE!
     </script>
 ```
+
+## v4 Migration and Breaking Changes
+See [Release Notes](https://github.com/angulartics/angulartics2/releases/tag/v4.0.0)
 
 ## SystemJS
 Using SystemJS? If you aren't using `defaultJSExtensions: true` you may need to use:

@@ -11,7 +11,7 @@ export class Angulartics2Piwik {
     if (typeof (_paq) === 'undefined') {
       console.warn('Piwik not found');
     }
-    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path, x.location));
+    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path));
     this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
     this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
     this.angulartics2.setUserProperties.subscribe((x) => this.setUserProperties(x));

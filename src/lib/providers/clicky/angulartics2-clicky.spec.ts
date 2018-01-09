@@ -33,8 +33,8 @@ describe('Angulartics2Clicky', () => {
     });
 
     it('should complain if clicky is not found',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Clicky],
-        (location: Location, angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Clicky],
+        (angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
           window.clicky = undefined;
           fixture = createRoot(RootCmp);
           advance(fixture);
@@ -50,8 +50,8 @@ describe('Angulartics2Clicky', () => {
     });
 
     it('should track pages',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Clicky, Title],
-        (location: Location, angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky, titleService: Title) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Clicky, Title],
+        (angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky, titleService: Title) => {
           fixture = createRoot(RootCmp);
           const title = 'clicky';
           titleService.setTitle(title);
@@ -63,8 +63,8 @@ describe('Angulartics2Clicky', () => {
     );
 
     it('should track events',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Clicky],
-        (location: Location, angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Clicky],
+        (angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
           fixture = createRoot(RootCmp);
           angulartics2.eventTrack.next({ action: 'do', properties: { title: 'thing', type: 'click' } });
           advance(fixture);
@@ -74,8 +74,8 @@ describe('Angulartics2Clicky', () => {
     );
 
     it('should track unsupported event types as pageviews',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Clicky],
-        (location: Location, angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Clicky],
+        (angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
           fixture = createRoot(RootCmp);
           angulartics2.eventTrack.next({ action: 'do', properties: { title: 'thing', type: 'unsupported-gibberish' } });
           advance(fixture);
@@ -85,8 +85,8 @@ describe('Angulartics2Clicky', () => {
     );
 
     it('should track goals',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Clicky],
-        (location: Location, angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Clicky],
+        (angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
           fixture = createRoot(RootCmp);
           angulartics2.eventTrack.next({ action: 'do', properties: { goal: 1, revenue: 50, noQueue: true } });
           advance(fixture);

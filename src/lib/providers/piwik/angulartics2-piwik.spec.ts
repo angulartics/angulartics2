@@ -29,7 +29,7 @@ describe('Angulartics2Piwik', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
       (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({path: '/abc', location: location});
+        angulartics2.pageTrack.next({path: '/abc' });
         advance(fixture);
         expect(_paq).toContain(['setCustomUrl', '/abc']);
       }),

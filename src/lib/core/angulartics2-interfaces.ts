@@ -1,12 +1,9 @@
-import { Location } from '@angular/common';
-
 export interface EventTrack {
   action: string;
   properties: any;
 }
 export interface PageTrack {
   path: string;
-  location: Location;
 }
 
 /** @link https://developers.google.com/analytics/devguides/collection/analyticsjs/user-timings */

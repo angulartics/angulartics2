@@ -3,12 +3,17 @@ import { Component, Injectable, NgModule } from '@angular/core';
 import { tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { UIRouterModule } from '@uirouter/angular';
 
-import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2, Angulartics2Module } from 'angulartics2';
 
 @Injectable()
 export class DummyProvider {
-  constructor() {}
+  eventSpy: any;
+  constructor(angulartics2: Angulartics2) {
+    this.eventSpy = jasmine.createSpy('eventSpy');
+    angulartics2.pageTrack.subscribe((x) => this.eventSpy(x));
+  }
 }
 
 @Component({ selector: 'hello-cmp', template: `{{ greeting }}` })
@@ -47,8 +52,29 @@ export const RoutesConfig: Routes = [
   template: `<router-outlet></router-outlet>`,
 })
 export class RootCmp {
-  name: string;
+  constructor(dummy: DummyProvider) {}
 }
+
+@Component({
+  selector: 'root-dummy-comp',
+  template: `hello`,
+})
+export class RouterlessRootCmp {
+  constructor(dummy: DummyProvider) {}
+}
+
+@Component({
+  selector: 'root-comp',
+  template: `<ui-view></ui-view>`,
+})
+export class UIRootCmp {
+  constructor(dummy: DummyProvider) {}
+}
+
+export const UIRoutesConfig = [
+  { name: 'home', component: HelloCmp, url: '/home' },
+  { name: 'def', component: HelloCmp2, url: '/' },
+];
 
 export function advance(fixture: ComponentFixture<any>): void {
   tick();
@@ -75,25 +101,30 @@ export function createRootWithRouter(
 @NgModule({
   imports: [
     CommonModule,
+    UIRouterModule.forRoot({
+      states: UIRoutesConfig,
+      useHash: true,
+      otherwise: { state: 'home' },
+    }),
+    Angulartics2Module.forRoot([ DummyProvider ]),
+  ],
+  entryComponents: [UIRootCmp],
+  declarations: [
+    HelloCmp,
+    HelloCmp2,
+    UIRootCmp,
+  ],
+})
+export class UITestModule {
+}
+
+@NgModule({
+  imports: [
+    CommonModule,
     RouterTestingModule,
     Angulartics2Module.forRoot([ DummyProvider ]),
   ],
-  entryComponents: [
-    HelloCmp,
-    HelloCmp2,
-    HelloCmp3,
-    HelloCmp4,
-    HelloCmp5,
-    RootCmp,
-  ],
-  exports: [
-    HelloCmp,
-    HelloCmp2,
-    HelloCmp3,
-    HelloCmp4,
-    HelloCmp5,
-    RootCmp,
-  ],
+  entryComponents: [RootCmp],
   declarations: [
     HelloCmp,
     HelloCmp2,
@@ -101,7 +132,7 @@ export function createRootWithRouter(
     HelloCmp4,
     HelloCmp5,
     RootCmp,
-  ]
+  ],
 })
 export class TestModule {
 }

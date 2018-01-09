@@ -40,7 +40,7 @@ describe('Angulartics2Mixpanel', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2Mixpanel],
       (location: Location, angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(mixpanel.track).toHaveBeenCalledWith('Page Viewed', { page: '/abc' });
       }),

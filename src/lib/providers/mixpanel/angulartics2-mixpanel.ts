@@ -10,7 +10,7 @@ export class Angulartics2Mixpanel {
   constructor(
     private angulartics2: Angulartics2
   ) {
-    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path, x.location));
+    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path));
     this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
     this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
     this.angulartics2.setUserProperties.subscribe((x) => this.setUserProperties(x));
@@ -20,7 +20,7 @@ export class Angulartics2Mixpanel {
     this.angulartics2.setAlias.subscribe((x) => this.setAlias(x));
   }
 
-  pageTrack(path: string, location: any) {
+  pageTrack(path: string) {
     try {
       mixpanel.track('Page Viewed', { page: path });
     } catch (e) {

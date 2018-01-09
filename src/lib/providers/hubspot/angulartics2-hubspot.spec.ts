@@ -28,10 +28,10 @@ describe('Angulartics2Hubspot', () => {
   });
 
   it('should track pages',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Hubspot],
-      (location: Location, angulartics2: Angulartics2, angulartics2Hubspot: Angulartics2Hubspot) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Hubspot],
+      (angulartics2: Angulartics2, angulartics2Hubspot: Angulartics2Hubspot) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(_hsq).toContain([ 'setPath', '/abc' ], [ 'trackPageView' ]);
       }),

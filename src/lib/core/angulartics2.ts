@@ -1,13 +1,11 @@
-import { Location } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { filter } from 'rxjs/operators/filter';
 
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';
 import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';
 import { Angulartics2Token, ANGULARTICS2_TOKEN } from './angulartics2-token';
+import { RouterlessTracking, TrackNavigationEnd } from './routerless';
 
 @Injectable()
 export class Angulartics2 {
@@ -25,8 +23,7 @@ export class Angulartics2 {
   userTimings = new ReplaySubject<UserTimings>(10);
 
   constructor(
-    location: Location,
-    router: Router,
+    private tracker: RouterlessTracking,
     @Inject(ANGULARTICS2_TOKEN) setup: Angulartics2Token,
   ) {
     const defaultConfig = new DefaultConfig();
@@ -35,19 +32,13 @@ export class Angulartics2 {
       ...defaultConfig.pageTracking,
       ...setup.settings.pageTracking,
     };
-    this.trackLocation(location, router);
-  }
-
-  trackLocation(location: Location, router: Router) {
-    router.events
-      .pipe(
-        filter(event => event instanceof NavigationEnd),
-        filter(() => !this.settings.developerMode),
-      )
-      .subscribe((event: NavigationEnd) =>
-        this.trackUrlChange(event.urlAfterRedirects, location),
+    this.tracker
+      .trackLocation(this.settings)
+      .subscribe((event: TrackNavigationEnd) =>
+        this.trackUrlChange(event.url),
       );
   }
+
   /** @deprecated */
   virtualPageviews(value: boolean) {
     this.settings.pageTracking.autoTrackVirtualPages = value;
@@ -69,19 +60,16 @@ export class Angulartics2 {
     this.settings.developerMode = value;
   }
 
-  protected trackUrlChange(url: string, location: Location) {
-    if (
-      this.settings.pageTracking.autoTrackVirtualPages &&
-      !this.matchesExcludedRoute(url)
-    ) {
+  protected trackUrlChange(url: string) {
+    if (this.settings.pageTracking.autoTrackVirtualPages && !this.matchesExcludedRoute(url)) {
       const clearedUrl = this.clearUrl(url);
       let path: string;
       if (this.settings.pageTracking.basePath.length) {
         path = this.settings.pageTracking.basePath + clearedUrl;
       } else {
-        path = location.prepareExternalUrl(clearedUrl);
+        path = this.tracker.prepareExternalUrl(clearedUrl);
       }
-      this.pageTrack.next({ path, location });
+      this.pageTrack.next({ path });
     }
   }
 

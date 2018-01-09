@@ -38,8 +38,8 @@ describe('Angulartics2AppInsights', () => {
     });
 
   it('should track pages',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights, Title],
-      (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights, title: Title) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AppInsights, Title],
+      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights, title: Title) => {
         fixture = createRoot(RootCmp);
         const metrics = {};
         const dimensions = {};
@@ -48,7 +48,7 @@ describe('Angulartics2AppInsights', () => {
         angulartics2AppInsights.metrics = metrics;
         angulartics2AppInsights.dimensions = dimensions;
         angulartics2AppInsights.loadTime = loadTime;
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(appInsights.trackPageView).toHaveBeenCalledWith('the title', '/abc', metrics, dimensions, loadTime);
       }),
@@ -122,8 +122,8 @@ describe('Angulartics2AppInsights', () => {
   );
 
   it('should set userId and accountId in setAuthenticatedUserContext',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights],
-      (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const userId = 'test_userId';
         const accountId = 'test_accountId';
@@ -137,8 +137,8 @@ describe('Angulartics2AppInsights', () => {
 
 
   it('should user existing userId and set accountId in setAuthenticatedUserContext',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights],
-      (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const userId = 'test_userId';
         const accountId = 'test_accountId';
@@ -153,8 +153,8 @@ describe('Angulartics2AppInsights', () => {
   );
 
   it('should set the start time on start',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights],
-      (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         angulartics2AppInsights.startTimer();
         expect(angulartics2AppInsights.loadStartTime).toBeLessThanOrEqual(Date.now());
         expect(angulartics2AppInsights.loadTime).toBe(null);
@@ -163,8 +163,8 @@ describe('Angulartics2AppInsights', () => {
   );
 
   it('should set the total time on stop',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights],
-      (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         angulartics2AppInsights.loadStartTime = Date.now() - 1000;
         angulartics2AppInsights.stopTimer();
         // 50ms time difference for testing to ensure timing is correct

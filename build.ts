@@ -4,19 +4,23 @@
 // https://github.com/angular/angularfire2/blob/master/tools/build.js
 import { spawn } from 'child_process';
 import * as copyfiles from 'copy';
+import { copy } from 'fs-extra';
 import { rollup } from 'rollup';
 import * as filesize from 'rollup-plugin-filesize';
 import * as sourcemaps from 'rollup-plugin-sourcemaps';
 import { Observable } from 'rxjs';
-import { copy } from 'fs-extra';
 
 const copyAll: ((s: string, s1: string) => any) = Observable.bindCallback(
   copyfiles,
 );
 
+const core = ['core', 'uiroutermodule', 'routerlessmodule'];
+
 // Rollup globals
 const MODULE_NAMES = {
   core: 'angulartics2',
+  uiroutermodule: 'angulartics2.uiroutermodule',
+  routerlessmodule: 'angulartics2.routerlessmodule',
   adobeanalytics: 'angulartics2.adobeanalytics',
   appinsights: 'angulartics2.appinsights',
   baidu: 'angulartics2.baidu',
@@ -36,6 +40,8 @@ const MODULE_NAMES = {
 };
 
 const GLOBALS = {
+  'tslib': 'tslib',
+
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
   '@angular/forms': 'ng.forms',
@@ -45,12 +51,18 @@ const GLOBALS = {
   '@angular/platform-server': 'ng.platformServer',
   '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic',
 
+  '@uirouter/core': '@uirouter/core',
+
   'rxjs/Observable': 'Rx',
   'rxjs/Subject': 'Rx',
   'rxjs/Observer': 'Rx',
   'rxjs/Subscription': 'Rx',
   'rxjs/ReplaySubject': 'Rx',
-  'rxjs/operators/filter': 'Rx.Observable',
+  'rxjs/BehaviorSubject': 'Rx',
+
+  'rxjs/operators/filter': 'Rx.operators',
+  'rxjs/operators/map': 'Rx.operators',
+
   'rxjs/observable/merge': 'Rx.Observable',
   'rxjs/observable/of': 'Rx.Observable',
 
@@ -68,7 +80,7 @@ function createEntry(name): string {
 // Constants for running typescript commands
 const NGC = './node_modules/.bin/ngc';
 const TSC_ARGS = (type: string, name: string, config= 'build') => {
-  if (!type) {
+  if (!type || type === 'routerlessmodule' || type === 'uiroutermodule') {
     return ['-p', `${process.cwd()}/src/lib/${name}/tsconfig-${config}.json`];
   }
   return ['-p', `${process.cwd()}/src/lib/${type}/${name}/tsconfig-${config}.json`];
@@ -146,25 +158,23 @@ function buildModule(name: string, type: string) {
 }
 
 function buildModulesProviders() {
-  const providers = Object.keys(MODULE_NAMES).filter((n) => n !== 'core');
+  const providers = Object.keys(MODULE_NAMES).filter((n) => !core.includes(n));
   return Observable.of(...providers)
-    .mergeMap((name) => buildModule(name, 'providers'), 3)
-    .combineAll();
+    .flatMap((name) => buildModule(name, 'providers'));
 }
 
 function buildUmds() {
   return Observable.of(...Object.keys(MODULE_NAMES))
-    .mergeMap((name) => Observable.forkJoin(
+    .zip((name) => Observable.forkJoin(
       Observable.from(createUmd(name)),
       Observable.from(createEs(name, 'es2015')),
       Observable.from(createEs(name, 'es5')),
-    ).combineAll(), 3)
-    .combineAll();
+    ));
 }
 
 function copyFilesCore() {
   return Observable
-    .forkJoin(
+    .zip(
       copyAll(
         `${process.cwd()}/dist/es2015/**/*.d.ts`,
         `${process.cwd()}/dist/packages-dist`,
@@ -181,14 +191,38 @@ function copyFilesCore() {
         `${process.cwd()}/dist/es2015/index.metadata.json`,
         `${process.cwd()}/dist/packages-dist/index.metadata.json`,
       )),
+      copyAll(
+        `${process.cwd()}/dist/routerlessmodule/es2015/**/*.d.ts`,
+        `${process.cwd()}/dist/packages-dist/routerlessmodule`,
+      ),
+      Observable.of(copy(
+        `${process.cwd()}/dist/routerlessmodule/es2015/index.metadata.json`,
+        `${process.cwd()}/dist/packages-dist/routerlessmodule/index.metadata.json`,
+      )),
+      Observable.of(copy(
+        `${process.cwd()}/src/lib/routerlessmodule/package.json`,
+        `${process.cwd()}/dist/packages-dist/routerlessmodule/package.json`,
+      )),
+      copyAll(
+        `${process.cwd()}/dist/uiroutermodule/es2015/**/*.d.ts`,
+        `${process.cwd()}/dist/packages-dist/uiroutermodule`,
+      ),
+      Observable.of(copy(
+        `${process.cwd()}/dist/uiroutermodule/es2015/index.metadata.json`,
+        `${process.cwd()}/dist/packages-dist/uiroutermodule/index.metadata.json`,
+      )),
+      Observable.of(copy(
+        `${process.cwd()}/src/lib/uiroutermodule/package.json`,
+        `${process.cwd()}/dist/packages-dist/uiroutermodule/package.json`,
+      )),
     );
 }
 
 function copyFilesProviders() {
-  const providers = Object.keys(MODULE_NAMES).filter((n) => n !== 'core');
+  const providers = Object.keys(MODULE_NAMES).filter((n) => !core.includes(n));
   return Observable.of(...providers)
     .mergeMap((name) =>  Observable
-      .forkJoin(
+      .zip(
         copyAll(
           `${process.cwd()}/dist/${name}/es2015/**/*.d.ts`,
           `${process.cwd()}/dist/packages-dist/${name}`,
@@ -206,17 +240,23 @@ function copyFilesProviders() {
     .combineAll();
 }
 
-function buildLibrary() {
-  return Observable
-    .forkJoin(buildModule('core', ''))
-    .switchMap(() => buildModulesProviders())
-    .switchMap(() => copyFilesCore())
-    .switchMap(() => copyFilesProviders())
-    .switchMap(() => buildUmds());
+async function buildLibrary() {
+  // TODO: just use promises...
+  try {
+    await Observable.zip(
+      buildModule('core', ''),
+    )
+    .toPromise();
+    await Observable.zip(buildModule('routerlessmodule', 'routerlessmodule')).toPromise();
+    await Observable.zip(buildModule('uiroutermodule', 'uiroutermodule')).toPromise();
+    await buildModulesProviders().toPromise();
+    await Observable.zip(copyFilesCore(), copyFilesProviders()).toPromise();
+    await buildUmds().toPromise();
+  } catch (e) {
+    console.error(e);
+  }
 }
 
-buildLibrary().subscribe(
-  data => console.log('success'),
-  err => console.log('err', err),
-  () => console.log('complete'),
-);
+buildLibrary()
+  .then(() => console.log('success'))
+  .catch((e) => console.error(e));

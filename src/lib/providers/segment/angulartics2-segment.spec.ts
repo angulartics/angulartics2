@@ -35,7 +35,7 @@ describe('Angulartics2Segment', () => {
     fakeAsync(inject([Location, Angulartics2, Angulartics2Segment],
       (location: Location, angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(analytics.page).toHaveBeenCalledWith('/abc');
       }),

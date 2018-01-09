@@ -1,9 +1,9 @@
 sudo: false
+dist: trusty
 language: node_js
 notifications:
   email: false
-node_js:
-  - 8
+node_js: 8
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
@@ -13,7 +13,7 @@ cache:
   yarn: true
 script:
   - yarn lint
-  - ./node_modules/.bin/ng test --code-coverage --no-progress --browsers=ChromeHeadless
+  - yarn test:ci
 after_success:
   - yarn semantic-release
   - yarn ghpages
