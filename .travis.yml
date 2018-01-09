@@ -13,7 +13,7 @@ cache:
   yarn: true
 script:
   - yarn lint
-  - yarn test-ci
+  - yarn test:ci
 after_success:
   - yarn semantic-release
   - yarn ghpages
