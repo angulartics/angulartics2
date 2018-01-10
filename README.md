@@ -18,7 +18,7 @@ Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angul
     - [Exclude routes from automatic pageview tracking](#exclude-routes-from-automatic-pageview-tracking)
     - [Remove ID's from url paths](#remove-ids-from-url-paths)
     - [Remove Query Params from url paths](#remove-query-params-from-url-paths)
-    - [Using Without A router](#using-without-a-router)
+    - [Using Without A Router](#using-without-a-router)
     - [Using With UI-Router](#using-with-ui-router)
   - [Supported providers](#supported-providers)
     - [For other providers](#for-other-providers)
@@ -193,7 +193,7 @@ Angulartics2Module.forRoot([providers], {
 }),
 ````
 
-### Using Without A router
+### Using Without A Router
 __Warning:__ this support is still experiemental  
 `@angular/router` must still be installed! However, it will not be used.
 ````ts
