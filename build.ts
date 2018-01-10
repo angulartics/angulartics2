@@ -99,7 +99,7 @@ function spawnObservable(command: string, args: string[]) {
   });
 }
 
-function generateBundle(input, file, name, format) {
+function generateBundle(input, file, name, format): Promise<any> {
   const plugins = [
     sourcemaps(),
     filesize(),
@@ -164,80 +164,72 @@ function buildModulesProviders() {
 }
 
 function buildUmds() {
-  return Observable.of(...Object.keys(MODULE_NAMES))
-    .zip((name) => Observable.forkJoin(
-      Observable.from(createUmd(name)),
-      Observable.from(createEs(name, 'es2015')),
-      Observable.from(createEs(name, 'es5')),
-    ));
+  return Promise.all(Object.keys(MODULE_NAMES).map(async (name) => {
+    await createUmd(name);
+    await createEs(name, 'es2015');
+    await createEs(name, 'es5');
+  }));
 }
 
-function copyFilesCore() {
-  return Observable
-    .zip(
-      copyAll(
-        `${process.cwd()}/dist/es2015/**/*.d.ts`,
-        `${process.cwd()}/dist/packages-dist`,
-      ),
-      Observable.from(copy(
-        `${process.cwd()}/README.md`,
-        `${process.cwd()}/dist/packages-dist/README.md`,
-      )),
-      Observable.from(copy(
-        `${process.cwd()}/src/lib/core/package.json`,
-        `${process.cwd()}/dist/packages-dist/package.json`,
-      )),
-      Observable.of(copy(
-        `${process.cwd()}/dist/es2015/index.metadata.json`,
-        `${process.cwd()}/dist/packages-dist/index.metadata.json`,
-      )),
-      copyAll(
-        `${process.cwd()}/dist/routerlessmodule/es2015/**/*.d.ts`,
-        `${process.cwd()}/dist/packages-dist/routerlessmodule`,
-      ),
-      Observable.of(copy(
-        `${process.cwd()}/dist/routerlessmodule/es2015/index.metadata.json`,
-        `${process.cwd()}/dist/packages-dist/routerlessmodule/index.metadata.json`,
-      )),
-      Observable.of(copy(
-        `${process.cwd()}/src/lib/routerlessmodule/package.json`,
-        `${process.cwd()}/dist/packages-dist/routerlessmodule/package.json`,
-      )),
-      copyAll(
-        `${process.cwd()}/dist/uiroutermodule/es2015/**/*.d.ts`,
-        `${process.cwd()}/dist/packages-dist/uiroutermodule`,
-      ),
-      Observable.of(copy(
-        `${process.cwd()}/dist/uiroutermodule/es2015/index.metadata.json`,
-        `${process.cwd()}/dist/packages-dist/uiroutermodule/index.metadata.json`,
-      )),
-      Observable.of(copy(
-        `${process.cwd()}/src/lib/uiroutermodule/package.json`,
-        `${process.cwd()}/dist/packages-dist/uiroutermodule/package.json`,
-      )),
-    );
+async function copyFilesCore() {
+  await copyAll(
+    `${process.cwd()}/dist/es2015/**/*.d.ts`,
+    `${process.cwd()}/dist/packages-dist`,
+  ).toPromise();
+  await copy(
+    `${process.cwd()}/README.md`,
+    `${process.cwd()}/dist/packages-dist/README.md`,
+  );
+  await copy(
+    `${process.cwd()}/src/lib/core/package.json`,
+    `${process.cwd()}/dist/packages-dist/package.json`,
+  );
+  await copy(
+    `${process.cwd()}/dist/es2015/index.metadata.json`,
+    `${process.cwd()}/dist/packages-dist/index.metadata.json`,
+  );
+  copyAll(
+    `${process.cwd()}/dist/routerlessmodule/es2015/**/*.d.ts`,
+    `${process.cwd()}/dist/packages-dist/routerlessmodule`,
+  );
+  await copy(
+    `${process.cwd()}/dist/routerlessmodule/es2015/index.metadata.json`,
+    `${process.cwd()}/dist/packages-dist/routerlessmodule/index.metadata.json`,
+  );
+  await copy(
+    `${process.cwd()}/src/lib/routerlessmodule/package.json`,
+    `${process.cwd()}/dist/packages-dist/routerlessmodule/package.json`,
+  );
+  await copyAll(
+    `${process.cwd()}/dist/uiroutermodule/es2015/**/*.d.ts`,
+    `${process.cwd()}/dist/packages-dist/uiroutermodule`,
+  ).toPromise();
+  await copy(
+    `${process.cwd()}/dist/uiroutermodule/es2015/index.metadata.json`,
+    `${process.cwd()}/dist/packages-dist/uiroutermodule/index.metadata.json`,
+  );
+  await copy(
+    `${process.cwd()}/src/lib/uiroutermodule/package.json`,
+    `${process.cwd()}/dist/packages-dist/uiroutermodule/package.json`,
+  );
 }
 
 function copyFilesProviders() {
   const providers = Object.keys(MODULE_NAMES).filter((n) => !core.includes(n));
-  return Observable.of(...providers)
-    .mergeMap((name) =>  Observable
-      .zip(
-        copyAll(
-          `${process.cwd()}/dist/${name}/es2015/**/*.d.ts`,
-          `${process.cwd()}/dist/packages-dist/${name}`,
-        ),
-        Observable.of(copy(
-          `${process.cwd()}/src/lib/providers/${name}/package.json`,
-          `${process.cwd()}/dist/packages-dist/${name}/package.json`,
-        )),
-        Observable.of(copy(
-          `${process.cwd()}/dist/${name}/es2015/index.metadata.json`,
-          `${process.cwd()}/dist/packages-dist/${name}/index.metadata.json`,
-        )),
-      ),
-    )
-    .combineAll();
+  return Promise.all(providers.map(async (name) => {
+    await copyAll(
+      `${process.cwd()}/dist/${name}/es2015/**/*.d.ts`,
+      `${process.cwd()}/dist/packages-dist/${name}`,
+    ).toPromise();
+    await copy(
+      `${process.cwd()}/src/lib/providers/${name}/package.json`,
+      `${process.cwd()}/dist/packages-dist/${name}/package.json`,
+    );
+    await copy(
+      `${process.cwd()}/dist/${name}/es2015/index.metadata.json`,
+      `${process.cwd()}/dist/packages-dist/${name}/index.metadata.json`,
+    );
+  }));
 }
 
 async function buildLibrary() {
@@ -250,8 +242,8 @@ async function buildLibrary() {
     await Observable.zip(buildModule('routerlessmodule', 'routerlessmodule')).toPromise();
     await Observable.zip(buildModule('uiroutermodule', 'uiroutermodule')).toPromise();
     await buildModulesProviders().toPromise();
-    await Observable.zip(copyFilesCore(), copyFilesProviders()).toPromise();
-    await buildUmds().toPromise();
+    await Promise.all([copyFilesCore(), copyFilesProviders()]);
+    await buildUmds();
   } catch (e) {
     console.error(e);
   }
