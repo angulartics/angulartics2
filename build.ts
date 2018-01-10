@@ -157,11 +157,11 @@ function buildModule(name: string, type: string) {
   return Observable.forkJoin(es2015$, esm$);
 }
 
-function buildModulesProviders() {
+async function buildModulesProviders() {
   const providers = Object.keys(MODULE_NAMES).filter((n) => !core.includes(n));
-  return Promise.all(providers.map(name =>
-      buildModule(name, 'providers').toPromise(),
-    ));
+  for (const name of providers) {
+    await buildModule(name, 'providers').toPromise();
+  }
 }
 
 function buildUmds() {
