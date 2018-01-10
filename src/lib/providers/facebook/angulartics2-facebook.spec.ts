@@ -1,5 +1,3 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
 import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Angulartics2 } from 'angulartics2';
@@ -16,10 +14,7 @@ describe('Angulartics2Facebook', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TestModule],
-      providers: [
-        { provide: Location, useClass: SpyLocation },
-        Angulartics2Facebook,
-      ]
+      providers: [Angulartics2Facebook],
     });
 
     window.fbq = fbq = jasmine.createSpy('fbq');
@@ -29,7 +24,10 @@ describe('Angulartics2Facebook', () => {
     fakeAsync(inject([Angulartics2, Angulartics2Facebook],
       (angulartics2: Angulartics2, angulartics2Facebook: Angulartics2Facebook) => {
         fixture = createRoot(RootCmp);
-        angulartics2.eventTrack.next({ action: 'ViewContent', properties: { category: 'cat' } });
+        angulartics2.eventTrack.next({
+          action: 'ViewContent',
+          properties: { category: 'cat' },
+        });
         advance(fixture);
         expect(fbq).toHaveBeenCalledWith('track', 'ViewContent', { category: 'cat' });
       }),
@@ -40,7 +38,10 @@ describe('Angulartics2Facebook', () => {
     fakeAsync(inject([Angulartics2, Angulartics2Facebook],
       (angulartics2: Angulartics2, angulartics2Facebook: Angulartics2Facebook) => {
         fixture = createRoot(RootCmp);
-        angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
+        angulartics2.eventTrack.next({
+          action: 'do',
+          properties: { category: 'cat' },
+        });
         advance(fixture);
         expect(fbq).toHaveBeenCalledWith('trackCustom', 'do', { category: 'cat' });
       }),

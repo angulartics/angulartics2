@@ -1,5 +1,3 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
 import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
@@ -19,7 +17,6 @@ describe('Angulartics2GoogleAnalytics', () => {
     TestBed.configureTestingModule({
       imports: [TestModule],
       providers: [
-        { provide: Location, useClass: SpyLocation },
         Angulartics2GoogleAnalytics
       ]
     });
@@ -28,8 +25,8 @@ describe('Angulartics2GoogleAnalytics', () => {
   });
 
   it('should track pages',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+      (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
         fixture = createRoot(RootCmp);
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
@@ -39,8 +36,8 @@ describe('Angulartics2GoogleAnalytics', () => {
   );
 
   it('should track events',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+      (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
         fixture = createRoot(RootCmp);
         angulartics2.settings.ga.additionalAccountNames.push('additionalAccountName');
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
@@ -69,31 +66,20 @@ describe('Angulartics2GoogleAnalytics', () => {
             hitCallback: undefined,
           },
         );
-    })));
+      },
+    )),
+  );
 
   it('should track events with hitCallback',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-    (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-      angulartics2.settings.ga.additionalAccountNames.push('additionalAccountName');
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+      (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+        angulartics2.settings.ga.additionalAccountNames.push('additionalAccountName');
 
-      fixture = createRoot(RootCmp);
-      const callback = function() { };
-      angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', hitCallback: callback } });
-      advance(fixture);
-      expect(ga).toHaveBeenCalledWith('send', 'event', {
-        eventCategory: 'cat',
-        eventAction: 'do',
-        eventLabel: undefined,
-        eventValue: undefined,
-        nonInteraction: undefined,
-        page: '/',
-        userId: null,
-        hitCallback: callback,
-      });
-      expect(ga).toHaveBeenCalledWith(
-        'additionalAccountName.send',
-        'event',
-        {
+        fixture = createRoot(RootCmp);
+        const callback = function() { };
+        angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', hitCallback: callback } });
+        advance(fixture);
+        expect(ga).toHaveBeenCalledWith('send', 'event', {
           eventCategory: 'cat',
           eventAction: 'do',
           eventLabel: undefined,
@@ -102,13 +88,28 @@ describe('Angulartics2GoogleAnalytics', () => {
           page: '/',
           userId: null,
           hitCallback: callback,
-        },
-      );
-  })));
+        });
+        expect(ga).toHaveBeenCalledWith(
+          'additionalAccountName.send',
+          'event',
+          {
+            eventCategory: 'cat',
+            eventAction: 'do',
+            eventLabel: undefined,
+            eventValue: undefined,
+            nonInteraction: undefined,
+            page: '/',
+            userId: null,
+            hitCallback: callback,
+          },
+        );
+      }
+    ))
+  );
 
   it('should track exceptions',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+        (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
           angulartics2.settings.ga.additionalAccountNames.push('additionalAccountName');
 
           fixture = createRoot(RootCmp);
@@ -119,8 +120,8 @@ describe('Angulartics2GoogleAnalytics', () => {
       })));
 
   it('should set username',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+        (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
           fixture = createRoot(RootCmp);
           angulartics2.setUsername.next('testuser');
           advance(fixture);
@@ -130,8 +131,8 @@ describe('Angulartics2GoogleAnalytics', () => {
   );
 
   it('should set user properties',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+      (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserProperties.next({ dimension1: 'test' });
         advance(fixture);
@@ -144,8 +145,8 @@ describe('Angulartics2GoogleAnalytics', () => {
   );
 
     it('should set user properties on all account names',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+      fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+        (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
           fixture = createRoot(RootCmp);
           angulartics2.settings.ga.additionalAccountNames.push('additionalAccountName');
           angulartics2.settings.ga.additionalAccountNames.push('additionalAccountNameTwo');
@@ -164,22 +165,24 @@ describe('Angulartics2GoogleAnalytics', () => {
     );
 
   it('should track user timings',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleAnalytics],
-        (location: Location, angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-          fixture = createRoot(RootCmp);
-          angulartics2.settings.ga.additionalAccountNames.push('additionalAccountName');
-          angulartics2.userTimings.next({ timingCategory: 'cat', timingVar: 'var', timingValue: 100 });
-          advance(fixture);
-          expect(ga).toHaveBeenCalledWith('send', 'timing', { timingCategory: 'cat', timingVar: 'var', timingValue: 100 });
-          expect(ga).toHaveBeenCalledWith(
-            'additionalAccountName.send',
-            'timing',
-            {
-              timingCategory: 'cat',
-              timingVar: 'var',
-              timingValue: 100,
-            },
-          );
-      })));
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+      (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+        fixture = createRoot(RootCmp);
+        angulartics2.settings.ga.additionalAccountNames.push('additionalAccountName');
+        angulartics2.userTimings.next({ timingCategory: 'cat', timingVar: 'var', timingValue: 100 });
+        advance(fixture);
+        expect(ga).toHaveBeenCalledWith('send', 'timing', { timingCategory: 'cat', timingVar: 'var', timingValue: 100 });
+        expect(ga).toHaveBeenCalledWith(
+          'additionalAccountName.send',
+          'timing',
+          {
+            timingCategory: 'cat',
+            timingVar: 'var',
+            timingValue: 100,
+          },
+        );
+      },
+    )),
+  );
 
 });

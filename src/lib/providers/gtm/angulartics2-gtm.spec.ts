@@ -1,5 +1,3 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
 import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Angulartics2 } from 'angulartics2';
@@ -16,24 +14,25 @@ describe('Angulartics2GoogleTagManager', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TestModule],
-      providers: [
-        { provide: Location, useClass: SpyLocation },
-        Angulartics2GoogleTagManager,
-      ],
+      providers: [Angulartics2GoogleTagManager],
     });
 
     window.dataLayer = dataLayer = [];
   });
 
   it('should track pages',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleTagManager],
-      (location: Location, angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleTagManager],
+      (angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
         fixture = createRoot(RootCmp);
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
-        expect(dataLayer).toContain({ event: 'Page View', 'content-name': '/abc', userId: null });
-      }),
-    ),
+        expect(dataLayer).toContain({
+          event: 'Page View',
+          'content-name': '/abc',
+          userId: null,
+        });
+      },
+    )),
   );
 
   it('should track events',
@@ -52,8 +51,8 @@ describe('Angulartics2GoogleTagManager', () => {
           interactionType: undefined,
           userId: null,
         });
-      }),
-    ),
+      }
+    )),
   );
 
   it('should track exceptions',
@@ -71,8 +70,8 @@ describe('Angulartics2GoogleTagManager', () => {
           interactionType: undefined,
           userId: null,
         });
-      }),
-    ),
+      }
+    )),
   );
 
   it('should set username',
@@ -82,8 +81,8 @@ describe('Angulartics2GoogleTagManager', () => {
         angulartics2.setUsername.next('testuser');
         advance(fixture);
         expect(angulartics2.settings.gtm.userId).toBe('testuser');
-      }),
-    ),
+      }
+    )),
   );
 
 });

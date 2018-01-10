@@ -1,6 +1,9 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
-import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  fakeAsync,
+  inject,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 
@@ -17,18 +20,15 @@ describe('Angulartics2BaiduAnalytics', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [TestModule],
-        providers: [
-          { provide: Location, useClass: SpyLocation },
-          Angulartics2BaiduAnalytics,
-        ],
+        providers: [Angulartics2BaiduAnalytics],
       });
 
       window._hmt = _hmt = [];
     });
 
   it('should track pages',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2BaiduAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2BaiduAnalytics],
+      (angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {
         fixture = createRoot(RootCmp);
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
@@ -38,10 +38,17 @@ describe('Angulartics2BaiduAnalytics', () => {
   );
 
   it('should track events',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2BaiduAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2BaiduAnalytics],
+      (angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {
         fixture = createRoot(RootCmp);
-        angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', opt_label: 'label', opt_value: 'value' } });
+        angulartics2.eventTrack.next({
+          action: 'do',
+          properties: {
+            category: 'cat',
+            opt_label: 'label',
+            opt_value: 'value',
+          },
+        });
         advance(fixture);
         expect(_hmt).toContain(['_trackEvent', 'cat', 'do', 'label', 'value']);
       }),
@@ -49,8 +56,8 @@ describe('Angulartics2BaiduAnalytics', () => {
   );
 
   it('should set username',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2BaiduAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2BaiduAnalytics],
+      (angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUsername.next('testUser');
         advance(fixture);
@@ -60,12 +67,21 @@ describe('Angulartics2BaiduAnalytics', () => {
   );
 
   it('should set user properties',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2BaiduAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2BaiduAnalytics],
+      (angulartics2: Angulartics2, angulartics2BaiduAnalytics: Angulartics2BaiduAnalytics) => {
         fixture = createRoot(RootCmp);
-        angulartics2.setUserProperties.next({ userId: '1', firstName: 'John', lastName: 'Doe' });
+        angulartics2.setUserProperties.next({
+          userId: '1',
+          firstName: 'John',
+          lastName: 'Doe',
+        });
         advance(fixture);
-        expect(_hmt).toContain(['_setCustomVar', 2, 'user', '{"userId":"1","firstName":"John","lastName":"Doe"}']);
+        expect(_hmt).toContain([
+          '_setCustomVar',
+          2,
+          'user',
+          '{"userId":"1","firstName":"John","lastName":"Doe"}',
+        ]);
       }),
     ),
   );

@@ -25,25 +25,27 @@ describe('Angulartics2AdobeAnalytics', () => {
       providers: [
         { provide: Location, useClass: MockLocation },
         Angulartics2AdobeAnalytics,
-      ]
+      ],
     });
 
     window.s = s = jasmine.createSpyObj('s', ['clearVars', 't', 'tl']);
   });
 
   it('should track pages',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AdobeAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+      (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
         fixture = createRoot(RootCmp);
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(s.clearVars).toHaveBeenCalled();
-        expect(s.t).toHaveBeenCalledWith({pageName: '/abc'});
-  })));
+        expect(s.t).toHaveBeenCalledWith({ pageName: '/abc' });
+      },
+    )),
+  );
 
   it('should track events with no delay',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AdobeAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+      (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
         fixture = createRoot(RootCmp);
 
         angulartics2.eventTrack.next({ action: 'do', properties: { disableDelay: true } });
@@ -53,8 +55,8 @@ describe('Angulartics2AdobeAnalytics', () => {
   })));
 
   it('should track events with custom properties',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AdobeAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+      (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
         fixture = createRoot(RootCmp);
 
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', prop1: 'user1234' } });
@@ -65,8 +67,8 @@ describe('Angulartics2AdobeAnalytics', () => {
   })));
 
   it('should track events',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AdobeAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+      (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
         fixture = createRoot(RootCmp);
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
         advance(fixture);
@@ -75,8 +77,8 @@ describe('Angulartics2AdobeAnalytics', () => {
   })));
 
   it('should set user porperties',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AdobeAnalytics],
-      (location: Location, angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+      (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserProperties.next({ elet1: 'test' });
         advance(fixture);
@@ -84,7 +86,7 @@ describe('Angulartics2AdobeAnalytics', () => {
         angulartics2.setUserProperties.next({ prop1: 'test' });
         advance(fixture);
         expect(s.prop1).toEqual('test');
-  })));
-
-
+      },
+    )),
+  );
 });

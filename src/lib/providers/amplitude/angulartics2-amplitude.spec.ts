@@ -1,5 +1,3 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
 import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Angulartics2 } from 'angulartics2';
@@ -19,7 +17,6 @@ describe('Angulartics2Amplitude', () => {
         TestModule,
       ],
       providers: [
-        { provide: Location, useClass: SpyLocation },
         Angulartics2Amplitude,
       ]
     });

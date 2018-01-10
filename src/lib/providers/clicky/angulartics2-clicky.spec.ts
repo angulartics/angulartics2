@@ -1,6 +1,9 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
-import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  fakeAsync,
+  inject,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 
 import { Angulartics2 } from 'angulartics2';
@@ -18,11 +21,7 @@ describe('Angulartics2Clicky', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TestModule],
-      providers: [
-        { provide: Location, useClass: SpyLocation },
-        Angulartics2Clicky,
-        Title,
-      ],
+      providers: [Angulartics2Clicky, Title],
     });
     window.console = jasmine.createSpyObj('console', ['warn', 'log']);
   });
@@ -66,7 +65,10 @@ describe('Angulartics2Clicky', () => {
       fakeAsync(inject([Angulartics2, Angulartics2Clicky],
         (angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
           fixture = createRoot(RootCmp);
-          angulartics2.eventTrack.next({ action: 'do', properties: { title: 'thing', type: 'click' } });
+          angulartics2.eventTrack.next({
+            action: 'do',
+            properties: { title: 'thing', type: 'click' },
+          });
           advance(fixture);
           expect(clicky.log).toHaveBeenCalledWith('do', 'thing', 'click');
         }),
@@ -77,7 +79,13 @@ describe('Angulartics2Clicky', () => {
       fakeAsync(inject([Angulartics2, Angulartics2Clicky],
         (angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
           fixture = createRoot(RootCmp);
-          angulartics2.eventTrack.next({ action: 'do', properties: { title: 'thing', type: 'unsupported-gibberish' } });
+          angulartics2.eventTrack.next({
+            action: 'do',
+            properties: {
+              title: 'thing',
+              type: 'unsupported-gibberish',
+            },
+          });
           advance(fixture);
           expect(clicky.log).toHaveBeenCalledWith('do', 'thing', 'pageview');
         }),
@@ -88,7 +96,10 @@ describe('Angulartics2Clicky', () => {
       fakeAsync(inject([Angulartics2, Angulartics2Clicky],
         (angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
           fixture = createRoot(RootCmp);
-          angulartics2.eventTrack.next({ action: 'do', properties: { goal: 1, revenue: 50, noQueue: true } });
+          angulartics2.eventTrack.next({
+            action: 'do',
+            properties: { goal: 1, revenue: 50, noQueue: true },
+          });
           advance(fixture);
           expect(clicky.goal).toHaveBeenCalledWith(1, 50, true);
         }),

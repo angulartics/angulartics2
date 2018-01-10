@@ -1,5 +1,3 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
 import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -22,7 +20,6 @@ describe('Angulartics2AppInsights', () => {
         RouterTestingModule,
       ],
       providers: [
-        { provide: Location, useClass: SpyLocation },
         Title,
         Angulartics2AppInsights,
       ],
@@ -56,8 +53,8 @@ describe('Angulartics2AppInsights', () => {
   );
 
   it('should track events',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights],
-      (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const action = 'the action';
         const properties = {};
@@ -73,8 +70,8 @@ describe('Angulartics2AppInsights', () => {
   );
 
   it('should track exceptions (string)',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights],
-      (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const str = 'test string';
         angulartics2.exceptionTrack.next(str);
@@ -85,8 +82,8 @@ describe('Angulartics2AppInsights', () => {
   );
 
   it('should track exceptions (event)',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights],
-      (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const event = { 'event': true };
         angulartics2.exceptionTrack.next({ event });
@@ -97,8 +94,8 @@ describe('Angulartics2AppInsights', () => {
   );
 
   it('should track exceptions (description)',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights],
-      (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const description = 'test description';
         angulartics2.exceptionTrack.next({ description });
@@ -109,8 +106,8 @@ describe('Angulartics2AppInsights', () => {
   );
 
   it('should set userId in setAuthenticatedUserContext',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2AppInsights],
-      (location: Location, angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
+    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const userId = 'test_userId';
         angulartics2AppInsights.setUsername(userId);

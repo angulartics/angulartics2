@@ -1,5 +1,3 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
 import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Angulartics2 } from 'angulartics2';
@@ -15,13 +13,8 @@ describe('Angulartics2Hubspot', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TestModule,
-      ],
-      providers: [
-        { provide: Location, useClass: SpyLocation },
-        Angulartics2Hubspot,
-      ],
+      imports: [TestModule],
+      providers: [Angulartics2Hubspot],
     });
 
     window._hsq = _hsq = [];
@@ -39,22 +32,25 @@ describe('Angulartics2Hubspot', () => {
   );
 
   it('should track events',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Hubspot],
-      (location: Location, angulartics2: Angulartics2, angulartics2Hubspot: Angulartics2Hubspot) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Hubspot],
+      (angulartics2: Angulartics2, angulartics2Hubspot: Angulartics2Hubspot) => {
         fixture = createRoot(RootCmp);
         angulartics2.eventTrack.next({
           action: 'unused',
           properties: { id: 'Clicked Buy Now button', value: 20.5 },
         });
         advance(fixture);
-        expect(_hsq).toContain(['trackEvent', { id: 'Clicked Buy Now button', value: 20.5 }]);
+        expect(_hsq).toContain([
+          'trackEvent',
+          { id: 'Clicked Buy Now button', value: 20.5 },
+        ]);
       }),
     ),
   );
 
   it('should set user properties',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Hubspot],
-      (location: Location, angulartics2: Angulartics2, angulartics2Hubspot: Angulartics2Hubspot) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Hubspot],
+      (angulartics2: Angulartics2, angulartics2Hubspot: Angulartics2Hubspot) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserProperties.next({ email: 'george@jungle.com', id: '1234' });
         advance(fixture);
