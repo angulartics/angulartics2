@@ -14,7 +14,7 @@
       "angulartics2": ["./lib/core/public_api"]
     }
   },
-  "exclude": ["test.ts", "**/*.spec.ts"],
+  "exclude": ["test.ts", "**/*.spec.ts", "lib/test.mocks.ts"],
   "angularCompilerOptions": {
     "preserveWhitespaces": false
   }
