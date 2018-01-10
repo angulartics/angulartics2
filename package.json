@@ -19,18 +19,18 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^5.1.3",
+    "@angular/animations": "^5.2.0",
     "@angular/cdk": "^5.0.4",
-    "@angular/common": "^5.1.3",
-    "@angular/compiler": "^5.1.3",
-    "@angular/core": "^5.1.3",
-    "@angular/forms": "^5.1.3",
+    "@angular/common": "^5.2.0",
+    "@angular/compiler": "^5.2.0",
+    "@angular/core": "^5.2.0",
+    "@angular/forms": "^5.2.0",
     "@angular/material": "^5.0.4",
-    "@angular/platform-browser": "^5.1.3",
-    "@angular/platform-browser-dynamic": "^5.1.3",
-    "@angular/router": "^5.1.3",
+    "@angular/platform-browser": "^5.2.0",
+    "@angular/platform-browser-dynamic": "^5.2.0",
+    "@angular/router": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-beta.9",
-    "@uirouter/angular": "1.0.0-rc.2",
+    "@uirouter/angular": "1.0.0-rc.3",
     "bootstrap": "4.0.0-beta.3",
     "core-js": "^2.5.3",
     "rxjs": "5.5.6",
@@ -38,8 +38,8 @@
   },
   "devDependencies": {
     "@angular/cli": "1.6.3",
-    "@angular/compiler-cli": "^5.1.3",
-    "@angular/language-service": "^5.1.3",
+    "@angular/compiler-cli": "^5.2.0",
+    "@angular/language-service": "^5.2.0",
     "@types/applicationinsights-js": "^1.0.5",
     "@types/facebook-pixel": "^0.0.19",
     "@types/fs-extra": "^5.0.0",
@@ -69,7 +69,7 @@
     "semantic-release": "^11.0.2",
     "ts-node": "^4.1.0",
     "tslint": "^5.8.0",
-    "typescript": "2.5.x"
+    "typescript": "2.6.x"
   },
   "release": {
     "branch": "master"
