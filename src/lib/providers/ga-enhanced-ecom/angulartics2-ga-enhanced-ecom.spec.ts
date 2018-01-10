@@ -1,5 +1,3 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
 import { fakeAsync, inject, TestBed } from '@angular/core/testing';
 
 import { TestModule } from '../../test.mocks';
@@ -15,7 +13,6 @@ describe('Angulartics2GoogleAnalyticsEnhancedEcommerce', () => {
     TestBed.configureTestingModule({
       imports: [TestModule],
       providers: [
-        { provide: Location, useClass: SpyLocation },
         Angulartics2GoogleAnalyticsEnhancedEcommerce,
       ],
     });

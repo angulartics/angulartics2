@@ -1,6 +1,4 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
-import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Angulartics2 } from 'angulartics2';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
@@ -15,27 +13,26 @@ describe('Angulartics2GoogleTagManager', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TestModule
-      ],
-      providers: [
-        { provide: Location, useClass: SpyLocation },
-        Angulartics2GoogleTagManager
-      ]
+      imports: [TestModule],
+      providers: [Angulartics2GoogleTagManager],
     });
 
     window.dataLayer = dataLayer = [];
   });
 
   it('should track pages',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2GoogleTagManager],
-      (location: Location, angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleTagManager],
+      (angulartics2: Angulartics2, angulartics2GoogleTagManager: Angulartics2GoogleTagManager) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc', location: location });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
-        expect(dataLayer).toContain({ event: 'Page View', 'content-name': '/abc', userId: null });
-      }),
-    ),
+        expect(dataLayer).toContain({
+          event: 'Page View',
+          'content-name': '/abc',
+          userId: null,
+        });
+      },
+    )),
   );
 
   it('should track events',
@@ -44,9 +41,18 @@ describe('Angulartics2GoogleTagManager', () => {
         fixture = createRoot(RootCmp);
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', gtmCustom: { customKey: 'customValue' } } });
         advance(fixture);
-        expect(dataLayer).toContain({ event: 'interaction', target: 'cat', action: 'do', customKey: 'customValue', label: undefined, value: undefined, interactionType: undefined, userId: null });
-      }),
-    ),
+        expect(dataLayer).toContain({
+          event: 'interaction',
+          target: 'cat',
+          action: 'do',
+          customKey: 'customValue',
+          label: undefined,
+          value: undefined,
+          interactionType: undefined,
+          userId: null,
+        });
+      }
+    )),
   );
 
   it('should track exceptions',
@@ -55,9 +61,17 @@ describe('Angulartics2GoogleTagManager', () => {
         fixture = createRoot(RootCmp);
         angulartics2.exceptionTrack.next({ appId: 'app', appName: 'Test App', appVersion: '0.1' });
         advance(fixture);
-        expect(dataLayer).toContain({ event: 'interaction', target: 'Exception', action: 'Exception thrown for Test App <app@0.1>', label: undefined, value: undefined, interactionType: undefined, userId: null });
-      }),
-    ),
+        expect(dataLayer).toContain({
+          event: 'interaction',
+          target: 'Exception',
+          action: 'Exception thrown for Test App <app@0.1>',
+          label: undefined,
+          value: undefined,
+          interactionType: undefined,
+          userId: null,
+        });
+      }
+    )),
   );
 
   it('should set username',
@@ -67,8 +81,8 @@ describe('Angulartics2GoogleTagManager', () => {
         angulartics2.setUsername.next('testuser');
         advance(fixture);
         expect(angulartics2.settings.gtm.userId).toBe('testuser');
-      }),
-    ),
+      }
+    )),
   );
 
 });

@@ -1,7 +1,7 @@
 import { CommonModule, Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { Component, Directive, Injectable } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { advance, createRoot } from '../test.mocks';
@@ -96,7 +96,7 @@ describe('angulartics2On', () => {
       inject([Angulartics2], (angulartics2: Angulartics2) => {
         fixture = createRoot(RootCmp);
         expect(EventSpy).not.toHaveBeenCalled();
-        angulartics2.eventTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.eventTrack.subscribe((x) => EventSpy(x));
         compiled = fixture.debugElement.nativeElement.children[0];
         compiled.click();
         advance(fixture);
@@ -114,7 +114,7 @@ describe('angulartics2On', () => {
       inject([Angulartics2], (angulartics2: Angulartics2) => {
         fixture = createRoot(RootCmp1);
         expect(EventSpy).not.toHaveBeenCalled();
-        angulartics2.eventTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.eventTrack.subscribe((x) => EventSpy(x));
         compiled = fixture.debugElement.nativeElement.children[0];
         compiled.click();
         advance(fixture);
@@ -131,7 +131,7 @@ describe('angulartics2On', () => {
       inject([Angulartics2], (angulartics2: Angulartics2) => {
         fixture = createRoot(RootCmp2);
         expect(EventSpy).not.toHaveBeenCalled();
-        angulartics2.eventTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.eventTrack.subscribe((x) => EventSpy(x));
         compiled = fixture.debugElement.nativeElement.children[0];
         compiled.click();
         advance(fixture);
@@ -154,7 +154,7 @@ describe('angulartics2On', () => {
       inject([Angulartics2], (angulartics2: Angulartics2) => {
         fixture = createRoot(RootCmp3);
         expect(EventSpy).not.toHaveBeenCalled();
-        angulartics2.eventTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.eventTrack.subscribe((x) => EventSpy(x));
         compiled = fixture.debugElement.nativeElement.children[0];
         compiled.click();
         advance(fixture);

@@ -1,6 +1,9 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
-import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import {
+  fakeAsync,
+  inject,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 
 import { Angulartics2 } from 'angulartics2';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
@@ -10,19 +13,13 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
 
 describe('Angulartics2Woopra', () => {
-
   let fixture: ComponentFixture<any>;
   let woopra: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TestModule,
-      ],
-      providers: [
-        { provide: Location, useClass: SpyLocation },
-        Angulartics2Woopra,
-      ],
+      imports: [TestModule],
+      providers: [Angulartics2Woopra],
     });
 
     window.woopra = woopra = {
@@ -32,10 +29,10 @@ describe('Angulartics2Woopra', () => {
   });
 
   it('should track pages',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Woopra],
-      (location: Location, angulartics2: Angulartics2, angulartics2Woopra: Angulartics2Woopra) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Woopra],
+      (angulartics2: Angulartics2, angulartics2Woopra: Angulartics2Woopra) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({path: '/abc', location: location});
+        angulartics2.pageTrack.next({path: '/abc' });
         advance(fixture);
         expect(woopra.track).toHaveBeenCalledWith('pv', {url: '/abc'});
       }),
@@ -43,8 +40,8 @@ describe('Angulartics2Woopra', () => {
   );
 
   it('should track events',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Woopra],
-      (location: Location, angulartics2: Angulartics2, angulartics2Woopra: Angulartics2Woopra) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Woopra],
+      (angulartics2: Angulartics2, angulartics2Woopra: Angulartics2Woopra) => {
         fixture = createRoot(RootCmp);
         angulartics2.eventTrack.next({
           action: 'payment',
@@ -63,8 +60,8 @@ describe('Angulartics2Woopra', () => {
   );
 
   it('should set user properties',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Woopra],
-      (location: Location, angulartics2: Angulartics2, angulartics2Woopra: Angulartics2Woopra) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Woopra],
+      (angulartics2: Angulartics2, angulartics2Woopra: Angulartics2Woopra) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserProperties.next({email: 'test@test.com', name: 'John Doe', company: 'Test Co'});
         advance(fixture);

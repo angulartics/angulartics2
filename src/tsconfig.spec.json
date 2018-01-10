@@ -10,19 +10,15 @@
       "node",
       "google.analytics",
       "applicationinsights-js",
-      "segment-analytics"
+      "segment-analytics",
+      "facebook-pixel"
     ],
     "paths": {
       "angulartics2": ["./lib/core/public_api"]
     }
   },
-  "files": [
-    "test.ts"
-  ],
-  "include": [
-    "**/*.spec.ts",
-    "**/*.d.ts"
-  ],
+  "files": ["test.ts"],
+  "include": ["**/*.spec.ts", "**/*.d.ts"],
   "angularCompilerOptions": {
     "preserveWhitespaces": false
   }

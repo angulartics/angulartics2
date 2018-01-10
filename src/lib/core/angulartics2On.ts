@@ -2,16 +2,15 @@ import {
   AfterContentInit,
   Directive,
   ElementRef,
-  Input,
   Injectable,
+  Input,
+  NgModule,
   Renderer2,
 } from '@angular/core';
 import { Angulartics2 } from './angulartics2';
 
 @Injectable()
-@Directive({
-  selector: '[angulartics2On]'
-})
+@Directive({ selector: '[angulartics2On]' })
 export class Angulartics2On implements AfterContentInit {
   @Input('angulartics2On') angulartics2On: string;
   @Input() angularticsAction: string;
@@ -27,7 +26,11 @@ export class Angulartics2On implements AfterContentInit {
   ) { }
 
   ngAfterContentInit() {
-    this.renderer.listen(this.elRef.nativeElement, this.angulartics2On || 'click', (event: Event) => this.eventTrack(event));
+    this.renderer.listen(
+      this.elRef.nativeElement,
+      this.angulartics2On || 'click',
+      (event: Event) => this.eventTrack(event),
+    );
   }
 
   eventTrack(event: Event) {
@@ -63,3 +66,9 @@ export class Angulartics2On implements AfterContentInit {
     return getDOM().getProperty(this.el, 'id') || getDOM().getProperty(this.el, 'name') || getDOM().tagName(this.el);
   }*/
 }
+
+@NgModule({
+  declarations: [Angulartics2On],
+  exports: [Angulartics2On],
+})
+export class Angulartics2OnModule {}

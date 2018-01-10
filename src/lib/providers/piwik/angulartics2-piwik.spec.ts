@@ -1,6 +1,4 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
-import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Angulartics2 } from 'angulartics2';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
@@ -16,24 +14,21 @@ describe('Angulartics2Piwik', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TestModule],
-      providers: [
-        { provide: Location, useClass: SpyLocation },
-        Angulartics2Piwik,
-      ],
+      providers: [Angulartics2Piwik],
     });
 
     window._paq = _paq = [];
   });
 
   it('should track pages',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
-      (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+      (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({path: '/abc', location: location});
+        angulartics2.pageTrack.next({path: '/abc' });
         advance(fixture);
         expect(_paq).toContain(['setCustomUrl', '/abc']);
-      }),
-    ),
+      },
+    )),
   );
 
   describe('track a basic event or an ecommerce event', () => {
@@ -50,8 +45,8 @@ describe('Angulartics2Piwik', () => {
     });
 
     it('should track set ecommerce view events',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
-        (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
           fixture = createRoot(RootCmp);
 
           // Set up ecommerce view description to inform Piwik that product details are shown
@@ -67,14 +62,14 @@ describe('Angulartics2Piwik', () => {
             ecommerceViewDescription.categoryName,
             ecommerceViewDescription.price
           ]);
-        }),
-      ),
+        },
+      )),
     );
 
 
     it('should track goals',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
-        (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
           fixture = createRoot(RootCmp);
 
           const piwikGoal = {
@@ -90,13 +85,13 @@ describe('Angulartics2Piwik', () => {
             piwikGoal.goalId,
             piwikGoal.value,
           ]);
-        }),
-      ),
+        }
+      )),
     );
 
     it('should track add ecommerce item events',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
-        (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
           fixture = createRoot(RootCmp);
 
           angulartics2.eventTrack.next({action: 'addEcommerceItem', properties: product});
@@ -109,26 +104,26 @@ describe('Angulartics2Piwik', () => {
             product.price,
             product.quantity
           ]);
-        }),
-      ),
+        }
+      )),
     );
 
     it('should track ecommerce cart update events',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
-        (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
           fixture = createRoot(RootCmp);
 
           angulartics2.eventTrack.next({action: 'trackEcommerceCartUpdate', properties: {grandTotal: 15.5}});
           advance(fixture);
 
           expect(_paq).toContain(['trackEcommerceCartUpdate', 15.5]);
-        }),
-      ),
+        }
+      )),
     );
 
     it('should track ecommerce order events',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
-        (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
           fixture = createRoot(RootCmp);
 
           const ecommerceOrder = {
@@ -151,56 +146,59 @@ describe('Angulartics2Piwik', () => {
             ecommerceOrder.shipping,
             ecommerceOrder.discount
           ]);
-        }),
-      ),
+        }
+      )),
     );
 
-    it('should track events',
-      fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
-        (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
-          fixture = createRoot(RootCmp);
-          angulartics2.eventTrack.next({action: 'do', properties: {category: 'cat'}});
-          advance(fixture);
-          expect(_paq).toContain(['trackEvent', 'cat', 'do', undefined, undefined]);
-        }),
-      ),
-    );
+    it('should track events', fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+      (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+        fixture = createRoot(RootCmp);
+        angulartics2.eventTrack.next({action: 'do', properties: {category: 'cat'}});
+        advance(fixture);
+        expect(_paq).toContain(['trackEvent', 'cat', 'do', undefined, undefined]);
+      }
+    )));
 
   });
 
-  it('should set username',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
-      (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
-        fixture = createRoot(RootCmp);
-        angulartics2.setUsername.next('testUser');
-        advance(fixture);
-        expect(_paq).toContain(['setUserId', 'testUser']);
-      }),
-    ),
-  );
+  it('should set username', fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+    (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fixture = createRoot(RootCmp);
+      angulartics2.setUsername.next('testUser');
+      advance(fixture);
+      expect(_paq).toContain(['setUserId', 'testUser']);
+    }
+  )));
 
   it('should set user properties as custom variable',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
-      (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+      (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserProperties.next({userId: '1', firstName: 'John', lastName: 'Doe'});
         advance(fixture);
-        expect(_paq).toContain(['setCustomVariable', {userId: '1', firstName: 'John', lastName: 'Doe'}]);
-      }),
-    ),
+        expect(_paq).toContain([
+          'setCustomVariable',
+          { userId: '1', firstName: 'John', lastName: 'Doe' },
+        ]);
+      }
+    )),
   );
 
   it('should set user properties as custom dimension',
-    fakeAsync(inject([Location, Angulartics2, Angulartics2Piwik],
-      (location: Location, angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+      (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
         fixture = createRoot(RootCmp);
-        angulartics2.setUserProperties.next({dimension1: 'v1.2.3', dimension2: 'german', dimension43: 'green'});
+        angulartics2.setUserProperties.next({
+          dimension1: 'v1.2.3',
+          dimension2: 'german',
+          dimension43: 'green',
+        });
         advance(fixture);
         expect(_paq).toContain(['setCustomDimension', 1, 'v1.2.3']);
         expect(_paq).toContain(['setCustomDimension', 2, 'german']);
         expect(_paq).toContain(['setCustomDimension', 43, 'green']);
-      }),
-    ),
+      },
+    )),
   );
 
 });

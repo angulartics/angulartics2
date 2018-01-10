@@ -8,8 +8,8 @@
   },
   "repository": "angulartics/angulartics2",
   "main": "../bundles/facebook.umd.js",
-  "module": "index.js",
-  "es2015": "es2015/index.js",
+  "module": "facebook.es5.js",
+  "es2015": "facebook.es2015.js",
   "typings": "index.d.ts",
   "license": "MIT"
 }

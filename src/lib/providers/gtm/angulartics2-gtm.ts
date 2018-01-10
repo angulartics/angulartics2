@@ -22,9 +22,9 @@ export class Angulartics2GoogleTagManager {
     // Set the default settings for this module
     this.angulartics2.settings.gtm = { ...defaults, ...this.angulartics2.settings.gtm };
 
-    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
+    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path));
 
-    this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
+    this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
 
     this.angulartics2.exceptionTrack.subscribe((x: any) => this.exceptionTrack(x));
 
@@ -43,10 +43,13 @@ export class Angulartics2GoogleTagManager {
 
   /**
    * Send interactions to the dataLayer, i.e. for event tracking in Google Analytics
-   * @name eventTrack
    *
-   * @param {string} action Required 'action' (string) associated with the event
-   * @param {object} properties Comprised of the mandatory field 'category' (string) and optional  fields 'label' (string), 'value' (integer) and 'noninteraction' (boolean)
+   * @param action associated with the event
+   * @param properties
+   * @param {string} properties.category
+   * @param {string} [properties.label]
+   * @param {number} [properties.value]
+   * @param {boolean} [properties.noninteraction]
    */
   eventTrack(action: string, properties: any) {
 
@@ -69,10 +72,13 @@ export class Angulartics2GoogleTagManager {
 
   /**
    * Exception Track Event in GTM
-   * @name exceptionTrack
    *
-   * @param {object} properties Comprised of the mandatory fields 'appId' (string), 'appName' (string) and 'appVersion' (string) and
-   * optional  fields 'fatal' (boolean) and 'description' (string)
+   * @param {Object} properties
+   * @param {string} properties.appId
+   * @param {string} properties.appName
+   * @param {string} properties.appVersion
+   * @param {string} [properties.description]
+   * @param {boolean} [properties.fatal]
    */
   exceptionTrack(properties: any) {
     if (! properties || ! properties.appId || ! properties.appName || ! properties.appVersion) {
@@ -95,9 +101,8 @@ export class Angulartics2GoogleTagManager {
 
   /**
    * Set userId for use with Universal Analytics User ID feature
-   * @name setUsername
    *
-   * @param {string} userId Required 'userId' value (string) used to identify user cross-device in Google Analytics
+   * @param userId used to identify user cross-device in Google Analytics
    */
   setUsername(userId: string) {
     this.angulartics2.settings.gtm.userId = userId;

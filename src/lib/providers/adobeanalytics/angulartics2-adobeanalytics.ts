@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
+import { Injectable } from '@angular/core';
 
 import { Angulartics2 } from 'angulartics2';
 
@@ -12,12 +12,9 @@ export class Angulartics2AdobeAnalytics {
     private angulartics2: Angulartics2,
     private location: Location,
   ) {
-
-    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
-
-    this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
-
-    this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
+    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path));
+    this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
+    this.angulartics2.setUserProperties.subscribe((x) => this.setUserProperties(x));
   }
 
   pageTrack(path: string) {
@@ -29,10 +26,13 @@ export class Angulartics2AdobeAnalytics {
 
   /**
    * Track Event in Adobe Analytics
-   * @name eventTrack
    *
-   * @param action Required 'action' (string) associated with the event
-   * @param properties Comprised of the mandatory field 'category' (string) and optional  fields 'label' (string), 'value' (integer) and 'noninteraction' (boolean)
+   * @param action associated with the event
+   * @param properties action detials
+   * @param {string} properties.category
+   * @param {string} [properties.label]
+   * @param {number} [properties.value]
+   * @param {boolean} [properties.noninteraction]
    *
    * @link https://marketing.adobe.com/resources/help/en_US/sc/implement/js_implementation.html
    */

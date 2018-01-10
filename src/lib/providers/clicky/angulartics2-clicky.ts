@@ -15,10 +15,8 @@ export class Angulartics2Clicky {
     if (typeof clicky === 'undefined') {
       console.warn('Angulartics 2 Clicky Plugin: clicky global not found');
     }
-    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
-    this.angulartics2.eventTrack.subscribe((x: any) =>
-      this.eventOrGoalTrack(x.action, x.properties),
-    );
+    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path));
+    this.angulartics2.eventTrack.subscribe((x) => this.eventOrGoalTrack(x.action, x.properties));
   }
 
   /**

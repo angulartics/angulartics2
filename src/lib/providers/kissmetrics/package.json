@@ -8,8 +8,8 @@
   },
   "repository": "angulartics/angulartics2",
   "main": "../bundles/kissmetrics.umd.js",
-  "module": "index.js",
-  "es2015": "es2015/index.js",
+  "module": "kissmetrics.es5.js",
+  "es2015": "kissmetrics.es2015.js",
   "typings": "index.d.ts",
   "license": "MIT"
 }

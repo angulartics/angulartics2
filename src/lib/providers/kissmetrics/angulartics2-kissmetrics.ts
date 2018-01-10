@@ -14,16 +14,13 @@ export class Angulartics2Kissmetrics {
       _kmq = [];
     }
 
-    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path, x.location));
-
-    this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
-
+    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path));
+    this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
     this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
-
-    this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
+    this.angulartics2.setUserProperties.subscribe((x) => this.setUserProperties(x));
   }
 
-  pageTrack(path: string, location: any) {
+  pageTrack(path: string) {
     _kmq.push(['record', 'Pageview', { 'Page': path }]);
   }
 

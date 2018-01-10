@@ -1,37 +1,40 @@
 import { CommonModule } from '@angular/common';
 import { Component, Injectable, NgModule } from '@angular/core';
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { UIRouterModule } from '@uirouter/angular';
 
-import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2, Angulartics2Module } from 'angulartics2';
 
 @Injectable()
 export class DummyProvider {
-  constructor() {}
+  eventSpy: any;
+  constructor(angulartics2: Angulartics2) {
+    this.eventSpy = jasmine.createSpy('eventSpy');
+    angulartics2.pageTrack.subscribe((x) => this.eventSpy(x));
+  }
 }
 
-@Component({ selector: 'hello-cmp', template: `{{greeting}}` })
+@Component({ selector: 'hello-cmp', template: `{{ greeting }}` })
 export class HelloCmp {
   greeting: string;
-  constructor() { this.greeting = 'hello'; }
+  constructor() {
+    this.greeting = 'hello';
+  }
 }
 
 @Component({ selector: 'hello-cmp2', template: `<div>2</div>` })
-export class HelloCmp2 {
-}
+export class HelloCmp2 {}
 
 @Component({ selector: 'hello-cmp3', template: `<div>3</div>` })
-export class HelloCmp3 {
-}
+export class HelloCmp3 {}
 
 @Component({ selector: 'hello-cmp4', template: `<div>4</div>` })
-export class HelloCmp4 {
-}
+export class HelloCmp4 {}
 
 @Component({ selector: 'hello-cmp5', template: `<div>5</div>` })
-export class HelloCmp5 {
-}
+export class HelloCmp5 {}
 
 export const RoutesConfig: Routes = [
   { path: '', component: HelloCmp },
@@ -46,11 +49,32 @@ export const RoutesConfig: Routes = [
 
 @Component({
   selector: 'root-comp',
-  template: `<router-outlet></router-outlet>`
+  template: `<router-outlet></router-outlet>`,
 })
 export class RootCmp {
-  name: string;
+  constructor(dummy: DummyProvider) {}
 }
+
+@Component({
+  selector: 'root-dummy-comp',
+  template: `hello`,
+})
+export class RouterlessRootCmp {
+  constructor(dummy: DummyProvider) {}
+}
+
+@Component({
+  selector: 'root-comp',
+  template: `<ui-view></ui-view>`,
+})
+export class UIRootCmp {
+  constructor(dummy: DummyProvider) {}
+}
+
+export const UIRoutesConfig = [
+  { name: 'home', component: HelloCmp, url: '/home' },
+  { name: 'def', component: HelloCmp2, url: '/' },
+];
 
 export function advance(fixture: ComponentFixture<any>): void {
   tick();
@@ -63,7 +87,10 @@ export function createRoot(type: any): ComponentFixture<any> {
   return f;
 }
 
-export function createRootWithRouter(router: Router, type: any): ComponentFixture<any> {
+export function createRootWithRouter(
+  router: Router,
+  type: any,
+): ComponentFixture<any> {
   const f = TestBed.createComponent(type);
   advance(f);
   router.initialNavigation();
@@ -74,25 +101,30 @@ export function createRootWithRouter(router: Router, type: any): ComponentFixtur
 @NgModule({
   imports: [
     CommonModule,
+    UIRouterModule.forRoot({
+      states: UIRoutesConfig,
+      useHash: true,
+      otherwise: { state: 'home' },
+    }),
+    Angulartics2Module.forRoot([ DummyProvider ]),
+  ],
+  entryComponents: [UIRootCmp],
+  declarations: [
+    HelloCmp,
+    HelloCmp2,
+    UIRootCmp,
+  ],
+})
+export class UITestModule {
+}
+
+@NgModule({
+  imports: [
+    CommonModule,
     RouterTestingModule,
-    Angulartics2Module.forRoot([ DummyProvider ])
+    Angulartics2Module.forRoot([ DummyProvider ]),
   ],
-  entryComponents: [
-    HelloCmp,
-    HelloCmp2,
-    HelloCmp3,
-    HelloCmp4,
-    HelloCmp5,
-    RootCmp,
-  ],
-  exports: [
-    HelloCmp,
-    HelloCmp2,
-    HelloCmp3,
-    HelloCmp4,
-    HelloCmp5,
-    RootCmp,
-  ],
+  entryComponents: [RootCmp],
   declarations: [
     HelloCmp,
     HelloCmp2,
@@ -100,7 +132,7 @@ export function createRootWithRouter(router: Router, type: any): ComponentFixtur
     HelloCmp4,
     HelloCmp5,
     RootCmp,
-  ]
+  ],
 })
 export class TestModule {
 }

@@ -8,8 +8,8 @@
   },
   "repository": "angulartics/angulartics2",
   "main": "../bundles/segment.umd.js",
-  "module": "index.js",
-  "es2015": "es2015/index.js",
+  "module": "segment.es5.js",
+  "es2015": "segment.es2015.js",
   "typings": "index.d.ts",
   "license": "MIT"
 }
