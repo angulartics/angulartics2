@@ -159,8 +159,9 @@ function buildModule(name: string, type: string) {
 
 function buildModulesProviders() {
   const providers = Object.keys(MODULE_NAMES).filter((n) => !core.includes(n));
-  return Observable.of(...providers)
-    .flatMap((name) => buildModule(name, 'providers'));
+  return Promise.all(providers.map(name =>
+      buildModule(name, 'providers').toPromise(),
+    ));
 }
 
 function buildUmds() {
@@ -233,22 +234,23 @@ function copyFilesProviders() {
 }
 
 async function buildLibrary() {
-  // TODO: just use promises...
   try {
-    await Observable.zip(
-      buildModule('core', ''),
-    )
-    .toPromise();
-    await Observable.zip(buildModule('routerlessmodule', 'routerlessmodule')).toPromise();
-    await Observable.zip(buildModule('uiroutermodule', 'uiroutermodule')).toPromise();
-    await buildModulesProviders().toPromise();
-    await Promise.all([copyFilesCore(), copyFilesProviders()]);
+    await buildModule('core', '').toPromise();
+    await buildModule('routerlessmodule', 'routerlessmodule').toPromise();
+    await buildModule('uiroutermodule', 'uiroutermodule').toPromise();
+    await buildModulesProviders();
+    await copyFilesCore();
+    await copyFilesProviders();
     await buildUmds();
   } catch (e) {
     console.error(e);
+    process.exit(1);
   }
 }
 
 buildLibrary()
   .then(() => console.log('success'))
-  .catch((e) => console.error(e));
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
