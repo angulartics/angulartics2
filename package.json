@@ -14,6 +14,7 @@
     "lint:fix": "ng lint --type-check --fix --format stylish",
     "e2e": "ng e2e --serve",
     "commit": "git-cz",
+    "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "npm run build && cp -R .git dist/packages-dist && cd dist/packages-dist && semantic-release",
     "ghpages": "ng build --prod --build-optimizer --aot --no-progress --baseHref='/angulartics2/'"
   },
@@ -35,7 +36,7 @@
     "bootstrap": "4.0.0-beta.3",
     "core-js": "^2.5.3",
     "rxjs": "5.5.6",
-    "zone.js": "^0.8.19"
+    "zone.js": "^0.8.20"
   },
   "devDependencies": {
     "@angular/cli": "1.6.3",
@@ -45,13 +46,13 @@
     "@types/facebook-pixel": "^0.0.19",
     "@types/fs-extra": "^5.0.0",
     "@types/google.analytics": "^0.0.36",
-    "@types/jasmine": "^2.8.3",
+    "@types/jasmine": "^2.8.4",
     "@types/jasminewd2": "^2.0.3",
     "@types/node": "^9.3.0",
     "@types/segment-analytics": "^0.0.28",
     "codelyzer": "^4.0.2",
-    "copy": "^0.3.1",
     "commitizen": "^2.9.6",
+    "copy": "^0.3.1",
     "cz-conventional-changelog": "^2.1.0",
     "fs-extra": "^5.0.0",
     "jasmine-core": "^2.8.0",
@@ -64,12 +65,13 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "^5.2.2",
     "rimraf": "^2.6.2",
-    "rollup": "^0.53.3",
+    "rollup": "^0.54.0",
     "rollup-plugin-filesize": "^1.5.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
-    "semantic-release": "^11.0.2",
+    "semantic-release": "^12.2.2",
+    "travis-deploy-once": "^4.3.1",
     "ts-node": "^4.1.0",
-    "tslint": "^5.8.0",
+    "tslint": "^5.9.1",
     "typescript": "2.4.x"
   },
   "release": {
