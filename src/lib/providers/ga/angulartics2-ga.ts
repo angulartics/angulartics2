@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 
+import { takeUntil } from 'rxjs/operators/takeUntil';
+
 import {
   Angulartics2,
   GoogleAnalyticsSettings,
   UserTimings,
 } from 'angulartics2';
+
 
 declare var _gaq: GoogleAnalyticsCode;
 declare var ga: UniversalAnalytics.ga;
@@ -27,12 +30,24 @@ export class Angulartics2GoogleAnalytics {
       ...defaults,
       ...this.angulartics2.settings.ga,
     };
-    this.angulartics2.pageTrack.subscribe(x => this.pageTrack(x.path));
-    this.angulartics2.eventTrack.subscribe(x => this.eventTrack(x.action, x.properties));
-    this.angulartics2.exceptionTrack.subscribe(x => this.exceptionTrack(x));
-    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
-    this.angulartics2.userTimings.subscribe(x => this.userTimings(x));
+    this.angulartics2.pageTrack
+      .takeUntil(this.angulartics2.isDevelperMode)
+      .subscribe(x => this.pageTrack(x.path));
+    this.angulartics2.eventTrack
+      .takeUntil(this.angulartics2.isDevelperMode)
+      .subscribe(x => this.eventTrack(x.action, x.properties));
+    this.angulartics2.exceptionTrack
+      .takeUntil(this.angulartics2.isDevelperMode)
+      .subscribe(x => this.exceptionTrack(x));
+    this.angulartics2.setUsername
+      .takeUntil(this.angulartics2.isDevelperMode)
+      .subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUserProperties
+      .takeUntil(this.angulartics2.isDevelperMode)
+      .subscribe(x => this.setUserProperties(x));
+    this.angulartics2.userTimings
+      .takeUntil(this.angulartics2.isDevelperMode)
+      .subscribe(x => this.userTimings(x));
   }
 
   pageTrack(path: string) {

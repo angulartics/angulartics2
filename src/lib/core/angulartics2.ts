@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';
 import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';
@@ -21,6 +22,7 @@ export class Angulartics2 {
   setSuperProperties = new ReplaySubject<any>(10);
   setSuperPropertiesOnce = new ReplaySubject<any>(10);
   userTimings = new ReplaySubject<UserTimings>(10);
+  isDevelperMode = new Subject<boolean>();
 
   constructor(
     private tracker: RouterlessTracking,
@@ -32,6 +34,7 @@ export class Angulartics2 {
       ...defaultConfig.pageTracking,
       ...setup.settings.pageTracking,
     };
+    this.isDevelperMode.next(this.settings.developerMode);
     this.tracker
       .trackLocation(this.settings)
       .subscribe((event: TrackNavigationEnd) =>
@@ -58,6 +61,7 @@ export class Angulartics2 {
   /** @deprecated */
   developerMode(value: boolean) {
     this.settings.developerMode = value;
+    this.isDevelperMode.next(this.settings.developerMode);
   }
 
   protected trackUrlChange(url: string) {
