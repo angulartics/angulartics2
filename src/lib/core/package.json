@@ -39,9 +39,9 @@
     "inspectlet"
   ],
   "peerDependencies": {
-    "@angular/common": ">= 4.4.0 <=6.0.0",
-    "@angular/core": ">= 4.4.0 <=6.0.0",
-    "@angular/router": ">= 4.4.0 <=6.0.0",
+    "@angular/common": ">= 5.0.0 <=6.0.0",
+    "@angular/core": ">= 5.0.0 <=6.0.0",
+    "@angular/router": ">= 5.0.0 <=6.0.0",
     "rxjs": "^5.5.0"
   }
 }
