@@ -245,18 +245,32 @@ If there's no Angulartics2 plugin for your analytics vendor of choice, please fe
 
 ### Minimal setup for Google Analytics
 
-Add the full Google [analytics.js](https://developers.google.com/analytics/devguides/collection/analyticsjs/) tracking code to the beginning of your body tag.
+To setup Google Analytics add the folowing to main.ts
 
-#### Changes in the Google Analytics snippet
+```ts
+import {Angulartics2GoogleAnalytics} from "angulartics2/ga";
 
-The snippet code provided by Google Analytics does an automatic pageview hit, but this is already done by Angulartics (unless you disable it) so make sure to delete the tracking line:
 
-```html
-      ...
-      ga('create', 'UA-XXXXXXXX-X', 'none'); // 'none' while you are working on localhost
-      ga('send', 'pageview');  // DELETE THIS LINE!
-    </script>
+if (environment.production) {
+  // ...
+  Angulartics2GoogleAnalytics.prototype.createGaSession(environment.googleAnalytics);
+}
 ```
+
+you can add other environments if you want. In your environment.prod.ts add the configuration
+
+```ts
+export const environment = {
+  production: true,
+  // ...
+  googleAnalytics: {
+    domain: 'auto',
+    trackingId: 'UA-XXXXXXXX-X' // replace with your Tracking Id
+  }
+};
+```
+
+for localhost environments replace 'auto' with 'none'
 
 ## v4 Migration and Breaking Changes
 See [Release Notes](https://github.com/angulartics/angulartics2/releases/tag/v4.0.0)
