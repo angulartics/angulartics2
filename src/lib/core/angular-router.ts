@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
+import { delay } from 'rxjs/operators/delay';
 import { filter } from 'rxjs/operators/filter';
 import { map } from 'rxjs/operators/map';
 
@@ -28,6 +29,7 @@ export class AngularRouterTracking implements RouterlessTracking {
       map((e: NavigationEnd) => {
         return { url: e.urlAfterRedirects };
       }),
+      delay(0),
     );
   }
 
