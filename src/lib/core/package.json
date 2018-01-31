@@ -35,13 +35,19 @@
     "piwik",
     "page tracking",
     "event tracking",
-    "scroll tracking",
-    "inspectlet"
+    "inspectlet",
+    "hubspot",
+    "interecom",
+    "kissmetrics",
+    "segment",
+    "amplitude",
+    "adobe analytics",
+    "baidu"
   ],
   "peerDependencies": {
-    "@angular/common": ">= 5.0.0 <=6.0.0",
-    "@angular/core": ">= 5.0.0 <=6.0.0",
-    "@angular/router": ">= 5.0.0 <=6.0.0",
+    "@angular/common": ">= 5.0.0",
+    "@angular/core": ">= 5.0.0",
+    "@angular/router": ">= 5.0.0",
     "rxjs": "^5.5.0"
   }
 }
