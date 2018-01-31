@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { takeUntil } from 'rxjs/operators/takeUntil';
-
 import {
   Angulartics2,
   GoogleAnalyticsSettings,

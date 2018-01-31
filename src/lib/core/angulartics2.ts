@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subject } from 'rxjs/Subject';
 import { MonoTypeOperatorFunction } from 'rxjs/interfaces';
 import { filter } from 'rxjs/operators/filter';
 
