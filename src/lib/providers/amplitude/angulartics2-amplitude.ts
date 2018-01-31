@@ -14,15 +14,18 @@ declare var amplitude: {
 export class Angulartics2Amplitude {
 
   constructor(private angulartics2: Angulartics2) {
-    this.angulartics2.pageTrack.subscribe((x: any) => this.pageTrack(x.path));
-
-    this.angulartics2.eventTrack.subscribe((x: any) => this.eventTrack(x.action, x.properties));
-
-    this.angulartics2.setUsername.subscribe((x: any) => this.setUsername(x));
-
-    this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
-
-    this.angulartics2.setUserPropertiesOnce.subscribe((x: any) => this.setUserProperties(x));
+    this.angulartics2.pageTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe((x: any) => this.pageTrack(x.path));
+    this.angulartics2.eventTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe((x: any) => this.eventTrack(x.action, x.properties));
+    this.angulartics2.setUsername
+      .subscribe((x: any) => this.setUsername(x));
+    this.angulartics2.setUserProperties
+      .subscribe((x: any) => this.setUserProperties(x));
+    this.angulartics2.setUserPropertiesOnce
+      .subscribe((x: any) => this.setUserProperties(x));
   }
 
   pageTrack(path: string) {

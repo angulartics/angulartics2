@@ -16,9 +16,7 @@ describe('Angulartics2GoogleAnalytics', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TestModule],
-      providers: [
-        Angulartics2GoogleAnalytics
-      ]
+      providers: [Angulartics2GoogleAnalytics],
     });
     window.ga = ga = jasmine.createSpy('ga');
     window._gaq = _gaq = [];

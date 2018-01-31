@@ -31,22 +31,18 @@ export class Angulartics2GoogleAnalytics {
       ...this.angulartics2.settings.ga,
     };
     this.angulartics2.pageTrack
-      .takeUntil(this.angulartics2.isDevelperMode)
+      .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.pageTrack(x.path));
     this.angulartics2.eventTrack
-      .takeUntil(this.angulartics2.isDevelperMode)
+      .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.eventTrack(x.action, x.properties));
     this.angulartics2.exceptionTrack
-      .takeUntil(this.angulartics2.isDevelperMode)
+      .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.exceptionTrack(x));
-    this.angulartics2.setUsername
-      .takeUntil(this.angulartics2.isDevelperMode)
-      .subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties
-      .takeUntil(this.angulartics2.isDevelperMode)
-      .subscribe(x => this.setUserProperties(x));
+    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
     this.angulartics2.userTimings
-      .takeUntil(this.angulartics2.isDevelperMode)
+      .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.userTimings(x));
   }
 
