@@ -13,7 +13,7 @@ __import__: `import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';`
 ## Setup
 
 1. Add [`analytics.js` tracking code provided by Google](https://developers.google.com/analytics/devguides/collection/analyticsjs/) to the beginning of your body tag.
-> Note: If Google Analytics suggest you use `gtag.js` code, either switch to `analytics.js` or have a look at the instructions for  [Google Tag Manager](/src/lib/providers/gtm).
+> Note: If Google Analytics suggest you use `gtag.js` tracking code, either switch to `analytics.js`, or have a look at the instructions for [Google Tag Manager](/src/lib/providers/gtm).
 2. Remove `ga('send', 'pageview');` to prevent duplicate pageview (as this is also done by angulartics):
 ```html
 <script>
