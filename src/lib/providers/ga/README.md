@@ -23,4 +23,4 @@ __import__: `import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';`
 ```
 3. [Setup Angulartics](https://github.com/angulartics/angulartics2/tree/next#installation) using `Angulartics2GoogleAnalytics`
 
-Note: If Google Analytics suggest you use `gtag.js` code, either switch to `analytics.js` or have a look at the instructions for  [Google Tag Manager](/src/lib/providers/gtm).
+> Note: If Google Analytics suggest you use `gtag.js` code, either switch to `analytics.js` or have a look at the instructions for  [Google Tag Manager](/src/lib/providers/gtm).
