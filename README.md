@@ -13,21 +13,21 @@ Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angul
   - [Installation](#installation)
     - [Include it in your application](#include-it-in-your-application)
   - [Usage](#usage)
-    - [Tracking events](#tracking-events)
+    - [Tracking events in templates/HTML](#tracking-events-in-templates-html)
     - [Tracking events in the code](#tracking-events-in-the-code)
-    - [Exclude routes from automatic pageview tracking](#exclude-routes-from-automatic-pageview-tracking)
-    - [Remove ID's from url paths](#remove-ids-from-url-paths)
-    - [Remove Query Params from url paths](#remove-query-params-from-url-paths)
+    - [Configuring the Module](#configuring-the-module)
+      - [Exclude routes from automatic pageview tracking](#exclude-routes-from-automatic-pageview-tracking)
+      - [Remove IDs from url paths](#remove-ids-from-url-paths)
+      - [Remove Query Params from url paths](#remove-query-params-from-url-paths)
     - [Using Without A Router](#using-without-a-router)
     - [Using With UI-Router](#using-with-ui-router)
+    - [SystemJS](#systemjs)
   - [Supported providers](#supported-providers)
     - [For other providers](#for-other-providers)
     - [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
   - [v4 Migration and Breaking Changes](#v4-migration-and-breaking-changes)
-  - [SystemJS](#systemjs)
   - [Contributing](#contributing)
   - [License](#license)
-
 
 ## Installation
 
@@ -36,6 +36,7 @@ npm install angulartics2 --save
 ```
 
 ### Include it in your application
+
 1. Add `Angulartics2Module` to your root NgModule passing an array of providers to enable
 ```ts
 import { NgModule } from '@angular/core';
@@ -62,6 +63,8 @@ const ROUTES: Routes = [
   bootstrap: [AppComponent],
 })
 ```
+> Note the different imports when [Using Without A Router](#using-without-a-router) or [Using With UI-Router](#using-with-ui-router).
+
 2. __Required__: Import your providers in the root component. This starts the tracking of route changes.
 ```ts
 // component
@@ -74,10 +77,10 @@ export class AppComponent {
 ```
 
 ## Usage
-### Tracking events
+
+### Tracking events in templates/HTML
 
 To track events you can inject the directive ```angulartics2On``` into any component and use the attributes ```angulartics2On```, ```angularticsAction``` and ```angularticsCategory```:
-
 
 ```ts
 // component
@@ -123,8 +126,10 @@ If you need event label, you can use
 
 
 ### Tracking events in the code
+
 ```ts
 import { Angulartics2 } from 'angulartics2';
+
 constructor(private angulartics2: Angulartics2) {
   this.angulartics2.eventTrack.next({ 
     action: 'myAction', 
@@ -133,7 +138,7 @@ constructor(private angulartics2: Angulartics2) {
 }
 ```
 
-If you need event label
+If you need event label, you can use
 ```ts
 this.angulartics2.eventTrack.next({ 
   action: 'myAction',
@@ -144,7 +149,9 @@ this.angulartics2.eventTrack.next({
 });
 ```
 
-### Exclude routes from automatic pageview tracking
+### Configuring the Module
+
+#### Exclude routes from automatic pageview tracking
 
 Pass string literals or regular expressions to exclude routes from automatic pageview tracking.
 ````ts
@@ -158,7 +165,8 @@ Angulartics2Module.forRoot([providers], {
 }),
 ````
 
-### Remove ID's from url paths
+#### Remove IDs from url paths
+
 `/project/12981/feature` becomes `/project/feature`
 ````ts
 Angulartics2Module.forRoot([providers], {
@@ -181,7 +189,8 @@ You can set your own regexp if you need to :
  }),
  ````
 
-### Remove Query Params from url paths
+#### Remove Query Params from url paths
+
 This can be combined with clearIds and idsRegExp
 
 `/project/12981/feature?param=12` becomes `/project/12981/feature`
@@ -194,6 +203,7 @@ Angulartics2Module.forRoot([providers], {
 ````
 
 ### Using Without A Router
+
 __Warning:__ this support is still experiemental  
 `@angular/router` must still be installed! However, it will not be used.
 ````ts
@@ -208,6 +218,7 @@ import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
 ````
 
 ### Using With UI-Router
+
 __Warning:__ this support is still experiemental  
 `@angular/router` must still be installed! However, it will not be used.  
 ````ts
@@ -220,6 +231,17 @@ import { Angulartics2UirouterModule } from 'angulartics2/uiroutermodule';
   ],
 })
 ````
+
+### SystemJS
+
+Using SystemJS? If you aren't using `defaultJSExtensions: true` you may need to use:
+```ts
+System.config({
+    packages: {
+        "/angulartics2": {"defaultExtension": "js"},
+    },
+});
+```
 
 ## Supported providers
 
@@ -241,35 +263,16 @@ import { Angulartics2UirouterModule } from 'angulartics2/uiroutermodule';
 
 ### For other providers
 
-If there's no Angulartics2 plugin for your analytics vendor of choice, please feel free to write yours and PR' it!
+If there's no Angulartics2 plugin for your analytics vendor of choice, please feel free to write yours and PR it!
 
 ### Minimal setup for Google Analytics
 
-Add the full Google [analytics.js](https://developers.google.com/analytics/devguides/collection/analyticsjs/) tracking code to the beginning of your body tag.
-
-#### Changes in the Google Analytics snippet
-
-The snippet code provided by Google Analytics does an automatic pageview hit, but this is already done by Angulartics (unless you disable it) so make sure to delete the tracking line:
-
-```html
-      ...
-      ga('create', 'UA-XXXXXXXX-X', 'none'); // 'none' while you are working on localhost
-      ga('send', 'pageview');  // DELETE THIS LINE!
-    </script>
-```
+- See [Google Analytics](/src/lib/providers/ga) if your code snippet contains `analytics.js`
+- See [Google Tag Manager](/src/lib/providers/gtm) if your code snippet contains `gtag.js`
 
 ## v4 Migration and Breaking Changes
-See [Release Notes](https://github.com/angulartics/angulartics2/releases/tag/v4.0.0)
 
-## SystemJS
-Using SystemJS? If you aren't using `defaultJSExtensions: true` you may need to use:
-```ts
-System.config({
-    packages: {
-        "/angulartics2": {"defaultExtension": "js"},
-    },
-});
-```
+See [Release Notes](https://github.com/angulartics/angulartics2/releases/tag/v4.0.0)
 
 ## Contributing
 
