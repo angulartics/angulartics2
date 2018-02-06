@@ -22,13 +22,17 @@ export class Angulartics2GoogleTagManager {
     // Set the default settings for this module
     this.angulartics2.settings.gtm = { ...defaults, ...this.angulartics2.settings.gtm };
 
-    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path));
-
-    this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
-
-    this.angulartics2.exceptionTrack.subscribe((x: any) => this.exceptionTrack(x));
-
-    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.pageTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe((x) => this.pageTrack(x.path));
+    this.angulartics2.eventTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe((x) => this.eventTrack(x.action, x.properties));
+    this.angulartics2.exceptionTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe((x: any) => this.exceptionTrack(x));
+    this.angulartics2.setUsername
+      .subscribe((x: string) => this.setUsername(x));
   }
 
   pageTrack(path: string) {

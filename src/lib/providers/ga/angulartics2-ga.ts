@@ -6,6 +6,7 @@ import {
   UserTimings,
 } from 'angulartics2';
 
+
 declare var _gaq: GoogleAnalyticsCode;
 declare var ga: UniversalAnalytics.ga;
 declare var location: any;
@@ -27,12 +28,20 @@ export class Angulartics2GoogleAnalytics {
       ...defaults,
       ...this.angulartics2.settings.ga,
     };
-    this.angulartics2.pageTrack.subscribe(x => this.pageTrack(x.path));
-    this.angulartics2.eventTrack.subscribe(x => this.eventTrack(x.action, x.properties));
-    this.angulartics2.exceptionTrack.subscribe(x => this.exceptionTrack(x));
+    this.angulartics2.pageTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe(x => this.pageTrack(x.path));
+    this.angulartics2.eventTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe(x => this.eventTrack(x.action, x.properties));
+    this.angulartics2.exceptionTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe(x => this.exceptionTrack(x));
     this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
     this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
-    this.angulartics2.userTimings.subscribe(x => this.userTimings(x));
+    this.angulartics2.userTimings
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe(x => this.userTimings(x));
   }
 
   pageTrack(path: string) {

@@ -37,13 +37,25 @@ export class Angulartics2AppInsights {
     const defaults = new AppInsightsDefaults;
     // Set the default settings for this module
     this.angulartics2.settings.appInsights = { ...defaults, ...this.angulartics2.settings.appInsights };
-    this.angulartics2.pageTrack.subscribe((x) => this.pageTrack(x.path));
-    this.angulartics2.eventTrack.subscribe((x) => this.eventTrack(x.action, x.properties));
-    this.angulartics2.exceptionTrack.subscribe((x) => this.exceptionTrack(x));
-    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties.subscribe((x) => this.setUserProperties(x));
+
+    this.angulartics2.pageTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe((x) => this.pageTrack(x.path));
+    this.angulartics2.eventTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe((x) => this.eventTrack(x.action, x.properties));
+    this.angulartics2.exceptionTrack
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe((x) => this.exceptionTrack(x));
+    this.angulartics2.setUsername
+      .subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUserProperties
+      .subscribe((x) => this.setUserProperties(x));
     this.router.events
-      .pipe(filter(event => event instanceof NavigationStart))
+      .pipe(
+        this.angulartics2.filterDeveloperMode(),
+        filter(event => event instanceof NavigationStart),
+      )
       .subscribe(event => this.startTimer());
 
     this.router.events

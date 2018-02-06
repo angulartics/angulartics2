@@ -1,6 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { MonoTypeOperatorFunction } from 'rxjs/interfaces';
+import { filter } from 'rxjs/operators/filter';
 
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';
 import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';
@@ -58,6 +60,11 @@ export class Angulartics2 {
   /** @deprecated */
   developerMode(value: boolean) {
     this.settings.developerMode = value;
+  }
+
+  /** filters all events when developer mode is true */
+  filterDeveloperMode<T>(): MonoTypeOperatorFunction<T> {
+    return filter((value, index) => !this.settings.developerMode);
   }
 
   protected trackUrlChange(url: string) {

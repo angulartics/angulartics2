@@ -101,8 +101,7 @@ describe('angulartics2', () => {
       fakeAsync(inject([Router, Location, Angulartics2],
         (router: Router, location: Location, angulartics2: Angulartics2) => {
           fixture = createRootWithRouter(router, RootCmp);
-          // angulartics2.settings.developerMode = true;
-          angulartics2.developerMode(true);
+          angulartics2.settings.developerMode = true;
           angulartics2.pageTrack.subscribe((x) => EventSpy(x));
           (<SpyLocation>location).simulateUrlPop('/abc');
           advance(fixture);
