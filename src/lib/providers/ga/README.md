@@ -15,6 +15,7 @@ __import__: `import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';`
 1. Add [`analytics.js` tracking code provided by Google](https://developers.google.com/analytics/devguides/collection/analyticsjs/) to the beginning of your body tag.
 2. Remove `ga('send', 'pageview');` to prevent duplicate pageview (as this is also done by angulartics):
 ```html
+<script>
   ...
   ga('create', 'UA-XXXXXXXX-X', 'none'); // 'none' while you are working on localhost
   ga('send', 'pageview');  // DELETE THIS LINE!
