@@ -245,8 +245,8 @@ System.config({
 
 ## Supported providers
 
-* [Google Analytics](/src/lib/providers/ga)
-* [Google Tag Manager](/src/lib/providers/gtm)
+* [Google Analytics](/src/lib/providers/ga) (`analytics.js`)
+* [Google Tag Manager](/src/lib/providers/gtm) (`gtag.js`)
 * [Google Enhanced Ecom](/src/lib/providers/ga-enhanced-ecom)
 * [Kissmetrics](/src/lib/providers/kissmetrics)
 * [Mixpanel](/src/lib/providers/mixpanel)
