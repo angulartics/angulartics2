@@ -4988,6 +4988,14 @@ karma-jasmine@^1.0.2, karma-jasmine@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/karma-jasmine/-/karma-jasmine-1.1.1.tgz#6fe840e75a11600c9d91e84b33c458e1c46a3529"
 
+karma-mocha-reporter@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/karma-mocha-reporter/-/karma-mocha-reporter-2.2.5.tgz#15120095e8ed819186e47a0b012f3cd741895560"
+  dependencies:
+    chalk "^2.1.0"
+    log-symbols "^2.1.0"
+    strip-ansi "^4.0.0"
+
 karma-source-map-support@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/karma-source-map-support/-/karma-source-map-support-1.2.0.tgz#1bf81e7bb4b089627ab352ec4179e117c406a540"
@@ -5279,6 +5287,12 @@ log-ok@^0.1.1:
   dependencies:
     ansi-green "^0.1.1"
     success-symbol "^0.1.0"
+
+log-symbols@^2.1.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-2.2.0.tgz#5740e1c5d6f0dfda4ad9323b5332107ef6b4c40a"
+  dependencies:
+    chalk "^2.0.1"
 
 log4js@^2.3.9:
   version "2.5.3"
@@ -7268,9 +7282,9 @@ rollup@^0.41.6:
   dependencies:
     source-map-support "^0.4.0"
 
-rollup@^0.56.0:
-  version "0.56.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.56.0.tgz#4aefe9cef84a01ac3245e3fbba155e38dc2cc2e8"
+rollup@^0.56.1:
+  version "0.56.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.56.1.tgz#87dd6295103da48c2376872836273785ffe0def3"
 
 run-async@^2.2.0:
   version "2.3.0"
