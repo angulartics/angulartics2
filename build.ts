@@ -62,6 +62,7 @@ const GLOBALS = {
 
   'rxjs/operators/filter': 'Rx.operators',
   'rxjs/operators/map': 'Rx.operators',
+  'rxjs/operators/delay': 'Rx.operators',
 
   'rxjs/observable/merge': 'Rx.Observable',
   'rxjs/observable/of': 'Rx.Observable',
