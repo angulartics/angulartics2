@@ -184,7 +184,7 @@ You can set your own regexp if you need to :
  Angulartics2Module.forRoot([providers], {
    pageTracking: {
      clearIds: true,
-     idsRegExp: /^[a-z]\d+$/,
+     idsRegExp: new RegExp('^[a-z]\\d+$') /* Workaround: No NgModule metadata found for 'AppModule' */
    }
  }),
  ````
