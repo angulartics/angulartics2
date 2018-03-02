@@ -10,10 +10,6 @@ export class Angulartics2Hubspot {
   constructor(
     private angulartics2: Angulartics2
   ) {
-    if (typeof _hsq === 'undefined') {
-      _hsq = [];
-    }
-
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.pageTrack(x.path));
