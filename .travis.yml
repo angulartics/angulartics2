@@ -17,6 +17,8 @@ after_success:
   - yarn ghpages
 deploy:
   provider: pages
+  edge:
+    branch: pages-ivar-set
   skip_cleanup: true
   local_dir: dist
   github_token: $GH_TOKEN
