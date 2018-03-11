@@ -14,6 +14,7 @@
     "lint:fix": "ng lint --type-check --fix --format stylish",
     "e2e": "ng e2e --serve",
     "commit": "git-cz",
+    "commitlint": "commitlint -e $GIT_PARAMS",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "npm run build && cp -R .git dist/packages-dist && cd dist/packages-dist && semantic-release",
     "ghpages": "ng build --prod --no-progress --baseHref='/angulartics2/'"
@@ -41,6 +42,8 @@
     "@angular/cli": "1.7.3",
     "@angular/compiler-cli": "^5.2.8",
     "@angular/language-service": "^5.2.8",
+    "@commitlint/cli": "^6.1.3",
+    "@commitlint/config-conventional": "^6.1.3",
     "@types/applicationinsights-js": "^1.0.5",
     "@types/facebook-pixel": "^0.0.19",
     "@types/fs-extra": "^5.0.1",
@@ -85,9 +88,19 @@
   "engines": {
     "node": ">=8"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "npm run commitlint"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "config": {
     "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
+      "path": "cz-conventional-changelog"
     }
   },
   "contributors": [
