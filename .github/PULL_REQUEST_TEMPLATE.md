@@ -1,13 +1,7 @@
-* **What kind of change does this PR introduce?**
+- **What kind of change does this PR introduce?**
 
 
-
-* **What is the current behavior?** (You can also link to an open issue here)
-
+- **What is the current behavior? Link to open issue?**
 
 
-* **What is the new behavior (if this is a feature change)?**
-
-
-
-* **Other information**:
+- **What is the new behavior?**
