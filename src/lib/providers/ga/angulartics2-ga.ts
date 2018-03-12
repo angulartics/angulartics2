@@ -195,6 +195,10 @@ export class Angulartics2GoogleAnalytics {
 
   setUsername(userId: string) {
     this.angulartics2.settings.ga.userId = userId;
+    if (typeof ga === 'undefined') {
+      return;
+    }
+    ga('set', 'userId', userId);
   }
 
   setUserProperties(properties: any) {
