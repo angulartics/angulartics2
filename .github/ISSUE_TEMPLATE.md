@@ -2,9 +2,9 @@
 
 **I'm submitting a ...**
 
-[] bug report  
-[] feature request  
-[] question about the decisions made in the repository
+* [ ] bug report  
+* [ ] feature request  
+* [ ] question about the decisions made in the repository
 
 * **If the current behavior is a bug, please provide the steps to reproduce and if possible a minimal demo of the problem**
 
