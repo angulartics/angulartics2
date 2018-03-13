@@ -6,7 +6,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "rimraf dist && ts-node build.ts",
+    "prebuild": "rimraf dist",
+    "build": "ts-node build.ts",
     "test": "ng test --single-run --browsers=ChromeCI",
     "test:ci": "ng test --code-coverage --single-run --no-progress --browsers=ChromeCI",
     "test:watch": "ng test",
@@ -57,6 +58,7 @@
     "copy": "^0.3.1",
     "cz-conventional-changelog": "^2.1.0",
     "fs-extra": "^5.0.0",
+    "husky": "^0.15.0-rc.9",
     "jasmine-core": "2.99.1",
     "jasmine-spec-reporter": "^4.2.1",
     "karma": "^2.0.0",
