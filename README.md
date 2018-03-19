@@ -19,6 +19,7 @@ Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angul
       - [Exclude routes from automatic pageview tracking](#exclude-routes-from-automatic-pageview-tracking)
       - [Remove IDs from url paths](#remove-ids-from-url-paths)
       - [Remove Query Params from url paths](#remove-query-params-from-url-paths)
+      - [Remove Hash from url paths](#remove-hash-from-url-paths)
     - [Using Without A Router](#using-without-a-router)
     - [Using With UI-Router](#using-with-ui-router)
     - [SystemJS](#systemjs)
@@ -198,6 +199,17 @@ This can be combined with clearIds and idsRegExp
 Angulartics2Module.forRoot([providers], {
   pageTracking: {
     clearQueryParams: true,
+  }
+}),
+````
+
+#### Remove Hash from url paths
+
+`/callback#authcode=123&idToken=456` becomes `/callback`
+````ts
+Angulartics2Module.forRoot([providers], {
+  pageTracking: {
+    clearHash: true,
   }
 }),
 ````
