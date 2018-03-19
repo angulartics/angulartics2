@@ -376,6 +376,18 @@ describe('angulartics2', () => {
       })),
     );
 
+    it('should remove hash if clearHash is set',
+      fakeAsync(inject([Router, Location, Angulartics2],
+      (router: Router, location: Location, angulartics2: Angulartics2) => {
+        fixture = createRootWithRouter(router, RootCmp);
+        angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+        angulartics2.settings.pageTracking.clearHash = true;
+        (<SpyLocation>location).simulateUrlPop('/0sections0/a01/pages/page/2/summary#authCode=123');
+        advance(fixture);
+        expect(EventSpy).toHaveBeenCalledWith({ path: '/0sections0/a01/pages/page/2/summary' });
+      })),
+    );
+
     it('should remove ids and query params if clearQueryParams and clearIds are set',
       fakeAsync(inject([Router, Location, Angulartics2],
       (router: Router, location: Location, angulartics2: Angulartics2) => {
