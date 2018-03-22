@@ -15,6 +15,7 @@ export class GoogleAnalyticsDefaults implements GoogleAnalyticsSettings {
   additionalAccountNames = [];
   userId = null;
   transport = '';
+  anonymizeIp = false;
 }
 
 @Injectable()
@@ -56,6 +57,12 @@ export class Angulartics2GoogleAnalytics {
         ga('set', '&uid', this.angulartics2.settings.ga.userId);
         for (const accountName of this.angulartics2.settings.ga.additionalAccountNames) {
           ga(accountName + '.set', '&uid', this.angulartics2.settings.ga.userId);
+        }
+      }
+      if (this.angulartics2.settings.ga.anonymizeIp) {
+        ga('set', 'anonymizeIp', true);
+        for (const accountName of this.angulartics2.settings.ga.additionalAccountNames) {
+          ga(accountName + '.set', 'anonymizeIp', true);
         }
       }
       ga('send', 'pageview', path);
