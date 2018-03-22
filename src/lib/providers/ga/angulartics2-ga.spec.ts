@@ -183,4 +183,16 @@ describe('Angulartics2GoogleAnalytics', () => {
     )),
   );
 
+  it('should anonymize IP',
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+      (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+        fixture = createRoot(RootCmp);
+        angulartics2.settings.ga.anonymizeIp = true;
+        angulartics2.pageTrack.next({ path: '/abc' });
+        advance(fixture);
+        expect(ga).toHaveBeenCalledWith('set', 'anonymizeIp', true);
+      }),
+    ),
+  );
+
 });

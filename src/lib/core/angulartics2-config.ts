@@ -4,6 +4,7 @@ export interface GoogleAnalyticsSettings {
   userId: any;
   /** see https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#transport */
   transport: string;
+  anonymizeIp: boolean;
 }
 
 export interface AppInsightsSettings {
