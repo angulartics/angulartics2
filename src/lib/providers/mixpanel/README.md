@@ -58,7 +58,7 @@ export interface MixPanelPayload {
 }
 ```
 
-* Right:
+* Wrong:
 
 ```angular2html
 @Injectable()
