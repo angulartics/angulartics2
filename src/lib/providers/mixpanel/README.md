@@ -16,7 +16,7 @@ __import__: `import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';`
 ## Integrating with NgRx:
 ### Adding an event with an effect:
 
-* Wrong:
+* Right:
 ```angular2html
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
@@ -30,7 +30,10 @@ export class MixpanelEffects {
   mixpanelActionTracking$ = this.actions$
     .ofType(mixpanel.MIXPANEL_TRACK)
     .do((action: mixpanel.MixpanelTrack) => {
-      this.angulartics2Mixpanel.eventTrack(action.payload.action, action.payload.properties);
+      // ATTENTION HERE
+      this.angulartics2Mixpanel.eventTrack(action.payload.action, {
+        ...action.payload.properties,
+      });
     });
 
   constructor(private actions$: Actions,
@@ -62,11 +65,9 @@ export interface MixPanelPayload {
 export class MixpanelEffects {
   ...
     .do((action: mixpanel.MixpanelTrack) => {
-      this.angulartics2Mixpanel.eventTrack(action.payload.action, {
-        ...action.payload.properties,
-      });
+      this.angulartics2Mixpanel.eventTrack(action.payload.action, action.payload.properties);
     });
   ...
 }
 ```
-The custom properties object should be a new object, otherwise the action will be be recorded successfully.
+**The custom properties object should be a new object, otherwise the action will be be recorded successfully.**
