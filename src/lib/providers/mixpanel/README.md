@@ -77,12 +77,13 @@ Somewhere in our application, we might have the code to dispatch a mixpanel acti
     }));
 ```
 ### Common error:
-The custom properties object should be a **new object**, otherwise the action will not be recorded successfully.
+The custom properties object should be a **new object**, otherwise the action will not be recorded successfully. For example the code below will be ignored by the server.
 ```angular2html
 @Injectable()
 export class MixpanelEffects {
   ...
     .do((action: mixpanel.MixpanelTrack) => {
+      // reuse the existing properties is WRONG
       this.angulartics2Mixpanel.eventTrack(action.payload.action, action.payload.properties);
     });
   ...
