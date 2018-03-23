@@ -14,9 +14,30 @@ __import__: `import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';`
 2. [Setup Angulartics](https://github.com/angulartics/angulartics2/tree/next#installation) using `Angulartics2Mixpanel`
 
 ## Integrating with NgRx:
-### Adding an event with an effect:
+You have a chance to unburden the integration process if your system is using NgRx. Specifically, we can reuse the existing actions in our application and use effects to catch and dispatch a mixpanel action accordingly.    
+### Boilerplating:
+```angular2html
+/**
+ * Action definition
+ */
+export const MIXPANEL_TRACK = '[MIXPANEL] Track';
 
-* Right:
+export class MixpanelTrack implements Action {
+  readonly type = MIXPANEL_TRACK;
+
+  constructor(public payload: MixPanelPayload) {}
+}
+
+export interface MixPanelPayload {
+  action: string;
+  properties?: MixPanelPayloadProperties;
+}
+
+export interface MixPanelPayloadProperties {
+  // Your custom properties go here
+}
+```
+### Catch and dispatch a mixpanel event by an effect:
 ```angular2html
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
@@ -40,26 +61,23 @@ export class MixpanelEffects {
               private angulartics2Mixpanel: Angulartics2Mixpanel) {
   }
 }
-
-/**
- * Action definition
- */
-export const MIXPANEL_TRACK = '[MIXPANEL] Track';
-
-export class MixpanelTrack implements Action {
-  readonly type = MIXPANEL_TRACK;
-
-  constructor(public payload: MixPanelPayload) {}
-}
-
-export interface MixPanelPayload {
-  action: string;
-  properties?: MixPanelPayloadProperties;
-}
 ```
-
-* Wrong:
-
+### Usage:
+Somewhere in our application, we might have the code to dispatch a mixpanel action:
+```angular2html
+  @Effect()
+  someEffect$ = this.actions$
+    .ofType(some.ACTION)
+    .map(action => new mixpanel.MixpanelTrack({
+      action: action.type,
+      properties: {
+        category: 'Your Category',
+        labelOrWhatever: 'LabelHere',
+      }
+    }));
+```
+### Common error:
+The custom properties object should be a **new object**, otherwise the action will not be recorded successfully.
 ```angular2html
 @Injectable()
 export class MixpanelEffects {
@@ -70,4 +88,3 @@ export class MixpanelEffects {
   ...
 }
 ```
-**The custom properties object should be a new object, otherwise the action will be be recorded successfully.**
