@@ -32,7 +32,8 @@ export class AppComponent {
 
 ```ts
 // bootstrap
-import { Angulartics2Module, Angulartics2GoogleTagManager } from 'angulartics2';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleTagManager } from 'angulartics2/gtm';
 
 @NgModule({
   imports: [
