@@ -6,7 +6,7 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
-import { filter } from 'rxjs/operators/filter';
+import { filter } from 'rxjs/operators';
 
 import { Angulartics2, AppInsightsSettings } from 'angulartics2';
 

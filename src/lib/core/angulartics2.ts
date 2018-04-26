@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { ReplaySubject } from 'rxjs';
 import { MonoTypeOperatorFunction } from 'rxjs/interfaces';
-import { filter } from 'rxjs/operators/filter';
+import { filter } from 'rxjs/operators';
 
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';
 import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';

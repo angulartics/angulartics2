@@ -7529,13 +7529,7 @@ rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
-rxjs@5.5.9:
-  version "5.5.9"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.9.tgz#12a0487794b00f5eb370fec2751bd973a89886fb"
-  dependencies:
-    symbol-observable "1.0.1"
-
-rxjs@^5.5.6:
+rxjs@5.5.10, rxjs@^5.5.6:
   version "5.5.10"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.10.tgz#fde02d7a614f6c8683d0d1957827f492e09db045"
   dependencies:

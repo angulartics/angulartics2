@@ -2,11 +2,9 @@ import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { delay } from 'rxjs/operators/delay';
-import { filter } from 'rxjs/operators/filter';
-import { map } from 'rxjs/operators/map';
+import { Observable } from 'rxjs';
+import { delay, filter, map } from 'rxjs/operators';
 
-import { Observable } from 'rxjs/Observable';
 import { RouterlessTracking, TrackNavigationEnd } from './routerless';
 
 /**
@@ -17,10 +15,7 @@ import { RouterlessTracking, TrackNavigationEnd } from './routerless';
  */
 @Injectable()
 export class AngularRouterTracking implements RouterlessTracking {
-  constructor(
-    private router: Router,
-    private location: Location,
-  ) {}
+  constructor(private router: Router, private location: Location) {}
 
   trackLocation(settings): Observable<TrackNavigationEnd> {
     return this.router.events.pipe(

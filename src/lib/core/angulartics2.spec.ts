@@ -78,6 +78,7 @@ describe('angulartics2', () => {
 
     it('should configure virtualPageviews',
       inject([Angulartics2], (angulartics2: Angulartics2) => {
+        // tslint:disable-next-line:deprecation
         angulartics2.virtualPageviews(false);
         expect(angulartics2.settings.pageTracking.autoTrackVirtualPages).toBe(false);
       }),
@@ -85,6 +86,7 @@ describe('angulartics2', () => {
 
     it('should configure excluded routes',
       inject([Angulartics2], (angulartics2: Angulartics2) => {
+        // tslint:disable-next-line:deprecation
         angulartics2.excludeRoutes(['/abc/def', /\/[0-9]+/]);
         expect(angulartics2.settings.pageTracking.excludedRoutes).toEqual(['/abc/def', /\/[0-9]+/]);
       }),
@@ -92,6 +94,7 @@ describe('angulartics2', () => {
 
     it('should configure cleaning of ids',
       inject([Angulartics2], (angulartics2: Angulartics2) => {
+        // tslint:disable-next-line:deprecation
         angulartics2.clearIds(true);
         expect(angulartics2.settings.pageTracking.clearIds).toBe(true);
       }),
@@ -414,18 +417,18 @@ describe('angulartics2', () => {
       'setUserPropertiesOnce',
       'setSuperProperties',
       'setSuperPropertiesOnce',
-      'userTimings'
+      'userTimings',
     ];
 
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
           RouterTestingModule.withRoutes(RoutesConfig),
-          TestModule
+          TestModule,
         ],
         providers: [
           { provide: Location, useClass: SpyLocation },
-          Angulartics2
+          Angulartics2,
         ]
       });
 
