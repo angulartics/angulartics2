@@ -5,7 +5,7 @@
 import { spawn } from 'child_process';
 import * as copyfiles from 'copy';
 import { copy } from 'fs-extra';
-import { rollup } from 'rollup';
+import { rollup, RollupFileOptions, RollupWarning } from 'rollup';
 import * as filesize from 'rollup-plugin-filesize';
 import * as sourcemaps from 'rollup-plugin-sourcemaps';
 import { Observable } from 'rxjs';
@@ -100,15 +100,17 @@ function spawnObservable(command: string, args: string[]) {
   });
 }
 
-function generateBundle(input, file, name, format): Promise<any> {
-  const plugins = [
-    sourcemaps(),
-    filesize(),
-  ];
-  return rollup({
+function generateBundle(
+  input: string,
+  file: string,
+  name,
+  format,
+): Promise<any> {
+  const plugins = [sourcemaps(), filesize()];
+  const options: RollupFileOptions = {
     input,
     external: Object.keys(GLOBALS),
-    onwarn(warning) {
+    onwarn(warning: RollupWarning) {
       if (warning.code === 'THIS_IS_UNDEFINED') {
         return;
       }
@@ -117,9 +119,9 @@ function generateBundle(input, file, name, format): Promise<any> {
       }
       console.log(warning.message);
     },
-    file,
     plugins,
-  }).then(bundle => {
+  };
+  return rollup(options).then(bundle => {
     return bundle.write({
       file,
       name,
