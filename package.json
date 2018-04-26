@@ -36,7 +36,8 @@
     "@uirouter/angular": "^1.0.1",
     "bootstrap": "^4.1.0",
     "core-js": "^2.5.5",
-    "rxjs": "5.5.9",
+    "rxjs": "^6.0.0",
+    "rxjs-compat": "^6.0.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

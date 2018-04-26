@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { MonoTypeOperatorFunction } from 'rxjs/interfaces';
-import { filter } from 'rxjs/operators/filter';
+import { OperatorFunction, ReplaySubject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';
 import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';
@@ -63,7 +62,7 @@ export class Angulartics2 {
   }
 
   /** filters all events when developer mode is true */
-  filterDeveloperMode<T>(): MonoTypeOperatorFunction<T> {
+  filterDeveloperMode<T>(): OperatorFunction<T, T> {
     return filter((value, index) => !this.settings.developerMode);
   }
 
