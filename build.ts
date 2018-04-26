@@ -8,11 +8,9 @@ import { copy } from 'fs-extra';
 import { rollup, RollupFileOptions, RollupWarning } from 'rollup';
 import * as filesize from 'rollup-plugin-filesize';
 import * as sourcemaps from 'rollup-plugin-sourcemaps';
-import { Observable } from 'rxjs';
+import { bindCallback, forkJoin as observableForkJoin, Observable } from 'rxjs';
 
-const copyAll: ((s: string, s1: string) => any) = Observable.bindCallback(
-  copyfiles,
-);
+const copyAll: ((s: string, s1: string) => any) = bindCallback(copyfiles);
 
 const core = ['core', 'uiroutermodule', 'routerlessmodule'];
 
@@ -40,7 +38,7 @@ const MODULE_NAMES = {
 };
 
 const GLOBALS = {
-  'tslib': 'tslib',
+  tslib: 'tslib',
 
   '@angular/core': 'ng.core',
   '@angular/common': 'ng.common',
@@ -53,21 +51,10 @@ const GLOBALS = {
 
   '@uirouter/core': '@uirouter/core',
 
-  'rxjs/Observable': 'Rx',
-  'rxjs/Subject': 'Rx',
-  'rxjs/Observer': 'Rx',
-  'rxjs/Subscription': 'Rx',
-  'rxjs/ReplaySubject': 'Rx',
-  'rxjs/BehaviorSubject': 'Rx',
+  'rxjs': 'Rx',
+  'rxjs/operators': 'Rx.operators',
 
-  'rxjs/operators/filter': 'Rx.operators',
-  'rxjs/operators/map': 'Rx.operators',
-  'rxjs/operators/delay': 'Rx.operators',
-
-  'rxjs/observable/merge': 'Rx.Observable',
-  'rxjs/observable/of': 'Rx.Observable',
-
-  'angulartics2': MODULE_NAMES['core'],
+  angulartics2: MODULE_NAMES['core'],
 };
 
 function createEntry(name): string {
@@ -146,18 +133,13 @@ function createEs(name: string, target: string) {
   if (name === 'core') {
     output = `${process.cwd()}/dist/packages-dist/${name}.${target}.js`;
   }
-  return generateBundle(
-    entry,
-    output,
-    name,
-    'es',
-  );
+  return generateBundle(entry, output, name, 'es');
 }
 
 function buildModule(name: string, type: string) {
   const es2015$ = spawnObservable(NGC, TSC_ARGS(type, name));
   const esm$ = spawnObservable(NGC, TSC_ARGS(type, name, 'esm'));
-  return Observable.forkJoin(es2015$, esm$);
+  return observableForkJoin(es2015$, esm$);
 }
 
 async function buildModulesProviders() {
