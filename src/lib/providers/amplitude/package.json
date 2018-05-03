@@ -1,15 +1,18 @@
 {
+  "$schema": "../../../../node_modules/ng-packagr/package.schema.json",
   "name": "angulartics2/amplitude",
   "description": "The amplitude module",
   "homepage": "https://angulartics.github.io/angulartics2/",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
-  "bugs": {
-    "url": "http://github.com/angulartics/angulartics2/issues"
-  },
   "repository": "angulartics/angulartics2",
-  "main": "../bundles/amplitude.umd.js",
-  "module": "amplitude.es5.js",
-  "es2015": "amplitude.es2015.js",
-  "typings": "index.d.ts",
-  "license": "MIT"
+  "license": "MIT",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "amplitude.ts",
+      "umdModuleIds": {
+        "angulartics2": "angulartics2"
+      }
+    },
+    "dest": "../../../../dist/packages-dist/amplitude"
+  }
 }

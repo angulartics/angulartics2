@@ -1,4 +1,4 @@
-export { Angulartics2 } from './angulartics2';
+export { Angulartics2 } from './angulartics2-core';
 export { Angulartics2Module } from './angulartics2.module';
 export { ANGULARTICS2_TOKEN, Angulartics2Token } from './angulartics2-token';
 export * from './angulartics2-interfaces';

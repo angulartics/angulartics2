@@ -1,8 +1,4 @@
-import {
-  ModuleWithProviders,
-  NgModule,
-  Provider,
-} from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 
 import {
   Angulartics2,
@@ -12,7 +8,6 @@ import {
   RouterlessTracking,
 } from 'angulartics2';
 import { UIRouterTracking } from './uirouter';
-
 
 @NgModule({
   imports: [Angulartics2OnModule],

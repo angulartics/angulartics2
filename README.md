@@ -9,26 +9,25 @@
 
 Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angulartics2](https://angulartics.github.io/angulartics2 "Angulartics Docs")
 
-- [angulartics2](#angulartics2)
-  - [Installation](#installation)
-    - [Include it in your application](#include-it-in-your-application)
-  - [Usage](#usage)
-    - [Tracking events in templates/HTML](#tracking-events-in-templates-html)
-    - [Tracking events in the code](#tracking-events-in-the-code)
-    - [Configuring the Module](#configuring-the-module)
-      - [Exclude routes from automatic pageview tracking](#exclude-routes-from-automatic-pageview-tracking)
-      - [Remove IDs from url paths](#remove-ids-from-url-paths)
-      - [Remove Query Params from url paths](#remove-query-params-from-url-paths)
-      - [Remove Hash from url paths](#remove-hash-from-url-paths)
-    - [Using Without A Router](#using-without-a-router)
-    - [Using With UI-Router](#using-with-ui-router)
-    - [SystemJS](#systemjs)
-  - [Supported providers](#supported-providers)
-    - [For other providers](#for-other-providers)
-    - [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
-  - [v4 Migration and Breaking Changes](#v4-migration-and-breaking-changes)
-  - [Contributing](#contributing)
-  - [License](#license)
+- [Installation](#installation)
+  - [Include it in your application](#include-it-in-your-application)
+- [Usage](#usage)
+  - [Tracking events in templates/HTML](#tracking-events-in-templates-html)
+  - [Tracking events in the code](#tracking-events-in-the-code)
+  - [Configuring the Module](#configuring-the-module)
+    - [Exclude routes from automatic pageview tracking](#exclude-routes-from-automatic-pageview-tracking)
+    - [Remove IDs from url paths](#remove-ids-from-url-paths)
+    - [Remove Query Params from url paths](#remove-query-params-from-url-paths)
+    - [Remove Hash from url paths](#remove-hash-from-url-paths)
+  - [Using Without A Router](#using-without-a-router)
+  - [Using With UI-Router](#using-with-ui-router)
+  - [SystemJS](#systemjs)
+- [Supported providers](#supported-providers)
+  - [For other providers](#for-other-providers)
+  - [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
+- [v4 Migration and Breaking Changes](#v4-migration-and-breaking-changes)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
@@ -282,9 +281,6 @@ If there's no Angulartics2 plugin for your analytics vendor of choice, please fe
 - See [Google Analytics](/src/lib/providers/ga) if your code snippet contains `analytics.js`
 - See [Google Tag Manager](/src/lib/providers/gtm) if your code snippet contains `gtag.js`
 
-## v4 Migration and Breaking Changes
-
-See [Release Notes](https://github.com/angulartics/angulartics2/releases/tag/v4.0.0)
 
 ## Contributing
 

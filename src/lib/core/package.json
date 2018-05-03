@@ -1,27 +1,15 @@
 {
+  "$schema": "../../../node_modules/ng-packagr/package.schema.json",
   "name": "angulartics2",
-  "version": "0.0.0-placeholder",
   "description": "Vendor-agnostic web analytics for Angular2 applications",
-  "homepage": "https://angulartics.github.io/angulartics2/",
-  "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
+  "version": "0.0.0-placeholder",
   "release": {
     "branch": "master"
   },
-  "bugs": {
-    "url": "http://github.com/angulartics/angulartics2/issues"
-  },
+  "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
+  "homepage": "https://angulartics.github.io/angulartics2/",
   "repository": "angulartics/angulartics2",
-  "main": "./bundles/core.umd.js",
-  "module": "./index.js",
-  "es2015": "./es2015/index.js",
-  "typings": "./index.d.ts",
   "license": "MIT",
-  "engines": {
-    "node": ">=6.9.0"
-  },
-  "dependencies": {
-    "tslib": "^1.7.1"
-  },
   "keywords": [
     "angular2",
     "ng2",
@@ -44,10 +32,15 @@
     "adobe analytics",
     "baidu"
   ],
+  "ngPackage": {
+    "lib": {
+      "entryFile": "public_api.ts"
+    },
+    "dest": "../../../dist/core"
+  },
   "peerDependencies": {
     "@angular/common": ">= 5.0.0",
     "@angular/core": ">= 5.0.0",
-    "@angular/router": ">= 5.0.0",
     "rxjs": "^5.5.0"
   }
 }
