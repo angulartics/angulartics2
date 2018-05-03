@@ -41,27 +41,6 @@ export class Angulartics2 {
       );
   }
 
-  /** @deprecated */
-  virtualPageviews(value: boolean) {
-    this.settings.pageTracking.autoTrackVirtualPages = value;
-  }
-  /** @deprecated */
-  excludeRoutes(routes: Array<string | RegExp>) {
-    this.settings.pageTracking.excludedRoutes = routes;
-  }
-  /** @deprecated */
-  withBase(value: string) {
-    this.settings.pageTracking.basePath = value;
-  }
-  /** @deprecated */
-  clearIds(value: boolean) {
-    this.settings.pageTracking.clearIds = value;
-  }
-  /** @deprecated */
-  developerMode(value: boolean) {
-    this.settings.developerMode = value;
-  }
-
   /** filters all events when developer mode is true */
   filterDeveloperMode<T>(): MonoTypeOperatorFunction<T> {
     return filter((value, index) => !this.settings.developerMode);
