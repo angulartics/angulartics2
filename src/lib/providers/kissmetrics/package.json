@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../node_modules/ng-packagr/package.schema.json",
   "name": "angulartics2/kissmetrics",
   "description": "The kissmetrics module",
   "homepage": "https://angulartics.github.io/angulartics2/",
@@ -7,9 +8,14 @@
     "url": "http://github.com/angulartics/angulartics2/issues"
   },
   "repository": "angulartics/angulartics2",
-  "main": "../bundles/kissmetrics.umd.js",
-  "module": "kissmetrics.es5.js",
-  "es2015": "kissmetrics.es2015.js",
-  "typings": "index.d.ts",
-  "license": "MIT"
+  "license": "MIT",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "kissmetrics.ts",
+      "umdModuleIds": {
+        "angulartics2": "angulartics2"
+      }
+    },
+    "dest": "../../../../dist/packages-dist/kissmetrics"
+  }
 }

@@ -1,9 +1,5 @@
 /**
  * Properties passed through angulartics2-clicky and fed into clicky itself
- *
- * @export
- * @interface ClickyProperties
- *
  */
 export interface ClickyProperties {
     /** Title of the page for page tracking, or name of the event for event tracking */

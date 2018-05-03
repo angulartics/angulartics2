@@ -7,7 +7,7 @@ import {
   NgModule,
   Renderer2,
 } from '@angular/core';
-import { Angulartics2 } from './angulartics2';
+import { Angulartics2 } from './angulartics2-core';
 
 @Injectable()
 @Directive({ selector: '[angulartics2On]' })

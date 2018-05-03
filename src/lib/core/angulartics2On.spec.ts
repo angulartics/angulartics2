@@ -5,7 +5,7 @@ import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/test
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { advance, createRoot } from '../test.mocks';
-import { Angulartics2 } from './angulartics2';
+import { Angulartics2 } from './angulartics2-core';
 import { Angulartics2Module } from './angulartics2.module';
 import { Angulartics2On } from './angulartics2On';
 

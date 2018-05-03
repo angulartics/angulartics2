@@ -68,6 +68,7 @@
     "karma-jasmine": "^1.1.2",
     "karma-jasmine-html-reporter": "0.2.2",
     "karma-mocha-reporter": "^2.2.5",
+    "ng-packagr": "3.0.0-rc.2",
     "protractor": "^5.3.1",
     "rimraf": "^2.6.2",
     "rollup": "^0.58.2",
