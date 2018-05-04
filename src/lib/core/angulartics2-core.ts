@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { MonoTypeOperatorFunction } from 'rxjs/interfaces';
-import { filter } from 'rxjs/operators/filter';
+import { MonoTypeOperatorFunction, ReplaySubject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { Angulartics2Settings, DefaultConfig } from './angulartics2-config';
 import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';
@@ -39,27 +38,6 @@ export class Angulartics2 {
       .subscribe((event: TrackNavigationEnd) =>
         this.trackUrlChange(event.url),
       );
-  }
-
-  /** @deprecated */
-  virtualPageviews(value: boolean) {
-    this.settings.pageTracking.autoTrackVirtualPages = value;
-  }
-  /** @deprecated */
-  excludeRoutes(routes: Array<string | RegExp>) {
-    this.settings.pageTracking.excludedRoutes = routes;
-  }
-  /** @deprecated */
-  withBase(value: string) {
-    this.settings.pageTracking.basePath = value;
-  }
-  /** @deprecated */
-  clearIds(value: boolean) {
-    this.settings.pageTracking.clearIds = value;
-  }
-  /** @deprecated */
-  developerMode(value: boolean) {
-    this.settings.developerMode = value;
   }
 
   /** filters all events when developer mode is true */
