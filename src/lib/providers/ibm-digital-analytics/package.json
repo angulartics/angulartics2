@@ -1,0 +1,19 @@
+{
+    "$schema": "../../../../node_modules/ng-packagr/package.schema.json",
+    "name": "angulartics2/ibm-digital-analytics",
+    "description": "The IBM Digital Analytics module",
+    "homepage": "https://angulartics.github.io/angulartics2/",
+    "author": "Evgeny Makovetsky <makovetsky.evgeny@gmail.com> (http://github.com/ka4ok85)",
+    "repository": "angulartics/angulartics2",
+    "license": "MIT",
+    "ngPackage": {
+      "lib": {
+        "entryFile": "ibm-digital-analytics.ts",
+        "umdModuleIds": {
+          "angulartics2": "angulartics2"
+        }
+      },
+      "dest": "../../../../dist/packages-dist/ibm-digital-analytics"
+    }
+  }
+  
