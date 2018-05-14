@@ -271,6 +271,7 @@ System.config({
 * [Intercom](/src/lib/providers/intercom)
 * [Woopra](/src/lib/providers/woopra)
 * [Clicky](/src/lib/providers/clicky)
+* [IBM Digital Analytics](/src/lib/providers/ibm-digital-analytics)
 
 ### For other providers
 
