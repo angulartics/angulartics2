@@ -105,7 +105,7 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
                     });
 
                     advance(fixture);
-                    expect(window.cmCreateShopAction5Tag).toHaveBeenCalledWith('123', 'Apples', '5', '1.99', 'Fruits', 'attributes', 
+                    expect(window.cmCreateShopAction5Tag).toHaveBeenCalledWith('123', 'Apples', '5', '1.99', 'Fruits', 'attributes',
                                                                                 'extra', 'virtual category');
                 }),
             ),
@@ -132,7 +132,7 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
                     });
 
                     advance(fixture);
-                    expect(window.cmCreateShopAction9Tag).toHaveBeenCalledWith('123', 'Apples', '5', '1.99', '001', '777', '19.90', 
+                    expect(window.cmCreateShopAction9Tag).toHaveBeenCalledWith('123', 'Apples', '5', '1.99', '001', '777', '19.90',
                                                                                 'Fruits', 'attributes', 'extra');
                 }),
             ),

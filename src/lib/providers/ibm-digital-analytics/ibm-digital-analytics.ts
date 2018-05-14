@@ -24,7 +24,7 @@ export class Angulartics2IBMDigitalAnalytics {
      * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_pageviewtag.html
      */
     pageTrack(path: string) {
-        let cmCreatePageviewTag = window['cmCreatePageviewTag'];
+        const cmCreatePageviewTag = window['cmCreatePageviewTag'];
         cmCreatePageviewTag(path, null, null, null);
     }
 
@@ -35,7 +35,7 @@ export class Angulartics2IBMDigitalAnalytics {
      * @param properties The properties that need to be logged with the event.
      */
     eventTrack(action: string, properties: any = {}) {
-        let cmDisplayShops = window['cmDisplayShops'];
+        const cmDisplayShops = window['cmDisplayShops'];
         switch (action) {
             /**
              * @description The Product View tag captures information about vdigitalDataiews of product detail pages.
@@ -45,7 +45,7 @@ export class Angulartics2IBMDigitalAnalytics {
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_prodviewtag.html
              */
             case 'cmCreateProductviewTag':
-                let cmCreateProductviewTag = window['cmCreateProductviewTag'];
+                const cmCreateProductviewTag = window['cmCreateProductviewTag'];
                 cmCreateProductviewTag(
                     properties.productId,
                     properties.productName,
@@ -63,7 +63,7 @@ export class Angulartics2IBMDigitalAnalytics {
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_shopact5tag.html
              */
             case 'cmCreateShopAction5Tag':
-                let cmCreateShopAction5Tag = window['cmCreateShopAction5Tag'];
+                const cmCreateShopAction5Tag = window['cmCreateShopAction5Tag'];
                 cmCreateShopAction5Tag(
                     properties.productId,
                     properties.productName,
@@ -87,8 +87,7 @@ export class Angulartics2IBMDigitalAnalytics {
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_shopact9tag.html
              */
             case 'cmCreateShopAction9Tag':
-                
-                let cmCreateShopAction9Tag = window['cmCreateShopAction9Tag'];
+                const cmCreateShopAction9Tag = window['cmCreateShopAction9Tag'];
                 cmCreateShopAction9Tag(
                     properties.productId,
                     properties.productName,
@@ -113,7 +112,7 @@ export class Angulartics2IBMDigitalAnalytics {
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_ordertag.html
              */
             case 'cmCreateOrderTag':
-                let cmCreateOrderTag = window['cmCreateOrderTag'];
+                const cmCreateOrderTag = window['cmCreateOrderTag'];
                 cmCreateOrderTag(
                     properties.orderId,
                     properties.orderSubtotal,
@@ -135,7 +134,7 @@ export class Angulartics2IBMDigitalAnalytics {
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_registrationtag.html
              */
             case 'cmCreateRegistrationTag':
-                let cmCreateRegistrationTag = window['cmCreateRegistrationTag'];
+                const cmCreateRegistrationTag = window['cmCreateRegistrationTag'];
                 cmCreateRegistrationTag(
                     properties.registrationId,
                     properties.registrantEmail,
@@ -155,7 +154,7 @@ export class Angulartics2IBMDigitalAnalytics {
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_elementtag.html
              */
             case 'cmCreateElementTag':
-                let cmCreateElementTag = window['cmCreateElementTag'];
+                const cmCreateElementTag = window['cmCreateElementTag'];
                 cmCreateElementTag(
                     properties.elementId,
                     properties.elementCategory,
@@ -165,14 +164,14 @@ export class Angulartics2IBMDigitalAnalytics {
                 break;
 
             /**
-             * @description The Conversion Event tag is employed for tracking of general non-commerce conversion events. 
-             * The Conversion Event tag is used to populate values in the Conversion Events Reports and to create Key Segments. 
+             * @description The Conversion Event tag is employed for tracking of general non-commerce conversion events.
+             * The Conversion Event tag is used to populate values in the Conversion Events Reports and to create Key Segments.
              * This tag and the reports it populates enable analysis of a wide variety of site activities.
              *
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_conversioneventtag.html
              */
             case 'cmCreateConversionEventTag':
-                let cmCreateConversionEventTag = window['cmCreateConversionEventTag'];
+                const cmCreateConversionEventTag = window['cmCreateConversionEventTag'];
                 cmCreateConversionEventTag(
                     properties.eventId,
                     properties.actionType,
