@@ -4,7 +4,7 @@ import { Angulartics2 } from 'angulartics2';
 @Injectable()
 export class Angulartics2IBMDigitalAnalytics {
     constructor(private angulartics2: Angulartics2) {
-        if (typeof window["cmCreatePageviewTag"] !== "function") {
+        if (typeof window['cmCreatePageviewTag'] !== 'function') {
             console.warn('Angulartics 2 IBM Digital Analytics Plugin: eluminate.js is not loaded');
         }
 
@@ -24,7 +24,7 @@ export class Angulartics2IBMDigitalAnalytics {
      * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_pageviewtag.html
      */
     pageTrack(path: string) {
-        var cmCreatePageviewTag = window["cmCreatePageviewTag"];
+        let cmCreatePageviewTag = window['cmCreatePageviewTag'];
         cmCreatePageviewTag(path, null, null, null);
     }
 
@@ -35,14 +35,17 @@ export class Angulartics2IBMDigitalAnalytics {
      * @param properties The properties that need to be logged with the event.
      */
     eventTrack(action: string, properties: any = {}) {
+        let cmDisplayShops = window['cmDisplayShops'];
         switch (action) {
             /**
-             * @description The Product View tag captures information about vdigitalDataiews of product detail pages. The Product View tag should be called on the lowest level detail page for products, which is typically the Product Details page. You can view example Product View tags below.
+             * @description The Product View tag captures information about vdigitalDataiews of product detail pages.
+             *  The Product View tag should be called on the lowest level detail page for products, which is typically
+             *  the Product Details page. You can view example Product View tags below.
              *
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_prodviewtag.html
              */
             case 'cmCreateProductviewTag':
-                var cmCreateProductviewTag = window["cmCreateProductviewTag"];
+                let cmCreateProductviewTag = window['cmCreateProductviewTag'];
                 cmCreateProductviewTag(
                     properties.productId,
                     properties.productName,
@@ -54,13 +57,13 @@ export class Angulartics2IBMDigitalAnalytics {
                 break;
 
             /**
-             * @description The Shop Action 5 tag captures data about selected products and which products are present in a shopping cart, if any, when the cart is viewed.
+             * @description The Shop Action 5 tag captures data about selected products and which products are present in a shopping cart,
+             *  if any, when the cart is viewed.
              *
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_shopact5tag.html
              */
             case 'cmCreateShopAction5Tag':
-                var cmDisplayShops = window["cmDisplayShops"];
-                var cmCreateShopAction5Tag = window["cmCreateShopAction5Tag"];
+                let cmCreateShopAction5Tag = window['cmCreateShopAction5Tag'];
                 cmCreateShopAction5Tag(
                     properties.productId,
                     properties.productName,
@@ -77,13 +80,15 @@ export class Angulartics2IBMDigitalAnalytics {
                 break;
 
             /**
-             * @description The Shop Action 9 tag captures data about what products were purchased by a customer. Like the Shop Action 5 tag, one tag should be sent for each product line item purchased. These tags should be sent on the receipt or other completion page confirming a successful order.
+             * @description The Shop Action 9 tag captures data about what products were purchased by a customer.
+             *  Like the Shop Action 5 tag, one tag should be sent for each product line item purchased. These tags should be sent
+             *  on the receipt or other completion page confirming a successful order.
              *
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_shopact9tag.html
              */
             case 'cmCreateShopAction9Tag':
-                var cmDisplayShops = window["cmDisplayShops"];
-                var cmCreateShopAction9Tag = window["cmCreateShopAction9Tag"];
+                
+                let cmCreateShopAction9Tag = window['cmCreateShopAction9Tag'];
                 cmCreateShopAction9Tag(
                     properties.productId,
                     properties.productName,
@@ -102,12 +107,13 @@ export class Angulartics2IBMDigitalAnalytics {
                 break;
 
             /**
-             * @description The Order tag captures order header information such as Registration ID, order ID, order subtotal, and shipping and handling. The Order tag should be sent on the receipt page confirming order completion.
+             * @description The Order tag captures order header information such as Registration ID, order ID, order subtotal,
+             *  and shipping and handling. The Order tag should be sent on the receipt page confirming order completion.
              *
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_ordertag.html
              */
             case 'cmCreateOrderTag':
-                var cmCreateOrderTag = window["cmCreateOrderTag"];
+                let cmCreateOrderTag = window['cmCreateOrderTag'];
                 cmCreateOrderTag(
                     properties.orderId,
                     properties.orderSubtotal,
@@ -123,12 +129,13 @@ export class Angulartics2IBMDigitalAnalytics {
                 break;
 
             /**
-             * @description The Registration tag creates a Lifetime Visitor Experience Profile (LIVE Profile) by associating a single common Registration ID with the IBM® Digital Analytics permanent cookie set in every browser visiting the tagged site.
+             * @description The Registration tag creates a Lifetime Visitor Experience Profile (LIVE Profile) by associating a single
+             *  common Registration ID with the IBM® Digital Analytics permanent cookie set in every browser visiting the tagged site.
              *
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_registrationtag.html
              */
             case 'cmCreateRegistrationTag':
-                var cmCreateRegistrationTag = window["cmCreateRegistrationTag"];
+                let cmCreateRegistrationTag = window['cmCreateRegistrationTag'];
                 cmCreateRegistrationTag(
                     properties.registrationId,
                     properties.registrantEmail,
@@ -142,12 +149,13 @@ export class Angulartics2IBMDigitalAnalytics {
                 break;
 
             /**
-             * @description The Registration tag creates a Lifetime Visitor Experience Profile (LIVE Profile) by associating a single common Registration ID with the IBM® Digital Analytics permanent cookie set in every browser visiting the tagged site.
+             * @description The Element tag is used to track intra-page content in IBM® Digital Analytics. Data collected by
+             *  the Element tag is used to populate values in the Element Categories and Top Viewed Elements reports.
              *
-             * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_registrationtag.html
+             * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_elementtag.html
              */
             case 'cmCreateElementTag':
-                var cmCreateElementTag = window["cmCreateElementTag"];
+                let cmCreateElementTag = window['cmCreateElementTag'];
                 cmCreateElementTag(
                     properties.elementId,
                     properties.elementCategory,
@@ -157,12 +165,14 @@ export class Angulartics2IBMDigitalAnalytics {
                 break;
 
             /**
-             * @description The Conversion Event tag is employed for tracking of general non-commerce conversion events. The Conversion Event tag is used to populate values in the Conversion Events Reports and to create Key Segments. This tag and the reports it populates enable analysis of a wide variety of site activities.
+             * @description The Conversion Event tag is employed for tracking of general non-commerce conversion events. 
+             * The Conversion Event tag is used to populate values in the Conversion Events Reports and to create Key Segments. 
+             * This tag and the reports it populates enable analysis of a wide variety of site activities.
              *
              * @link https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_conversioneventtag.html
              */
             case 'cmCreateConversionEventTag':
-                var cmCreateConversionEventTag = window["cmCreateConversionEventTag"];
+                let cmCreateConversionEventTag = window['cmCreateConversionEventTag'];
                 cmCreateConversionEventTag(
                     properties.eventId,
                     properties.actionType,

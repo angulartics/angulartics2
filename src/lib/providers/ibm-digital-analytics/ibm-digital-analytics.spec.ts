@@ -8,7 +8,6 @@ import {
 import { Angulartics2 } from 'angulartics2';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 import { Angulartics2IBMDigitalAnalytics } from './ibm-digital-analytics';
-import { throwError } from 'rxjs';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
@@ -57,7 +56,7 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
 
         it('should track pages',
             fakeAsync(inject([Angulartics2, Angulartics2IBMDigitalAnalytics],
-                (angulartics2: Angulartics2, Angulartics2IBMDigitalAnalytics: Angulartics2IBMDigitalAnalytics) => {
+                (angulartics2: Angulartics2, angulartics2IBMDigitalAnalytics: Angulartics2IBMDigitalAnalytics) => {
                     fixture = createRoot(RootCmp);
                     angulartics2.pageTrack.next({ path: '/abc' });
                     advance(fixture);
@@ -106,7 +105,8 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
                     });
 
                     advance(fixture);
-                    expect(window.cmCreateShopAction5Tag).toHaveBeenCalledWith('123', 'Apples', '5', '1.99', 'Fruits', 'attributes', 'extra', 'virtual category');
+                    expect(window.cmCreateShopAction5Tag).toHaveBeenCalledWith('123', 'Apples', '5', '1.99', 'Fruits', 'attributes', 
+                                                                                'extra', 'virtual category');
                 }),
             ),
         );
@@ -132,7 +132,8 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
                     });
 
                     advance(fixture);
-                    expect(window.cmCreateShopAction9Tag).toHaveBeenCalledWith('123', 'Apples', '5', '1.99', '001', '777', '19.90', 'Fruits', 'attributes', 'extra');
+                    expect(window.cmCreateShopAction9Tag).toHaveBeenCalledWith('123', 'Apples', '5', '1.99', '001', '777', '19.90', 
+                                                                                'Fruits', 'attributes', 'extra');
                 }),
             ),
         );
@@ -157,7 +158,8 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
                     });
 
                     advance(fixture);
-                    expect(window.cmCreateOrderTag).toHaveBeenCalledWith('777', '19.90', '1.00', '001', 'Atlanta', 'GA', '30303', 'attributes', 'extra');
+                    expect(window.cmCreateOrderTag).toHaveBeenCalledWith('777', '19.90', '1.00', '001', 'Atlanta', 'GA', '30303',
+                                                                         'attributes', 'extra');
                 }),
             ),
         );
@@ -180,7 +182,8 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
                     });
 
                     advance(fixture);
-                    expect(window.cmCreateRegistrationTag).toHaveBeenCalledWith('001', 'john@doe.com', 'Atlanta', 'GA', '30303', 'US', 'attributes');
+                    expect(window.cmCreateRegistrationTag).toHaveBeenCalledWith('001', 'john@doe.com', 'Atlanta', 'GA', '30303', 'US',
+                                                                                 'attributes');
                 }),
             ),
         );
@@ -221,7 +224,8 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
                     });
 
                     advance(fixture);
-                    expect(window.cmCreateConversionEventTag).toHaveBeenCalledWith('event_001', 'form submitted', 'forms', '10.00', 'attributes', 'extra');
+                    expect(window.cmCreateConversionEventTag).toHaveBeenCalledWith('event_001', 'form submitted', 'forms', '10.00',
+                                                                                     'attributes', 'extra');
                 }),
             ),
         );
