@@ -18,7 +18,7 @@ module.exports = function(config) {
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, 'coverage'),
-      reports: ['text-summary', 'json', 'html'],
+      reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true,
     },
     angularCli: {
@@ -29,13 +29,13 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeCI'],
-    singleRun: false,
+    browsers: ['Chrome'],
     customLaunchers: {
       ChromeCI: {
         base: `${process.env['TRAVIS'] ? 'ChromeHeadless' : 'Chrome'}`,
-        flags: ['--no-sandbox']
-      }
+        flags: process.env['TRAVIS'] ? ['--no-sandbox'] : [],
+      },
     },
+    singleRun: false,
   });
 };

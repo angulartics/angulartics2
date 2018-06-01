@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Transition, TransitionService } from '@uirouter/core';
 
-import { Observable ,  Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { RouterlessTracking, TrackNavigationEnd } from 'angulartics2';
 

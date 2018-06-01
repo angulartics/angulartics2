@@ -1,4 +1,4 @@
-import { BehaviorSubject ,  Observable } from 'rxjs';
+import { BehaviorSubject,  Observable } from 'rxjs';
 
 import { Angulartics2Settings } from './angulartics2-config';
 

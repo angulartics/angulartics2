@@ -1,10 +1,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "baseUrl": "src",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -17,7 +17,7 @@
       "dom"
     ],
     "paths": {
-      "angulartics2": ["./lib/core/public_api"]
+      "angulartics2": ["./src/lib/core/public_api"]
     }
   }
 }
