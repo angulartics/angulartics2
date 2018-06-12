@@ -99,7 +99,7 @@ export class Angulartics2GoogleAnalytics {
       properties.value = isNaN(parsed) ? 0 : parsed;
     }
 
-    if (typeof ga !== 'undefined') {
+    if (typeof ga !== 'undefined' && ga) {
       const eventOptions = {
         eventCategory: properties.category,
         eventAction: action,
@@ -124,7 +124,7 @@ export class Angulartics2GoogleAnalytics {
       for (const accountName of this.angulartics2.settings.ga.additionalAccountNames) {
         ga(accountName + '.send', 'event', eventOptions);
       }
-    } else if (typeof _gaq !== 'undefined') {
+    } else if (typeof _gaq !== 'undefined' && _gaq) {
       _gaq.push([
         '_trackEvent',
         properties.category,
@@ -192,7 +192,7 @@ export class Angulartics2GoogleAnalytics {
       return;
     }
 
-    if (typeof ga !== 'undefined') {
+    if (typeof ga !== 'undefined' && ga) {
       ga('send', 'timing', properties);
       for (const accountName of this.angulartics2.settings.ga.additionalAccountNames) {
         ga(accountName + '.send', 'timing', properties);
@@ -202,10 +202,9 @@ export class Angulartics2GoogleAnalytics {
 
   setUsername(userId: string) {
     this.angulartics2.settings.ga.userId = userId;
-    if (typeof ga === 'undefined') {
-      return;
+    if (typeof ga !== 'undefined' && ga) {
+      ga('set', 'userId', userId);
     }
-    ga('set', 'userId', userId);
   }
 
   setUserProperties(properties: any) {
@@ -213,38 +212,37 @@ export class Angulartics2GoogleAnalytics {
   }
 
   private setDimensionsAndMetrics(properties: any) {
-    if (typeof ga === 'undefined') {
-      return;
+    if (typeof ga !== 'undefined' && ga) {
+      // clean previously used dimensions and metrics that will not be overriden
+      this.dimensionsAndMetrics.forEach(elem => {
+        if (!properties.hasOwnProperty(elem)) {
+          ga('set', elem, undefined);
+
+          this.angulartics2.settings.ga.additionalAccountNames.forEach(
+            (accountName: string) => {
+              ga(`${accountName}.set`, elem, undefined);
+            },
+          );
+        }
+      });
+      this.dimensionsAndMetrics = [];
+
+      // add custom dimensions and metrics
+      Object.keys(properties).forEach(key => {
+        if (
+          key.lastIndexOf('dimension', 0) === 0 ||
+          key.lastIndexOf('metric', 0) === 0
+        ) {
+          ga('set', key, properties[key]);
+
+          this.angulartics2.settings.ga.additionalAccountNames.forEach(
+            (accountName: string) => {
+              ga(`${accountName}.set`, key, properties[key]);
+            },
+          );
+          this.dimensionsAndMetrics.push(key);
+        }
+      });
     }
-    // clean previously used dimensions and metrics that will not be overriden
-    this.dimensionsAndMetrics.forEach(elem => {
-      if (!properties.hasOwnProperty(elem)) {
-        ga('set', elem, undefined);
-
-        this.angulartics2.settings.ga.additionalAccountNames.forEach(
-          (accountName: string) => {
-            ga(`${accountName}.set`, elem, undefined);
-          },
-        );
-      }
-    });
-    this.dimensionsAndMetrics = [];
-
-    // add custom dimensions and metrics
-    Object.keys(properties).forEach(key => {
-      if (
-        key.lastIndexOf('dimension', 0) === 0 ||
-        key.lastIndexOf('metric', 0) === 0
-      ) {
-        ga('set', key, properties[key]);
-
-        this.angulartics2.settings.ga.additionalAccountNames.forEach(
-          (accountName: string) => {
-            ga(`${accountName}.set`, key, properties[key]);
-          },
-        );
-        this.dimensionsAndMetrics.push(key);
-      }
-    });
   }
 }
