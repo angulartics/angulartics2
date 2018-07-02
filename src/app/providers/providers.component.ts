@@ -70,6 +70,10 @@ export class ProvidersComponent {
       display: 'Segment',
       type: 'Analytics',
     }, {
+      name: 'splunk',
+      display: 'Splunk',
+      type: 'Analytics',
+    }, {
       name: 'woopra',
       display: 'Woopra',
       type: 'Analytics',
