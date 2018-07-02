@@ -23,6 +23,7 @@ const MODULE_NAMES = [
   'woopra',
   'clicky',
   'amplitude',
+  'ibm-digital-analytics'
 ];
 
 
