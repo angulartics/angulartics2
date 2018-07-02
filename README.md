@@ -272,6 +272,7 @@ System.config({
 * [Woopra](/src/lib/providers/woopra)
 * [Clicky](/src/lib/providers/clicky)
 * [IBM Digital Analytics](/src/lib/providers/ibm-digital-analytics)
+* [Splunk](/src/lib/providers/splunk)
 
 ### For other providers
 
