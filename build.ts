@@ -23,7 +23,8 @@ const MODULE_NAMES = [
   'woopra',
   'clicky',
   'amplitude',
-  'splunk'
+  'splunk',
+  'ibm-digital-analytics',
 ];
 
 
