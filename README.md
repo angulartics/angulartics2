@@ -65,14 +65,16 @@ const ROUTES: Routes = [
 ```
 > Note the different imports when [Using Without A Router](#using-without-a-router) or [Using With UI-Router](#using-with-ui-router).
 
-2. __Required__: Import your providers in the root component. This starts the tracking of route changes.
+2. __Required__: Import your providers in the root component. Call `startTracking()` to start the tracking of route changes.
 ```ts
 // component
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 @Component({  ...  })
 export class AppComponent {
-  constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
+  constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
+    angulartics2GoogleAnalytics.startTracking();
+  }
 }
 ```
 

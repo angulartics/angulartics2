@@ -46,8 +46,10 @@ Inject angulartics into your root component (usually appComponent)
 ```ts
 import { Angulartics2Piwik } from 'angulartics2/piwik';
 export class AppComponent {
-  // inject Angulartics2Piwik in root component to initialize it
-  constructor(private angulartics2Piwik: Angulartics2Piwik){ }
+  // inject Angulartics2Piwik in root component and initialize it
+  constructor(private angulartics2Piwik: Angulartics2Piwik) {
+    angulartics2Piwik.startTracking();
+  }
 }
 ```
 
