@@ -7,7 +7,9 @@ export class Angulartics2IBMDigitalAnalytics {
         if (typeof window['cmCreatePageviewTag'] !== 'function') {
             console.warn('Angulartics 2 IBM Digital Analytics Plugin: eluminate.js is not loaded');
         }
+    }
 
+    startTracking(): void {
         this.angulartics2.pageTrack
             .pipe(this.angulartics2.filterDeveloperMode())
             .subscribe((x) => this.pageTrack(x.path));

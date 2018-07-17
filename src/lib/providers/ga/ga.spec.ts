@@ -20,6 +20,9 @@ describe('Angulartics2GoogleAnalytics', () => {
     });
     window.ga = ga = jasmine.createSpy('ga');
     window._gaq = _gaq = [];
+
+    const service: Angulartics2GoogleAnalytics = TestBed.get(Angulartics2GoogleAnalytics);
+    service.startTracking();
   });
 
   it('should track pages',

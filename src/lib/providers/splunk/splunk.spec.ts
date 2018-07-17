@@ -27,6 +27,9 @@ describe('Angulartics2Splunk', () => {
       pageview: jasmine.createSpy('pageview'),
       track: jasmine.createSpy('track')
     };
+
+    const provider: Angulartics2Splunk = TestBed.get(Angulartics2Splunk);
+    provider.startTracking();
   });
 
   it('should track pages',

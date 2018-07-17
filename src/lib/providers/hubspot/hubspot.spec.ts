@@ -18,6 +18,8 @@ describe('Angulartics2Hubspot', () => {
     });
 
     window._hsq = _hsq = [];
+    const provider: Angulartics2Hubspot = TestBed.get(Angulartics2Hubspot);
+    provider.startTracking();
   });
 
   it('should track pages',

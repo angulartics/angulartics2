@@ -46,6 +46,8 @@ describe('Angulartics2Clicky', () => {
   describe('while active', () => {
     beforeEach(() => {
       window.clicky = clicky = jasmine.createSpyObj('clicky', ['log', 'goal']);
+      const provider: Angulartics2Clicky = TestBed.get(Angulartics2Clicky);
+      provider.startTracking();
     });
 
     it('should track pages',

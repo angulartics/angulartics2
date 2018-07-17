@@ -32,6 +32,9 @@ describe('Angulartics2Amplitude', () => {
         return amplitudeMock;
       }
     };
+
+    const provider: Angulartics2Amplitude = TestBed.get(Angulartics2Amplitude);
+    provider.startTracking();
   });
 
   it('should track pages',

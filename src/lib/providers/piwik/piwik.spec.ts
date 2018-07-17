@@ -18,6 +18,8 @@ describe('Angulartics2Piwik', () => {
     });
 
     window._paq = _paq = [];
+    const provider: Angulartics2Piwik = TestBed.get(Angulartics2Piwik);
+    provider.startTracking();
   });
 
   it('should track pages',
