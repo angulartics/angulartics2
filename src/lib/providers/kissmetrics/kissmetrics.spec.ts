@@ -18,6 +18,8 @@ describe('Angulartics2Kissmetrics', () => {
     });
 
     window._kmq = _kmq = [];
+    const provider: Angulartics2Kissmetrics = TestBed.get(Angulartics2Kissmetrics);
+    provider.startTracking();
   });
 
   it('should track pages',

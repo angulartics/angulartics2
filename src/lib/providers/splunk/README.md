@@ -51,6 +51,8 @@ import { Angulartics2Splunk } from 'angulartics2/splunk';
 
 @Component({  ...  })
 export class AppComponent {
-  constructor(angulartics2Splunk: Angulartics2Splunk) {}
+  constructor(angulartics2Splunk: Angulartics2Splunk) {
+    angulartics2Splunk.startTracking();
+  }
 }
 ```

@@ -29,6 +29,9 @@ describe('Angulartics2Segment', () => {
       identify: jasmine.createSpy('identify'),
       alias: jasmine.createSpy('alias')
     };
+
+    const provider: Angulartics2Segment = TestBed.get(Angulartics2Segment);
+    provider.startTracking();
   });
 
   it('should track pages',

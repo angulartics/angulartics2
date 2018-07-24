@@ -32,7 +32,10 @@ describe('Angulartics2AppInsights', () => {
         'trackException',
         'setAuthenticatedUserContext',
       ]);
-    });
+
+    const provider: Angulartics2AppInsights = TestBed.get(Angulartics2AppInsights);
+    provider.startTracking();
+  });
 
   it('should track pages',
     fakeAsync(inject([Angulartics2, Angulartics2AppInsights, Title],

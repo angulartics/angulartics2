@@ -75,7 +75,9 @@ import { Angulartics2Clicky } from 'angulartics2-clicky';
 })
 export class AppComponent {
   // Enable auto route logging
-  constructor(angulartics2Clicky: Angulartics2Clicky) {}
+  constructor(angulartics2Clicky: Angulartics2Clicky) {
+    angulartics2Clicky.startTracking();
+  }
 }
 ```
 

@@ -15,6 +15,9 @@ export class Angulartics2Clicky {
     if (typeof clicky === 'undefined') {
       console.warn('Angulartics 2 Clicky Plugin: clicky global not found');
     }
+  }
+
+  startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.pageTrack(x.path));

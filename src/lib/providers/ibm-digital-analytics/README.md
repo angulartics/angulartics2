@@ -71,8 +71,10 @@ import { Angulartics2IBMDigitalAnalytics } from 'angulartics2/ibm-digital-analyt
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // Enable auto route logging
-  constructor(angulartics2IBMDigitalAnalytics: Angulartics2IBMDigitalAnalytics) {}
+  // Enable route logging
+  constructor(angulartics2IBMDigitalAnalytics: Angulartics2IBMDigitalAnalytics) {
+      angulartics2IBMDigitalAnalytics.startTracking();
+  }
 }
 ```
 
