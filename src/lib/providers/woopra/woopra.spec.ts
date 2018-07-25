@@ -26,6 +26,9 @@ describe('Angulartics2Woopra', () => {
       track: jasmine.createSpy('track'),
       identify: jasmine.createSpy('identify'),
     };
+
+    const provider: Angulartics2Woopra = TestBed.get(Angulartics2Woopra);
+    provider.startTracking();
   });
 
   it('should track pages',

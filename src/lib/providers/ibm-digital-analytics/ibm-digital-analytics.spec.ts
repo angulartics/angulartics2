@@ -21,7 +21,6 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
             providers: [Angulartics2IBMDigitalAnalytics],
         });
         window.console = jasmine.createSpyObj('console', ['warn', 'log']);
-
     });
 
     describe('on init', () => {
@@ -52,6 +51,8 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
             window.cmCreateElementTag = jasmine.createSpy('cmCreateElementTag');
             window.cmCreateConversionEventTag = jasmine.createSpy('cmCreateConversionEventTag');
             window.cmDisplayShops = jasmine.createSpy('cmDisplayShops');
+            const provider: Angulartics2IBMDigitalAnalytics = TestBed.get(Angulartics2IBMDigitalAnalytics);
+            provider.startTracking();
         });
 
         it('should track pages',

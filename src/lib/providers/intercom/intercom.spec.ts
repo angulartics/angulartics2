@@ -27,6 +27,8 @@ describe('Angulartics2Intercom', () => {
     });
 
     window.Intercom = Intercom = jasmine.createSpy('Intercom');
+    const provider: Angulartics2Intercom = TestBed.get(Angulartics2Intercom);
+    provider.startTracking();
   });
 
   it('should track pages',

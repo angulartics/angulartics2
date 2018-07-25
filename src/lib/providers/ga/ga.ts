@@ -29,6 +29,11 @@ export class Angulartics2GoogleAnalytics {
       ...defaults,
       ...this.angulartics2.settings.ga,
     };
+    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
+  }
+
+  startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.pageTrack(x.path));
@@ -38,8 +43,6 @@ export class Angulartics2GoogleAnalytics {
     this.angulartics2.exceptionTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.exceptionTrack(x));
-    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
     this.angulartics2.userTimings
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.userTimings(x));

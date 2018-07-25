@@ -18,6 +18,8 @@ describe('Angulartics2GoogleTagManager', () => {
     });
 
     window.dataLayer = dataLayer = [];
+    const provider: Angulartics2GoogleTagManager = TestBed.get(Angulartics2GoogleTagManager);
+    provider.startTracking();
   });
 
   it('should track pages',

@@ -11,7 +11,9 @@ export class Angulartics2Splunk {
     if (typeof (sp) === 'undefined') {
       console.warn('Splunk not found');
     }
+  }
 
+  startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.pageTrack(x.path));

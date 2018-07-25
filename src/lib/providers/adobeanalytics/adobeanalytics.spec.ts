@@ -29,6 +29,9 @@ describe('Angulartics2AdobeAnalytics', () => {
     });
 
     window.s = s = jasmine.createSpyObj('s', ['clearVars', 't', 'tl']);
+
+    const provider: Angulartics2AdobeAnalytics = TestBed.get(Angulartics2AdobeAnalytics);
+    provider.startTracking();
   });
 
   it('should track pages',
