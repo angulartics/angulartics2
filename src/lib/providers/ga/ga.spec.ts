@@ -186,22 +186,6 @@ describe('Angulartics2GoogleAnalytics', () => {
     )),
   );
 
-  it('should allow additionalAccountNames to be set',
-    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
-      (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
-        fixture = createRoot(RootCmp);
-        expect(angulartics2.settings.ga.additionalAccountNames).toEqual([]);
-        angulartics2GoogleAnalytics.setAdditionalAccountNames([
-          'additionalAccountName1', 'additionalAccountName2', 'additionalAccountName3'
-        ]);
-        advance(fixture);
-        expect(angulartics2.settings.ga.additionalAccountNames).toEqual([
-          'additionalAccountName1', 'additionalAccountName2', 'additionalAccountName3'
-        ]);
-      }
-    )),
-  );
-
   it('should anonymize IP',
     fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
       (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {

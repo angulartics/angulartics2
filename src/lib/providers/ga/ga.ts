@@ -46,7 +46,6 @@ export class Angulartics2GoogleAnalytics {
     this.angulartics2.userTimings
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.userTimings(x));
-    this.angulartics2.setAdditionalAccountNames.subscribe((x: string[]) => this.setAdditionalAccountNames(x));
   }
 
   pageTrack(path: string) {
@@ -202,15 +201,6 @@ export class Angulartics2GoogleAnalytics {
         ga(accountName + '.send', 'timing', properties);
       }
     }
-  }
-
-  /**
-   * @name setAdditionalAccountNames
-   *
-   * @param accountNames (string[]) list of account names to include in event tracking
-  */
-  setAdditionalAccountNames(accountNames: string[]): void {
-    this.angulartics2.settings.ga.additionalAccountNames = accountNames;
   }
 
   setUsername(userId: string) {
