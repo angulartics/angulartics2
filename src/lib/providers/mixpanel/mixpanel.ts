@@ -4,7 +4,7 @@ import { Angulartics2 } from 'angulartics2';
 
 declare var mixpanel: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Mixpanel {
 
   constructor(

@@ -8,7 +8,7 @@ import {
 
 declare var ga: UniversalAnalytics.ga;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2GoogleAnalyticsEnhancedEcommerce {
   /**
    * Add impression in GA enhanced ecommerce tracking

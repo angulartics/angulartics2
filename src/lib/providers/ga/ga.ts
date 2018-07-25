@@ -18,7 +18,7 @@ export class GoogleAnalyticsDefaults implements GoogleAnalyticsSettings {
   anonymizeIp = false;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2GoogleAnalytics {
   dimensionsAndMetrics = [];
 

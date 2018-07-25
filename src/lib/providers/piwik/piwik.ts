@@ -4,7 +4,7 @@ import { Angulartics2 } from 'angulartics2';
 
 declare var _paq: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Piwik {
 
   constructor(private angulartics2: Angulartics2) {

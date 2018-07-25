@@ -8,7 +8,7 @@ export class GoogleTagManagerDefaults implements GoogleTagManagerSettings {
   userId = null;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2GoogleTagManager {
 
   constructor(

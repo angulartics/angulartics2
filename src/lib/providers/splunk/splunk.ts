@@ -4,7 +4,7 @@ import { Angulartics2 } from 'angulartics2';
 
 declare var sp: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Splunk {
 
   constructor(private angulartics2: Angulartics2) {

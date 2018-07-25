@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2IBMDigitalAnalytics {
     constructor(private angulartics2: Angulartics2) {
         if (typeof window['cmCreatePageviewTag'] !== 'function') {

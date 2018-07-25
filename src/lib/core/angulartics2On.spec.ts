@@ -11,7 +11,7 @@ import { Angulartics2On } from './angulartics2On';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DummyProvider {
   // tslint:disable-next-line:no-unused-variable
   constructor(private angulartics2: Angulartics2) {}
@@ -82,7 +82,7 @@ describe('angulartics2On', () => {
       imports: [
         CommonModule,
         RouterTestingModule,
-        Angulartics2Module.forRoot([DummyProvider]),
+        Angulartics2Module.forRoot(),
       ],
       declarations: [RootCmp, RootCmp1, RootCmp2, RootCmp3],
       providers: [{ provide: Location, useClass: SpyLocation }],
@@ -167,7 +167,7 @@ describe('angulartics2On', () => {
   );
 
   describe('running on server', () => {
-    @Injectable()
+    @Injectable({ providedIn: 'root' })
     @Directive({
       selector: '[angulartics2On]',
     })

@@ -4,7 +4,7 @@ import { Angulartics2 } from 'angulartics2';
 
 declare var _kmq: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Kissmetrics {
 
   constructor(

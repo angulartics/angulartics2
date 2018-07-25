@@ -16,7 +16,7 @@ const facebookEventList = [
   'CompleteRegistration',
 ];
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Facebook {
   constructor(private angulartics2: Angulartics2) { }
 

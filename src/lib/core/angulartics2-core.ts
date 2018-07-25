@@ -8,7 +8,7 @@ import { EventTrack, PageTrack, UserTimings } from './angulartics2-interfaces';
 import { Angulartics2Token, ANGULARTICS2_TOKEN } from './angulartics2-token';
 import { RouterlessTracking, TrackNavigationEnd } from './routerless';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2 {
   settings: Angulartics2Settings;
 

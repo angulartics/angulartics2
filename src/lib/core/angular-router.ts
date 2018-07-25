@@ -13,7 +13,7 @@ import { RouterlessTracking, TrackNavigationEnd } from './routerless';
  *
  * @link https://angular.io/api/router/Router
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AngularRouterTracking implements RouterlessTracking {
   constructor(
     private router: Router,

@@ -16,7 +16,7 @@ export class AppInsightsDefaults implements AppInsightsSettings {
   userId = null;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2AppInsights {
   loadStartTime: number = null;
   loadTime: number = null;
