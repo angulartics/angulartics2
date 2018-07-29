@@ -12,7 +12,7 @@ Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angul
 - [Installation](#installation)
   - [Include it in your application](#include-it-in-your-application)
 - [Usage](#usage)
-  - [Tracking events in templates/HTML](#tracking-events-in-templates-html)
+  - [Tracking events in templates/HTML](#tracking-events-in-templateshtml)
   - [Tracking events in the code](#tracking-events-in-the-code)
   - [Configuring the Module](#configuring-the-module)
     - [Exclude routes from automatic pageview tracking](#exclude-routes-from-automatic-pageview-tracking)
@@ -25,7 +25,6 @@ Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angul
 - [Supported providers](#supported-providers)
   - [For other providers](#for-other-providers)
   - [Minimal setup for Google Analytics](#minimal-setup-for-google-analytics)
-- [v4 Migration and Breaking Changes](#v4-migration-and-breaking-changes)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -37,7 +36,7 @@ npm install angulartics2 --save
 
 ### Include it in your application
 
-1. Add `Angulartics2Module` to your root NgModule passing an array of providers to enable
+1. Add `Angulartics2Module` to your root NgModule passing any options desired
 ```ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -57,7 +56,7 @@ const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES),
 
     // added to imports
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
+    Angulartics2Module.forRoot(),
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
@@ -96,7 +95,8 @@ import { Component } from '@angular/core';
       angularticsAction="DownloadClick" 
       [angularticsCategory]="song.name">
       Click Me
-    </div>`,
+    </div>
+  `,
 })
 export class SongDownloadBox {}
 
@@ -157,7 +157,7 @@ this.angulartics2.eventTrack.next({
 
 Pass string literals or regular expressions to exclude routes from automatic pageview tracking.
 ````ts
-Angulartics2Module.forRoot([providers], {
+Angulartics2Module.forRoot({
   pageTracking: {
     excludedRoutes: [
       /\/[0-9]{4}\/[0-9]{2}\/[a-zA-Z0-9|\-]*/,
@@ -171,7 +171,7 @@ Angulartics2Module.forRoot([providers], {
 
 `/project/12981/feature` becomes `/project/feature`
 ````ts
-Angulartics2Module.forRoot([providers], {
+Angulartics2Module.forRoot({
   pageTracking: {
     clearIds: true,
   }
@@ -183,7 +183,7 @@ You can set your own regexp if you need to :
 
  `/project/a01/feature` becomes `/project/feature`
  ````ts
- Angulartics2Module.forRoot([providers], {
+ Angulartics2Module.forRoot({
    pageTracking: {
      clearIds: true,
      idsRegExp: new RegExp('^[a-z]\\d+$') /* Workaround: No NgModule metadata found for 'AppModule' */
@@ -197,7 +197,7 @@ This can be combined with clearIds and idsRegExp
 
 `/project/12981/feature?param=12` becomes `/project/12981/feature`
 ````ts
-Angulartics2Module.forRoot([providers], {
+Angulartics2Module.forRoot({
   pageTracking: {
     clearQueryParams: true,
   }
@@ -208,7 +208,7 @@ Angulartics2Module.forRoot([providers], {
 
 `/callback#authcode=123&idToken=456` becomes `/callback`
 ````ts
-Angulartics2Module.forRoot([providers], {
+Angulartics2Module.forRoot({
   pageTracking: {
     clearHash: true,
   }
@@ -225,7 +225,7 @@ import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
   // ...
   imports: [
     BrowserModule,
-    Angulartics2RouterlessModule.forRoot([Angulartics2GoogleAnalytics]),
+    Angulartics2RouterlessModule.forRoot(),
   ],
 })
 ````
@@ -240,7 +240,7 @@ import { Angulartics2UirouterModule } from 'angulartics2/uiroutermodule';
   // ...
   imports: [
     BrowserModule,
-    Angulartics2UirouterModule.forRoot([Angulartics2GoogleAnalytics]),
+    Angulartics2UirouterModule.forRoot(),
   ],
 })
 ````
@@ -259,7 +259,7 @@ System.config({
 ## Supported providers
 
 * [Google Analytics](/src/lib/providers/ga) (`analytics.js`)
-* [Google Tag Manager](/src/lib/providers/gtm) (`gtag.js`)
+* [Google Tag Manager](/src/lib/providers/gtm)
 * [Google Enhanced Ecom](/src/lib/providers/ga-enhanced-ecom)
 * [Kissmetrics](/src/lib/providers/kissmetrics)
 * [Mixpanel](/src/lib/providers/mixpanel)

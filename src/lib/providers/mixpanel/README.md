@@ -64,9 +64,10 @@ export class MixpanelEffects {
       });
     });
 
-  constructor(private actions$: Actions,
-              private angulartics2Mixpanel: Angulartics2Mixpanel) {
-  }
+  constructor(
+    private actions$: Actions,
+    private angulartics2Mixpanel: Angulartics2Mixpanel,
+  ) {}
 }
 ```
 
