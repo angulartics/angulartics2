@@ -5,7 +5,7 @@ import { Angulartics2 } from 'angulartics2';
 
 declare var woopra: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Woopra {
 
   constructor(private angulartics2: Angulartics2) {

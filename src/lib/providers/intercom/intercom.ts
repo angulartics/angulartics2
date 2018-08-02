@@ -4,7 +4,7 @@ import { Angulartics2 } from 'angulartics2';
 
 declare var Intercom: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Intercom {
 
   constructor(

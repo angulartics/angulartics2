@@ -1,22 +1,27 @@
-<img 
-    src="../../../assets/svg/mixpanel.svg" 
+<img
+    src="../../../assets/svg/mixpanel.svg"
     alt="Mixpanel logo"
     height="100px"
     width="200px" />
 
 # Mixpanel
-__homepage__: [mixpanel.com](https://mixpanel.com/)  
-__docs__: [mixpanel.com/help/reference/javascript](https://mixpanel.com/help/reference/javascript)  
-__import__: `import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';`  
+
+**homepage**: [mixpanel.com](https://mixpanel.com/)  
+**docs**: [mixpanel.com/help/reference/javascript](https://mixpanel.com/help/reference/javascript)  
+**import**: `import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';`
 
 ## Setup
-1. Add tracking code [provided by Mixpanel](https://mixpanel.com/help/reference/javascript) to right above the header closing tag ``</header>``
-2. [Setup Angulartics](https://github.com/angulartics/angulartics2/tree/next#installation) using `Angulartics2Mixpanel`
+
+1.  Add tracking code [provided by Mixpanel](https://mixpanel.com/help/reference/javascript) to right above the header closing tag `</header>`
+2.  [Setup Angulartics](https://github.com/angulartics/angulartics2/tree/next#installation) using `Angulartics2Mixpanel`
 
 ## Integrating with NgRx:
-You have a chance to unburden the integration process if your system is using NgRx. Specifically, we can reuse the existing actions in our application and use effects to catch and dispatch a mixpanel action accordingly.    
+
+You have a chance to unburden the integration process if your system is using NgRx. Specifically, we can reuse the existing actions in our application and use effects to catch and dispatch a mixpanel action accordingly.
+
 ### Boilerplating:
-```angular2html
+
+```ts
 /**
  * Action definition
  */
@@ -37,8 +42,10 @@ export interface MixPanelPayloadProperties {
   // Your custom properties go here
 }
 ```
+
 ### Catch and dispatch a mixpanel event by an effect:
-```angular2html
+
+```ts
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';
@@ -57,14 +64,18 @@ export class MixpanelEffects {
       });
     });
 
-  constructor(private actions$: Actions,
-              private angulartics2Mixpanel: Angulartics2Mixpanel) {
-  }
+  constructor(
+    private actions$: Actions,
+    private angulartics2Mixpanel: Angulartics2Mixpanel,
+  ) {}
 }
 ```
+
 ### Usage:
+
 Somewhere in our application, we might have the code to dispatch a mixpanel action:
-```angular2html
+
+```ts
   @Effect()
   someEffect$ = this.actions$
     .ofType(some.ACTION)
@@ -76,9 +87,12 @@ Somewhere in our application, we might have the code to dispatch a mixpanel acti
       }
     }));
 ```
+
 ### Common error:
+
 The custom properties object should be a **new object**, otherwise the action will not be recorded successfully. For example the code below will be ignored by the server.
-```angular2html
+
+```ts
 @Injectable()
 export class MixpanelEffects {
   ...

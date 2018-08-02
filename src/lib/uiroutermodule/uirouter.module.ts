@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import {
   Angulartics2,
@@ -14,16 +14,14 @@ import { UIRouterTracking } from './uirouter';
 })
 export class Angulartics2UirouterModule {
   static forRoot(
-    providers: Provider[],
     settings: Partial<Angulartics2Settings> = {},
   ): ModuleWithProviders {
     return {
       ngModule: Angulartics2UirouterModule,
       providers: [
-        { provide: ANGULARTICS2_TOKEN, useValue: { providers, settings } },
-        Angulartics2,
+        { provide: ANGULARTICS2_TOKEN, useValue: { settings } },
         { provide: RouterlessTracking, useClass: UIRouterTracking },
-        ...providers,
+        Angulartics2,
       ],
     };
   }

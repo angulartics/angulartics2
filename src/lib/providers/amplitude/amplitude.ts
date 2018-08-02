@@ -10,7 +10,7 @@ declare var amplitude: {
   }
 };
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Amplitude {
 
   constructor(private angulartics2: Angulartics2) {

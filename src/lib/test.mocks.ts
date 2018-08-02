@@ -7,7 +7,7 @@ import { UIRouterModule } from '@uirouter/angular';
 
 import { Angulartics2, Angulartics2Module } from 'angulartics2';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DummyProvider {
   eventSpy: any;
   constructor(angulartics2: Angulartics2) {
@@ -106,7 +106,7 @@ export function createRootWithRouter(
       useHash: true,
       otherwise: { state: 'home' },
     }),
-    Angulartics2Module.forRoot([ DummyProvider ]),
+    Angulartics2Module.forRoot(),
   ],
   entryComponents: [UIRootCmp],
   declarations: [
@@ -122,7 +122,7 @@ export class UITestModule {
   imports: [
     CommonModule,
     RouterTestingModule,
-    Angulartics2Module.forRoot([ DummyProvider ]),
+    Angulartics2Module.forRoot(),
   ],
   entryComponents: [RootCmp],
   declarations: [

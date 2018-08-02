@@ -6,7 +6,7 @@ import { ClickyProperties } from './clicky.interfaces';
 
 declare var clicky: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Clicky {
   constructor(
     private angulartics2: Angulartics2,

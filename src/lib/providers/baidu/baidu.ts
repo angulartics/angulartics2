@@ -5,7 +5,7 @@ import { Angulartics2 } from 'angulartics2';
 
 declare var _hmt: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2BaiduAnalytics {
   constructor(private angulartics2: Angulartics2) {
     if (typeof _hmt === 'undefined') {

@@ -2,14 +2,12 @@ import {
   AfterContentInit,
   Directive,
   ElementRef,
-  Injectable,
   Input,
   NgModule,
   Renderer2,
 } from '@angular/core';
 import { Angulartics2 } from './angulartics2-core';
 
-@Injectable()
 @Directive({ selector: '[angulartics2On]' })
 export class Angulartics2On implements AfterContentInit {
   // tslint:disable-next-line:no-input-rename

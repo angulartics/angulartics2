@@ -6,7 +6,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 @NgModule({
   imports: [
     // added to imports
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
+    Angulartics2Module.forRoot(),
   ],
 })
 `;

@@ -4,7 +4,7 @@ import { Angulartics2 } from 'angulartics2';
 
 declare var analytics: SegmentAnalytics.AnalyticsJS;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Segment {
 
   constructor(

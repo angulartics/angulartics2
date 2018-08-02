@@ -5,7 +5,7 @@ import { Angulartics2 } from 'angulartics2';
 
 declare const s: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2AdobeAnalytics {
 
   constructor(
