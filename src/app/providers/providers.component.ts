@@ -46,6 +46,10 @@ export class ProvidersComponent {
       display: 'Google Tag Manager',
       type: 'Analytics',
     }, {
+      name: 'gst',
+      display: 'Google Global Site Tag',
+      type: 'Analytics',
+    }, {
       name: 'hubspot',
       display: 'HubSpot',
       type: 'Analytics',
