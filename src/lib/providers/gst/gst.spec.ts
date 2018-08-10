@@ -20,11 +20,11 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
 
     window.gtag = gtag = jasmine.createSpy('gtag');
     window.ga = ga = {
-      getAll: function(){
+      getAll: function() {
         return {
-          forEach: function(callback){
-            var tracker = {
-              get: function(value){
+          forEach: function(callback) {
+            const tracker = {
+              get: function(value) {
                 return 'UA-111111111-1';
               },
             };
@@ -42,7 +42,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(gtag.calls.count()).toEqual(1);
-        expect(gtag).toHaveBeenCalledWith('config', 'UA-111111111-1', {'page_path': '/abc'})
+        expect(gtag).toHaveBeenCalledWith('config', 'UA-111111111-1', {'page_path': '/abc'});
       },
     )),
   );

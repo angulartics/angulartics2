@@ -12,7 +12,7 @@ export class GoogleGlobalSiteTagDefaults implements GoogleGlobalSiteTagSettings 
     if (typeof ga !== 'undefined' && ga) {
       // See: https://developers.google.com/analytics/devguides/collection/analyticsjs/ga-object-methods-reference
       ga.getAll().forEach((tracker) => {
-        var id = tracker.get('trackingId');
+        const id = tracker.get('trackingId');
         if (id !== undefined) {
           this.trackingIds.push(id);
         }
@@ -51,8 +51,8 @@ export class Angulartics2GoogleGlobalSiteTag {
    */
   pageTrack(path: string) {
     if (typeof gtag !== 'undefined' && gtag) {
-      for (var i in this.angulartics2.settings.gst.trackingIds) {
-        gtag('config', this.angulartics2.settings.gst.trackingIds[i], {'page_path': path});
+      for (const id of this.angulartics2.settings.gst.trackingIds) {
+        gtag('config', id, {'page_path': path});
       }
     }
   }
