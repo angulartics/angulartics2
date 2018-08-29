@@ -15,6 +15,10 @@ export interface GoogleTagManagerSettings {
   userId: any;
 }
 
+export interface GoogleGlobalSiteTagSettings {
+  trackingIds: any;
+}
+
 export interface PageTrackingSettings {
   autoTrackVirtualPages: boolean;
   basePath: string;
@@ -36,6 +40,7 @@ export interface Angulartics2Settings {
   ga: Partial<GoogleAnalyticsSettings>;
   appInsights: Partial<AppInsightsSettings>;
   gtm: Partial<GoogleTagManagerSettings>;
+  gst: Partial<GoogleGlobalSiteTagSettings>;
 }
 
 export class DefaultConfig implements Angulartics2Settings {
@@ -52,4 +57,5 @@ export class DefaultConfig implements Angulartics2Settings {
   ga = {};
   appInsights = {};
   gtm = {};
+  gst = {};
 }

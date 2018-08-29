@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../../node_modules/ng-packagr/package.schema.json",
+  "name": "angulartics2/gst",
+  "description": "The gst module",
+  "homepage": "https://angulartics.github.io/angulartics2/",
+  "author": "Adrian Duke <adrian@endian.io> (http://github.com/adrianduke)",
+  "repository": "angulartics/angulartics2",
+  "license": "MIT",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "gst.ts",
+      "umdModuleIds": {
+        "angulartics2": "angulartics2"
+      }
+    },
+    "dest": "../../../../dist/packages-dist/gst"
+  }
+}
