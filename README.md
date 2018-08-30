@@ -261,6 +261,7 @@ System.config({
 * [Google Analytics](/src/lib/providers/ga) (`analytics.js`)
 * [Google Tag Manager](/src/lib/providers/gtm)
 * [Google Enhanced Ecom](/src/lib/providers/ga-enhanced-ecom)
+* [Google Global Site Tag](/src/lib/providers/gst) (`gtag.js`)
 * [Kissmetrics](/src/lib/providers/kissmetrics)
 * [Mixpanel](/src/lib/providers/mixpanel)
 * [Piwik](/src/lib/providers/piwik)
@@ -284,6 +285,7 @@ If there's no Angulartics2 plugin for your analytics vendor of choice, please fe
 
 - See [Google Analytics](/src/lib/providers/ga) if your code snippet contains `analytics.js`
 - See [Google Tag Manager](/src/lib/providers/gtm) if your code snippet contains `gtag.js`
+- See [Google Global Site Tag](/src/lib/providers/gst) if your code snippet contains `gtag.js`
 
 
 ## Contributing

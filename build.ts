@@ -14,6 +14,7 @@ const MODULE_NAMES = [
   'ga',
   'ga-enhanced-ecom',
   'gtm',
+  'gst',
   'hubspot',
   'kissmetrics',
   'mixpanel',
