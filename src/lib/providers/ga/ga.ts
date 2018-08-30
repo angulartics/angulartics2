@@ -21,6 +21,7 @@ export class GoogleAnalyticsDefaults implements GoogleAnalyticsSettings {
 @Injectable({ providedIn: 'root' })
 export class Angulartics2GoogleAnalytics {
   dimensionsAndMetrics = [];
+  settings: Partial<GoogleAnalyticsSettings>;
 
   constructor(private angulartics2: Angulartics2) {
     const defaults = new GoogleAnalyticsDefaults();
@@ -29,6 +30,7 @@ export class Angulartics2GoogleAnalytics {
       ...defaults,
       ...this.angulartics2.settings.ga,
     };
+    this.settings = this.angulartics2.settings.ga;
     this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
     this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
   }

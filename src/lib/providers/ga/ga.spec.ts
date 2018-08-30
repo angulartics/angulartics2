@@ -198,4 +198,14 @@ describe('Angulartics2GoogleAnalytics', () => {
     ),
   );
 
+  it('should allow modification of GA specific settings',
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+      (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+        const additionalAccountNames: string[] = ['additionalAccountNameOne', 'additionalAccountNameTwo'];
+        angulartics2GoogleAnalytics.settings.additionalAccountNames = additionalAccountNames;
+        expect(angulartics2.settings.ga.additionalAccountNames).toEqual(additionalAccountNames);
+      }),
+    ),
+  );
+
 });
