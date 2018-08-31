@@ -29,12 +29,13 @@ describe('Angulartics2Clicky', () => {
   describe('on init', () => {
     beforeEach(() => {
       window.console = jasmine.createSpyObj('console', ['warn', 'log']);
+      window.clicky = undefined;
     });
 
     it('should complain if clicky is not found',
-      fakeAsync(inject([Angulartics2, Angulartics2Clicky],
-        (angulartics2: Angulartics2, angulartics2Clicky: Angulartics2Clicky) => {
-          window.clicky = undefined;
+      fakeAsync(inject([Angulartics2Clicky],
+        (angulartics2Clicky: Angulartics2Clicky) => {
+          angulartics2Clicky.startTracking();
           fixture = createRoot(RootCmp);
           advance(fixture);
           expect(console.warn).toHaveBeenCalled();
