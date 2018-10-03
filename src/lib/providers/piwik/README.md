@@ -10,7 +10,7 @@ __docs__: [developer.piwik.org](https://developer.piwik.org)
 __import__: `import { Angulartics2Piwik } from 'angulartics2/piwik';`  
 
 ## Setup
-Add the sandard piwik track code inside your index.html head tag:
+Add the standard piwik track code inside your index.html head tag:
 ```html
 <!-- Piwik -->
 <script type="text/javascript">
