@@ -22,4 +22,4 @@ __import__: `import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';`
   ga('send', 'pageview');  // DELETE THIS LINE!
 </script>
 ```
-3. [Setup Angulartics](https://github.com/angulartics/angulartics2/tree/next#installation) using `Angulartics2GoogleAnalytics`
+3. [Setup Angulartics](https://github.com/angulartics/angulartics2/tree/master#installation) using `Angulartics2GoogleAnalytics`
