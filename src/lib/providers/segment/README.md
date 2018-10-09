@@ -43,6 +43,8 @@ import { Angulartics2Segment } from 'angulartics2/segment';
 
 @Component({  ...  })
 export class AppComponent {
-  constructor(angulartics2Segment: Angulartics2Segment) {}
+  constructor(angulartics2Segment: Angulartics2Segment) {
+    angulartics2Segment.startTracking();
+  }
 }
 ```

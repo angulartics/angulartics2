@@ -24,6 +24,9 @@ describe('Angulartics2BaiduAnalytics', () => {
       });
 
       window._hmt = _hmt = [];
+
+      const provider: Angulartics2BaiduAnalytics = TestBed.get(Angulartics2BaiduAnalytics);
+      provider.startTracking();
     });
 
   it('should track pages',

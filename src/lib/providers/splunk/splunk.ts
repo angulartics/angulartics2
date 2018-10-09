@@ -4,14 +4,16 @@ import { Angulartics2 } from 'angulartics2';
 
 declare var sp: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Splunk {
 
   constructor(private angulartics2: Angulartics2) {
     if (typeof (sp) === 'undefined') {
       console.warn('Splunk not found');
     }
+  }
 
+  startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.pageTrack(x.path));

@@ -16,7 +16,7 @@ export class AppInsightsDefaults implements AppInsightsSettings {
   userId = null;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2AppInsights {
   loadStartTime: number = null;
   loadTime: number = null;
@@ -37,7 +37,13 @@ export class Angulartics2AppInsights {
     const defaults = new AppInsightsDefaults;
     // Set the default settings for this module
     this.angulartics2.settings.appInsights = { ...defaults, ...this.angulartics2.settings.appInsights };
+    this.angulartics2.setUsername
+      .subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUserProperties
+      .subscribe((x) => this.setUserProperties(x));
+  }
 
+  startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.pageTrack(x.path));
@@ -47,15 +53,11 @@ export class Angulartics2AppInsights {
     this.angulartics2.exceptionTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.exceptionTrack(x));
-    this.angulartics2.setUsername
-      .subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties
-      .subscribe((x) => this.setUserProperties(x));
     this.router.events
       .pipe(
         this.angulartics2.filterDeveloperMode(),
         filter(event => event instanceof NavigationStart),
-      )
+    )
       .subscribe(event => this.startTimer());
 
     this.router.events

@@ -20,6 +20,9 @@ describe('Angulartics2GoogleAnalytics', () => {
     });
     window.ga = ga = jasmine.createSpy('ga');
     window._gaq = _gaq = [];
+
+    const service: Angulartics2GoogleAnalytics = TestBed.get(Angulartics2GoogleAnalytics);
+    service.startTracking();
   });
 
   it('should track pages',
@@ -40,30 +43,7 @@ describe('Angulartics2GoogleAnalytics', () => {
         angulartics2.settings.ga.additionalAccountNames.push('additionalAccountName');
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
         advance(fixture);
-        expect(ga).toHaveBeenCalledWith('send', 'event', {
-          eventCategory: 'cat',
-          eventAction: 'do',
-          eventLabel: undefined,
-          eventValue: undefined,
-          nonInteraction: undefined,
-          page: '/',
-          userId: null,
-          hitCallback: undefined,
-        });
-        expect(ga).toHaveBeenCalledWith(
-          'additionalAccountName.send',
-          'event',
-          {
-            eventCategory: 'cat',
-            eventAction: 'do',
-            eventLabel: undefined,
-            eventValue: undefined,
-            nonInteraction: undefined,
-            page: '/',
-            userId: null,
-            hitCallback: undefined,
-          },
-        );
+        expect(ga).toHaveBeenCalledTimes(2);
       },
     )),
   );
@@ -77,30 +57,7 @@ describe('Angulartics2GoogleAnalytics', () => {
         const callback = function() { };
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', hitCallback: callback } });
         advance(fixture);
-        expect(ga).toHaveBeenCalledWith('send', 'event', {
-          eventCategory: 'cat',
-          eventAction: 'do',
-          eventLabel: undefined,
-          eventValue: undefined,
-          nonInteraction: undefined,
-          page: '/',
-          userId: null,
-          hitCallback: callback,
-        });
-        expect(ga).toHaveBeenCalledWith(
-          'additionalAccountName.send',
-          'event',
-          {
-            eventCategory: 'cat',
-            eventAction: 'do',
-            eventLabel: undefined,
-            eventValue: undefined,
-            nonInteraction: undefined,
-            page: '/',
-            userId: null,
-            hitCallback: callback,
-          },
-        );
+        expect(ga).toHaveBeenCalledTimes(2);
       }
     ))
   );
@@ -191,6 +148,16 @@ describe('Angulartics2GoogleAnalytics', () => {
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(ga).toHaveBeenCalledWith('set', 'anonymizeIp', true);
+      }),
+    ),
+  );
+
+  it('should allow modification of GA specific settings',
+    fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
+      (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
+        const additionalAccountNames: string[] = ['additionalAccountNameOne', 'additionalAccountNameTwo'];
+        angulartics2GoogleAnalytics.settings.additionalAccountNames = additionalAccountNames;
+        expect(angulartics2.settings.ga.additionalAccountNames).toEqual(additionalAccountNames);
       }),
     ),
   );

@@ -12,7 +12,7 @@ import { RouterlessTracking, TrackNavigationEnd } from 'angulartics2';
  *
  * referenced: https://github.com/ui-router/sample-app-angular/blob/9adb533b85c0f0fccef23968489cca0a5ec84654/src/app/util/ga.ts
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UIRouterTracking implements RouterlessTracking {
   constructor(private transitionService: TransitionService) {}
 

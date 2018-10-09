@@ -4,23 +4,26 @@ import { Angulartics2 } from 'angulartics2';
 
 declare var _paq: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2Piwik {
 
   constructor(private angulartics2: Angulartics2) {
     if (typeof (_paq) === 'undefined') {
       console.warn('Piwik not found');
     }
+    this.angulartics2.setUsername
+      .subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUserProperties
+      .subscribe((x) => this.setUserProperties(x));
+  }
+
+  startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.pageTrack(x.path));
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.eventTrack(x.action, x.properties));
-    this.angulartics2.setUsername
-      .subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties
-      .subscribe((x) => this.setUserProperties(x));
   }
 
   pageTrack(path: string, location?: any) {

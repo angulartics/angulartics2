@@ -18,9 +18,10 @@ export class GoogleAnalyticsDefaults implements GoogleAnalyticsSettings {
   anonymizeIp = false;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2GoogleAnalytics {
   dimensionsAndMetrics = [];
+  settings: Partial<GoogleAnalyticsSettings>;
 
   constructor(private angulartics2: Angulartics2) {
     const defaults = new GoogleAnalyticsDefaults();
@@ -29,6 +30,12 @@ export class Angulartics2GoogleAnalytics {
       ...defaults,
       ...this.angulartics2.settings.ga,
     };
+    this.settings = this.angulartics2.settings.ga;
+    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
+  }
+
+  startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.pageTrack(x.path));
@@ -38,8 +45,6 @@ export class Angulartics2GoogleAnalytics {
     this.angulartics2.exceptionTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.exceptionTrack(x));
-    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
     this.angulartics2.userTimings
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.userTimings(x));

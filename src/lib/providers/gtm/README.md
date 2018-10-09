@@ -26,7 +26,9 @@ import { Angulartics2GoogleTagManager } from 'angulartics2/gtm';
 @Component({ ... })
 export class AppComponent {
   // import Angulartics2GoogleTagManager in root component
-  constructor(angulartics2GoogleTagManager: Angulartics2GoogleTagManager) {}
+  constructor(angulartics2GoogleTagManager: Angulartics2GoogleTagManager) {
+    angulartics2GoogleTagManager.startTracking();
+  }
 }
 ```
 

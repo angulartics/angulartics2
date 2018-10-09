@@ -40,6 +40,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
     fakeAsync(inject([Angulartics2, Angulartics2GoogleGlobalSiteTag],
       (angulartics2: Angulartics2, angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag) => {
         fixture = createRoot(RootCmp);
+        angulartics2GoogleGlobalSiteTag.startTracking();
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(gtag.calls.count()).toEqual(1);
@@ -52,6 +53,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
     fakeAsync(inject([Angulartics2, Angulartics2GoogleGlobalSiteTag],
       (angulartics2: Angulartics2, angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag) => {
         fixture = createRoot(RootCmp);
+        angulartics2GoogleGlobalSiteTag.startTracking();
         angulartics2.eventTrack.next({
           action: 'do',
           properties: {
@@ -78,6 +80,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
     fakeAsync(inject([Angulartics2, Angulartics2GoogleGlobalSiteTag],
       (angulartics2: Angulartics2, angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag) => {
         fixture = createRoot(RootCmp);
+        angulartics2GoogleGlobalSiteTag.startTracking();
         angulartics2.exceptionTrack.next({ description: 'bugger', gstCustom: { appId: 'app', appName: 'Test App', appVersion: '0.1' } });
         advance(fixture);
         expect(gtag).toHaveBeenCalledWith('event', 'exception', {

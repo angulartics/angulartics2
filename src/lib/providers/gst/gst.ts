@@ -26,13 +26,13 @@ export class GoogleGlobalSiteTagDefaults implements GoogleGlobalSiteTagSettings 
 @Injectable()
 export class Angulartics2GoogleGlobalSiteTag {
 
-  constructor(
-    protected angulartics2: Angulartics2,
-  ) {
+  constructor(protected angulartics2: Angulartics2) {
     const defaults = new GoogleGlobalSiteTagDefaults;
     // Set the default settings for this module
     this.angulartics2.settings.gst = { ...defaults, ...this.angulartics2.settings.gst };
+  }
 
+  startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.pageTrack(x.path));

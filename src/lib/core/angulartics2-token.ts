@@ -1,9 +1,8 @@
-import { InjectionToken, Provider } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
 import { Angulartics2Settings } from './angulartics2-config';
 
 export interface Angulartics2Token {
-  providers: Provider[];
   settings: Partial<Angulartics2Settings>;
 }
 
