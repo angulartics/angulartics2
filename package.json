@@ -84,21 +84,5 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  },
-  "keywords": [
-    "angular2",
-    "ng2",
-    "ngx",
-    "angular",
-    "analytics",
-    "tracking",
-    "google analytics",
-    "google tag manager",
-    "woopra",
-    "splunk",
-    "piwik",
-    "page tracking",
-    "event tracking",
-    "inspectlet"
-  ]
+  }
 }
