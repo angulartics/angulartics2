@@ -11,11 +11,13 @@ export class GoogleGlobalSiteTagDefaults implements GoogleGlobalSiteTagSettings 
   constructor() {
     if (typeof ga !== 'undefined' && ga) {
       // See: https://developers.google.com/analytics/devguides/collection/analyticsjs/ga-object-methods-reference
-      ga.getAll().forEach((tracker) => {
-        const id = tracker.get('trackingId');
-        if (id !== undefined) {
-          this.trackingIds.push(id);
-        }
+      ga(() => {
+        ga.getAll().forEach((tracker) => {
+          const id = tracker.get('trackingId');
+          if (id !== undefined) {
+            this.trackingIds.push(id);
+          }
+        });
       });
     }
   }
