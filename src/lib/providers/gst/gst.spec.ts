@@ -1,8 +1,8 @@
 import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Angulartics2 } from 'angulartics2';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 import { Angulartics2GoogleGlobalSiteTag } from './gst';
+
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
@@ -19,19 +19,20 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
     });
 
     window.gtag = gtag = jasmine.createSpy('gtag');
-    window.ga = ga = {
-      getAll: function() {
-        return {
-          forEach: function(callback) {
-            const tracker = {
-              get: function(value) {
-                return 'UA-111111111-1';
-              },
-            };
-            callback(tracker);
-          },
-        };
-      },
+    window.ga = ga = function (callback) {
+      callback();
+    };
+    window.ga.getAll = ga.getAll = function () {
+      return {
+        forEach: function (callback) {
+          const tracker = {
+            get: function (value) {
+              return 'UA-111111111-1';
+            },
+          };
+          callback(tracker);
+        },
+      };
     };
   });
 
@@ -42,7 +43,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(gtag.calls.count()).toEqual(1);
-        expect(gtag).toHaveBeenCalledWith('config', 'UA-111111111-1', {'page_path': '/abc'});
+        expect(gtag).toHaveBeenCalledWith('config', 'UA-111111111-1', { 'page_path': '/abc' });
       },
     )),
   );
