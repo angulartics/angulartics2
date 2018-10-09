@@ -27,6 +27,14 @@ Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angul
 - [Contributing](#contributing)
 - [License](#license)
 
+## Dependencies
+Latest version available for each version of Angular
+
+| Angulartics2 | Angular |
+| ------------ | ------- |
+| 5.4.0        | 4.x     |
+| 6.3.1        | 5.x     |
+
 ## Installation
 
 ```sh
