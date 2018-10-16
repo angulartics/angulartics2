@@ -23,7 +23,7 @@ export class GoogleGlobalSiteTagDefaults implements GoogleGlobalSiteTagSettings 
   }
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Angulartics2GoogleGlobalSiteTag {
 
   constructor(protected angulartics2: Angulartics2) {
