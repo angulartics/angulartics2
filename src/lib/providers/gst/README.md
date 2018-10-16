@@ -21,13 +21,15 @@ Bootstrapping the application with ```Angulartics2```:
 ```ts
 // bootstrap
 import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
 
 @NgModule({
   imports: [
     ...
     // import Angulartics2GoogleGlobalSiteTag in root ngModule
-    Angulartics2Module.forRoot()
+    Angulartics2Module.forRoot(),
   ],
+  providers: [ Angulartics2GoogleGlobalSiteTag ],
 })
 export class AppModule { }
 ```
