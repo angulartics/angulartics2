@@ -8,6 +8,7 @@ cache:
 script:
   - yarn lint
   - yarn test:ci
+  - yarn build
 after_success:
   - npm run travis-deploy-once "npm run semantic-release"
   - yarn ghpages

@@ -7,41 +7,41 @@
     "ng": "ng",
     "start": "ng serve",
     "prebuild": "rimraf dist",
-    "build": "ts-node build.ts",
+    "build": "ts-node -O '{\"module\": \"commonjs\"}' build.ts",
     "test": "ng test --watch=false --browsers=ChromeCI",
     "test:ci": "ng test --code-coverage --watch=false --no-progress --browsers=ChromeCI",
     "test:watch": "ng test",
-    "lint": "ng lint angulartics2 --type-check --format stylish",
-    "lint:fix": "ng lint angulartics2 --type-check --fix --format stylish",
-    "commit": "git-cz",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
     "travis-deploy-once": "travis-deploy-once",
-    "semantic-release": "npm run build && cp -R .git dist/packages-dist && cd dist/packages-dist && semantic-release",
+    "presemantic-release": "cp -R .git dist/packages-dist",
+    "semantic-release": "cd dist/packages-dist && semantic-release",
     "ghpages": "ng build --prod --no-progress --baseHref='/angulartics2/'"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^6.1.10",
-    "@angular/cdk": "^6.4.7",
-    "@angular/common": "^6.1.10",
-    "@angular/compiler": "^6.1.10",
-    "@angular/core": "^6.1.10",
-    "@angular/forms": "^6.1.10",
-    "@angular/material": "^6.4.7",
-    "@angular/platform-browser": "^6.1.10",
-    "@angular/platform-browser-dynamic": "^6.1.10",
-    "@angular/router": "^6.1.10",
+    "@angular/animations": "^7.0.0",
+    "@angular/cdk": "^7.0.0",
+    "@angular/common": "^7.0.0",
+    "@angular/compiler": "^7.0.0",
+    "@angular/core": "^7.0.0",
+    "@angular/forms": "^7.0.0",
+    "@angular/material": "^7.0.0",
+    "@angular/platform-browser": "^7.0.0",
+    "@angular/platform-browser-dynamic": "^7.0.0",
+    "@angular/router": "^7.0.0",
     "@ng-bootstrap/ng-bootstrap": "3.3.0",
     "@uirouter/angular": "^2.0.2",
     "bootstrap": "^4.1.3",
     "core-js": "^2.5.7",
-    "rxjs": "6.3.3",
+    "rxjs": "^6.3.3",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.8.5",
-    "@angular/cli": "^6.2.5",
-    "@angular/compiler-cli": "^6.1.10",
-    "@angular/language-service": "^6.1.10",
+    "@angular-devkit/build-angular": "~0.10.1",
+    "@angular/cli": "^7.0.1",
+    "@angular/compiler-cli": "^7.0.0",
+    "@angular/language-service": "^7.0.0",
     "@types/applicationinsights-js": "^1.0.7",
     "@types/facebook-pixel": "^0.0.19",
     "@types/fs-extra": "^5.0.4",
@@ -50,8 +50,6 @@
     "@types/node": "~10.12.0",
     "@types/segment-analytics": "^0.0.28",
     "codelyzer": "^4.5.0",
-    "commitizen": "^3.0.2",
-    "cz-conventional-changelog": "^2.1.0",
     "fs-extra": "^7.0.0",
     "jasmine-core": "3.2.1",
     "karma": "^3.0.0",
@@ -63,11 +61,12 @@
     "karma-mocha-reporter": "^2.2.5",
     "ng-packagr": "4.3.1",
     "rimraf": "^2.6.2",
-    "semantic-release": "^15.9.17",
+    "semantic-release": "^15.10.3",
     "travis-deploy-once": "^5.0.9",
     "ts-node": "^7.0.1",
+    "tsickle": "^0.33.0",
     "tslint": "^5.11.0",
-    "typescript": "2.9.2"
+    "typescript": "3.1.3"
   },
   "release": {
     "branch": "master"
@@ -79,10 +78,5 @@
   "repository": "angulartics/angulartics2",
   "engines": {
     "node": ">=8"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
   }
 }

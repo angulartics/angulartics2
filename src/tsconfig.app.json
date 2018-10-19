@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
-    "module": "es2015",
     "types": [
       "google.analytics",
       "applicationinsights-js",
@@ -14,8 +13,5 @@
       "angulartics2": ["./lib/core/public_api"]
     }
   },
-  "exclude": ["test.ts", "**/*.spec.ts", "lib/test.mocks.ts"],
-  "angularCompilerOptions": {
-    "preserveWhitespaces": false
-  }
+  "exclude": ["test.ts", "**/*.spec.ts", "lib/test.mocks.ts"]
 }
