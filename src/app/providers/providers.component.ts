@@ -13,71 +13,88 @@ export class ProvidersComponent {
       name: 'adobeanalytics',
       display: 'Adobe Analytics',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'amplitude',
       display: 'Amplitude',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'appinsights',
       display: 'Azure Application Insights',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'baidu',
       display: 'Baidu',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'clicky',
       display: 'Clicky',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'facebook',
       display: 'Facebook Pixel',
       type: 'Advertising',
-    }, {
+    },
+    {
       name: 'ga',
       display: 'Google Analytics',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'ga-enhanced-ecom',
       display: 'Google Analytics Enhanced Ecommerce',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'gtm',
       display: 'Google Tag Manager',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'gst',
       display: 'Google Global Site Tag',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'hubspot',
       display: 'HubSpot',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'intercom',
       display: 'Intercom',
       type: 'Email',
-    }, {
+    },
+    {
       name: 'kissmetrics',
       display: 'Kissmetrics',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'mixpanel',
       display: 'Mixpanel',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'piwik',
       display: 'Piwik',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'segment',
       display: 'Segment',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'splunk',
       display: 'Splunk',
       type: 'Analytics',
-    }, {
+    },
+    {
       name: 'woopra',
       display: 'Woopra',
       type: 'Analytics',

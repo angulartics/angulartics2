@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "baseUrl": "./",
-    "module": "commonjs",
     "types": [
       "jasmine",
       "node",
@@ -16,9 +15,6 @@
       "angulartics2": ["./lib/core/public_api"]
     }
   },
-  "files": ["test.ts",  "polyfills.ts"],
-  "include": ["**/*.spec.ts", "**/*.d.ts"],
-  "angularCompilerOptions": {
-    "preserveWhitespaces": false
-  }
+  "files": ["test.ts", "polyfills.ts"],
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
