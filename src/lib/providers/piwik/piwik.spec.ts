@@ -152,6 +152,29 @@ describe('Angulartics2Piwik', () => {
       )),
     );
 
+    it('should track search',
+      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
+        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+          fixture = createRoot(RootCmp);
+
+          const search = {
+            keyword: 'my search string',
+            category: 'my search category',
+            searchCount: 42,
+          };
+
+          angulartics2.eventTrack.next({action: 'trackSiteSearch', properties: search});
+          advance(fixture);
+
+          expect(_paq).toContain(['trackSiteSearch',
+            search.keyword,
+            search.category,
+            search.searchCount,
+          ]);
+        }
+      )),
+    );
+
     it('should track events', fakeAsync(inject([Angulartics2, Angulartics2Piwik],
       (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
         fixture = createRoot(RootCmp);

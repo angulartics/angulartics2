@@ -150,6 +150,25 @@ export class Angulartics2Piwik {
         break;
 
       /**
+       * @description Tracks a site search
+       *
+       * @link https://piwik.org/docs/site-search/
+       * @link https://developer.piwik.org/guides/tracking-javascript-guide#internal-search-tracking
+       *
+       * @property keyword (required) Keyword searched for
+       * @property category (optional) Search category
+       * @property searchCount (optional) Number of results
+       */
+      case 'trackSiteSearch':
+        params = [
+          'trackSiteSearch',
+          properties.keyword,
+          properties.category,
+          properties.searchCount,
+        ];
+        break;
+
+      /**
        * @description Logs an event with an event category (Videos, Music, Games...), an event
        * action (Play, Pause, Duration, Add Playlist, Downloaded, Clicked...), and an optional
        * event name and optional numeric value.
