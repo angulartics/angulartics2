@@ -48,22 +48,6 @@ import { Angulartics2LaunchByAdobe } from 'angulartics2/launch';
 })
 ```
 
-## Configuration
-
-The Provider translates Angulartics' ```pageTrack()``` and ```eventTrack()``` methods into ```_satellite.track()``` calls for Launch. Those calls trigger "Direct-call" events within Launch.
-
-You can configure the ID of the events that should be called.
-
-The default IDs can be seen in ```launch.ts```:
-```ts
-// define DCR IDs for the available call types
-dcrIDs = {};
-dcrIDs['pageTrack'] = 'pageTrack';
-dcrIDs['eventTrack'] = 'eventTrack';
-```
-With the default configuration as shown, a ```pageTrack()``` method call in Angulartics2 will result in a call to Launch that looks like this: ```_satellite.track('pageTrack', payload)```, triggering a 'pageTrack' Direct-call type Event if there is one configured. This Event, in turn, can trigger one or more Rules.
-
-
 ## Setting Up Tags
 
 Once set up, Angulartics [usage](https://github.com/angulartics/angulartics2#usage) is the same regardless of provider

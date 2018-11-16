@@ -2,24 +2,14 @@ import { Injectable } from '@angular/core';
 
 import { Angulartics2 } from 'angulartics2';
 
-export interface Angulartics2LaunchByAdobeDCRIDMap {
-  [details: string]: string;
-}
-
 declare const _satellite: any;
-declare var payload: any;
-declare var dcrIDs: Angulartics2LaunchByAdobeDCRIDMap;
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2LaunchByAdobe {
-
+  payload: any = {};
   constructor(
     protected angulartics2: Angulartics2,
   ) {
-    // define DCR IDs for the available call types
-    dcrIDs = {};
-    dcrIDs['pageTrack'] = 'pageTrack';
-    dcrIDs['eventTrack'] = 'eventTrack';
     if ('undefined' === typeof _satellite) {
       console.warn('Launch not found!');
     }
@@ -31,15 +21,13 @@ export class Angulartics2LaunchByAdobe {
 
   setUsername(userId: string | boolean) {
     if ('undefined' !== typeof userId && userId) {
-      payload = payload || {};
-      payload.userId = userId;
+      this.payload.userId = userId;
     }
   }
 
   setUserProperties(properties: any) {
     if ('undefined' !== typeof properties && properties) {
-      payload = payload || {};
-      payload.properties = properties;
+      this.payload.properties = properties;
     }
   }
 
@@ -54,7 +42,7 @@ export class Angulartics2LaunchByAdobe {
 
   pageTrack(path: string) {
     if ('undefined' !== typeof _satellite && _satellite) {
-      _satellite.track(dcrIDs['pageTrack'], path);
+      _satellite.track('pageTrack', path);
     }
   }
 
@@ -66,12 +54,11 @@ export class Angulartics2LaunchByAdobe {
     properties = properties || {};
 
     // add properties to payload
-    payload = payload || {};
-    payload.action = action;
-    payload.eventProperties = properties;
+    this.payload.action = action;
+    this.payload.eventProperties = properties;
 
     if ('undefined' !== typeof _satellite && _satellite) {
-      _satellite.track(dcrIDs['eventTrack'], payload);
+      _satellite.track('eventTrack', this.payload);
     }
   }
 }
