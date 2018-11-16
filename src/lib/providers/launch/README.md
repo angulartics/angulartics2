@@ -12,7 +12,9 @@ __import__: `import { Angulartics2LaunchByAdobe } from 'angulartics2/launch';`
 
 ## Initial Setup
 
-Add your Launch embed code to the end of your head tag.
+Add your Launch embed code to the end of your head tag, as usual.
+
+You can either add just the embed code with "async", or non-async embed code in the head plus the <code>_satellite.pageBottom()</code> snippet at the end of the body.
 
 ## Include it in your application
 
@@ -48,6 +50,8 @@ import { Angulartics2LaunchByAdobe } from 'angulartics2/launch';
 
 ### Setting Up Tags
 
+Once set up, Angulartics [usage](https://github.com/angulartics/angulartics2#usage) is the same regardless of provider
+
 Now is the time to setup tracking in Launch.  [Here is a great post](http://webanalyticsfordevelopers.com/2018/11/06/basic-tracking-remix-contains-launch/) explaining how a basic tracking setup can be done.
 
-### _For detailed instructions on how to send tracking events in a component or in a template check out the documentation for [Tracking Events](https://github.com/angulartics/angulartics2/wiki/Tracking-Events)._
+_For detailed instructions on how to send tracking events in a component or in a template check out the documentation for [Tracking Events](https://github.com/angulartics/angulartics2/wiki/Tracking-Events)._
