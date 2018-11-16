@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 
 export interface Angulartics2LaunchByAdobeDCRIDMap {
-  [details: string] : string;
+  [details: string]: string;
 }
 
 declare const _satellite: any;
@@ -16,11 +16,11 @@ export class Angulartics2LaunchByAdobe {
   constructor(
     protected angulartics2: Angulartics2,
   ) {
-    // define DCR IDs for the three call types
+    // define DCR IDs for the available call types
     dcrIDs = {};
     dcrIDs['pageTrack'] = 'pageTrack';
     dcrIDs['eventTrack'] = 'eventTrack';
-    if (typeof _satellite === 'undefined') {
+    if ('undefined' === typeof _satellite) {
       console.warn('Launch not found!');
     }
     this.angulartics2.setUsername

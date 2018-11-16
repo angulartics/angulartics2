@@ -20,9 +20,9 @@ describe('Angulartics2LaunchByAdobe', () => {
     window._satellite = _satellite = {};
     _satellite.track = function(eventID: String, payload: any) {
       _satellite.output = {
-        "eventID" : eventID,
-        "payload": payload
-      }
+        'eventID' : eventID,
+        'payload': payload
+      };
     };
     _satellite.output = null;
     const provider: Angulartics2LaunchByAdobe = TestBed.get(Angulartics2LaunchByAdobe);
@@ -31,30 +31,30 @@ describe('Angulartics2LaunchByAdobe', () => {
 
   it('should track pages',
     fakeAsync(inject([Angulartics2, Angulartics2LaunchByAdobe],
-      (angulartics2: Angulartics2, Angulartics2LaunchByAdobe: Angulartics2LaunchByAdobe) => {
+      (angulartics2: Angulartics2, angulartics2LaunchByAdobe: Angulartics2LaunchByAdobe) => {
         fixture = createRoot(RootCmp);
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(_satellite.output).toContain({
-          "eventID": 'pageTrack',
-          "payload": '/abc'
+          'eventID': 'pageTrack',
+          'payload': '/abc'
         });
-      },
+      }
     )),
   );
 
   it('should track events',
     fakeAsync(inject([Angulartics2, Angulartics2LaunchByAdobe],
-      (angulartics2: Angulartics2, Angulartics2LaunchByAdobe: Angulartics2LaunchByAdobe) => {
+      (angulartics2: Angulartics2, angulartics2LaunchByAdobe: Angulartics2LaunchByAdobe) => {
         fixture = createRoot(RootCmp);
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
         advance(fixture);
         expect(_satellite.output).toContain({
-          "eventID": 'eventTrack',
-          "payload": {
-            "action": 'do',
-            "eventProperties": {
-              "category": 'cat'
+          'eventID': 'eventTrack',
+          'payload': {
+            'action': 'do',
+            'eventProperties': {
+              'category': 'cat'
             }
           }
         });
@@ -64,7 +64,7 @@ describe('Angulartics2LaunchByAdobe', () => {
 
   it('should set username',
     fakeAsync(inject([Angulartics2, Angulartics2LaunchByAdobe],
-      (angulartics2: Angulartics2, Angulartics2LaunchByAdobe: Angulartics2LaunchByAdobe) => {
+      (angulartics2: Angulartics2, angulartics2LaunchByAdobe: Angulartics2LaunchByAdobe) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUsername.next('testuser');
         advance(fixture);
