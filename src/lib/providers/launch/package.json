@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../../node_modules/ng-packagr/package.schema.json",
+  "name": "angulartics2/launch",
+  "description": "The Launch module",
+  "homepage": "https://angulartics.github.io/angulartics2/",
+  "author": "Jan Exner <jan.exner@gmx.net> (https://github.com/janexner)",
+  "repository": "angulartics/angulartics2",
+  "license": "MIT",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "launch.ts",
+      "umdModuleIds": {
+        "angulartics2": "angulartics2"
+      }
+    },
+    "dest": "../../../../dist/packages-dist/launch"
+  }
+}
