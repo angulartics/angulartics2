@@ -278,6 +278,7 @@ System.config({
 * [Application Insights](/src/lib/providers/appinsights)
 * [Hubspot](/src/lib/providers/hubspot)
 * [Adobe Analytics (Omniture)](/src/lib/providers/adobeanalytics)
+* [Launch, by Adobe](src/lib/providers/launch)
 * [Intercom](/src/lib/providers/intercom)
 * [Woopra](/src/lib/providers/woopra)
 * [Clicky](/src/lib/providers/clicky)
