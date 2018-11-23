@@ -16,6 +16,8 @@ Add your Launch embed code to the end of your head tag, as usual.
 
 You can either add just the embed code with "async", or non-async embed code in the head plus the <code>_satellite.pageBottom()</code> snippet at the end of the body.
 
+*Note: this provider works with [DTM](https://www.adobe.com/experience-platform/activation.html), too.*
+
 ## Include it in your application
 
 Bootstrapping the application with ```Angulartics2``` as provider and injecting both ```Angulartics2``` and ```Angulartics2LaunchByAdobe``` (or any provider) into the root component will hook into the router and send every route change to Launch, where it can be used for Analytics tracking or a lot of other things.
