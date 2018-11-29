@@ -17,6 +17,7 @@ const MODULE_NAMES = [
   'gst',
   'hubspot',
   'kissmetrics',
+  'launch',
   'mixpanel',
   'piwik',
   'segment',
