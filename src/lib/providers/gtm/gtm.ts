@@ -38,13 +38,24 @@ export class Angulartics2GoogleTagManager {
   }
 
   pageTrack(path: string) {
-    if (typeof dataLayer !== 'undefined' && dataLayer) {
-      dataLayer.push({
-        'event': 'Page View',
-        'content-name': path,
-        'userId': this.angulartics2.settings.gtm.userId
-      });
+    this.pushLayer({
+      'event': 'Page View',
+      'content-name': path,
+      'userId': this.angulartics2.settings.gtm.userId
+    });
+  }
+
+  /**
+   * Send Data Layer
+   *
+   * @layer data layer object
+   */
+  pushLayer(layer: any) {
+    if (typeof dataLayer === 'undefined' && !dataLayer) {
+      return;
     }
+
+    dataLayer.push(layer);
   }
 
   /**
@@ -61,18 +72,16 @@ export class Angulartics2GoogleTagManager {
     // Set a default GTM category
     properties = properties || {};
 
-    if (typeof dataLayer !== 'undefined' && dataLayer) {
-      dataLayer.push({
-        event: properties.event || 'interaction',
-        target: properties.category || 'Event',
-        action: action,
-        label: properties.label,
-        value: properties.value,
-        interactionType: properties.noninteraction,
-        userId: this.angulartics2.settings.gtm.userId,
-        ...properties.gtmCustom
-      });
-    }
+    this.pushLayer({
+      event: properties.event || 'interaction',
+      target: properties.category || 'Event',
+      action: action,
+      label: properties.label,
+      value: properties.value,
+      interactionType: properties.noninteraction,
+      userId: this.angulartics2.settings.gtm.userId,
+      ...properties.gtmCustom
+    });
   }
 
   /**
