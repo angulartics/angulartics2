@@ -51,11 +51,9 @@ export class Angulartics2GoogleTagManager {
    * @layer data layer object
    */
   pushLayer(layer: any) {
-    if (typeof dataLayer === 'undefined' && !dataLayer) {
-      return;
+    if (typeof dataLayer !== 'undefined' && dataLayer) {
+      dataLayer.push(layer);
     }
-
-    dataLayer.push(layer);
   }
 
   /**
