@@ -45,14 +45,14 @@ import { Angulartics2LaunchByAdobe } from 'angulartics2/launch';
   imports: [
     ...
     // import Angulartics2LaunchByAdobe in root ngModule    
-    Angulartics2Module.forRoot([ Angulartics2LaunchByAdobe ])
+    Angulartics2Module.forRoot();
   ],
 })
 ```
 
 ## Setting Up Tags
 
-Once set up, Angulartics [usage](https://github.com/angulartics/angulartics2#usage) is the same regardless of provider
+Once set up, Angulartics [usage](https://github.com/angulartics/angulartics2#usage) is the same regardless of provider. Route changes will be tracked using a "Direct call" Event named "pageTrack", and events or activities can be tracked using a "Direct call" Event named "eventTrack".
 
 Now is the time to setup tracking in Launch.  [Here is a post](http://webanalyticsfordevelopers.com/2018/11/06/basic-tracking-remix-contains-launch/) explaining how a basic tracking setup can be done.
 
