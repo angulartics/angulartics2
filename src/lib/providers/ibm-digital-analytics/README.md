@@ -33,7 +33,6 @@ import { RouterModule, Routes, RouterOutlet } from '@angular/router';
 import { AppComponent } from './app.component';
 
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2IBMDigitalAnalytics } from 'angulartics2/ibm-digital-analytics';
 import { PageComponent } from './page/page.component';
 import { HomeComponent } from './home/home.component';
 
@@ -51,7 +50,7 @@ const ROUTES: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
-    Angulartics2Module.forRoot([Angulartics2IBMDigitalAnalytics])
+    Angulartics2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
