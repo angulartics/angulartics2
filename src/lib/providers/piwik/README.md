@@ -38,7 +38,7 @@ import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2Piwik } from 'angulartics2/piwik';
 @NgModule({
   imports: [
-    Angulartics2Module.forRoot([Angulartics2Piwik]),
+    Angulartics2Module.forRoot(),
     ...
 ```
 
