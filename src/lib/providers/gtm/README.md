@@ -41,7 +41,7 @@ import { Angulartics2GoogleTagManager } from 'angulartics2/gtm';
   imports: [
     ...
     // import Angulartics2GoogleTagManager in root ngModule    
-    Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ])
+    Angulartics2Module.forRoot()
   ],
 })
 ```
