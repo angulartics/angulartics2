@@ -25,7 +25,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2Splunk } from 'angulartics2/splunk';
 
 const ROUTES: Routes = [
   { path: '',      component: HomeComponent },
@@ -38,7 +37,7 @@ const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES),
 
     // added to imports
-    Angulartics2Module.forRoot([Angulartics2Splunk]),
+    Angulartics2Module.forRoot(),
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

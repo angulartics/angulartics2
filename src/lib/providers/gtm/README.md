@@ -35,13 +35,12 @@ export class AppComponent {
 ```ts
 // bootstrap
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2GoogleTagManager } from 'angulartics2/gtm';
 
 @NgModule({
   imports: [
     ...
     // import Angulartics2GoogleTagManager in root ngModule    
-    Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ])
+    Angulartics2Module.forRoot()
   ],
 })
 ```

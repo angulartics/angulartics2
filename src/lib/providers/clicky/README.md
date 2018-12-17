@@ -36,7 +36,6 @@ import { RouterModule, Routes, RouterOutlet } from '@angular/router';
 import { AppComponent } from './app.component';
 
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2Clicky } from 'angulartics2/clicky';
 import { PageComponent } from './page/page.component';
 import { HomeComponent } from './home/home.component';
 
@@ -54,7 +53,7 @@ const ROUTES: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
-    Angulartics2Module.forRoot([Angulartics2Clicky])
+    Angulartics2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
