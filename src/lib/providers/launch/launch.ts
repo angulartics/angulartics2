@@ -40,15 +40,20 @@ export class Angulartics2LaunchByAdobe {
       .subscribe((x) => this.eventTrack(x.action, x.properties));
   }
 
+  /**
+   * @param path contains the new path after route change
+   */
   pageTrack(path: string) {
+    this.payload.path = path;
+
     if ('undefined' !== typeof _satellite && _satellite) {
-      _satellite.track('pageTrack', path);
+      _satellite.track('pageTrack', this.payload);
     }
   }
 
   /**
-   * @param action associated with the event
-   * @param properties associated with the event
+   * @param action contains an 'action', such as 'click', 'addToCart', 'purchase', 'search', ...
+   * @param properties contains any properties associated with the action
    */
   eventTrack(action: string, properties: any) {
     properties = properties || {};

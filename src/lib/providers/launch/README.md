@@ -50,6 +50,12 @@ import { Angulartics2LaunchByAdobe } from 'angulartics2/launch';
 })
 ```
 
+## Breaking change after 7.2.3
+
+The ```pageTrack``` method used to take the ```path``` parameter, it now is sent the ```payload``` object!
+
+```path``` is now available under ```event.payload.path``` in Launch Rules!
+
 ## Setting Up Tags
 
 Once set up, Angulartics [usage](https://github.com/angulartics/angulartics2#usage) is the same regardless of provider. Route changes will be tracked using a "Direct call" Event named "pageTrack", and events or activities can be tracked using a "Direct call" Event named "eventTrack".
