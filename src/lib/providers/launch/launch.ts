@@ -34,7 +34,7 @@ export class Angulartics2LaunchByAdobe {
   startTracking() {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.pageTrack(x.path));
+      .subscribe((x) => this.pageTrack(x.path, x.properties));
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.eventTrack(x.action, x.properties));
