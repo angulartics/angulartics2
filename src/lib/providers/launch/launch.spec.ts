@@ -37,7 +37,8 @@ describe('Angulartics2LaunchByAdobe', () => {
         advance(fixture);
         expect(Object.keys(_satellite.output)).toEqual(['eventID', 'payload']);
         expect(_satellite.output.eventID).toEqual('pageTrack');
-        expect(_satellite.output.payload).toEqual('/abc');
+        expect(Object.keys(_satellite.output.payload)).toEqual(['path']);
+        expect(_satellite.output.payload.path).toEqual('/abc');
       }
     )),
   );

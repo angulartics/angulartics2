@@ -41,8 +41,11 @@ export class Angulartics2LaunchByAdobe {
   }
 
   pageTrack(path: string) {
+    this.payload = this.payload || {};
+    this.payload.path = path;
+
     if ('undefined' !== typeof _satellite && _satellite) {
-      _satellite.track('pageTrack', path);
+      _satellite.track('pageTrack', this.payload);
     }
   }
 
