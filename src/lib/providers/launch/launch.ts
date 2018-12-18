@@ -43,11 +43,14 @@ export class Angulartics2LaunchByAdobe {
   /**
    * @param path contains the new path after route change
    */
-  pageTrack(path: string) {
-    this.payload.path = path;
+  pageTrack(path: string, properties: any) {
+    properties = properties || {};
+
+    // add properties to payload
+    this.payload.pageProperties = properties;
 
     if ('undefined' !== typeof _satellite && _satellite) {
-      _satellite.track('pageTrack', this.payload);
+      _satellite.track('pageTrack', path, this.payload);
     }
   }
 

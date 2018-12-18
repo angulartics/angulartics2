@@ -33,11 +33,14 @@ describe('Angulartics2LaunchByAdobe', () => {
     fakeAsync(inject([Angulartics2, Angulartics2LaunchByAdobe],
       (angulartics2: Angulartics2) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc' });
+        angulartics2.pageTrack.next({path: '/abc', properties: { category: 'cat' }});
         advance(fixture);
-        expect(Object.keys(_satellite.output)).toEqual(['eventID', 'payload']);
+        expect(Object.keys(_satellite.output)).toEqual(['path', 'payload']);
         expect(_satellite.output.eventID).toEqual('pageTrack');
-        expect(_satellite.output.payload).toEqual('/abc');
+        expect(Object.keys(_satellite.output.payload)).toEqual(['path', 'pageProperties']);
+        expect(_satellite.output.payload.path).toEqual('/abc');
+        expect(Object.keys(_satellite.output.payload.pageProperties)).toEqual(['category']);
+        expect(_satellite.output.payload.pageProperties.category).toEqual('cat');
       }
     )),
   );
