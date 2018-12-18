@@ -4,7 +4,6 @@ export interface EventTrack {
 }
 export interface PageTrack {
   path: string;
-  properties?: any;
 }
 
 /** @link https://developers.google.com/analytics/devguides/collection/analyticsjs/user-timings */

@@ -34,7 +34,7 @@ export class Angulartics2LaunchByAdobe {
   startTracking() {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.pageTrack(x.path, x.properties));
+      .subscribe((x) => this.pageTrack(x.path));
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.eventTrack(x.action, x.properties));
@@ -43,14 +43,12 @@ export class Angulartics2LaunchByAdobe {
   /**
    * @param path contains the new path after route change
    */
-  pageTrack(path: string, properties: any) {
-    properties = properties || {};
-
-    // add properties to payload
-    this.payload.pageProperties = properties;
+  pageTrack(path: string) {
+    this.payload = this.payload || {};
+    this.payload.path = path;
 
     if ('undefined' !== typeof _satellite && _satellite) {
-      _satellite.track('pageTrack', path, this.payload);
+      _satellite.track('pageTrack', this.payload);
     }
   }
 
