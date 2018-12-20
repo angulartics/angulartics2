@@ -1,23 +1,37 @@
-sudo: false
 language: node_js
-node_js: 10
-addons:
-  chrome: stable
+node_js:
+  - node
+  - lts/*
+
 cache:
   yarn: true
+
 script:
   - yarn lint
   - yarn test:ci
   - yarn build
+
 after_success:
-  - npm run travis-deploy-once "npm run semantic-release"
-  - yarn ghpages
-deploy:
-  provider: pages
-  skip_cleanup: true
-  local_dir: dist
-  github_token: $GH_TOKEN
-  on:
-    branch: master
+  - bash <(curl -s https://codecov.io/bash)
+
+jobs:
+  include:
+    - stage: release
+      node_js: lts/*
+      script:
+        - yarn build
+        - yarn semantic-release
+    - stage: deploy
+      node_js: lts/*
+      script:
+        - yarn ghpages
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        local_dir: dist
+        github_token: $GH_TOKEN
+        on:
+          branch: master
+
 notifications:
   email: false
