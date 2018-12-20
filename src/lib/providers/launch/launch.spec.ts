@@ -16,46 +16,71 @@ describe('Angulartics2LaunchByAdobe', () => {
       imports: [TestModule],
       providers: [Angulartics2LaunchByAdobe],
     });
-
-    window._satellite = _satellite = {};
-    _satellite.track = function(eventID: String, payload: any) {
-      _satellite.output = {
-        'eventID' : eventID,
-        'payload': payload
-      };
-    };
-    _satellite.output = null;
-    const provider: Angulartics2LaunchByAdobe = TestBed.get(Angulartics2LaunchByAdobe);
-    provider.startTracking();
+    window.console = jasmine.createSpyObj('console', ['warn', 'log']);
   });
 
-  it('should track pages',
-    fakeAsync(inject([Angulartics2, Angulartics2LaunchByAdobe],
-      (angulartics2: Angulartics2) => {
-        fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({ path: '/abc' });
-        advance(fixture);
-        expect(Object.keys(_satellite.output)).toEqual(['eventID', 'payload']);
-        expect(_satellite.output.eventID).toEqual('pageTrack');
-        expect(_satellite.output.payload).toEqual('/abc');
-      }
-    )),
-  );
+  describe('on init', () => {
+    beforeEach(() => {
+      window.console = jasmine.createSpyObj('console', ['warn', 'log']);
+      window._satellite = undefined;
+    });
 
-  it('should track events',
-    fakeAsync(inject([Angulartics2, Angulartics2LaunchByAdobe],
-      (angulartics2: Angulartics2) => {
-        fixture = createRoot(RootCmp);
-        angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
-        advance(fixture);
-        expect(Object.keys(_satellite.output)).toEqual(['eventID', 'payload']);
-        expect(_satellite.output.eventID).toEqual('eventTrack');
-        expect(Object.keys(_satellite.output.payload)).toEqual(['action', 'eventProperties']);
-        expect(_satellite.output.payload.action).toEqual('do');
-        expect(Object.keys(_satellite.output.payload.eventProperties)).toEqual(['category']);
-        expect(_satellite.output.payload.eventProperties.category).toEqual('cat');
-      }
-    )),
-  );
+    it('should complain if Launch is not found',
+      fakeAsync(inject([Angulartics2LaunchByAdobe],
+        (angulartics2Launch: Angulartics2LaunchByAdobe) => {
+          angulartics2Launch.startTracking();
+          fixture = createRoot(RootCmp);
+          advance(fixture);
+          expect(console.warn).toHaveBeenCalled();
+        }),
+      ),
+    );
+  });
+
+  describe('while active', () => {
+    beforeEach(() => {
+      window._satellite = _satellite = {};
+      _satellite.track = function(eventID: String, payload: any) {
+        _satellite.output = {
+          'eventID' : eventID,
+          'payload': payload
+        };
+      };
+      _satellite.output = null;
+      const provider: Angulartics2LaunchByAdobe = TestBed.get(Angulartics2LaunchByAdobe);
+      provider.startTracking();
+    });
+
+    it('should track pages',
+      fakeAsync(inject([Angulartics2, Angulartics2LaunchByAdobe],
+        (angulartics2: Angulartics2) => {
+          fixture = createRoot(RootCmp);
+          angulartics2.pageTrack.next({ path: '/abc' });
+          advance(fixture);
+          expect(Object.keys(_satellite.output)).toEqual(['eventID', 'payload']);
+          expect(_satellite.output.eventID).toEqual('pageTrack');
+          expect(Object.keys(_satellite.output.payload)).toEqual(['path']);
+          expect(_satellite.output.payload.path).toEqual('/abc');
+        }
+      )),
+    );
+
+    it('should track events',
+      fakeAsync(inject([Angulartics2, Angulartics2LaunchByAdobe],
+        (angulartics2: Angulartics2) => {
+          fixture = createRoot(RootCmp);
+          angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
+          advance(fixture);
+          expect(Object.keys(_satellite.output)).toEqual(['eventID', 'payload']);
+          expect(_satellite.output.eventID).toEqual('eventTrack');
+          expect(Object.keys(_satellite.output.payload)).toEqual(['action', 'eventProperties']);
+          expect(_satellite.output.payload.action).toEqual('do');
+          expect(Object.keys(_satellite.output.payload.eventProperties)).toEqual(['category']);
+          expect(_satellite.output.payload.eventProperties.category).toEqual('cat');
+        }
+      )),
+    );
+
+  });
 
 });
