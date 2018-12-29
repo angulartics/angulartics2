@@ -77,8 +77,8 @@ export class ProvidersComponent {
     {
       name: 'launch',
       display: 'Launch, by Adobe',
-      type: 'Analytics'
-    }
+      type: 'Analytics',
+    },
     {
       name: 'mixpanel',
       display: 'Mixpanel',
