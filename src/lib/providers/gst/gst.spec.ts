@@ -114,4 +114,28 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
       },
     ),
   ));
+
+  it('should track user timings', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+      ) => {
+        fixture = createRoot(RootCmp);
+        angulartics2GoogleGlobalSiteTag.startTracking();
+        angulartics2.userTimings.next({
+          timingVar: 'load',
+          timingValue: 33,
+          timingCategory: 'JS Dependencies',
+          timingLabel: 'Google CDN'
+        });
+        advance(fixture);
+        expect(gtag).toHaveBeenCalledWith('event', 'timing_complete', {
+          name: 'load',
+          value: 33,
+          event_category: 'JS Dependencies',
+          event_label: 'Google CDN'
+        });
+      },
+    ),
+  ));
 });
