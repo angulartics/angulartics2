@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Angulartics2, GoogleGlobalSiteTagSettings } from 'angulartics2';
+import {Angulartics2, GoogleGlobalSiteTagSettings, UserTimings} from 'angulartics2';
+import {UserTimingsGst} from './gst-interfaces';
 
 declare var gtag: any;
 declare var ga: any;
@@ -42,6 +43,9 @@ export class Angulartics2GoogleGlobalSiteTag {
     this.angulartics2.exceptionTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x: any) => this.exceptionTrack(x));
+    this.angulartics2.userTimings
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe(x => this.userTimings(this.convertTimings(x)));
   }
 
   /**
@@ -75,15 +79,13 @@ export class Angulartics2GoogleGlobalSiteTag {
     // Set a default GST category
     properties = properties || {};
 
-    if (typeof gtag !== 'undefined' && gtag) {
-      gtag('event', action, {
-        event_category: properties.category || 'interaction',
-        event_label: properties.label,
-        value: properties.value,
-        non_interaction: properties.noninteraction,
-        ...properties.gstCustom
-      });
-    }
+    this.eventTrackInternal(action, {
+      event_category: properties.category || 'interaction',
+      event_label: properties.label,
+      value: properties.value,
+      non_interaction: properties.noninteraction,
+      ...properties.gstCustom
+    });
   }
 
   /**
@@ -111,5 +113,50 @@ export class Angulartics2GoogleGlobalSiteTag {
         ...properties.gstCustom
       }
     });
+  }
+
+  /**
+   * User Timings Event in GST.
+   * @name userTimings
+   *
+   * @param properties Comprised of the mandatory fields:
+   *  - name (string)
+   *  - value (number - integer)
+   * Properties can also have the optional fields:
+   *  - category (string)
+   *  - label (string)
+   *
+   * @link https://developers.google.com/analytics/devguides/collection/gtagjs/user-timings
+   */
+  userTimings(properties: UserTimingsGst) {
+    if (!properties) {
+      console.error('User timings - "properties" parameter is required to be set.');
+      return;
+    }
+
+    this.eventTrackInternal('timing_complete', {
+      name: properties.name,
+      value: properties.value,
+      event_category: properties.category,
+      event_label: properties.label
+    });
+  }
+
+  private convertTimings(properties: UserTimings): UserTimingsGst {
+    return {
+      name: properties.timingVar,
+      value: properties.timingValue,
+      category: properties.timingCategory,
+      label: properties.timingLabel
+    };
+  }
+
+  private eventTrackInternal(action: string, properties: any) {
+    if (typeof gtag === 'undefined' || !gtag) {
+      return;
+    }
+
+    properties = properties || {};
+    gtag('event', action, properties);
   }
 }
