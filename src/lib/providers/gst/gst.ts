@@ -129,14 +129,8 @@ export class Angulartics2GoogleGlobalSiteTag {
    * @link https://developers.google.com/analytics/devguides/collection/gtagjs/user-timings
    */
   userTimings(properties: UserTimingsGst) {
-    if (
-      !properties ||
-      !properties.name ||
-      !properties.value
-    ) {
-      console.error(
-        'Properties name, and value are required to be set.',
-      );
+    if (!properties) {
+      console.error('User timings - "properties" parameter is required to be set.');
       return;
     }
 
