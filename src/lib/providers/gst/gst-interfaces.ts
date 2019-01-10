@@ -9,3 +9,11 @@ export interface UserTimingsGst {
   /** A string that can be used to add flexibility in visualizing user timings in the reports (e.g. 'Google CDN'). */
   label?: string;
 }
+
+export interface EventGst {
+  category: string;
+  label?: string;
+  value?: number | string;
+  noninteraction?: boolean;
+  gstCustom?: any;
+}

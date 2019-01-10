@@ -53,6 +53,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
         expect(gtag.calls.count()).toEqual(1);
         expect(gtag).toHaveBeenCalledWith('config', 'UA-111111111-1', {
           page_path: '/abc',
+          page_location: 'http://localhost:9876/abc'
         });
       },
     ),
@@ -134,6 +135,122 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
           value: 33,
           event_category: 'JS Dependencies',
           event_label: 'Google CDN'
+        });
+      },
+    ),
+  ));
+
+  it('should set properties', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+      ) => {
+        fixture = createRoot(RootCmp);
+        angulartics2GoogleGlobalSiteTag.startTracking();
+        angulartics2.setUserProperties.next({
+          'custom_dimension': 'some value'
+        });
+        advance(fixture);
+        expect(gtag.calls.count()).toEqual(1);
+        expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+          'custom_dimension': 'some value'
+        });
+      },
+    ),
+  ));
+
+  it('userProperties should accumulate', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+      ) => {
+        fixture = createRoot(RootCmp);
+        angulartics2GoogleGlobalSiteTag.startTracking();
+        angulartics2.setUserProperties.next({
+          'custom_dimension': 'some value'
+        });
+        angulartics2.setUserProperties.next({
+          'other_dimension': 'other value'
+        });
+        advance(fixture);
+        expect(gtag.calls.count()).toEqual(2);
+        expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+          'custom_dimension': 'some value',
+          'other_dimension': 'other value'
+        });
+      },
+    ),
+  ));
+
+  it('userProperties should allow item removal', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+      ) => {
+        fixture = createRoot(RootCmp);
+        angulartics2GoogleGlobalSiteTag.startTracking();
+        angulartics2.setUserProperties.next({
+          'custom_dimension': 'some value'
+        });
+        angulartics2.setUserProperties.next({
+          'custom_dimension': undefined
+        });
+        advance(fixture);
+        expect(gtag.calls.count()).toEqual(2);
+        expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {});
+      },
+    ),
+  ));
+
+  it('should set user id, by string', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+      ) => {
+        fixture = createRoot(RootCmp);
+        angulartics2GoogleGlobalSiteTag.startTracking();
+        angulartics2.setUsername.next('90a72f4f-f0ee-43ac-802e-2e30a1741183');
+        advance(fixture);
+        expect(gtag.calls.count()).toEqual(1);
+        expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+          user_id: '90a72f4f-f0ee-43ac-802e-2e30a1741183'
+        });
+      },
+    ),
+  ));
+
+  it('should set user id, by object', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+      ) => {
+        fixture = createRoot(RootCmp);
+        angulartics2GoogleGlobalSiteTag.startTracking();
+        angulartics2.setUsername.next({userId: '90a72f4f-f0ee-43ac-802e-2e30a1741183'});
+        advance(fixture);
+        expect(gtag.calls.count()).toEqual(1);
+        expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+          user_id: '90a72f4f-f0ee-43ac-802e-2e30a1741183'
+        });
+      },
+    ),
+  ));
+
+  it('user properties should be sent with page track', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+      ) => {
+        fixture = createRoot(RootCmp);
+        angulartics2GoogleGlobalSiteTag.startTracking();
+        angulartics2.setUserProperties.next({ test: 1234 });
+        angulartics2.pageTrack.next({ path: '/abc' });
+        advance(fixture);
+        expect(gtag.calls.count()).toEqual(2);
+        expect(gtag).toHaveBeenCalledWith('config', 'UA-111111111-1', {
+          page_path: '/abc',
+          page_location: 'http://localhost:9876/abc',
+          test: 1234
         });
       },
     ),
