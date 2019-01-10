@@ -122,8 +122,6 @@ export class Angulartics2GoogleGlobalSiteTag {
       properties.fatal = true;
     }
 
-    this.cleanProperties(properties);
-
     properties.exDescription = properties.event ? properties.event.stack : properties.description;
 
     this.eventTrack('exception', {
@@ -207,15 +205,15 @@ export class Angulartics2GoogleGlobalSiteTag {
   }
 
   private eventTrackInternal(action: string, properties: any = {}) {
+    this.cleanProperties(properties);
     if (typeof gtag !== 'undefined' && gtag) {
       gtag('event', action, properties);
     }
   }
 
   private cleanProperties(properties: { [key: string]: any }): void {
-    // GA requires that eventValue be an integer, see:
-    // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#eventValue
-    // https://github.com/luisfarzati/angulartics/issues/81
+    // GA requires that eventValue be an non-negative integer, see:
+    // https://developers.google.com/analytics/devguides/collection/gtagjs/events
     if (properties.value) {
       const parsed = parseInt(properties.value, 10);
       properties.value = isNaN(parsed) ? 0 : parsed;
