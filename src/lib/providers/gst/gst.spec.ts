@@ -286,7 +286,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
       angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
     ) => {
       window.gtag = undefined;
-      window.ga = undefined
+      window.ga = undefined;
 
       fixture = createRoot(RootCmp);
       angulartics2GoogleGlobalSiteTag.startTracking();
