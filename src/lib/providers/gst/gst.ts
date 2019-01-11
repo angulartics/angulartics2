@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 
-import {Angulartics2, GoogleGlobalSiteTagSettings, UserTimings} from 'angulartics2';
-import {UserTimingsGst} from './gst-interfaces';
+import { Angulartics2, GoogleGlobalSiteTagSettings, UserTimings } from 'angulartics2';
+import { EventGst, UserTimingsGst } from './gst-interfaces';
 
 declare var gtag: any;
 declare var ga: any;
 
 export class GoogleGlobalSiteTagDefaults implements GoogleGlobalSiteTagSettings {
-  trackingIds = [];
+  trackingIds: string[] = [];
 
   constructor() {
     if (typeof ga !== 'undefined' && ga) {
       // See: https://developers.google.com/analytics/devguides/collection/analyticsjs/ga-object-methods-reference
       ga(() => {
-        ga.getAll().forEach((tracker) => {
+        ga.getAll().forEach((tracker: any) => {
           const id = tracker.get('trackingId');
-          if (id !== undefined) {
+          // If set both in forRoot and HTML page, we want to avoid duplicates
+          if (id !== undefined && this.trackingIds.indexOf(id) === -1) {
             this.trackingIds.push(id);
           }
         });
@@ -26,6 +27,7 @@ export class GoogleGlobalSiteTagDefaults implements GoogleGlobalSiteTagSettings 
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2GoogleGlobalSiteTag {
+  dimensionsAndMetrics: { [key: string]: any } = {};
 
   constructor(protected angulartics2: Angulartics2) {
     const defaults = new GoogleGlobalSiteTagDefaults;
@@ -46,6 +48,12 @@ export class Angulartics2GoogleGlobalSiteTag {
     this.angulartics2.userTimings
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe(x => this.userTimings(this.convertTimings(x)));
+    this.angulartics2.setUsername
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUserProperties
+      .pipe(this.angulartics2.filterDeveloperMode())
+      .subscribe((x: any) => this.setUserProperties(x));
   }
 
   /**
@@ -57,8 +65,26 @@ export class Angulartics2GoogleGlobalSiteTag {
    */
   pageTrack(path: string) {
     if (typeof gtag !== 'undefined' && gtag) {
+      const params: any = {
+        page_path: path,
+        page_location: window.location.protocol + '//' + window.location.host + path,
+        ...this.dimensionsAndMetrics
+      };
+
+      // Custom map must be reset with all config to stay valid.
+
+      if (this.angulartics2.settings.gst.customMap) {
+        params.custom_map = this.angulartics2.settings.gst.customMap;
+      }
+      if (this.angulartics2.settings.gst.userId) {
+        params.user_id = this.angulartics2.settings.gst.userId;
+      }
+      if (this.angulartics2.settings.gst.anonymizeIp) {
+        params.anonymize_ip = this.angulartics2.settings.gst.anonymizeIp;
+      }
+
       for (const id of this.angulartics2.settings.gst.trackingIds) {
-        gtag('config', id, {'page_path': path});
+        gtag('config', id, { ...params });
       }
     }
   }
@@ -70,15 +96,7 @@ export class Angulartics2GoogleGlobalSiteTag {
    *
    * @param action associated with the event
    */
-  eventTrack(action: string, properties: any) {
-    // TODO: make interface
-    //  @param {string} properties.category
-    //  @param {string} [properties.label]
-    //  @param {number} [properties.value]
-    //  @param {boolean} [properties.noninteraction]
-    // Set a default GST category
-    properties = properties || {};
-
+  eventTrack(action: string, properties: Partial<EventGst> = {}) {
     this.eventTrackInternal(action, {
       event_category: properties.category || 'interaction',
       event_label: properties.label,
@@ -151,12 +169,54 @@ export class Angulartics2GoogleGlobalSiteTag {
     };
   }
 
-  private eventTrackInternal(action: string, properties: any) {
-    if (typeof gtag === 'undefined' || !gtag) {
-      return;
+  setUsername(userId: string | { userId: string | number }) {
+    this.angulartics2.settings.gst.userId = userId;
+    if (typeof gtag !== 'undefined' && gtag) {
+      for (const id of this.angulartics2.settings.gst.trackingIds) {
+        gtag('set', id, { 'user_id': (typeof userId === 'string' ? userId : userId.userId) });
+      }
     }
+  }
 
-    properties = properties || {};
-    gtag('event', action, properties);
+  setUserProperties(properties: any) {
+    this.setDimensionsAndMetrics(properties);
+  }
+
+  private setDimensionsAndMetrics(properties: { [key: string]: any }) {
+    // We want the dimensions and metrics to accumulate, so we merge with previous value
+    this.dimensionsAndMetrics = {
+      ...this.dimensionsAndMetrics,
+      ...properties
+    };
+
+    // Remove properties that are null or undefined
+    Object.keys(this.dimensionsAndMetrics).forEach(key => {
+      const val = this.dimensionsAndMetrics[key];
+      if (val === undefined || val === null) {
+        delete this.dimensionsAndMetrics[key];
+      }
+    });
+
+    if (typeof gtag !== 'undefined' && gtag) {
+      for (const id of this.angulartics2.settings.gst.trackingIds) {
+        gtag('set', id, this.dimensionsAndMetrics);
+      }
+    }
+  }
+
+  private eventTrackInternal(action: string, properties: any = {}) {
+    this.cleanProperties(properties);
+    if (typeof gtag !== 'undefined' && gtag) {
+      gtag('event', action, properties);
+    }
+  }
+
+  private cleanProperties(properties: { [key: string]: any }): void {
+    // GA requires that eventValue be an non-negative integer, see:
+    // https://developers.google.com/analytics/devguides/collection/gtagjs/events
+    if (properties.value) {
+      const parsed = parseInt(properties.value, 10);
+      properties.value = isNaN(parsed) ? 0 : parsed;
+    }
   }
 }

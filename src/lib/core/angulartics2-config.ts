@@ -17,6 +17,9 @@ export interface GoogleTagManagerSettings {
 
 export interface GoogleGlobalSiteTagSettings {
   trackingIds: any;
+  userId?: any;
+  anonymizeIp?: boolean;
+  customMap?: { [key: string]: string };
 }
 
 export interface PageTrackingSettings {

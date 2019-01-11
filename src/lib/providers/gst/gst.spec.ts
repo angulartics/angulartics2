@@ -23,14 +23,14 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
     });
 
     window.gtag = gtag = jasmine.createSpy('gtag');
-    window.ga = ga = function(callback) {
+    window.ga = ga = function (callback) {
       callback();
     };
-    window.ga.getAll = ga.getAll = function() {
+    window.ga.getAll = ga.getAll = function () {
       return {
-        forEach: function(callback) {
+        forEach: function (callback) {
           const tracker = {
-            get: function(value) {
+            get: function (value) {
               return 'UA-111111111-1';
             },
           };
@@ -53,6 +53,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
         expect(gtag.calls.count()).toEqual(1);
         expect(gtag).toHaveBeenCalledWith('config', 'UA-111111111-1', {
           page_path: '/abc',
+          page_location: 'http://localhost:9876/abc'
         });
       },
     ),
@@ -90,28 +91,28 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
 
   it('should track exceptions', fakeAsync(
     inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
-        angulartics2: Angulartics2,
-        angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
-      ) => {
-        fixture = createRoot(RootCmp);
-        angulartics2GoogleGlobalSiteTag.startTracking();
-        angulartics2.exceptionTrack.next({
-          description: 'bugger',
-          gstCustom: { appId: 'app', appName: 'Test App', appVersion: '0.1' },
-        });
-        advance(fixture);
-        expect(gtag).toHaveBeenCalledWith('event', 'exception', {
-          event_category: 'interaction',
-          event_label: undefined,
-          value: undefined,
-          non_interaction: undefined,
-          description: 'bugger',
-          fatal: true,
-          appId: 'app',
-          appName: 'Test App',
-          appVersion: '0.1',
-        });
-      },
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.exceptionTrack.next({
+        description: 'bugger',
+        gstCustom: { appId: 'app', appName: 'Test App', appVersion: '0.1' },
+      });
+      advance(fixture);
+      expect(gtag).toHaveBeenCalledWith('event', 'exception', {
+        event_category: 'interaction',
+        event_label: undefined,
+        value: undefined,
+        non_interaction: undefined,
+        description: 'bugger',
+        fatal: true,
+        appId: 'app',
+        appName: 'Test App',
+        appVersion: '0.1',
+      });
+    },
     ),
   ));
 
@@ -119,23 +120,182 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
     inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
       angulartics2: Angulartics2,
       angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
-      ) => {
-        fixture = createRoot(RootCmp);
-        angulartics2GoogleGlobalSiteTag.startTracking();
-        angulartics2.userTimings.next({
-          timingVar: 'load',
-          timingValue: 33,
-          timingCategory: 'JS Dependencies',
-          timingLabel: 'Google CDN'
-        });
-        advance(fixture);
-        expect(gtag).toHaveBeenCalledWith('event', 'timing_complete', {
-          name: 'load',
-          value: 33,
-          event_category: 'JS Dependencies',
-          event_label: 'Google CDN'
-        });
-      },
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.userTimings.next({
+        timingVar: 'load',
+        timingValue: 33,
+        timingCategory: 'JS Dependencies',
+        timingLabel: 'Google CDN'
+      });
+      advance(fixture);
+      expect(gtag).toHaveBeenCalledWith('event', 'timing_complete', {
+        name: 'load',
+        value: 33,
+        event_category: 'JS Dependencies',
+        event_label: 'Google CDN'
+      });
+    },
     ),
+  ));
+
+  it('should set properties', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.setUserProperties.next({
+        'custom_dimension': 'some value'
+      });
+      advance(fixture);
+      expect(gtag.calls.count()).toEqual(1);
+      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+        'custom_dimension': 'some value'
+      });
+    },
+    ),
+  ));
+
+  it('userProperties should accumulate', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.setUserProperties.next({
+        'custom_dimension': 'some value'
+      });
+      angulartics2.setUserProperties.next({
+        'other_dimension': 'other value'
+      });
+      advance(fixture);
+      expect(gtag.calls.count()).toEqual(2);
+      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+        'custom_dimension': 'some value',
+        'other_dimension': 'other value'
+      });
+    },
+    ),
+  ));
+
+  it('userProperties should allow item removal', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.setUserProperties.next({
+        'custom_dimension': 'some value'
+      });
+      angulartics2.setUserProperties.next({
+        'custom_dimension': undefined
+      });
+      advance(fixture);
+      expect(gtag.calls.count()).toEqual(2);
+      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {});
+    },
+    ),
+  ));
+
+  it('string value should be transformed into integer', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.eventTrack.next({
+        action: 'loading',
+        properties: {
+          value: '34.5'
+        }
+      });
+      advance(fixture);
+      expect(gtag.calls.count()).toEqual(1);
+      expect(gtag).toHaveBeenCalledWith('event', 'loading', {
+        event_category: 'interaction',
+        value: 34,
+        event_label: undefined,
+        non_interaction: undefined
+      });
+    })
+  ));
+
+  it('should set user id, by string', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.setUsername.next('90a72f4f-f0ee-43ac-802e-2e30a1741183');
+      advance(fixture);
+      expect(gtag.calls.count()).toEqual(1);
+      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+        user_id: '90a72f4f-f0ee-43ac-802e-2e30a1741183'
+      });
+    },
+    ),
+  ));
+
+  it('should set user id, by object', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.setUsername.next({ userId: '90a72f4f-f0ee-43ac-802e-2e30a1741183' });
+      advance(fixture);
+      expect(gtag.calls.count()).toEqual(1);
+      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+        user_id: '90a72f4f-f0ee-43ac-802e-2e30a1741183'
+      });
+    },
+    ),
+  ));
+
+  it('user properties should be sent with page track', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.setUserProperties.next({ test: 1234 });
+      angulartics2.pageTrack.next({ path: '/abc' });
+      advance(fixture);
+      expect(gtag.calls.count()).toEqual(2);
+      expect(gtag).toHaveBeenCalledWith('config', 'UA-111111111-1', {
+        page_path: '/abc',
+        page_location: 'http://localhost:9876/abc',
+        test: 1234
+      });
+    },
+    ),
+  ));
+
+  it('should survive if gtag undefined', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      window.gtag = undefined;
+      window.ga = undefined;
+
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.setUsername.next('90a72f4f-f0ee-43ac-802e-2e30a1741183');
+      angulartics2.setUserProperties.next({ test: 1234 });
+      angulartics2.userTimings.next({ timingVar: 'load', timingValue: 23, timingCategory: 'performance' });
+      angulartics2.eventTrack.next({ action: 'do' });
+      angulartics2.pageTrack.next({ path: '/abc' });
+      advance(fixture);
+    })
   ));
 });
