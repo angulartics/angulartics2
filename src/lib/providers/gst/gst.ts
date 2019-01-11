@@ -27,7 +27,7 @@ export class GoogleGlobalSiteTagDefaults implements GoogleGlobalSiteTagSettings 
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2GoogleGlobalSiteTag {
-  dimensionsAndMetrics: { [key: string]: any } = {};
+  private dimensionsAndMetrics: { [key: string]: any } = {};
 
   constructor(protected angulartics2: Angulartics2) {
     const defaults = new GoogleGlobalSiteTagDefaults;
@@ -84,7 +84,7 @@ export class Angulartics2GoogleGlobalSiteTag {
       }
 
       for (const id of this.angulartics2.settings.gst.trackingIds) {
-        gtag('config', id, { ...params });
+        gtag('config', id, params);
       }
     }
   }
