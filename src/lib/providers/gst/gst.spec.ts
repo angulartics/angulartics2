@@ -260,6 +260,23 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
     ),
   ));
 
+  it('should survive on undefined userName', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.setUsername.next({ userId: null });
+      advance(fixture);
+      expect(gtag.calls.count()).toEqual(1);
+      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+        user_id: null
+      });
+    },
+    ),
+  ));
+
   it('user properties should be sent with page track', fakeAsync(
     inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
       angulartics2: Angulartics2,

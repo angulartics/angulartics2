@@ -53,10 +53,9 @@ export class AppComponent {
 
 _Check out the documentation for [Tracking Events](https://github.com/angulartics/angulartics2/wiki/Tracking-Events)._
 
-
 ## Extended Event properties.
 
-All extended properties that can be added to events, for extended e-commerce (`items`, `shipping`, `tax`...), adwords in some cases (`send_to`, `account_type`, `transaction_id`) and another can be passed through the gstCustom:
+All extended properties that can be added to events, for e-commerce (`items`, `shipping`, `tax`...), adwords (`send_to`, `account_type`, `transaction_id`) and another can be passed through the gstCustom:
 
 ```ts
 constructor(private angulartics2: Angulartics2) {
