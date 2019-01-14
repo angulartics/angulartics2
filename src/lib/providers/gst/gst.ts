@@ -172,12 +172,7 @@ export class Angulartics2GoogleGlobalSiteTag {
   setUsername(userId: string | { userId: string | number }) {
     this.angulartics2.settings.gst.userId = userId;
     if (typeof gtag !== 'undefined' && gtag) {
-      const uid = !!userId
-        ? null
-        : typeof userId === 'string'
-          ? userId
-          : userId;
-      gtag('set', { 'user_id': uid });
+      gtag('set', { 'user_id': typeof userId === 'string' || !userId ? userId : userId.userId });
     }
   }
 
