@@ -110,7 +110,7 @@ export interface GaEnhancedEcomActionFieldObject {
   /** The transaction ID (e.g. T1234). *Required if the action type is purchase or refund. */
   id: string;
   /** The store or affiliation from which this transaction occurred (e.g. Google Store). */
-  affilation: string;
+  affiliation: string;
   /**
    * Specifies the total revenue or grand total associated with the transaction (e.g. 11.99).
    * This value may include shipping, tax costs, or other adjustments to total revenue that
