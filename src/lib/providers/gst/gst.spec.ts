@@ -152,7 +152,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
       });
       advance(fixture);
       expect(gtag.calls.count()).toEqual(1);
-      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+      expect(gtag).toHaveBeenCalledWith('set', {
         'custom_dimension': 'some value'
       });
     },
@@ -174,7 +174,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
       });
       advance(fixture);
       expect(gtag.calls.count()).toEqual(2);
-      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+      expect(gtag).toHaveBeenCalledWith('set', {
         'custom_dimension': 'some value',
         'other_dimension': 'other value'
       });
@@ -197,7 +197,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
       });
       advance(fixture);
       expect(gtag.calls.count()).toEqual(2);
-      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {});
+      expect(gtag).toHaveBeenCalledWith('set', {});
     },
     ),
   ));
@@ -236,7 +236,7 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
       angulartics2.setUsername.next('90a72f4f-f0ee-43ac-802e-2e30a1741183');
       advance(fixture);
       expect(gtag.calls.count()).toEqual(1);
-      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+      expect(gtag).toHaveBeenCalledWith('set', {
         user_id: '90a72f4f-f0ee-43ac-802e-2e30a1741183'
       });
     },
@@ -253,8 +253,25 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
       angulartics2.setUsername.next({ userId: '90a72f4f-f0ee-43ac-802e-2e30a1741183' });
       advance(fixture);
       expect(gtag.calls.count()).toEqual(1);
-      expect(gtag).toHaveBeenCalledWith('set', 'UA-111111111-1', {
+      expect(gtag).toHaveBeenCalledWith('set', {
         user_id: '90a72f4f-f0ee-43ac-802e-2e30a1741183'
+      });
+    },
+    ),
+  ));
+
+  it('should survive on undefined/null userName', fakeAsync(
+    inject([Angulartics2, Angulartics2GoogleGlobalSiteTag], (
+      angulartics2: Angulartics2,
+      angulartics2GoogleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
+    ) => {
+      fixture = createRoot(RootCmp);
+      angulartics2GoogleGlobalSiteTag.startTracking();
+      angulartics2.setUsername.next({ userId: null });
+      advance(fixture);
+      expect(gtag.calls.count()).toEqual(1);
+      expect(gtag).toHaveBeenCalledWith('set', {
+        user_id: null
       });
     },
     ),

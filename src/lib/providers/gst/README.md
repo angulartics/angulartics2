@@ -49,9 +49,31 @@ export class AppComponent {
 }
 ```
 
-### Custom dimension
+## Send tracking events in a component or template
 
-`custom_map` you could set inside your HTML page will be overridden after each pagetrack. Therefore, you need to pass them to the GST configuration if you want to use them. At this point, you're probably better to remove completely the `gtag('config'` call from you HTML page and to add all required properties at module definition.
+_Check out the documentation for [Tracking Events](https://github.com/angulartics/angulartics2/wiki/Tracking-Events)._
+
+## Extended Event properties.
+
+All extended properties that can be added to events, for e-commerce (`items`, `shipping`, `tax`...), adwords (`send_to`, `account_type`, `transaction_id`) and another can be passed through the gstCustom:
+
+```ts
+constructor(private angulartics2: Angulartics2) {
+  angulartics2.eventTrack.next({
+    action: 'conversion',
+    properties: {
+      gstCustom: {
+        send_to: 'AW-XXXXXX/R-12345678',
+        transaction_id: ''
+      }
+    }
+  });
+}
+```
+
+## Custom dimension and tracker settings
+
+`custom_map` and other config settings you could set inside your HTML page will be overridden after each pagetrack. Therefore, you need to pass them to the GST configuration if you want to use them. At this point, you're probably better to remove completely the `gtag('config'` call from you HTML page and to add all required properties at module definition.
 
 ```ts
 // bootstrap
@@ -77,30 +99,12 @@ import { Angulartics2Module } from 'angulartics2';
 export class AppModule { }
 ```
 
-Then, you can user the normal angulartic approach:
+Then, you can use the normal angulartic approach:
 
-```
+```ts
 this.angulartics2.setUserProperties.next({
   custom_dimension_name: 'example'
 });
 ```
 
-You can also pass custom dimension with a specific event using the `gstCustom` property
-
-```
-constructor(private angulartics2: Angulartics2) {
-  this.angulartics2.eventTrack.next({ 
-    action: 'myAction', 
-    properties: {
-      category: 'myCategory'
-      gstCustom: {
-        custom_dimension_name: 'example'
-      }
-    },
-  });
-}
-```
-
-### Send tracking events in a component or template
-
-_Check out the documentation for [Tracking Events](https://github.com/angulartics/angulartics2/wiki/Tracking-Events)._
+You can also pass custom dimension with a specific event using the `gstCustom` property described in previous section

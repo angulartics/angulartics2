@@ -27,7 +27,7 @@ export class GoogleGlobalSiteTagDefaults implements GoogleGlobalSiteTagSettings 
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2GoogleGlobalSiteTag {
-  dimensionsAndMetrics: { [key: string]: any } = {};
+  private dimensionsAndMetrics: { [key: string]: any } = {};
 
   constructor(protected angulartics2: Angulartics2) {
     const defaults = new GoogleGlobalSiteTagDefaults;
@@ -84,7 +84,7 @@ export class Angulartics2GoogleGlobalSiteTag {
       }
 
       for (const id of this.angulartics2.settings.gst.trackingIds) {
-        gtag('config', id, { ...params });
+        gtag('config', id, params);
       }
     }
   }
@@ -172,9 +172,7 @@ export class Angulartics2GoogleGlobalSiteTag {
   setUsername(userId: string | { userId: string | number }) {
     this.angulartics2.settings.gst.userId = userId;
     if (typeof gtag !== 'undefined' && gtag) {
-      for (const id of this.angulartics2.settings.gst.trackingIds) {
-        gtag('set', id, { 'user_id': (typeof userId === 'string' ? userId : userId.userId) });
-      }
+      gtag('set', { 'user_id': typeof userId === 'string' || !userId ? userId : userId.userId });
     }
   }
 
@@ -198,9 +196,7 @@ export class Angulartics2GoogleGlobalSiteTag {
     });
 
     if (typeof gtag !== 'undefined' && gtag) {
-      for (const id of this.angulartics2.settings.gst.trackingIds) {
-        gtag('set', id, this.dimensionsAndMetrics);
-      }
+      gtag('set', this.dimensionsAndMetrics);
     }
   }
 
