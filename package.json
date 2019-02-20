@@ -31,7 +31,7 @@
     "@angular/router": "^7.2.0",
     "@ng-bootstrap/ng-bootstrap": "4.0.1",
     "@uirouter/angular": "^2.0.3",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.1",
     "core-js": "^2.6.2",
     "rxjs": "^6.3.3",
     "zone.js": "^0.8.27"
