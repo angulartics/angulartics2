@@ -303,3 +303,6 @@ Please see the [CONTRIBUTING](https://github.com/angulartics/angulartics2/blob/m
 ## License
 
 [MIT](LICENSE)
+
+## Related Projects
++ [analytics-angular](https://github.com/segmentio/analytics-angular): Write analytics code once, collect customer data from any source, and send it to over 250+ destinations with [Segment](https://segment.com/).
