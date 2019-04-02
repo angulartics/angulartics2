@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../../node_modules/ng-packagr/package.schema.json",
+  "name": "angulartics2/gosquared",
+  "description": "The gosquared module",
+  "homepage": "https://angulartics.github.io/angulartics2/",
+  "author": "Ben White <ben@benjackwhite.co.uk> (http://github.com/benjackwhite)",
+  "repository": "angulartics/angulartics2",
+  "license": "MIT",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "gosquared.ts",
+      "umdModuleIds": {
+        "angulartics2": "angulartics2"
+      }
+    },
+    "dest": "../../../../dist/packages-dist/gosquared"
+  }
+}
