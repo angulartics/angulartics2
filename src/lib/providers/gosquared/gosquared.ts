@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Angulartics2 } from 'angulartics2';
 
+declare var _gs: any;
+
 @Injectable({ providedIn: 'root' })
 export class Angulartics2GoSquared {
   constructor(private angulartics2: Angulartics2) {
@@ -11,10 +13,6 @@ export class Angulartics2GoSquared {
     this.angulartics2.setUserPropertiesOnce.subscribe(x =>
       this.setUserProperties(x),
     );
-  }
-
-  get GoSquared(): Function {
-    return window['_gs'];
   }
 
   startTracking(): void {
@@ -28,7 +26,7 @@ export class Angulartics2GoSquared {
 
   pageTrack(path: string) {
     try {
-      this.GoSquared('track', path);
+      _gs('track', path);
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
@@ -38,7 +36,7 @@ export class Angulartics2GoSquared {
 
   eventTrack(action: string, properties: any) {
     try {
-      this.GoSquared('event', action, properties);
+      _gs('event', action, properties);
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
@@ -48,7 +46,7 @@ export class Angulartics2GoSquared {
 
   setUserProperties(properties: any) {
     try {
-      this.GoSquared('identify', properties);
+      _gs('identify', properties);
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
