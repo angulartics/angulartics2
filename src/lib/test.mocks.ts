@@ -99,7 +99,19 @@ export function createRootWithRouter(
 }
 
 @NgModule({
+  declarations: [
+    HelloCmp,
+    HelloCmp2,
+    HelloCmp3,
+    HelloCmp4,
+    HelloCmp5,
+    RouterlessRootCmp,
+  ],
+}) export class HelloModule {}
+
+@NgModule({
   imports: [
+    HelloModule,
     CommonModule,
     UIRouterModule.forRoot({
       states: UIRoutesConfig,
@@ -110,8 +122,6 @@ export function createRootWithRouter(
   ],
   entryComponents: [UIRootCmp],
   declarations: [
-    HelloCmp,
-    HelloCmp2,
     UIRootCmp,
   ],
 })
@@ -120,17 +130,13 @@ export class UITestModule {
 
 @NgModule({
   imports: [
+    HelloModule,
     CommonModule,
     RouterTestingModule,
     Angulartics2Module.forRoot(),
   ],
   entryComponents: [RootCmp],
   declarations: [
-    HelloCmp,
-    HelloCmp2,
-    HelloCmp3,
-    HelloCmp4,
-    HelloCmp5,
     RootCmp,
   ],
 })
