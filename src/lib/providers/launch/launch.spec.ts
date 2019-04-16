@@ -40,10 +40,10 @@ describe('Angulartics2LaunchByAdobe', () => {
   describe('while active', () => {
     beforeEach(() => {
       window._satellite = _satellite = {};
-      _satellite.track = function(eventID: String, payload: any) {
+      _satellite.track = (eventID: string, payload: any) => {
         _satellite.output = {
-          'eventID' : eventID,
-          'payload': payload
+          eventID,
+          payload,
         };
       };
       _satellite.output = null;

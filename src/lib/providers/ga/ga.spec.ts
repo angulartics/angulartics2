@@ -54,7 +54,7 @@ describe('Angulartics2GoogleAnalytics', () => {
         angulartics2.settings.ga.additionalAccountNames.push('additionalAccountName');
 
         fixture = createRoot(RootCmp);
-        const callback = function() { };
+        const callback = () => {};
         angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', hitCallback: callback } });
         advance(fixture);
         expect(ga).toHaveBeenCalledTimes(2);
@@ -99,7 +99,7 @@ describe('Angulartics2GoogleAnalytics', () => {
     ),
   );
 
-    it('should set user properties on all account names',
+  it('should set user properties on all account names',
       fakeAsync(inject([Angulartics2, Angulartics2GoogleAnalytics],
         (angulartics2: Angulartics2, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) => {
           fixture = createRoot(RootCmp);

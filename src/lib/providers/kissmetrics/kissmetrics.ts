@@ -29,7 +29,7 @@ export class Angulartics2Kissmetrics {
   }
 
   pageTrack(path: string) {
-    _kmq.push(['record', 'Pageview', { 'Page': path }]);
+    _kmq.push(['record', 'Pageview', { Page: path }]);
   }
 
   eventTrack(action: string, properties: any) {

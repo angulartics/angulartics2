@@ -17,7 +17,7 @@ describe('Angulartics2BaiduAnalytics', () => {
   let _hmt: Array<any>;
   let fixture: ComponentFixture<any>;
 
-    beforeEach(() => {
+  beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [TestModule],
         providers: [Angulartics2BaiduAnalytics],

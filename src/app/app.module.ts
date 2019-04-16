@@ -20,7 +20,7 @@ import { ProvidersComponent } from './providers/providers.component';
     BrowserModule,
     HttpClientModule,
 
-    NgbCollapseModule.forRoot(),
+    NgbCollapseModule,
     MatIconModule,
   ],
   providers: [],

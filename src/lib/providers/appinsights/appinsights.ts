@@ -34,7 +34,7 @@ export class Angulartics2AppInsights {
       console.warn('appInsights not found');
     }
 
-    const defaults = new AppInsightsDefaults;
+    const defaults = new AppInsightsDefaults();
     // Set the default settings for this module
     this.angulartics2.settings.appInsights = { ...defaults, ...this.angulartics2.settings.appInsights };
     this.angulartics2.setUsername
@@ -119,9 +119,6 @@ export class Angulartics2AppInsights {
   }
 
   /**
-   *
-   * @param userId
-   *
    * @link https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#setauthenticatedusercontext
    */
   setUsername(userId: string) {

@@ -16,9 +16,9 @@ export class Angulartics2GoogleTagManager {
   ) {
     // The dataLayer needs to be initialized
     if (typeof dataLayer !== 'undefined' && dataLayer) {
-      dataLayer = (<any>window).dataLayer = (<any>window).dataLayer || [];
+      dataLayer = (window as any).dataLayer = (window as any).dataLayer || [];
     }
-    const defaults = new GoogleTagManagerDefaults;
+    const defaults = new GoogleTagManagerDefaults();
     // Set the default settings for this module
     this.angulartics2.settings.gtm = { ...defaults, ...this.angulartics2.settings.gtm };
     this.angulartics2.setUsername
@@ -39,9 +39,9 @@ export class Angulartics2GoogleTagManager {
 
   pageTrack(path: string) {
     this.pushLayer({
-      'event': 'Page View',
+      event: 'Page View',
       'content-name': path,
-      'userId': this.angulartics2.settings.gtm.userId
+      userId: this.angulartics2.settings.gtm.userId
     });
   }
 
@@ -73,7 +73,7 @@ export class Angulartics2GoogleTagManager {
     this.pushLayer({
       event: properties.event || 'interaction',
       target: properties.category || 'Event',
-      action: action,
+      action,
       label: properties.label,
       value: properties.value,
       interactionType: properties.noninteraction,
@@ -107,8 +107,8 @@ export class Angulartics2GoogleTagManager {
     properties.exDescription = properties.event ? properties.event.stack : properties.description;
 
     this.eventTrack(`Exception thrown for ${properties.appName} <${properties.appId}@${properties.appVersion}>`, {
-      'category': 'Exception',
-      'label': properties.exDescription
+      category: 'Exception',
+      label: properties.exDescription,
     });
   }
 

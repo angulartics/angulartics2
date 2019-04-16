@@ -23,14 +23,12 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
     });
 
     window.gtag = gtag = jasmine.createSpy('gtag');
-    window.ga = ga = function (callback) {
-      callback();
-    };
-    window.ga.getAll = ga.getAll = function () {
+    window.ga = ga = (callback) => callback();
+    window.ga.getAll = ga.getAll = () => {
       return {
-        forEach: function (callback) {
+        forEach(callback) {
           const tracker = {
-            get: function (value) {
+            get(value) {
               return 'UA-111111111-1';
             },
           };
@@ -148,12 +146,12 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
       fixture = createRoot(RootCmp);
       angulartics2GoogleGlobalSiteTag.startTracking();
       angulartics2.setUserProperties.next({
-        'custom_dimension': 'some value'
+        custom_dimension: 'some value'
       });
       advance(fixture);
       expect(gtag.calls.count()).toEqual(1);
       expect(gtag).toHaveBeenCalledWith('set', {
-        'custom_dimension': 'some value'
+        custom_dimension: 'some value'
       });
     },
     ),
@@ -167,16 +165,16 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
       fixture = createRoot(RootCmp);
       angulartics2GoogleGlobalSiteTag.startTracking();
       angulartics2.setUserProperties.next({
-        'custom_dimension': 'some value'
+        custom_dimension: 'some value'
       });
       angulartics2.setUserProperties.next({
-        'other_dimension': 'other value'
+        other_dimension: 'other value'
       });
       advance(fixture);
       expect(gtag.calls.count()).toEqual(2);
       expect(gtag).toHaveBeenCalledWith('set', {
-        'custom_dimension': 'some value',
-        'other_dimension': 'other value'
+        custom_dimension: 'some value',
+        other_dimension: 'other value'
       });
     },
     ),
@@ -190,10 +188,10 @@ describe('Angulartics2GoogleGlobalSiteTag', () => {
       fixture = createRoot(RootCmp);
       angulartics2GoogleGlobalSiteTag.startTracking();
       angulartics2.setUserProperties.next({
-        'custom_dimension': 'some value'
+        custom_dimension: 'some value'
       });
       angulartics2.setUserProperties.next({
-        'custom_dimension': undefined
+        custom_dimension: undefined
       });
       advance(fixture);
       expect(gtag.calls.count()).toEqual(2);

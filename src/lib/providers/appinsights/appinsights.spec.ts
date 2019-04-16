@@ -88,7 +88,7 @@ describe('Angulartics2AppInsights', () => {
     fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
       (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
-        const event = { 'event': true };
+        const event = { event: true };
         angulartics2.exceptionTrack.next({ event });
         advance(fixture);
         expect(appInsights.trackException).toHaveBeenCalledWith(event);

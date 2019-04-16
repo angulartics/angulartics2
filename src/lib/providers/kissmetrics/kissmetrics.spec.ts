@@ -28,7 +28,7 @@ describe('Angulartics2Kissmetrics', () => {
         fixture = createRoot(RootCmp);
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
-        expect(_kmq).toContain(['record', 'Pageview', { 'Page': '/abc' }]);
+        expect(_kmq).toContain(['record', 'Pageview', { Page: '/abc' }]);
       }),
     ),
   );

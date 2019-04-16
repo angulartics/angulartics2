@@ -30,7 +30,7 @@ export class Angulartics2GoogleGlobalSiteTag {
   private dimensionsAndMetrics: { [key: string]: any } = {};
 
   constructor(protected angulartics2: Angulartics2) {
-    const defaults = new GoogleGlobalSiteTagDefaults;
+    const defaults = new GoogleGlobalSiteTagDefaults();
     // Set the default settings for this module
     this.angulartics2.settings.gst = { ...defaults, ...this.angulartics2.settings.gst };
   }
@@ -126,8 +126,8 @@ export class Angulartics2GoogleGlobalSiteTag {
 
     this.eventTrack('exception', {
       gstCustom: {
-        'description': properties.exDescription,
-        'fatal': properties.fatal,
+        description: properties.exDescription,
+        fatal: properties.fatal,
         ...properties.gstCustom
       }
     });
@@ -135,7 +135,6 @@ export class Angulartics2GoogleGlobalSiteTag {
 
   /**
    * User Timings Event in GST.
-   * @name userTimings
    *
    * @param properties Comprised of the mandatory fields:
    *  - name (string)
@@ -172,7 +171,7 @@ export class Angulartics2GoogleGlobalSiteTag {
   setUsername(userId: string | { userId: string | number }) {
     this.angulartics2.settings.gst.userId = userId;
     if (typeof gtag !== 'undefined' && gtag) {
-      gtag('set', { 'user_id': typeof userId === 'string' || !userId ? userId : userId.userId });
+      gtag('set', { user_id: typeof userId === 'string' || !userId ? userId : userId.userId });
     }
   }
 
