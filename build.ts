@@ -27,6 +27,7 @@ const MODULE_NAMES = [
   'amplitude',
   'splunk',
   'ibm-digital-analytics',
+  'gosquared',
 ];
 
 
