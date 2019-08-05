@@ -9,12 +9,15 @@
       "facebook-pixel"
     ]
   },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
     "src/test.ts",
-    "src/lib/test.mocks.ts",
     "src/**/*.spec.ts"
   ]
 }
