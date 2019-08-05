@@ -6,8 +6,8 @@
 
 # Splunk
 __homepage__: [splunk.com](https://www.splunk.com/)  
-__docs__: [Splunk Collector API](https://github.com/splunk/splunk-demo-collector-for-analyticsjs#api) 
-__import__: `import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';`  
+__docs__: [Splunk Collector API](https://github.com/splunk/splunk-demo-collector-for-analyticsjs#api)
+__import__: `import { Angulartics2Splunk } from 'angulartics2/splunk';`  
 
 ## Setup
 1. Add tracking code [provided by Splunk](https://www.splunk.com/blog/2013/10/17/still-using-3rd-party-web-analytics-providers-build-your-own-using-splunk.html) to right above the `</head>` closing tag. 
