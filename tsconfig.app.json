@@ -18,6 +18,7 @@
   ],
   "exclude": [
     "src/test.ts",
+    "src/lib/test.mocks.ts",
     "src/**/*.spec.ts"
   ]
 }
