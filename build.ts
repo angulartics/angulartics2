@@ -19,6 +19,7 @@ const MODULE_NAMES = [
   'kissmetrics',
   'launch',
   'mixpanel',
+  'pyze',
   'piwik',
   'segment',
   'intercom',
