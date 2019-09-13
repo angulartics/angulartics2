@@ -95,6 +95,11 @@ export class ProvidersComponent {
       type: 'Analytics',
     },
     {
+      name: 'pyze',
+      display: 'Pyze',
+      type: 'Analytics',
+    },
+    {
       name: 'splunk',
       display: 'Splunk',
       type: 'Analytics',
