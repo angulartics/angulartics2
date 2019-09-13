@@ -33,7 +33,7 @@ export class  Angulartics2Pyze {
             }
         }
     }
-    
+
     eventTrack(action: string, properties: any) {
         try {
             PyzeEvents.postCustomEventWithAttributes(action, properties);
@@ -63,5 +63,4 @@ export class  Angulartics2Pyze {
           }
         }
     }
-
 }
