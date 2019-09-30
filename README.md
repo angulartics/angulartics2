@@ -30,10 +30,12 @@ Vendor-agnostic Analytics for Angular Applications. [angulartics.github.io/angul
 ## Dependencies
 Latest version available for each version of Angular
 
-| Angulartics2 | Angular |
-| ------------ | ------- |
-| 5.4.0        | 4.x     |
-| 6.3.1        | 5.x     |
+| Angulartics2 | Angular   |
+| ------------ | --------- |
+| 5.4.0        | 4.x       |
+| 6.3.1        | 5.x       |
+| 7.5.2        | 6.x - 7.x |
+| latest       | 8.x       |
 
 ## Installation
 
