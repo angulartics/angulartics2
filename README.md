@@ -286,6 +286,7 @@ System.config({
 * [Clicky](/src/lib/providers/clicky)
 * [IBM Digital Analytics](/src/lib/providers/ibm-digital-analytics)
 * [Splunk](/src/lib/providers/splunk)
+* [Pyze](/src/lib/providers/pyze)
 
 ### For other providers
 
