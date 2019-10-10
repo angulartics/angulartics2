@@ -43,6 +43,18 @@ describe('Angulartics2AdobeAnalytics', () => {
     )),
   );
 
+  it('should override page tracking page name',
+    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+      (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
+        fixture = createRoot(RootCmp);
+        angulartics2.pageTrack.next({ path: '/abc', properties: { pageName: 'override'} });
+        advance(fixture);
+        expect(s.clearVars).toHaveBeenCalled();
+        expect(s.t).toHaveBeenCalledWith({ pageName: 'override' });
+      },
+    )),
+  );
+
   it('should track events with no delay',
     fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
       (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
@@ -74,6 +86,16 @@ describe('Angulartics2AdobeAnalytics', () => {
         advance(fixture);
         expect(s.tl).toHaveBeenCalledWith(jasmine.any(Object), 'o', 'do');
         expect(window.s.pageName).toEqual('pagename');
+  })));
+
+  it('should override event tracking page name',
+    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+      (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
+        fixture = createRoot(RootCmp);
+        angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', pageName: 'override' } });
+        advance(fixture);
+        expect(s.tl).toHaveBeenCalledWith(jasmine.any(Object), 'o', 'do');
+        expect(window.s.pageName).toEqual('override');
   })));
 
   it('should set user porperties',

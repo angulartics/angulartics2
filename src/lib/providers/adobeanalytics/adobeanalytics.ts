@@ -85,7 +85,7 @@ export class Angulartics2AdobeAnalytics {
   }
 
   private setPageName(properties: any) {
-    if (typeof properties === 'object' && properties.pageName !== 'undefined') {
+    if (typeof properties === 'object' && properties.pageName !== undefined) {
       s.pageName = properties.pageName;
     }  else {
       const path = this.location.path(true);
