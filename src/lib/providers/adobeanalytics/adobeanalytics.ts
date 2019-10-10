@@ -27,15 +27,14 @@ export class Angulartics2AdobeAnalytics {
       s.clearVars();
       if (typeof properties === 'object') {
         // the additional properties are not the ones sent by angulartics but are user defined
-        if (!properties['pageName']){
+        if (!properties['pageName']) {
           // no page name defined, use the path
           properties['pageName'] = path;
         }
         s.t(properties);
       } else {
-        s.t({pageName:path});
+        s.t({pageName: path});
       }
-      s.t({pageName: path});
     }
   }
 
