@@ -28,8 +28,13 @@ export class Angulartics2Piwik {
 
   pageTrack(path: string, location?: any) {
     try {
+      if (!window.location.origin) {
+        (window.location as any).origin = window.location.protocol + '//'
+          + window.location.hostname
+          + (window.location.port ? ':' + window.location.port : '');
+      }
       _paq.push(['setDocumentTitle', window.document.title]);
-      _paq.push(['setCustomUrl', path]);
+      _paq.push(['setCustomUrl', window.location.origin + path]);
       _paq.push(['trackPageView']);
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
@@ -229,7 +234,7 @@ export class Angulartics2Piwik {
     const dimensions = this.setCustomDimensions(properties);
     try {
       if (dimensions.length === 0) {
-        _paq.push(['setCustomVariable', properties]);
+        _paq.push(['setCustomVariable', properties.index, properties.name, properties.value, properties.scope]);
       }
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
