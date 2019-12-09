@@ -53,6 +53,22 @@ export class AppComponent {
 }
 ```
 
+Tracking Custom Variables
+```ts
+angulartics2.setUserProperties.next({index: 1, name: 'John', value: 123, scope: 'visit'});
+```
+Note: To track multiple custom variables, call setUserProperties multiple times
+
+Tracking Custom Dimensions
+```ts
+angulartics2.setUserProperties.next({
+    dimension1: 'v1.2.3',
+    dimension2: 'german',
+    dimension43: 'green',
+});
+```
+Note: Custom Variables and Custom Dimensions cannot be tracked in the same call, and requires separate setUserProperties calls
+
 To track full URLs if there is a hash (#), make sure to enable `settings=>websites=>settings=>page url fragments tracking` in the Piwik dashboard.
 
 Once set up, Angulartics [usage](https://github.com/angulartics/angulartics2#usage) is the same regardless of provider

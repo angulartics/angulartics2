@@ -28,7 +28,7 @@ describe('Angulartics2Piwik', () => {
         fixture = createRoot(RootCmp);
         angulartics2.pageTrack.next({path: '/abc' });
         advance(fixture);
-        expect(_paq).toContain(['setCustomUrl', '/abc']);
+        expect(_paq).toContain(['setCustomUrl', window.location.origin + '/abc']);
       },
     )),
   );
@@ -199,12 +199,9 @@ describe('Angulartics2Piwik', () => {
     fakeAsync(inject([Angulartics2, Angulartics2Piwik],
       (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
         fixture = createRoot(RootCmp);
-        angulartics2.setUserProperties.next({userId: '1', firstName: 'John', lastName: 'Doe'});
+        angulartics2.setUserProperties.next({index: 1, name: 'John', value: 123, scope: 'visit'});
         advance(fixture);
-        expect(_paq).toContain([
-          'setCustomVariable',
-          { userId: '1', firstName: 'John', lastName: 'Doe' },
-        ]);
+        expect(_paq).toContain(['setCustomVariable', 1, 'John', 123, 'visit']);
       }
     )),
   );
