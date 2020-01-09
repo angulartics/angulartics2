@@ -114,17 +114,13 @@ export class Angulartics2GoogleAnalytics {
         page: properties.page || location.hash.substring(1) || location.pathname,
         userId: this.angulartics2.settings.ga.userId,
         hitCallback: properties.hitCallback,
+        ... this.angulartics2.settings.ga.transport && { transport: this.angulartics2.settings.ga.transport }
       };
 
       // add custom dimensions and metrics
       this.setDimensionsAndMetrics(properties);
-      if (this.angulartics2.settings.ga.transport) {
-        ga('send', 'event', eventOptions, {
-          transport: this.angulartics2.settings.ga.transport,
-        });
-      } else {
-        ga('send', 'event', eventOptions);
-      }
+
+      ga('send', 'event', eventOptions);
 
       for (const accountName of this.angulartics2.settings.ga.additionalAccountNames) {
         ga(accountName + '.send', 'event', eventOptions);
