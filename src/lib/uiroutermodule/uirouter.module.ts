@@ -15,7 +15,7 @@ import { UIRouterTracking } from './uirouter';
 export class Angulartics2UirouterModule {
   static forRoot(
     settings: Partial<Angulartics2Settings> = {},
-  ): ModuleWithProviders {
+  ): ModuleWithProviders<Angulartics2UirouterModule> {
     return {
       ngModule: Angulartics2UirouterModule,
       providers: [

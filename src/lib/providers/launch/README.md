@@ -1,5 +1,5 @@
 <img 
-    src="https://developer.adobelaunch.com/images/launch.svg" 
+    src="../../../assets/svg/launch.svg" 
     alt="Launch, by Adobe logo"
     height="100px"
     width="100px" />

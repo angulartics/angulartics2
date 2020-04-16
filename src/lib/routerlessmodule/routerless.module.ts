@@ -14,7 +14,7 @@ import {
 export class Angulartics2RouterlessModule {
   static forRoot(
     settings: Partial<Angulartics2Settings> = {},
-  ): ModuleWithProviders {
+  ): ModuleWithProviders<Angulartics2RouterlessModule> {
     return {
       ngModule: Angulartics2RouterlessModule,
       providers: [

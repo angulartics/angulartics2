@@ -14,7 +14,7 @@ import { RouterlessTracking } from './routerless';
 export class Angulartics2Module {
   static forRoot(
     settings: Partial<Angulartics2Settings> = {},
-  ): ModuleWithProviders {
+  ): ModuleWithProviders<Angulartics2Module> {
     return {
       ngModule: Angulartics2Module,
       providers: [
