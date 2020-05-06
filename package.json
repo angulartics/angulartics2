@@ -15,7 +15,9 @@
     "lint:fix": "ng lint --fix",
     "presemantic-release": "cp -R .git dist/packages-dist",
     "semantic-release": "cd dist/packages-dist && semantic-release",
-    "ghpages": "ng build --prod --no-progress --baseHref='/angulartics2/'"
+    "ghpages": "ng build --prod --no-progress --baseHref='/angulartics2/'",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "private": true,
   "dependencies": {
@@ -37,7 +39,8 @@
     "core-js": "3.6.5",
     "rxjs": "6.5.5",
     "tslib": "1.11.1",
-    "zone.js": "0.10.3"
+    "zone.js": "0.10.3",
+    "snyk": "^1.319.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.901.1",
@@ -78,5 +81,6 @@
   "repository": "angulartics/angulartics2",
   "engines": {
     "node": ">=8"
-  }
+  },
+  "snyk": true
 }
