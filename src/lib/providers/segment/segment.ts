@@ -78,6 +78,15 @@ export class Angulartics2Segment {
   }
 
   /**
+   * https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/#reset--logout
+   *
+   * analytics.reset();
+   */
+  unsetUserProperties() {
+    analytics.reset();
+  }
+
+  /**
    * https://segment.com/docs/libraries/analytics.js/#alias
    *
    * analytics.alias(userId, previousId, options, callback);

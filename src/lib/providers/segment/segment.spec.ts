@@ -27,7 +27,8 @@ describe('Angulartics2Segment', () => {
       page: jasmine.createSpy('page'),
       track: jasmine.createSpy('track'),
       identify: jasmine.createSpy('identify'),
-      alias: jasmine.createSpy('alias')
+      alias: jasmine.createSpy('alias'),
+      reset:  jasmine.createSpy('identify'),
     };
 
     const provider: Angulartics2Segment = TestBed.get(Angulartics2Segment);
@@ -99,4 +100,14 @@ describe('Angulartics2Segment', () => {
     ),
   );
 
+  it('should unset user properties',
+    fakeAsync(inject([Angulartics2, Angulartics2Segment],
+      (angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
+        fixture = createRoot(RootCmp);
+        angulartics2.unsetUserProperties.next();
+        advance(fixture);
+        expect(analytics.reset).toHaveBeenCalled();
+      }),
+    ),
+  );
 });
