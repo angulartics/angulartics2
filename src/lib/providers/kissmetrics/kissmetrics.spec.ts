@@ -18,7 +18,7 @@ describe('Angulartics2Kissmetrics', () => {
     });
 
     window._kmq = _kmq = [];
-    const provider: Angulartics2Kissmetrics = TestBed.get(Angulartics2Kissmetrics);
+    const provider: Angulartics2Kissmetrics = TestBed.inject(Angulartics2Kissmetrics);
     provider.startTracking();
   });
 

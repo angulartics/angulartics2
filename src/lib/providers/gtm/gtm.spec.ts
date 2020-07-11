@@ -18,7 +18,7 @@ describe('Angulartics2GoogleTagManager', () => {
     });
 
     window.dataLayer = dataLayer = [];
-    const provider: Angulartics2GoogleTagManager = TestBed.get(Angulartics2GoogleTagManager);
+    const provider: Angulartics2GoogleTagManager = TestBed.inject(Angulartics2GoogleTagManager);
     provider.startTracking();
   });
 

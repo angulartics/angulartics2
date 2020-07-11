@@ -55,7 +55,7 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
       window.cmCreateElementTag = jasmine.createSpy('cmCreateElementTag');
       window.cmCreateConversionEventTag = jasmine.createSpy('cmCreateConversionEventTag');
       window.cmDisplayShops = jasmine.createSpy('cmDisplayShops');
-      const provider: Angulartics2IBMDigitalAnalytics = TestBed.get(Angulartics2IBMDigitalAnalytics);
+      const provider: Angulartics2IBMDigitalAnalytics = TestBed.inject(Angulartics2IBMDigitalAnalytics);
       provider.startTracking();
     });
 

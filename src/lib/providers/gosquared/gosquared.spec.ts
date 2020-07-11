@@ -23,7 +23,7 @@ describe('Angulartics2GoSquared', () => {
     });
 
     window._gs = _gs = jasmine.createSpy('_gs');
-    const provider: Angulartics2GoSquared = TestBed.get(Angulartics2GoSquared);
+    const provider: Angulartics2GoSquared = TestBed.inject(Angulartics2GoSquared);
     provider.startTracking();
   });
 

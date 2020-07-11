@@ -33,7 +33,7 @@ describe('Angulartics2AppInsights', () => {
         'setAuthenticatedUserContext',
       ]);
 
-    const provider: Angulartics2AppInsights = TestBed.get(Angulartics2AppInsights);
+    const provider: Angulartics2AppInsights = TestBed.inject(Angulartics2AppInsights);
     provider.startTracking();
   });
 
@@ -79,6 +79,7 @@ describe('Angulartics2AppInsights', () => {
         const str = 'test string';
         angulartics2.exceptionTrack.next(str);
         advance(fixture);
+        // @ts-expect-error
         expect(appInsights.trackException).toHaveBeenCalledWith(str);
       }),
     ),
@@ -91,6 +92,7 @@ describe('Angulartics2AppInsights', () => {
         const event = { event: true };
         angulartics2.exceptionTrack.next({ event });
         advance(fixture);
+        // @ts-expect-error
         expect(appInsights.trackException).toHaveBeenCalledWith(event);
       }),
     ),
@@ -103,6 +105,7 @@ describe('Angulartics2AppInsights', () => {
         const description = 'test description';
         angulartics2.exceptionTrack.next({ description });
         advance(fixture);
+        // @ts-expect-error
         expect(appInsights.trackException).toHaveBeenCalledWith(description);
       }),
     ),

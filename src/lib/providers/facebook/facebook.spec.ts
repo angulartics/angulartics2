@@ -18,7 +18,7 @@ describe('Angulartics2Facebook', () => {
     });
 
     window.fbq = fbq = jasmine.createSpy('fbq');
-    const provider: Angulartics2Facebook = TestBed.get(Angulartics2Facebook);
+    const provider: Angulartics2Facebook = TestBed.inject(Angulartics2Facebook);
     provider.startTracking();
   });
 

@@ -47,7 +47,7 @@ describe('Angulartics2LaunchByAdobe', () => {
         };
       };
       _satellite.output = null;
-      const provider: Angulartics2LaunchByAdobe = TestBed.get(Angulartics2LaunchByAdobe);
+      const provider: Angulartics2LaunchByAdobe = TestBed.inject(Angulartics2LaunchByAdobe);
       provider.startTracking();
     });
 

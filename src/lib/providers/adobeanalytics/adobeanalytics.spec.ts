@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -9,6 +10,7 @@ import { Angulartics2AdobeAnalytics } from './adobeanalytics';
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
 
+@Injectable()
 export class MockLocation extends SpyLocation {
   path() {
     return 'http://test.com/test#pagename';
@@ -30,7 +32,7 @@ describe('Angulartics2AdobeAnalytics', () => {
 
     window.s = s = jasmine.createSpyObj('s', ['clearVars', 't', 'tl']);
 
-    const provider: Angulartics2AdobeAnalytics = TestBed.get(Angulartics2AdobeAnalytics);
+    const provider: Angulartics2AdobeAnalytics = TestBed.inject(Angulartics2AdobeAnalytics);
     provider.startTracking();
   });
 

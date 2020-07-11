@@ -28,7 +28,7 @@ describe('Angulartics2Splunk', () => {
       track: jasmine.createSpy('track')
     };
 
-    const provider: Angulartics2Splunk = TestBed.get(Angulartics2Splunk);
+    const provider: Angulartics2Splunk = TestBed.inject(Angulartics2Splunk);
     provider.startTracking();
   });
 

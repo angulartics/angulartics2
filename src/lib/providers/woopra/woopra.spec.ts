@@ -27,7 +27,7 @@ describe('Angulartics2Woopra', () => {
       identify: jasmine.createSpy('identify'),
     };
 
-    const provider: Angulartics2Woopra = TestBed.get(Angulartics2Woopra);
+    const provider: Angulartics2Woopra = TestBed.inject(Angulartics2Woopra);
     provider.startTracking();
   });
 

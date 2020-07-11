@@ -1,14 +1,14 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": [
-      "jasmine",
-      "node",
+    "types":  [
       "google.analytics",
       "applicationinsights-js",
       "segment-analytics",
-      "facebook-pixel"
+      "facebook-pixel",
+      "jasmine"
     ]
   },
   "files": [

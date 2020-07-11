@@ -47,7 +47,7 @@ describe('Angulartics2Clicky', () => {
   describe('while active', () => {
     beforeEach(() => {
       window.clicky = clicky = jasmine.createSpyObj('clicky', ['log', 'goal']);
-      const provider: Angulartics2Clicky = TestBed.get(Angulartics2Clicky);
+      const provider: Angulartics2Clicky = TestBed.inject(Angulartics2Clicky);
       provider.startTracking();
     });
 

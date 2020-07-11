@@ -22,7 +22,6 @@ export class Angulartics2 {
   setSuperProperties = new ReplaySubject<any>(10);
   setSuperPropertiesOnce = new ReplaySubject<any>(10);
   userTimings = new ReplaySubject<UserTimings>(10);
-  unsetUserProperties = new ReplaySubject<any>(10);
 
   constructor(
     private tracker: RouterlessTracking,

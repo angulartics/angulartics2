@@ -18,7 +18,7 @@ describe('Angulartics2Hubspot', () => {
     });
 
     window._hsq = _hsq = [];
-    const provider: Angulartics2Hubspot = TestBed.get(Angulartics2Hubspot);
+    const provider: Angulartics2Hubspot = TestBed.inject(Angulartics2Hubspot);
     provider.startTracking();
   });
 

@@ -31,7 +31,7 @@ describe('Angulartics2Segment', () => {
       reset:  jasmine.createSpy('identify'),
     };
 
-    const provider: Angulartics2Segment = TestBed.get(Angulartics2Segment);
+    const provider: Angulartics2Segment = TestBed.inject(Angulartics2Segment);
     provider.startTracking();
   });
 
@@ -96,17 +96,6 @@ describe('Angulartics2Segment', () => {
         angulartics2.setAlias.next('testAlias');
         advance(fixture);
         expect(analytics.alias).toHaveBeenCalledWith('testAlias');
-      }),
-    ),
-  );
-
-  it('should unset user properties',
-    fakeAsync(inject([Angulartics2, Angulartics2Segment],
-      (angulartics2: Angulartics2, angulartics2Segment: Angulartics2Segment) => {
-        fixture = createRoot(RootCmp);
-        angulartics2.unsetUserProperties.next();
-        advance(fixture);
-        expect(analytics.reset).toHaveBeenCalled();
       }),
     ),
   );

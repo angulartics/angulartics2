@@ -21,7 +21,7 @@ describe('Angulartics2GoogleAnalytics', () => {
     window.ga = ga = jasmine.createSpy('ga');
     window._gaq = _gaq = [];
 
-    const service: Angulartics2GoogleAnalytics = TestBed.get(Angulartics2GoogleAnalytics);
+    const service: Angulartics2GoogleAnalytics = TestBed.inject(Angulartics2GoogleAnalytics);
     service.startTracking();
   });
 

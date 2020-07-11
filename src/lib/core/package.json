@@ -38,8 +38,8 @@
     "dest": "../../../dist/core"
   },
   "peerDependencies": {
-    "@angular/common": ">=9.0.0",
-    "@angular/core": ">=9.0.0",
+    "@angular/common": ">=10.0.0-0",
+    "@angular/core": ">=10.0.0-0",
     "rxjs": "^6.5.0"
   }
 }

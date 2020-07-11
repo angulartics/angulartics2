@@ -33,7 +33,7 @@ describe('Angulartics2Amplitude', () => {
       }
     };
 
-    const provider: Angulartics2Amplitude = TestBed.get(Angulartics2Amplitude);
+    const provider: Angulartics2Amplitude = TestBed.inject(Angulartics2Amplitude);
     provider.startTracking();
   });
 

@@ -30,7 +30,7 @@ describe('Angulartics2Mixpanel', () => {
       alias: jasmine.createSpy('alias'),
     };
 
-    const provider: Angulartics2Mixpanel = TestBed.get(Angulartics2Mixpanel);
+    const provider: Angulartics2Mixpanel = TestBed.inject(Angulartics2Mixpanel);
     provider.startTracking();
   });
 

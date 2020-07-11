@@ -18,7 +18,7 @@ describe('Angulartics2Piwik', () => {
     });
 
     window._paq = _paq = [];
-    const provider: Angulartics2Piwik = TestBed.get(Angulartics2Piwik);
+    const provider: Angulartics2Piwik = TestBed.inject(Angulartics2Piwik);
     provider.startTracking();
   });
 

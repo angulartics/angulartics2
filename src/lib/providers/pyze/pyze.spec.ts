@@ -31,7 +31,7 @@ describe('Angulartics2Pyze', () => {
       postTraits: jasmine.createSpy('postTraits'),
     };
 
-    const provider: Angulartics2Pyze = TestBed.get(Angulartics2Pyze);
+    const provider: Angulartics2Pyze = TestBed.inject(Angulartics2Pyze);
     provider.startTracking();
   });
 

@@ -1,7 +1,7 @@
 import { copySync } from 'fs-extra';
 import { ngPackagr } from 'ng-packagr';
 import { join } from 'path';
-import * as rimraf from 'rimraf';
+import * as del from 'del';
 
 const CORE_MODULE_NAMES = ['uiroutermodule', 'routerlessmodule'];
 
@@ -34,8 +34,8 @@ const MODULE_NAMES = [
 
 async function main() {
   // cleanup dist
-  rimraf.sync(join(process.cwd(), '/dist'));
-  rimraf.sync(join(process.cwd(), '/node_modules/angulartics2'));
+  del.sync(join(process.cwd(), '/dist'));
+  del.sync(join(process.cwd(), '/node_modules/angulartics2'));
 
   await ngPackagr()
     .forProject(join(process.cwd(), 'src/lib/core/package.json'))

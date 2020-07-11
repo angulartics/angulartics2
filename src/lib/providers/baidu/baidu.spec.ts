@@ -25,7 +25,7 @@ describe('Angulartics2BaiduAnalytics', () => {
 
       window._hmt = _hmt = [];
 
-      const provider: Angulartics2BaiduAnalytics = TestBed.get(Angulartics2BaiduAnalytics);
+      const provider: Angulartics2BaiduAnalytics = TestBed.inject(Angulartics2BaiduAnalytics);
       provider.startTracking();
     });
 
