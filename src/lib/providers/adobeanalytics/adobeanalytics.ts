@@ -19,16 +19,25 @@ export class Angulartics2AdobeAnalytics {
   startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.pageTrack(x.path));
+      .subscribe((x) => this.pageTrack(x.path, x.properties));
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x) => this.eventTrack(x.action, x.properties));
   }
 
-  pageTrack(path: string) {
+  pageTrack(path: string, properties: any) {
     if (typeof s !== 'undefined' && s) {
       s.clearVars();
-      s.t({pageName: path});
+      if (typeof properties === 'object') {
+        // the additional properties are not the ones sent by angulartics but are user defined
+        if (!properties['pageName']) {
+          // no page name defined, use the path
+          properties['pageName'] = path;
+        }
+        s.t(properties);
+      } else {
+        s.t({pageName: path});
+      }
     }
   }
 
@@ -65,7 +74,7 @@ export class Angulartics2AdobeAnalytics {
         if (properties['action']) {
           action = properties['action'];
         }
-        this.setPageName();
+        this.setPageName(properties);
 
         if (action.toUpperCase() === 'DOWNLOAD') {
           s.tl(disableDelay, 'd', linkName);
@@ -78,13 +87,17 @@ export class Angulartics2AdobeAnalytics {
     }
   }
 
-  private setPageName() {
-    const path = this.location.path(true);
-    const hashNdx = path.indexOf('#');
-    if (hashNdx > 0 && hashNdx < path.length) {
-      s.pageName = path.substring(hashNdx + 1);
-    } else {
-      s.pageName = path;
+  private setPageName(properties: any) {
+    if (typeof properties === 'object' && properties.pageName !== undefined) {
+      s.pageName = properties.pageName;
+    }  else {
+      const path = this.location.path(true);
+      const hashNdx = path.indexOf('#');
+      if (hashNdx > 0 && hashNdx < path.length) {
+        s.pageName = path.substring(hashNdx + 1);
+      } else {
+        s.pageName = path;
+      }
     }
   }
 
