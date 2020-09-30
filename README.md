@@ -1,4 +1,4 @@
-# angulartics2
+# angulartics2 ANGULARJS ANALYTICS
 
 [![NPM version](https://img.shields.io/npm/v/angulartics2.svg)](https://npmjs.org/package/angulartics2) [![NPM downloads](https://img.shields.io/npm/dm/angulartics2.svg)](https://npmjs.org/package/angulartics2)
 [![Build Status](https://api.travis-ci.org/angulartics/angulartics2.svg?branch=master)](https://travis-ci.org/angulartics/angulartics2)
