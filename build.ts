@@ -20,7 +20,7 @@ const MODULE_NAMES = [
   'launch',
   'mixpanel',
   'pyze',
-  'piwik',
+  'matomo',
   'segment',
   'intercom',
   'woopra',

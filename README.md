@@ -275,7 +275,7 @@ System.config({
 * [Google Global Site Tag](/src/lib/providers/gst) (`gtag.js`)
 * [Kissmetrics](/src/lib/providers/kissmetrics)
 * [Mixpanel](/src/lib/providers/mixpanel)
-* [Piwik](/src/lib/providers/piwik)
+* [Matomo](/src/lib/providers/matomo)
 * [Segment](/src/lib/providers/segment)
 * [Baidu Analytics](/src/lib/providers/baidu)
 * [Facebook Pixel](/src/lib/providers/facebook)
