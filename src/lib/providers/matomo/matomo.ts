@@ -5,10 +5,23 @@ import { Angulartics2 } from 'angulartics2';
 declare var _paq: any;
 
 export type EventTrackAction = 'setEcommerceView' | 'addEcommerceItem' | 'trackEcommerceCartUpdate'
-  | 'trackEcommerceOrder' | 'trackGoal' | 'trackSiteSearch' | 'deleteCustomVariable' | string;
+  | 'trackEcommerceOrder' | 'trackLink' | 'trackGoal' | 'trackSiteSearch' | string;
 
 export type ScopeMatomo = 'visit' | 'page';
 
+
+export interface DimensionsMatomoProperties {
+  dimension0?: string;
+  dimension1?: string;
+  dimension2?: string;
+  dimension3?: string;
+  dimension4?: string;
+  dimension5?: string;
+  dimension6?: string;
+  dimension7?: string;
+  dimension8?: string;
+  dimension9?: string;
+}
 export interface SetEcommerceViewMatomoProperties {
   /** @class SetEcommerceViewMatomoProperties */
   productSKU: string;
@@ -53,6 +66,13 @@ export interface TrackEcommerceOrderMatomoProperties {
   discount: string;
 }
 
+export interface TrackLinkMatomoProperties {
+  /** @class TrackLinkMatomoProperties */
+  url: string;
+  /** @class TrackLinkMatomoProperties */
+  linkType: string;
+}
+
 export interface TrackGoalMatomoProperties {
   /** @class TrackGoalMatomoProperties */
   goalId: string;
@@ -80,9 +100,9 @@ export interface TrackEventMatomoProperties {
   value: number | string;
 }
 
-export interface SetCustomVariableMatomoProperties {
+export interface SetCustomVariableMatomoProperties extends DimensionsMatomoProperties {
   /** @class SetCustomVariableMatomoProperties */
-  index: string;
+  index: number;
   /** @class SetCustomVariableMatomoProperties */
   name: string;
   /** @class SetCustomVariableMatomoProperties */
@@ -93,7 +113,7 @@ export interface SetCustomVariableMatomoProperties {
 
 export interface DeleteCustomVariableMatomoProperties {
   /** @class DeleteCustomVariableMatomoProperties */
-  index: string;
+  index: number;
   /** @class DeleteCustomVariableMatomoProperties */
   scope: ScopeMatomo;
 }
@@ -102,10 +122,10 @@ export type EventTrackactionProperties = SetEcommerceViewMatomoProperties
   | AddEcommerceItemProperties
   | TrackEcommerceCartUpdateMatomoProperties
   | TrackEcommerceOrderMatomoProperties
+  | TrackLinkMatomoProperties
   | TrackGoalMatomoProperties
   | TrackSiteSearchMatomoProperties
-  | TrackEventMatomoProperties
-  | DeleteCustomVariableMatomoProperties;
+  | TrackEventMatomoProperties;
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2Matomo {
@@ -161,9 +181,9 @@ export class Angulartics2Matomo {
   eventTrack(action: 'addEcommerceItem', properties: AddEcommerceItemProperties): void;
   eventTrack(action: 'trackEcommerceCartUpdate', properties: TrackEcommerceCartUpdateMatomoProperties): void;
   eventTrack(action: 'trackEcommerceOrder', properties: TrackEcommerceOrderMatomoProperties): void;
+  eventTrack(action: 'trackLink', properties: TrackLinkMatomoProperties): void;
   eventTrack(action: 'trackGoal', properties: TrackGoalMatomoProperties): void;
   eventTrack(action: 'trackSiteSearch', properties: TrackSiteSearchMatomoProperties): void;
-  eventTrack(action: 'deleteCustomVariable', properties: DeleteCustomVariableMatomoProperties): void;
   eventTrack(action: string, properties: TrackEventMatomoProperties): void;
 
   /**
@@ -261,6 +281,23 @@ export class Angulartics2Matomo {
         break;
 
       /**
+       * @description To manually trigger an outlink
+       *
+       * @link https://matomo.org/docs/tracking-goals-web-analytics/
+       * @link https://developer.matomo.org/guides/tracking-javascript-guide#tracking-a-click-as-an-outlink-via-css-or-javascript
+       *
+       * @property url (required) link url
+       * @property linkType (optional) type of link
+       */
+      case 'trackLink':
+        params = [
+          'trackLink',
+          (properties as TrackLinkMatomoProperties).url,
+          (properties as TrackLinkMatomoProperties).linkType
+        ];
+        break;
+
+      /**
        * @description Tracks an Ecommerce goal
        *
        * @link https://matomo.org/docs/tracking-goals-web-analytics/
@@ -274,23 +311,6 @@ export class Angulartics2Matomo {
           'trackGoal',
           (properties as TrackGoalMatomoProperties).goalId,
           (properties as TrackGoalMatomoProperties).value,
-        ];
-        break;
-
-      /**
-       * @description Tracks an Ecommerce goal
-       *
-       * @link https://matomo.org/docs/tracking-goals-web-analytics/
-       * @link https://developer.matomo.org/guides/tracking-javascript-guide#manually-trigger-goal-conversions
-       *
-       * @property goalId (required) Unique Goal ID
-       * @property value (optional) passed to goal tracking
-       */
-      case 'deleteCustomVariable':
-        params = [
-          'deleteCustomVariable',
-          (properties as DeleteCustomVariableMatomoProperties).index,
-          (properties as DeleteCustomVariableMatomoProperties).scope,
         ];
         break;
 
@@ -383,7 +403,23 @@ export class Angulartics2Matomo {
     }
   }
 
-  private setCustomDimensions(properties: any): string[] {
+  /**
+    * If you created a custom variable and then decide to remove this variable from 
+    * a visit or page view, you can use deleteCustomVariable.
+    *
+    * @link https://developer.matomo.org/guides/tracking-javascript-guide#deleting-a-custom-variable
+    */
+  deletedUserProperties(properties: DeleteCustomVariableMatomoProperties) {
+    try {
+      _paq.push(['deleteCustomVariable', properties.index, properties.scope]);
+    } catch (e) {
+      if (!(e instanceof ReferenceError)) {
+        throw e;
+      }
+    }
+  }
+
+  private setCustomDimensions(properties: SetCustomVariableMatomoProperties): string[] {
     const dimensionRegex: RegExp = /dimension[1-9]\d*/;
     const dimensions = Object.keys(properties)
       .filter(key => dimensionRegex.exec(key));
