@@ -1,18 +1,18 @@
 {
   "$schema": "../../../../node_modules/ng-packagr/package.schema.json",
-  "name": "angulartics2/piwik",
-  "description": "The piwik module",
+  "name": "angulartics2/matomo",
+  "description": "The Matomo module",
   "homepage": "https://angulartics.github.io/angulartics2/",
   "author": "João Ribeiro <jonnybgod@gmail.com> (http://github.com/JonnyBGod)",
   "repository": "angulartics/angulartics2",
   "license": "MIT",
   "ngPackage": {
     "lib": {
-      "entryFile": "piwik.ts",
+      "entryFile": "matomo.ts",
       "umdModuleIds": {
         "angulartics2": "angulartics2"
       }
     },
-    "dest": "../../../../dist/packages-dist/piwik"
+    "dest": "../../../../dist/packages-dist/matomo"
   }
 }
