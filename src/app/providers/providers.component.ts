@@ -85,8 +85,8 @@ export class ProvidersComponent {
       type: 'Analytics',
     },
     {
-      name: 'piwik',
-      display: 'Piwik',
+      name: 'matomo',
+      display: 'Matomo',
       type: 'Analytics',
     },
     {

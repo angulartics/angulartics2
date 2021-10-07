@@ -1,32 +1,34 @@
-import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
 
 import { Angulartics2 } from 'angulartics2';
+
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
-import { Angulartics2Piwik } from './piwik';
+
+import { Angulartics2Matomo } from './matomo';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 declare var window: any;
 
-describe('Angulartics2Piwik', () => {
+describe('Angulartics2Matomo', () => {
   let _paq: Array<any>;
   let fixture: ComponentFixture<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TestModule],
-      providers: [Angulartics2Piwik],
+      providers: [Angulartics2Matomo],
     });
 
     window._paq = _paq = [];
-    const provider: Angulartics2Piwik = TestBed.inject(Angulartics2Piwik);
+    const provider: Angulartics2Matomo = TestBed.inject(Angulartics2Matomo);
     provider.startTracking();
   });
 
   it('should track pages',
-    fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-      (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+      (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({path: '/abc' });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
         expect(_paq).toContain(['setCustomUrl', window.location.origin + '/abc']);
       },
@@ -47,15 +49,15 @@ describe('Angulartics2Piwik', () => {
     });
 
     it('should track set ecommerce view events',
-      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+        (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
           fixture = createRoot(RootCmp);
 
-          // Set up ecommerce view description to inform Piwik that product details are shown
+          // Set up ecommerce view description to inform Matomo that product details are shown
           const ecommerceViewDescription = product;
           ecommerceViewDescription.categoryName = 'category name';
 
-          angulartics2.eventTrack.next({action: 'setEcommerceView', properties: ecommerceViewDescription});
+          angulartics2.eventTrack.next({ action: 'setEcommerceView', properties: ecommerceViewDescription });
           advance(fixture);
 
           expect(_paq).toContain(['setEcommerceView',
@@ -70,33 +72,33 @@ describe('Angulartics2Piwik', () => {
 
 
     it('should track goals',
-      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+        (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
           fixture = createRoot(RootCmp);
 
-          const piwikGoal = {
+          const matomoGoal = {
             goalId: 1,
             value: 35,
           };
 
-          angulartics2.eventTrack.next({action: 'trackGoal', properties: piwikGoal});
+          angulartics2.eventTrack.next({ action: 'trackGoal', properties: matomoGoal });
           advance(fixture);
 
           expect(_paq).toContain([
             'trackGoal',
-            piwikGoal.goalId,
-            piwikGoal.value,
+            matomoGoal.goalId,
+            matomoGoal.value,
           ]);
         }
       )),
     );
 
     it('should track add ecommerce item events',
-      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+        (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
           fixture = createRoot(RootCmp);
 
-          angulartics2.eventTrack.next({action: 'addEcommerceItem', properties: product});
+          angulartics2.eventTrack.next({ action: 'addEcommerceItem', properties: product });
           advance(fixture);
 
           expect(_paq).toContain(['addEcommerceItem',
@@ -111,11 +113,11 @@ describe('Angulartics2Piwik', () => {
     );
 
     it('should track ecommerce cart update events',
-      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+        (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
           fixture = createRoot(RootCmp);
 
-          angulartics2.eventTrack.next({action: 'trackEcommerceCartUpdate', properties: {grandTotal: 15.5}});
+          angulartics2.eventTrack.next({ action: 'trackEcommerceCartUpdate', properties: { grandTotal: 15.5 } });
           advance(fixture);
 
           expect(_paq).toContain(['trackEcommerceCartUpdate', 15.5]);
@@ -124,8 +126,8 @@ describe('Angulartics2Piwik', () => {
     );
 
     it('should track ecommerce order events',
-      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+        (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
           fixture = createRoot(RootCmp);
 
           const ecommerceOrder = {
@@ -137,7 +139,7 @@ describe('Angulartics2Piwik', () => {
             discount: false,
           };
 
-          angulartics2.eventTrack.next({action: 'trackEcommerceOrder', properties: ecommerceOrder});
+          angulartics2.eventTrack.next({ action: 'trackEcommerceOrder', properties: ecommerceOrder });
           advance(fixture);
 
           expect(_paq).toContain(['trackEcommerceOrder',
@@ -153,8 +155,8 @@ describe('Angulartics2Piwik', () => {
     );
 
     it('should track search',
-      fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-        (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+      fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+        (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
           fixture = createRoot(RootCmp);
 
           const search = {
@@ -163,7 +165,7 @@ describe('Angulartics2Piwik', () => {
             searchCount: 42,
           };
 
-          angulartics2.eventTrack.next({action: 'trackSiteSearch', properties: search});
+          angulartics2.eventTrack.next({ action: 'trackSiteSearch', properties: search });
           advance(fixture);
 
           expect(_paq).toContain(['trackSiteSearch',
@@ -175,10 +177,10 @@ describe('Angulartics2Piwik', () => {
       )),
     );
 
-    it('should track events', fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-      (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+    it('should track events', fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+      (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
         fixture = createRoot(RootCmp);
-        angulartics2.eventTrack.next({action: 'do', properties: {category: 'cat'}});
+        angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
         advance(fixture);
         expect(_paq).toContain(['trackEvent', 'cat', 'do', undefined, undefined]);
       }
@@ -186,8 +188,8 @@ describe('Angulartics2Piwik', () => {
 
   });
 
-  it('should set username', fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-    (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+  it('should set username', fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+    (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
       fixture = createRoot(RootCmp);
       angulartics2.setUsername.next('testUser');
       advance(fixture);
@@ -196,10 +198,10 @@ describe('Angulartics2Piwik', () => {
   )));
 
   it('should set user properties as custom variable',
-    fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-      (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+      (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
         fixture = createRoot(RootCmp);
-        angulartics2.setUserProperties.next({index: 1, name: 'John', value: 123, scope: 'visit'});
+        angulartics2.setUserProperties.next({ index: 1, name: 'John', value: 123, scope: 'visit' });
         advance(fixture);
         expect(_paq).toContain(['setCustomVariable', 1, 'John', 123, 'visit']);
       }
@@ -207,8 +209,8 @@ describe('Angulartics2Piwik', () => {
   );
 
   it('should set user properties as custom dimension',
-    fakeAsync(inject([Angulartics2, Angulartics2Piwik],
-      (angulartics2: Angulartics2, angulartics2Piwik: Angulartics2Piwik) => {
+    fakeAsync(inject([Angulartics2, Angulartics2Matomo],
+      (angulartics2: Angulartics2, angulartics2Matomo: Angulartics2Matomo) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserProperties.next({
           dimension1: 'v1.2.3',
