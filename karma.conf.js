@@ -28,8 +28,8 @@ module.exports = function (config) {
     browsers: ["Chrome"],
     customLaunchers: {
       ChromeCI: {
-        base: `${process.env["TRAVIS"] ? "ChromeHeadless" : "Chrome"}`,
-        flags: process.env["TRAVIS"] ? ["--no-sandbox"] : [],
+        base: "ChromeHeadless",
+        flags: ["--no-sandbox", "--disable-gpu"],
       },
     },
     singleRun: false,
