@@ -1,0 +1,21 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - name: setup browser
+        uses: browser-actions/setup-chrome@latest
+      - name: install dependencies
+        run: yarn install
+      - name: test
+        run: yarn test:ci
