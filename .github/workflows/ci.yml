@@ -13,10 +13,10 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+      - name: setup browser
+        uses: browser-actions/setup-chrome@latest
       - name: install dependencies
         run: yarn install
-      - name: lint
-        run: yarn lint
       - name: test
         run: yarn test:ci
 
