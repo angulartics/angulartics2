@@ -19,21 +19,3 @@ jobs:
         run: yarn install
       - name: test
         run: yarn test:ci
-
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@master
-      - name: setup node
-        uses: actions/setup-node@master
-        with:
-          node-version: 16
-      - name: install dependencies
-        run: yarn install
-      - name: release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn semantic-release
