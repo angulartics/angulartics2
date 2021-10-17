@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 import { Angulartics2Clicky } from './clicky';
 

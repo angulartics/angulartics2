@@ -6,4 +6,6 @@ export interface Angulartics2Token {
   settings: Partial<Angulartics2Settings>;
 }
 
-export const ANGULARTICS2_TOKEN = new InjectionToken<Angulartics2Token>('ANGULARTICS2');
+export const ANGULARTICS2_TOKEN = new InjectionToken<Angulartics2Token>(
+  'ANGULARTICS2'
+);

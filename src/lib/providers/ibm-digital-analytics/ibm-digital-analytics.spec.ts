@@ -1,11 +1,6 @@
-import {
-  fakeAsync,
-  inject,
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 import { Angulartics2IBMDigitalAnalytics } from './ibm-digital-analytics';
 
@@ -55,7 +50,9 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
       window.cmCreateElementTag = jasmine.createSpy('cmCreateElementTag');
       window.cmCreateConversionEventTag = jasmine.createSpy('cmCreateConversionEventTag');
       window.cmDisplayShops = jasmine.createSpy('cmDisplayShops');
-      const provider: Angulartics2IBMDigitalAnalytics = TestBed.inject(Angulartics2IBMDigitalAnalytics);
+      const provider: Angulartics2IBMDigitalAnalytics = TestBed.inject(
+        Angulartics2IBMDigitalAnalytics,
+      );
       provider.startTracking();
     });
 
@@ -69,12 +66,7 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
           fixture = createRoot(RootCmp);
           angulartics2.pageTrack.next({ path: '/abc' });
           advance(fixture);
-          expect(window.cmCreatePageviewTag).toHaveBeenCalledWith(
-            '/abc',
-            null,
-            null,
-            null,
-          );
+          expect(window.cmCreatePageviewTag).toHaveBeenCalledWith('/abc', null, null, null);
         },
       ),
     ));
@@ -279,11 +271,7 @@ describe('Angulartics2IBMDigitalAnalytics', () => {
           });
 
           advance(fixture);
-          expect(window.cmCreateElementTag).toHaveBeenCalledWith(
-            'form_001',
-            'forms',
-            'attributes',
-          );
+          expect(window.cmCreateElementTag).toHaveBeenCalledWith('form_001', 'forms', 'attributes');
         },
       ),
     ));

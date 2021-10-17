@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 
 
 declare var _hmt: any;

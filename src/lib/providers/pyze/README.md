@@ -8,7 +8,7 @@
 
 __homepage__: [pyze.com](https://www.pyze.com/)  
 __docs__: [docs.pyze.com/web.html](https://docs.pyze.com/web.html)  
-__import__: `import { Angulartics2Pyze } from 'angulartics2/pyze';`  
+__import__: `import { Angulartics2Pyze } from 'angulartics2';`  
 
 ## Setup
 

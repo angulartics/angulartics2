@@ -35,11 +35,11 @@
     "lib": {
       "entryFile": "public_api.ts"
     },
-    "dest": "../../../dist/core"
+    "dest": "../../dist/core"
   },
   "peerDependencies": {
-    "@angular/common": ">=10.0.0-0",
-    "@angular/core": ">=10.0.0-0",
-    "rxjs": "^6.5.0"
+    "@angular/common": ">=12.0.0-0",
+    "@angular/core": ">=12.0.0-0",
+    "rxjs": "^7.0.0"
   }
 }

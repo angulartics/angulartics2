@@ -8,7 +8,7 @@
 
 __homepage__: [google.com/analytics](https://www.google.com/analytics)  
 __docs__: [developers.google.com/analytics/devguides/collection/analyticsjs/](https://developers.google.com/analytics/devguides/collection/analyticsjs/)  
-__import__: `import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';`  
+__import__: `import { Angulartics2GoogleAnalytics } from 'angulartics2';`  
 
 ## Setup
 

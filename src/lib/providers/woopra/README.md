@@ -7,6 +7,6 @@
 # Woopra
 __homepage__: [woopra.com](https://www.woopra.com/)  
 __docs__: [woopra.com/docs/setup/javascript-tracking/](https://www.woopra.com/docs/setup/javascript-tracking/)  
-__import__: `import { Angulartics2Woopra } from 'angulartics2/woopra';`  
+__import__: `import { Angulartics2Woopra } from 'angulartics2';`  
 
 ## Setup

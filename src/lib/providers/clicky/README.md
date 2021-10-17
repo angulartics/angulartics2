@@ -7,7 +7,7 @@
 # Clicky
 __homepage__: [clicky.com](https://clicky.com/)  
 __docs__: [clicky.com/help/](https://clicky.com/help/)  
-__import__: `import { Angulartics2Clicky } from 'angulartics2/clicky';`  
+__import__: `import { Angulartics2Clicky } from 'angulartics2';`  
 
 ## Setup
 

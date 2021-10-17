@@ -8,7 +8,7 @@
 
 **homepage**: [mixpanel.com](https://mixpanel.com/)  
 **docs**: [mixpanel.com/help/reference/javascript](https://mixpanel.com/help/reference/javascript)  
-**import**: `import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';`
+**import**: `import { Angulartics2Mixpanel } from 'angulartics2';`
 
 ## Setup
 
@@ -48,7 +48,7 @@ export interface MixPanelPayloadProperties {
 ```ts
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { Angulartics2Mixpanel } from 'angulartics2/mixpanel';
+import { Angulartics2Mixpanel } from 'angulartics2';
 
 import * as mixpanel from '../actions/mixpanel';
 

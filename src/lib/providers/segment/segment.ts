@@ -1,30 +1,24 @@
 import { Injectable } from '@angular/core';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 
 declare var analytics: SegmentAnalytics.AnalyticsJS;
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2Segment {
-
-  constructor(
-    private angulartics2: Angulartics2
-  ) {
-    this.angulartics2.setUserProperties
-      .subscribe((x) => this.setUserProperties(x));
-    this.angulartics2.setUserPropertiesOnce
-      .subscribe((x) => this.setUserProperties(x));
-    this.angulartics2.setAlias
-      .subscribe((x) => this.setAlias(x));
+  constructor(private angulartics2: Angulartics2) {
+    this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
+    this.angulartics2.setUserPropertiesOnce.subscribe(x => this.setUserProperties(x));
+    this.angulartics2.setAlias.subscribe(x => this.setAlias(x));
   }
 
   startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.pageTrack(x.path));
+      .subscribe(x => this.pageTrack(x.path));
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.eventTrack(x.action, x.properties));
+      .subscribe(x => this.eventTrack(x.action, x.properties));
   }
 
   /**

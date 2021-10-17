@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { Angulartics2, GoogleGlobalSiteTagSettings, UserTimings } from 'angulartics2';
+import { UserTimings } from '../../angulartics2-interfaces';
+import { GoogleGlobalSiteTagSettings } from '../../angulartics2-config';
+import { Angulartics2 } from '../../angulartics2-core';
 import { EventGst, UserTimingsGst } from './gst-interfaces';
 
 declare var gtag: any;
@@ -38,10 +40,10 @@ export class Angulartics2GoogleGlobalSiteTag {
   startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.pageTrack(x.path));
+      .subscribe(x => this.pageTrack(x.path));
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.eventTrack(x.action, x.properties));
+      .subscribe(x => this.eventTrack(x.action, x.properties));
     this.angulartics2.exceptionTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x: any) => this.exceptionTrack(x));
@@ -68,7 +70,7 @@ export class Angulartics2GoogleGlobalSiteTag {
       const params: any = {
         page_path: path,
         page_location: window.location.protocol + '//' + window.location.host + path,
-        ...this.dimensionsAndMetrics
+        ...this.dimensionsAndMetrics,
       };
 
       // Custom map must be reset with all config to stay valid.
@@ -102,7 +104,7 @@ export class Angulartics2GoogleGlobalSiteTag {
       event_label: properties.label,
       value: properties.value,
       non_interaction: properties.noninteraction,
-      ...properties.gstCustom
+      ...properties.gstCustom,
     });
   }
 
@@ -128,8 +130,8 @@ export class Angulartics2GoogleGlobalSiteTag {
       gstCustom: {
         description: properties.exDescription,
         fatal: properties.fatal,
-        ...properties.gstCustom
-      }
+        ...properties.gstCustom,
+      },
     });
   }
 
@@ -155,7 +157,7 @@ export class Angulartics2GoogleGlobalSiteTag {
       name: properties.name,
       value: properties.value,
       event_category: properties.category,
-      event_label: properties.label
+      event_label: properties.label,
     });
   }
 
@@ -164,7 +166,7 @@ export class Angulartics2GoogleGlobalSiteTag {
       name: properties.timingVar,
       value: properties.timingValue,
       category: properties.timingCategory,
-      label: properties.timingLabel
+      label: properties.timingLabel,
     };
   }
 
@@ -183,7 +185,7 @@ export class Angulartics2GoogleGlobalSiteTag {
     // We want the dimensions and metrics to accumulate, so we merge with previous value
     this.dimensionsAndMetrics = {
       ...this.dimensionsAndMetrics,
-      ...properties
+      ...properties,
     };
 
     // Remove properties that are null or undefined

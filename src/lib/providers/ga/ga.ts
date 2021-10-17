@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import {
-  Angulartics2,
-  GoogleAnalyticsSettings,
-  UserTimings,
-} from 'angulartics2';
-
+import { Angulartics2 } from '../../angulartics2-core';
+import { GoogleAnalyticsSettings } from '../../angulartics2-config';
+import { UserTimings } from '../../angulartics2-interfaces';
 
 declare var _gaq: GoogleAnalyticsCode;
 declare var ga: UniversalAnalytics.ga;
@@ -114,7 +111,9 @@ export class Angulartics2GoogleAnalytics {
         page: properties.page || location.hash.substring(1) || location.pathname,
         userId: this.angulartics2.settings.ga.userId,
         hitCallback: properties.hitCallback,
-        ... this.angulartics2.settings.ga.transport && { transport: this.angulartics2.settings.ga.transport }
+        ...(this.angulartics2.settings.ga.transport && {
+          transport: this.angulartics2.settings.ga.transport,
+        }),
       };
 
       // add custom dimensions and metrics
@@ -221,28 +220,21 @@ export class Angulartics2GoogleAnalytics {
       if (!properties.hasOwnProperty(elem)) {
         ga('set', elem, undefined);
 
-        this.angulartics2.settings.ga.additionalAccountNames.forEach(
-          (accountName: string) => {
-            ga(`${accountName}.set`, elem, undefined);
-          },
-        );
+        this.angulartics2.settings.ga.additionalAccountNames.forEach((accountName: string) => {
+          ga(`${accountName}.set`, elem, undefined);
+        });
       }
     });
     this.dimensionsAndMetrics = [];
 
     // add custom dimensions and metrics
     Object.keys(properties).forEach(key => {
-      if (
-        key.lastIndexOf('dimension', 0) === 0 ||
-        key.lastIndexOf('metric', 0) === 0
-      ) {
+      if (key.lastIndexOf('dimension', 0) === 0 || key.lastIndexOf('metric', 0) === 0) {
         ga('set', key, properties[key]);
 
-        this.angulartics2.settings.ga.additionalAccountNames.forEach(
-          (accountName: string) => {
-            ga(`${accountName}.set`, key, properties[key]);
-          },
-        );
+        this.angulartics2.settings.ga.additionalAccountNames.forEach((accountName: string) => {
+          ga(`${accountName}.set`, key, properties[key]);
+        });
         this.dimensionsAndMetrics.push(key);
       }
     });

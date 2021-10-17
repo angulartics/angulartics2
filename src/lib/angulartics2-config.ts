@@ -54,7 +54,8 @@ export class DefaultConfig implements Angulartics2Settings {
     clearIds: false,
     clearHash: false,
     clearQueryParams: false,
-    idsRegExp: /^\d+$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
+    idsRegExp:
+      /^\d+$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
   };
   developerMode = false;
   ga = {};

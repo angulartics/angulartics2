@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2IBMDigitalAnalytics {
   constructor(private angulartics2: Angulartics2) {
     if (typeof window['cmCreatePageviewTag'] !== 'function') {
-      console.warn(
-        'Angulartics 2 IBM Digital Analytics Plugin: eluminate.js is not loaded',
-      );
+      console.warn('Angulartics 2 IBM Digital Analytics Plugin: eluminate.js is not loaded');
     }
   }
 
@@ -159,11 +157,7 @@ export class Angulartics2IBMDigitalAnalytics {
        */
       case 'cmCreateElementTag':
         const cmCreateElementTag = window['cmCreateElementTag'];
-        cmCreateElementTag(
-          properties.elementId,
-          properties.elementCategory,
-          properties.attrbute,
-        );
+        cmCreateElementTag(properties.elementId, properties.elementCategory, properties.attrbute);
 
         break;
 

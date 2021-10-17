@@ -7,7 +7,7 @@
 # Splunk
 __homepage__: [splunk.com](https://www.splunk.com/)  
 __docs__: [Splunk Collector API](https://github.com/splunk/splunk-demo-collector-for-analyticsjs#api)
-__import__: `import { Angulartics2Splunk } from 'angulartics2/splunk';`  
+__import__: `import { Angulartics2Splunk } from 'angulartics2';`  
 
 ## Setup
 1. Add tracking code [provided by Splunk](https://www.splunk.com/blog/2013/10/17/still-using-3rd-party-web-analytics-providers-build-your-own-using-splunk.html) to right above the `</head>` closing tag. 
@@ -46,7 +46,7 @@ const ROUTES: Routes = [
 3. __Required__: Import your providers in the root component. This starts the tracking of route changes.
 ```ts
 // component
-import { Angulartics2Splunk } from 'angulartics2/splunk';
+import { Angulartics2Splunk } from 'angulartics2';
 
 @Component({  ...  })
 export class AppComponent {

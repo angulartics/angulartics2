@@ -8,7 +8,7 @@
 
 __homepage__: [www.facebook.com/business/a/facebook-pixel](https://www.facebook.com/business/a/facebook-pixel)  
 __docs__: [developers.facebook.com/docs/facebook-pixel](https://developers.facebook.com/docs/facebook-pixel)  
-__import__: `import { Angulartics2Facebook } from 'angulartics2/facebook';`  
+__import__: `import { Angulartics2Facebook } from 'angulartics2';`  
 
 ## Setup
 

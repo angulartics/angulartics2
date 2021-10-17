@@ -7,6 +7,6 @@
 # Adobe Analytics Cloud
 __homepage__: [adobe.com/data-analytics-cloud/analytics.html](http://www.adobe.com/data-analytics-cloud/analytics.html)  
 __docs__: [marketing.adobe.com/resources/help/en_US/sc/implement/impl_js_file.html](https://marketing.adobe.com/resources/help/en_US/sc/implement/impl_js_file.html)  
-__import__: `import { Angulartics2AdobeAnalytics } from 'angulartics2/adobeanalytics';`  
+__import__: `import { Angulartics2AdobeAnalytics } from 'angulartics2';`  
 
 ## Setup

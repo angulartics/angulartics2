@@ -3,16 +3,15 @@ import { Component, Injectable, NgModule } from '@angular/core';
 import { tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { UIRouterModule } from '@uirouter/angular';
 
-import { Angulartics2, Angulartics2Module } from 'angulartics2';
+import { Angulartics2, Angulartics2Module } from './public_api';
 
 @Injectable({ providedIn: 'root' })
 export class DummyProvider {
   eventSpy: any;
   constructor(angulartics2: Angulartics2) {
     this.eventSpy = jasmine.createSpy('eventSpy');
-    angulartics2.pageTrack.subscribe((x) => this.eventSpy(x));
+    angulartics2.pageTrack.subscribe(x => this.eventSpy(x));
   }
 }
 
@@ -87,10 +86,7 @@ export function createRoot(type: any): ComponentFixture<any> {
   return f;
 }
 
-export function createRootWithRouter(
-  router: Router,
-  type: any,
-): ComponentFixture<any> {
+export function createRootWithRouter(router: Router, type: any): ComponentFixture<any> {
   const f = TestBed.createComponent(type);
   advance(f);
   router.initialNavigation();
@@ -99,46 +95,13 @@ export function createRootWithRouter(
 }
 
 @NgModule({
-  declarations: [
-    HelloCmp,
-    HelloCmp2,
-    HelloCmp3,
-    HelloCmp4,
-    HelloCmp5,
-    RouterlessRootCmp,
-  ],
-}) export class HelloModule {}
-
-@NgModule({
-  imports: [
-    HelloModule,
-    CommonModule,
-    UIRouterModule.forRoot({
-      states: UIRoutesConfig,
-      useHash: true,
-      otherwise: { state: 'home' },
-    }),
-    Angulartics2Module.forRoot(),
-  ],
-  entryComponents: [UIRootCmp],
-  declarations: [
-    UIRootCmp,
-  ],
+  declarations: [HelloCmp, HelloCmp2, HelloCmp3, HelloCmp4, HelloCmp5, RouterlessRootCmp],
 })
-export class UITestModule {
-}
+export class HelloModule {}
 
 @NgModule({
-  imports: [
-    HelloModule,
-    CommonModule,
-    RouterTestingModule,
-    Angulartics2Module.forRoot(),
-  ],
+  imports: [HelloModule, CommonModule, RouterTestingModule, Angulartics2Module.forRoot()],
   entryComponents: [RootCmp],
-  declarations: [
-    RootCmp,
-  ],
+  declarations: [RootCmp],
 })
-export class TestModule {
-}
+export class TestModule {}

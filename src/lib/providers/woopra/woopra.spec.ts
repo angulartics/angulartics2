@@ -1,11 +1,6 @@
-import {
-  fakeAsync,
-  inject,
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 import { Angulartics2Woopra } from './woopra';
 
@@ -31,19 +26,21 @@ describe('Angulartics2Woopra', () => {
     provider.startTracking();
   });
 
-  it('should track pages',
-    fakeAsync(inject([Angulartics2, Angulartics2Woopra],
+  it('should track pages', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Woopra],
       (angulartics2: Angulartics2, angulartics2Woopra: Angulartics2Woopra) => {
         fixture = createRoot(RootCmp);
-        angulartics2.pageTrack.next({path: '/abc' });
+        angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
-        expect(woopra.track).toHaveBeenCalledWith('pv', {url: '/abc'});
-      }),
+        expect(woopra.track).toHaveBeenCalledWith('pv', { url: '/abc' });
+      },
     ),
-  );
+  ));
 
-  it('should track events',
-    fakeAsync(inject([Angulartics2, Angulartics2Woopra],
+  it('should track events', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Woopra],
       (angulartics2: Angulartics2, angulartics2Woopra: Angulartics2Woopra) => {
         fixture = createRoot(RootCmp);
         angulartics2.eventTrack.next({
@@ -58,22 +55,27 @@ describe('Angulartics2Woopra', () => {
           amount: '49.95',
           currency: 'USD',
         });
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should set user properties',
-    fakeAsync(inject([Angulartics2, Angulartics2Woopra],
+  it('should set user properties', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Woopra],
       (angulartics2: Angulartics2, angulartics2Woopra: Angulartics2Woopra) => {
         fixture = createRoot(RootCmp);
-        angulartics2.setUserProperties.next({email: 'test@test.com', name: 'John Doe', company: 'Test Co'});
+        angulartics2.setUserProperties.next({
+          email: 'test@test.com',
+          name: 'John Doe',
+          company: 'Test Co',
+        });
         advance(fixture);
         expect(woopra.identify).toHaveBeenCalledWith({
           email: 'test@test.com',
           name: 'John Doe',
-          company: 'Test Co'
+          company: 'Test Co',
         });
-      }),
+      },
     ),
-  );
+  ));
 });

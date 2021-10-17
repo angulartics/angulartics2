@@ -7,7 +7,7 @@
 # Launch, by Adobe
 __homepage__: [Launch, by Adobe](https://www.adobe.com/experience-platform/launch.html)  
 __docs__: [developer.adobelaunch.com/](https://developer.adobelaunch.com/)  
-__import__: `import { Angulartics2LaunchByAdobe } from 'angulartics2/launch';`  
+__import__: `import { Angulartics2LaunchByAdobe } from 'angulartics2';`  
 
 
 ## Initial Setup
@@ -25,7 +25,7 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 
 ```ts
 // component
-import { Angulartics2LaunchByAdobe } from 'angulartics2/launch';
+import { Angulartics2LaunchByAdobe } from 'angulartics2';
 
 @Component({ ... })
 export class AppComponent {
@@ -39,7 +39,7 @@ export class AppComponent {
 ```ts
 // bootstrap
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2LaunchByAdobe } from 'angulartics2/launch';
+import { Angulartics2LaunchByAdobe } from 'angulartics2';
 
 @NgModule({
   imports: [

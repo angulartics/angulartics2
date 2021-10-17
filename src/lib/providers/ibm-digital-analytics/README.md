@@ -7,7 +7,7 @@
 # IBM Digital Analytics
 __homepage__: [https://digitalanalytics.ibmcloud.com](https://digitalanalytics.ibmcloud.com)  
 __docs__: [https://www.ibm.com/support/knowledgecenter/SSPG9M/Analytics/kc_welcome_analytics.html](https://www.ibm.com/support/knowledgecenter/SSPG9M/Analytics/kc_welcome_analytics.html)  
-__import__: `import { Angulartics2IBMDigitalAnalytics } from 'angulartics2/ibm-digital-analytics';`  
+__import__: `import { Angulartics2IBMDigitalAnalytics } from 'angulartics2';`  
 
 ## Setup
 
@@ -62,7 +62,7 @@ export class AppModule { }
 ```ts
 // app.component.ts 
 import { Component } from '@angular/core';
-import { Angulartics2IBMDigitalAnalytics } from 'angulartics2/ibm-digital-analytics';
+import { Angulartics2IBMDigitalAnalytics } from 'angulartics2';
 
 @Component({
   selector: 'app-root',

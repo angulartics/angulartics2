@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 import { Angulartics2AdobeAnalytics } from './adobeanalytics';
 
@@ -24,10 +24,7 @@ describe('Angulartics2AdobeAnalytics', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TestModule],
-      providers: [
-        { provide: Location, useClass: MockLocation },
-        Angulartics2AdobeAnalytics,
-      ],
+      providers: [{ provide: Location, useClass: MockLocation }, Angulartics2AdobeAnalytics],
     });
 
     window.s = s = jasmine.createSpyObj('s', ['clearVars', 't', 'tl']);
@@ -36,8 +33,9 @@ describe('Angulartics2AdobeAnalytics', () => {
     provider.startTracking();
   });
 
-  it('should track pages',
-    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+  it('should track pages', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AdobeAnalytics],
       (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
         fixture = createRoot(RootCmp);
         angulartics2.pageTrack.next({ path: '/abc' });
@@ -45,44 +43,63 @@ describe('Angulartics2AdobeAnalytics', () => {
         expect(s.clearVars).toHaveBeenCalled();
         expect(s.t).toHaveBeenCalledWith({ pageName: '/abc' });
       },
-    )),
-  );
+    ),
+  ));
 
-  it('should track events with no delay',
-    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+  it('should track events with no delay', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AdobeAnalytics],
       (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
         fixture = createRoot(RootCmp);
 
-        angulartics2.eventTrack.next({ action: 'do', properties: { disableDelay: true } });
+        angulartics2.eventTrack.next({
+          action: 'do',
+          properties: { disableDelay: true },
+        });
         advance(fixture);
         expect(s.tl).toHaveBeenCalledWith(true, 'o', 'do');
         expect(window.s.pageName).toEqual('pagename');
-  })));
+      },
+    ),
+  ));
 
-  it('should track events with custom properties',
-    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+  it('should track events with custom properties', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AdobeAnalytics],
       (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
         fixture = createRoot(RootCmp);
 
-        angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat', prop1: 'user1234' } });
+        angulartics2.eventTrack.next({
+          action: 'do',
+          properties: { category: 'cat', prop1: 'user1234' },
+        });
         advance(fixture);
         expect(window.s.prop1).toEqual('user1234');
         expect(window.s.category).toEqual('cat');
         expect(s.tl).toHaveBeenCalledWith(jasmine.any(Object), 'o', 'do');
-  })));
+      },
+    ),
+  ));
 
-  it('should track events',
-    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+  it('should track events', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AdobeAnalytics],
       (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
         fixture = createRoot(RootCmp);
-        angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
+        angulartics2.eventTrack.next({
+          action: 'do',
+          properties: { category: 'cat' },
+        });
         advance(fixture);
         expect(s.tl).toHaveBeenCalledWith(jasmine.any(Object), 'o', 'do');
         expect(window.s.pageName).toEqual('pagename');
-  })));
+      },
+    ),
+  ));
 
-  it('should set user porperties',
-    fakeAsync(inject([Angulartics2, Angulartics2AdobeAnalytics],
+  it('should set user porperties', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AdobeAnalytics],
       (angulartics2: Angulartics2, angulartics2AdobeAnalytics: Angulartics2AdobeAnalytics) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserProperties.next({ elet1: 'test' });
@@ -92,6 +109,6 @@ describe('Angulartics2AdobeAnalytics', () => {
         advance(fixture);
         expect(s.prop1).toEqual('test');
       },
-    )),
-  );
+    ),
+  ));
 });
