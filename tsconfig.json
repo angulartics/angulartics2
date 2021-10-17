@@ -17,6 +17,7 @@
     "target": "es2017",
     "module": "es2020",
     "types":  [
+      "node",
       "google.analytics",
       "applicationinsights-js",
       "segment-analytics",

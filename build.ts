@@ -1,19 +1,15 @@
-import { copySync } from 'fs-extra';
+import { copyFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { ngPackagr } from 'ng-packagr';
-import { join } from 'path';
-import * as del from 'del';
 
 async function main() {
-  // cleanup dist
-  del.sync(join(process.cwd(), '/dist'));
-  del.sync(join(process.cwd(), '/node_modules/angulartics2'));
-
   await ngPackagr()
     .forProject(join(process.cwd(), 'src/lib/package.json'))
     .build();
 
-  copySync('README.md', join(process.cwd(), 'dist/README.md'));
-  copySync('LICENSE', join(process.cwd(), 'dist/LICENSE'));
+    copyFileSync('README.md', join(process.cwd(), 'dist/README.md'));
+    copyFileSync('LICENSE', join(process.cwd(), 'dist/LICENSE'));
 }
 
 main()

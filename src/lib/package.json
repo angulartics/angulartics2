@@ -35,7 +35,7 @@
     "lib": {
       "entryFile": "public_api.ts"
     },
-    "dest": "../../dist/core"
+    "dest": "../../dist"
   },
   "peerDependencies": {
     "@angular/common": ">=12.0.0-0",
