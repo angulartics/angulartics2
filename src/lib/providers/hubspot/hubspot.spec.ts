@@ -1,6 +1,6 @@
 import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 import { Angulartics2Hubspot } from './hubspot';
 

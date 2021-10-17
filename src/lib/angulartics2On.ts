@@ -1,16 +1,9 @@
-import {
-  AfterContentInit,
-  Directive,
-  ElementRef,
-  Input,
-  NgModule,
-  Renderer2,
-} from '@angular/core';
+import { AfterContentInit, Directive, ElementRef, Input, NgModule, Renderer2 } from '@angular/core';
 import { Angulartics2 } from './angulartics2-core';
 
 @Directive({ selector: '[angulartics2On]' })
 export class Angulartics2On implements AfterContentInit {
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('angulartics2On') angulartics2On: string;
   @Input() angularticsAction: string;
   @Input() angularticsCategory: string;
@@ -21,14 +14,12 @@ export class Angulartics2On implements AfterContentInit {
   constructor(
     private elRef: ElementRef,
     private angulartics2: Angulartics2,
-    private renderer: Renderer2
-  ) { }
+    private renderer: Renderer2,
+  ) {}
 
   ngAfterContentInit() {
-    this.renderer.listen(
-      this.elRef.nativeElement,
-      this.angulartics2On || 'click',
-      (event: Event) => this.eventTrack(event),
+    this.renderer.listen(this.elRef.nativeElement, this.angulartics2On || 'click', (event: Event) =>
+      this.eventTrack(event),
     );
   }
 

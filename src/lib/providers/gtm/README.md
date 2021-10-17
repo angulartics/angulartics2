@@ -7,7 +7,7 @@
 # Google Tag Manager (`gtag.js`)
 __homepage__: [google.com/analytics/tag-manager](https://www.google.com/analytics/tag-manager/)  
 __docs__: [developers.google.com/tag-manager/devguide](https://developers.google.com/tag-manager/devguide)  
-__import__: `import { Angulartics2GoogleTagManager } from 'angulartics2/gtm';`  
+__import__: `import { Angulartics2GoogleTagManager } from 'angulartics2';`  
 
 
 ## Initial Setup
@@ -21,7 +21,7 @@ Bootstrapping the application with ```Angulartics2``` as provider and injecting 
 
 ```ts
 // component
-import { Angulartics2GoogleTagManager } from 'angulartics2/gtm';
+import { Angulartics2GoogleTagManager } from 'angulartics2';
 
 @Component({ ... })
 export class AppComponent {

@@ -1,34 +1,29 @@
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 
 declare const s: any;
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2AdobeAnalytics {
-
-  constructor(
-    private angulartics2: Angulartics2,
-    private location: Location,
-  ) {
-    this.angulartics2.setUserProperties
-      .subscribe((x) => this.setUserProperties(x));
+  constructor(private angulartics2: Angulartics2, private location: Location) {
+    this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
   }
 
   startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.pageTrack(x.path));
+      .subscribe(x => this.pageTrack(x.path));
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.eventTrack(x.action, x.properties));
+      .subscribe(x => this.eventTrack(x.action, x.properties));
   }
 
   pageTrack(path: string) {
     if (typeof s !== 'undefined' && s) {
       s.clearVars();
-      s.t({pageName: path});
+      s.t({ pageName: path });
     }
   }
 
@@ -56,7 +51,7 @@ export class Angulartics2AdobeAnalytics {
       }
       if (action) {
         // if linkName property is passed, use that; otherwise, the action is the linkName
-        const linkName = (properties['linkName']) ? properties['linkName'] : action;
+        const linkName = properties['linkName'] ? properties['linkName'] : action;
         // note that 'this' should refer the link element, but we can't get that in this function. example:
         // <a href="http://anothersite.com" onclick="s.tl(this,'e','AnotherSite',null)">
         // if disableDelay property is passed, use that to turn off/on the 500ms delay; otherwise, it uses this

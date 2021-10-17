@@ -2,7 +2,7 @@ import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/test
 
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 import { Angulartics2Mixpanel } from './mixpanel';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
@@ -34,57 +34,70 @@ describe('Angulartics2Mixpanel', () => {
     provider.startTracking();
   });
 
-  it('should track pages',
-    fakeAsync(inject([Angulartics2, Angulartics2Mixpanel],
+  it('should track pages', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Mixpanel],
       (angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
         fixture = createRoot(RootCmp);
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
-        expect(mixpanel.track).toHaveBeenCalledWith('Page Viewed', { page: '/abc' });
-      }),
+        expect(mixpanel.track).toHaveBeenCalledWith('Page Viewed', {
+          page: '/abc',
+        });
+      },
     ),
-  );
+  ));
 
-  it('should track events',
-    fakeAsync(inject([Angulartics2, Angulartics2Mixpanel],
+  it('should track events', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Mixpanel],
       (angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
         fixture = createRoot(RootCmp);
-        angulartics2.eventTrack.next({ action: 'do', properties: { category: 'cat' } });
+        angulartics2.eventTrack.next({
+          action: 'do',
+          properties: { category: 'cat' },
+        });
         advance(fixture);
         expect(mixpanel.track).toHaveBeenCalledWith('do', { category: 'cat' });
-      }),
+      },
     ),
-  );
+  ));
 
-
-  it('should set username',
-    fakeAsync(inject([Angulartics2, Angulartics2Mixpanel],
+  it('should set username', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Mixpanel],
       (angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUsername.next('testUser');
         advance(fixture);
         expect(mixpanel.identify).toHaveBeenCalledWith('testUser');
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should set user properties',
-    fakeAsync(inject([Angulartics2, Angulartics2Mixpanel],
+  it('should set user properties', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Mixpanel],
       (angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
         fixture = createRoot(RootCmp);
-        angulartics2.setUserProperties.next({ userId: '1', firstName: 'John', lastName: 'Doe' });
+        angulartics2.setUserProperties.next({
+          userId: '1',
+          firstName: 'John',
+          lastName: 'Doe',
+        });
         advance(fixture);
         expect(mixpanel.people.set).toHaveBeenCalledWith({
           userId: '1',
           firstName: 'John',
           lastName: 'Doe',
         });
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should set user properties once',
-    fakeAsync(inject([Angulartics2, Angulartics2Mixpanel],
+  it('should set user properties once', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Mixpanel],
       (angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
         fixture = createRoot(RootCmp);
         angulartics2.setUserPropertiesOnce.next({
@@ -98,12 +111,13 @@ describe('Angulartics2Mixpanel', () => {
           firstName: 'John',
           lastName: 'Doe',
         });
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should set super properties',
-    fakeAsync(inject([Angulartics2, Angulartics2Mixpanel],
+  it('should set super properties', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Mixpanel],
       (angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
         fixture = createRoot(RootCmp);
         angulartics2.setSuperProperties.next({
@@ -117,12 +131,13 @@ describe('Angulartics2Mixpanel', () => {
           firstName: 'John',
           lastName: 'Doe',
         });
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should set super properties once',
-    fakeAsync(inject([Angulartics2, Angulartics2Mixpanel],
+  it('should set super properties once', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Mixpanel],
       (angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
         fixture = createRoot(RootCmp);
         angulartics2.setSuperPropertiesOnce.next({
@@ -136,19 +151,19 @@ describe('Angulartics2Mixpanel', () => {
           firstName: 'John',
           lastName: 'Doe',
         });
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should set alias',
-    fakeAsync(inject([Angulartics2, Angulartics2Mixpanel],
+  it('should set alias', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Mixpanel],
       (angulartics2: Angulartics2, angulartics2Mixpanel: Angulartics2Mixpanel) => {
         fixture = createRoot(RootCmp);
         angulartics2.setAlias.next('testAlias');
         advance(fixture);
         expect(mixpanel.alias).toHaveBeenCalledWith('testAlias');
-      }),
+      },
     ),
-  );
-
+  ));
 });

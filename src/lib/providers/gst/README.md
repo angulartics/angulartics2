@@ -8,7 +8,7 @@
 
 * __homepage__: [google.com/analytics](https://marketingplatform.google.com/about/analytics/)
 * __docs__: [developers.google.com/analytics/devguides/collection/gtagjs](https://developers.google.com/analytics/devguides/collection/gtagjs/)
-* __import__: `import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';`
+* __import__: `import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2';`
 
 ## Initial Setup
 
@@ -38,7 +38,7 @@ change to your analytics provider.
 
 ```ts
 // component
-import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
+import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2';
 
 @Component({ ... })
 export class AppComponent {

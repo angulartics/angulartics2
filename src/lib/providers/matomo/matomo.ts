@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 
 declare var _paq: any;
 
-export type EventTrackAction = 'setEcommerceView' | 'addEcommerceItem' | 'trackEcommerceCartUpdate'
-  | 'trackEcommerceOrder' | 'trackLink' | 'trackGoal' | 'trackSiteSearch' | string;
+export type EventTrackAction =
+  | 'setEcommerceView'
+  | 'addEcommerceItem'
+  | 'trackEcommerceCartUpdate'
+  | 'trackEcommerceOrder'
+  | 'trackLink'
+  | 'trackGoal'
+  | 'trackSiteSearch'
+  | string;
 
 export type ScopeMatomo = 'visit' | 'page';
-
 
 export interface DimensionsMatomoProperties {
   dimension0?: string;
@@ -118,7 +124,8 @@ export interface DeleteCustomVariableMatomoProperties {
   scope: ScopeMatomo;
 }
 
-export type EventTrackactionProperties = SetEcommerceViewMatomoProperties
+export type EventTrackactionProperties =
+  | SetEcommerceViewMatomoProperties
   | AddEcommerceItemProperties
   | TrackEcommerceCartUpdateMatomoProperties
   | TrackEcommerceOrderMatomoProperties
@@ -129,32 +136,33 @@ export type EventTrackactionProperties = SetEcommerceViewMatomoProperties
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2Matomo {
-
   constructor(private angulartics2: Angulartics2) {
-    if (typeof (_paq) === 'undefined') {
+    if (typeof _paq === 'undefined') {
       console.warn('Matomo not found');
     }
-    this.angulartics2.setUsername
-      .subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties
-      .subscribe((x: SetCustomVariableMatomoProperties) => this.setUserProperties(x));
+    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUserProperties.subscribe((x: SetCustomVariableMatomoProperties) =>
+      this.setUserProperties(x),
+    );
   }
 
   startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.pageTrack(x.path));
+      .subscribe(x => this.pageTrack(x.path));
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.eventTrack(x.action, x.properties));
+      .subscribe(x => this.eventTrack(x.action, x.properties));
   }
 
   pageTrack(path: string, title?: string) {
     try {
       if (!window.location.origin) {
-        (window.location as any).origin = window.location.protocol + '//'
-          + window.location.hostname
-          + (window.location.port ? ':' + window.location.port : '');
+        (window.location as any).origin =
+          window.location.protocol +
+          '//' +
+          window.location.hostname +
+          (window.location.port ? ':' + window.location.port : '');
       }
       _paq.push(['setDocumentTitle', title || window.document.title]);
       _paq.push(['setCustomUrl', window.location.origin + path]);
@@ -179,7 +187,10 @@ export class Angulartics2Matomo {
 
   eventTrack(action: 'setEcommerceView', properties: SetEcommerceViewMatomoProperties): void;
   eventTrack(action: 'addEcommerceItem', properties: AddEcommerceItemProperties): void;
-  eventTrack(action: 'trackEcommerceCartUpdate', properties: TrackEcommerceCartUpdateMatomoProperties): void;
+  eventTrack(
+    action: 'trackEcommerceCartUpdate',
+    properties: TrackEcommerceCartUpdateMatomoProperties,
+  ): void;
   eventTrack(action: 'trackEcommerceOrder', properties: TrackEcommerceOrderMatomoProperties): void;
   eventTrack(action: 'trackLink', properties: TrackLinkMatomoProperties): void;
   eventTrack(action: 'trackGoal', properties: TrackGoalMatomoProperties): void;
@@ -209,7 +220,8 @@ export class Angulartics2Matomo {
        * @property price (optional) Product Price as displayed on the page
        */
       case 'setEcommerceView':
-        params = ['setEcommerceView',
+        params = [
+          'setEcommerceView',
           (properties as SetEcommerceViewMatomoProperties).productSKU,
           (properties as SetEcommerceViewMatomoProperties).productName,
           (properties as SetEcommerceViewMatomoProperties).categoryName,
@@ -251,7 +263,10 @@ export class Angulartics2Matomo {
        * @property grandTotal (required) Cart amount
        */
       case 'trackEcommerceCartUpdate':
-        params = ['trackEcommerceCartUpdate', (properties as TrackEcommerceCartUpdateMatomoProperties).grandTotal];
+        params = [
+          'trackEcommerceCartUpdate',
+          (properties as TrackEcommerceCartUpdateMatomoProperties).grandTotal,
+        ];
         break;
 
       /**
@@ -293,7 +308,7 @@ export class Angulartics2Matomo {
         params = [
           'trackLink',
           (properties as TrackLinkMatomoProperties).url,
-          (properties as TrackLinkMatomoProperties).linkType
+          (properties as TrackLinkMatomoProperties).linkType,
         ];
         break;
 
@@ -357,7 +372,8 @@ export class Angulartics2Matomo {
           'trackEvent',
           (properties as TrackEventMatomoProperties).category,
           action,
-          (properties as TrackEventMatomoProperties).name || (properties as TrackEventMatomoProperties).label, // Changed in favour of Matomo documentation. Added fallback so it's backwards compatible.
+          (properties as TrackEventMatomoProperties).name ||
+            (properties as TrackEventMatomoProperties).label, // Changed in favour of Matomo documentation. Added fallback so it's backwards compatible.
           (properties as TrackEventMatomoProperties).value,
         ];
     }
@@ -394,7 +410,13 @@ export class Angulartics2Matomo {
     const dimensions = this.setCustomDimensions(properties);
     try {
       if (dimensions.length === 0) {
-        _paq.push(['setCustomVariable', properties.index, properties.name, properties.value, properties.scope]);
+        _paq.push([
+          'setCustomVariable',
+          properties.index,
+          properties.name,
+          properties.value,
+          properties.scope,
+        ]);
       }
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
@@ -404,11 +426,11 @@ export class Angulartics2Matomo {
   }
 
   /**
-    * If you created a custom variable and then decide to remove this variable from 
-    * a visit or page view, you can use deleteCustomVariable.
-    *
-    * @link https://developer.matomo.org/guides/tracking-javascript-guide#deleting-a-custom-variable
-    */
+   * If you created a custom variable and then decide to remove this variable from
+   * a visit or page view, you can use deleteCustomVariable.
+   *
+   * @link https://developer.matomo.org/guides/tracking-javascript-guide#deleting-a-custom-variable
+   */
   deletedUserProperties(properties: DeleteCustomVariableMatomoProperties) {
     try {
       _paq.push(['deleteCustomVariable', properties.index, properties.scope]);
@@ -421,8 +443,7 @@ export class Angulartics2Matomo {
 
   private setCustomDimensions(properties: SetCustomVariableMatomoProperties): string[] {
     const dimensionRegex: RegExp = /dimension[1-9]\d*/;
-    const dimensions = Object.keys(properties)
-      .filter(key => dimensionRegex.exec(key));
+    const dimensions = Object.keys(properties).filter(key => dimensionRegex.exec(key));
     dimensions.forEach(dimension => {
       const number = Number(dimension.substr(9));
       _paq.push(['setCustomDimension', number, properties[dimension]]);

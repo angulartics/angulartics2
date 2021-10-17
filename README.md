@@ -54,7 +54,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 const ROUTES: Routes = [
   { path: '',      component: HomeComponent },
@@ -78,7 +78,7 @@ const ROUTES: Routes = [
 2. __Required__: Import your providers in the root component. Call `startTracking()` to start the tracking of route changes.
 ```ts
 // component
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({  ...  })
 export class AppComponent {
@@ -231,7 +231,7 @@ Angulartics2Module.forRoot({
 __Warning:__ this support is still experiemental  
 `@angular/router` must still be installed! However, it will not be used.
 ````ts
-import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
+import { Angulartics2RouterlessModule } from 'angulartics2';
 @NgModule({
   // ...
   imports: [
@@ -246,7 +246,7 @@ import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
 __Warning:__ this support is still experiemental  
 `@angular/router` must still be installed! However, it will not be used.  
 ````ts
-import { Angulartics2UirouterModule } from 'angulartics2/uiroutermodule';
+import { Angulartics2UirouterModule } from 'angulartics2';
 @NgModule({
   // ...
   imports: [

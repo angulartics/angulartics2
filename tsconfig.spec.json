@@ -3,7 +3,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types":  [
+    "types": [
       "google.analytics",
       "applicationinsights-js",
       "segment-analytics",

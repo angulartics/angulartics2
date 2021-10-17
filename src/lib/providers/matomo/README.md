@@ -7,7 +7,7 @@
 # Matomo
 __homepage__: [matomo.org](https://matomo.org)  
 __docs__: [developer.matomo.org](https://developer.matomo.org)  
-__import__: `import { Angulartics2Matomo } from 'angulartics2/matomo';`  
+__import__: `import { Angulartics2Matomo } from 'angulartics2';`  
 
 ## Setup
 Add the standard matomo track code inside your index.html head tag:
@@ -35,7 +35,7 @@ Replace YOUR-DOMAIN with your matomo domain (`//DOMAIN.innocraft.cloud` if you a
 Pass the Matomo provider to angulartics in app.module:
 ```ts
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2Matomo } from 'angulartics2/matomo';
+import { Angulartics2Matomo } from 'angulartics2';
 @NgModule({
   imports: [
     Angulartics2Module.forRoot(),
@@ -44,7 +44,7 @@ import { Angulartics2Matomo } from 'angulartics2/matomo';
 
 Inject angulartics into your root component (usually appComponent)
 ```ts
-import { Angulartics2Matomo } from 'angulartics2/matomo';
+import { Angulartics2Matomo } from 'angulartics2';
 export class AppComponent {
   // inject Angulartics2Matomo in root component and initialize it
   constructor(private angulartics2Matomo: Angulartics2Matomo) {

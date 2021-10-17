@@ -7,7 +7,7 @@
 # Segment
 __homepage__: [segment.com](https://segment.com/)  
 __docs__: [segment.com/docs/sources/website/analytics.js](https://segment.com/docs/sources/website/analytics.js/)  
-__import__: `import { Angulartics2Segment } from 'angulartics2/segment';`  
+__import__: `import { Angulartics2Segment } from 'angulartics2';`  
 
 ## Setup
 1. Add `Angulartics2Module` to your root NgModule passing an array of providers to enable
@@ -17,7 +17,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2Segment } from 'angulartics2/segment';
+import { Angulartics2Segment } from 'angulartics2';
 
 const ROUTES: Routes = [
   { path: '',      component: HomeComponent },
@@ -39,7 +39,7 @@ const ROUTES: Routes = [
 2. __Required__: Import your providers in the root component. This starts the tracking of route changes.
 ```ts
 // component
-import { Angulartics2Segment } from 'angulartics2/segment';
+import { Angulartics2Segment } from 'angulartics2';
 
 @Component({  ...  })
 export class AppComponent {

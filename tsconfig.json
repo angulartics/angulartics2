@@ -14,24 +14,24 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2017",
     "module": "es2020",
     "types":  [
       "google.analytics",
       "applicationinsights-js",
       "segment-analytics",
-      "facebook-pixel"
+      "facebook-pixel",
+      "jasmine"
     ],
     "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "angulartics2": ["./src/lib/core/public_api"]
-    }
+    ]
   },
   "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
 }

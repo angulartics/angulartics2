@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 import { ClickyProperties } from './clicky.interfaces';
 
 declare var clicky: any;
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2Clicky {
-  constructor(
-    private angulartics2: Angulartics2,
-    private titleService: Title,
-  ) {
+  constructor(private angulartics2: Angulartics2, private titleService: Title) {
     if (typeof clicky === 'undefined') {
       console.warn('Angulartics 2 Clicky Plugin: clicky global not found');
     }
@@ -20,10 +17,10 @@ export class Angulartics2Clicky {
   startTracking(): void {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.pageTrack(x.path));
+      .subscribe(x => this.pageTrack(x.path));
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.eventOrGoalTrack(x.action, x.properties));
+      .subscribe(x => this.eventOrGoalTrack(x.action, x.properties));
   }
 
   /**

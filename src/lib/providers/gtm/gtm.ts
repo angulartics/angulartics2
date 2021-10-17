@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Angulartics2, GoogleTagManagerSettings } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
+import { GoogleTagManagerSettings } from '../../angulartics2-config';
 
 declare var dataLayer: any;
 
@@ -10,10 +11,7 @@ export class GoogleTagManagerDefaults implements GoogleTagManagerSettings {
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2GoogleTagManager {
-
-  constructor(
-    protected angulartics2: Angulartics2,
-  ) {
+  constructor(protected angulartics2: Angulartics2) {
     // The dataLayer needs to be initialized
     if (typeof dataLayer !== 'undefined' && dataLayer) {
       dataLayer = (window as any).dataLayer = (window as any).dataLayer || [];
@@ -21,17 +19,16 @@ export class Angulartics2GoogleTagManager {
     const defaults = new GoogleTagManagerDefaults();
     // Set the default settings for this module
     this.angulartics2.settings.gtm = { ...defaults, ...this.angulartics2.settings.gtm };
-    this.angulartics2.setUsername
-      .subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
   }
 
   startTracking() {
     this.angulartics2.pageTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.pageTrack(x.path));
+      .subscribe(x => this.pageTrack(x.path));
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
-      .subscribe((x) => this.eventTrack(x.action, x.properties));
+      .subscribe(x => this.eventTrack(x.action, x.properties));
     this.angulartics2.exceptionTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((x: any) => this.exceptionTrack(x));
@@ -41,7 +38,7 @@ export class Angulartics2GoogleTagManager {
     this.pushLayer({
       event: 'Page View',
       'content-name': path,
-      userId: this.angulartics2.settings.gtm.userId
+      userId: this.angulartics2.settings.gtm.userId,
     });
   }
 
@@ -78,7 +75,7 @@ export class Angulartics2GoogleTagManager {
       value: properties.value,
       interactionType: properties.noninteraction,
       userId: this.angulartics2.settings.gtm.userId,
-      ...properties.gtmCustom
+      ...properties.gtmCustom,
     });
   }
 
@@ -94,7 +91,7 @@ export class Angulartics2GoogleTagManager {
     //  @param {string} properties.appVersion
     //  @param {string} [properties.description]
     //  @param {boolean} [properties.fatal]
-    if (! properties || ! properties.appId || ! properties.appName || ! properties.appVersion) {
+    if (!properties || !properties.appId || !properties.appName || !properties.appVersion) {
       console.error('Must be setted appId, appName and appVersion.');
       return;
     }
@@ -106,10 +103,13 @@ export class Angulartics2GoogleTagManager {
 
     properties.exDescription = properties.event ? properties.event.stack : properties.description;
 
-    this.eventTrack(`Exception thrown for ${properties.appName} <${properties.appId}@${properties.appVersion}>`, {
-      category: 'Exception',
-      label: properties.exDescription,
-    });
+    this.eventTrack(
+      `Exception thrown for ${properties.appName} <${properties.appId}@${properties.appVersion}>`,
+      {
+        category: 'Exception',
+        label: properties.exDescription,
+      },
+    );
   }
 
   /**

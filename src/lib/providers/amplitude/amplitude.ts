@@ -1,25 +1,21 @@
 import { Injectable } from '@angular/core';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 
 declare var amplitude: {
   getInstance: () => {
     logEvent(action: string, properties: any);
     setUserId(userId: string);
     setUserProperties(properties: any);
-  }
+  };
 };
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2Amplitude {
-
   constructor(private angulartics2: Angulartics2) {
-    this.angulartics2.setUsername
-      .subscribe((x: any) => this.setUsername(x));
-    this.angulartics2.setUserProperties
-      .subscribe((x: any) => this.setUserProperties(x));
-    this.angulartics2.setUserPropertiesOnce
-      .subscribe((x: any) => this.setUserProperties(x));
+    this.angulartics2.setUsername.subscribe((x: any) => this.setUsername(x));
+    this.angulartics2.setUserProperties.subscribe((x: any) => this.setUserProperties(x));
+    this.angulartics2.setUserPropertiesOnce.subscribe((x: any) => this.setUserProperties(x));
   }
 
   startTracking(): void {
@@ -34,7 +30,7 @@ export class Angulartics2Amplitude {
   pageTrack(path: string) {
     try {
       this.eventTrack('Pageview', {
-        url: path
+        url: path,
       });
     } catch (e) {
       if (!(e instanceof ReferenceError)) {

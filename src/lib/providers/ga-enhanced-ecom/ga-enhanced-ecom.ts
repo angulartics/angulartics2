@@ -32,7 +32,7 @@ export class Angulartics2GoogleAnalyticsEnhancedEcommerce {
    */
   ecSetAction(
     action: GaEnhancedEcomAction,
-    properties: Partial<GaEnhancedEcomActionFieldObject>,
+    properties: Partial<GaEnhancedEcomActionFieldObject>
   ) {
     ga('ec:setAction', action, properties);
   }

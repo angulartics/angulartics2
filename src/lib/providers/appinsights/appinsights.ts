@@ -8,7 +8,8 @@ import {
 } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { Angulartics2, AppInsightsSettings } from 'angulartics2';
+import { AppInsightsSettings } from '../../angulartics2-config';
+import { Angulartics2 } from '../../angulartics2-core';
 
 declare const appInsights: Microsoft.ApplicationInsights.IAppInsights;
 
@@ -28,7 +29,7 @@ export class Angulartics2AppInsights {
   constructor(
     private angulartics2: Angulartics2,
     private title: Title,
-    private router: Router,
+    private router: Router
   ) {
     if (typeof appInsights === 'undefined') {
       console.warn('appInsights not found');
@@ -36,11 +37,14 @@ export class Angulartics2AppInsights {
 
     const defaults = new AppInsightsDefaults();
     // Set the default settings for this module
-    this.angulartics2.settings.appInsights = { ...defaults, ...this.angulartics2.settings.appInsights };
-    this.angulartics2.setUsername
-      .subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties
-      .subscribe((x) => this.setUserProperties(x));
+    this.angulartics2.settings.appInsights = {
+      ...defaults,
+      ...this.angulartics2.settings.appInsights,
+    };
+    this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
+    this.angulartics2.setUserProperties.subscribe((x) =>
+      this.setUserProperties(x)
+    );
   }
 
   startTracking(): void {
@@ -56,13 +60,18 @@ export class Angulartics2AppInsights {
     this.router.events
       .pipe(
         this.angulartics2.filterDeveloperMode(),
-        filter(event => event instanceof NavigationStart),
-    )
-      .subscribe(event => this.startTimer());
+        filter((event) => event instanceof NavigationStart)
+      )
+      .subscribe((event) => this.startTimer());
 
     this.router.events
-      .pipe(filter(event => event instanceof NavigationError || event instanceof NavigationEnd))
-      .subscribe(error => this.stopTimer());
+      .pipe(
+        filter(
+          (event) =>
+            event instanceof NavigationError || event instanceof NavigationEnd
+        )
+      )
+      .subscribe((error) => this.stopTimer());
   }
 
   startTimer() {
@@ -88,7 +97,7 @@ export class Angulartics2AppInsights {
       path,
       this.dimensions,
       this.metrics,
-      this.loadTime,
+      this.loadTime
     );
   }
 
@@ -113,7 +122,8 @@ export class Angulartics2AppInsights {
    * @link https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#trackexception
    */
   exceptionTrack(properties: any) {
-    const description = properties.event || properties.description || properties;
+    const description =
+      properties.event || properties.description || properties;
 
     appInsights.trackException(description);
   }
@@ -126,18 +136,20 @@ export class Angulartics2AppInsights {
     appInsights.setAuthenticatedUserContext(userId);
   }
 
-  setUserProperties(properties: Partial<{ userId: string, accountId: string }>) {
+  setUserProperties(
+    properties: Partial<{ userId: string; accountId: string }>
+  ) {
     if (properties.userId) {
       this.angulartics2.settings.appInsights.userId = properties.userId;
     }
     if (properties.accountId) {
       appInsights.setAuthenticatedUserContext(
         this.angulartics2.settings.appInsights.userId,
-        properties.accountId,
+        properties.accountId
       );
     } else {
       appInsights.setAuthenticatedUserContext(
-        this.angulartics2.settings.appInsights.userId,
+        this.angulartics2.settings.appInsights.userId
       );
     }
   }

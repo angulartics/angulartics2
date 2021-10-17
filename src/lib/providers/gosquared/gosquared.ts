@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 
 declare var _gs: any;
 
 @Injectable({ providedIn: 'root' })
 export class Angulartics2GoSquared {
   constructor(private angulartics2: Angulartics2) {
-    this.angulartics2.setUserProperties.subscribe(x =>
-      this.setUserProperties(x),
-    );
-    this.angulartics2.setUserPropertiesOnce.subscribe(x =>
-      this.setUserProperties(x),
-    );
+    this.angulartics2.setUserProperties.subscribe(x => this.setUserProperties(x));
+    this.angulartics2.setUserPropertiesOnce.subscribe(x => this.setUserProperties(x));
   }
 
   startTracking(): void {

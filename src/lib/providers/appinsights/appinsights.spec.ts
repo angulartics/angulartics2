@@ -2,7 +2,7 @@ import { fakeAsync, inject, ComponentFixture, TestBed } from '@angular/core/test
 import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from '../../angulartics2-core';
 import { advance, createRoot, RootCmp, TestModule } from '../../test.mocks';
 import { Angulartics2AppInsights } from './appinsights';
 
@@ -15,31 +15,29 @@ describe('Angulartics2AppInsights', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TestModule,
-        RouterTestingModule,
-      ],
-      providers: [
-        Title,
-        Angulartics2AppInsights,
-      ],
+      imports: [TestModule, RouterTestingModule],
+      providers: [Title, Angulartics2AppInsights],
     });
 
-    window.appInsights = appInsights = jasmine.createSpyObj(
-      'appInsights', [
-        'trackPageView',
-        'trackEvent',
-        'trackException',
-        'setAuthenticatedUserContext',
-      ]);
+    window.appInsights = appInsights = jasmine.createSpyObj('appInsights', [
+      'trackPageView',
+      'trackEvent',
+      'trackException',
+      'setAuthenticatedUserContext',
+    ]);
 
     const provider: Angulartics2AppInsights = TestBed.inject(Angulartics2AppInsights);
     provider.startTracking();
   });
 
-  it('should track pages',
-    fakeAsync(inject([Angulartics2, Angulartics2AppInsights, Title],
-      (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights, title: Title) => {
+  it('should track pages', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AppInsights, Title],
+      (
+        angulartics2: Angulartics2,
+        angulartics2AppInsights: Angulartics2AppInsights,
+        title: Title,
+      ) => {
         fixture = createRoot(RootCmp);
         const metrics = {};
         const dimensions = {};
@@ -50,13 +48,20 @@ describe('Angulartics2AppInsights', () => {
         angulartics2AppInsights.loadTime = loadTime;
         angulartics2.pageTrack.next({ path: '/abc' });
         advance(fixture);
-        expect(appInsights.trackPageView).toHaveBeenCalledWith('the title', '/abc', metrics, dimensions, loadTime);
-      }),
+        expect(appInsights.trackPageView).toHaveBeenCalledWith(
+          'the title',
+          '/abc',
+          metrics,
+          dimensions,
+          loadTime,
+        );
+      },
     ),
-  );
+  ));
 
-  it('should track events',
-    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+  it('should track events', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AppInsights],
       (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const action = 'the action';
@@ -64,16 +69,18 @@ describe('Angulartics2AppInsights', () => {
         const measurements = {};
         angulartics2AppInsights.measurements = measurements;
         angulartics2.eventTrack.next({
-          action, properties
+          action,
+          properties,
         });
         advance(fixture);
         expect(appInsights.trackEvent).toHaveBeenCalledWith(action, properties, measurements);
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should track exceptions (string)',
-    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+  it('should track exceptions (string)', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AppInsights],
       (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const str = 'test string';
@@ -81,12 +88,13 @@ describe('Angulartics2AppInsights', () => {
         advance(fixture);
         // @ts-expect-error
         expect(appInsights.trackException).toHaveBeenCalledWith(str);
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should track exceptions (event)',
-    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+  it('should track exceptions (event)', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AppInsights],
       (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const event = { event: true };
@@ -94,12 +102,13 @@ describe('Angulartics2AppInsights', () => {
         advance(fixture);
         // @ts-expect-error
         expect(appInsights.trackException).toHaveBeenCalledWith(event);
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should track exceptions (description)',
-    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+  it('should track exceptions (description)', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AppInsights],
       (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const description = 'test description';
@@ -107,12 +116,13 @@ describe('Angulartics2AppInsights', () => {
         advance(fixture);
         // @ts-expect-error
         expect(appInsights.trackException).toHaveBeenCalledWith(description);
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should set userId in setAuthenticatedUserContext',
-    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+  it('should set userId in setAuthenticatedUserContext', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AppInsights],
       (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const userId = 'test_userId';
@@ -120,12 +130,13 @@ describe('Angulartics2AppInsights', () => {
         advance(fixture);
         expect(angulartics2.settings.appInsights.userId).toBe(userId);
         expect(appInsights.setAuthenticatedUserContext).toHaveBeenCalledWith(userId);
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should set userId and accountId in setAuthenticatedUserContext',
-    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+  it('should set userId and accountId in setAuthenticatedUserContext', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AppInsights],
       (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const userId = 'test_userId';
@@ -134,13 +145,13 @@ describe('Angulartics2AppInsights', () => {
         advance(fixture);
         expect(angulartics2.settings.appInsights.userId).toBe(userId);
         expect(appInsights.setAuthenticatedUserContext).toHaveBeenCalledWith(userId, accountId);
-      }),
+      },
     ),
-  );
+  ));
 
-
-  it('should user existing userId and set accountId in setAuthenticatedUserContext',
-    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+  it('should user existing userId and set accountId in setAuthenticatedUserContext', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AppInsights],
       (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         fixture = createRoot(RootCmp);
         const userId = 'test_userId';
@@ -151,22 +162,24 @@ describe('Angulartics2AppInsights', () => {
         angulartics2AppInsights.setUserProperties({ accountId });
         advance(fixture);
         expect(appInsights.setAuthenticatedUserContext).toHaveBeenCalledWith(userId, accountId);
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should set the start time on start',
-    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+  it('should set the start time on start', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AppInsights],
       (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         angulartics2AppInsights.startTimer();
         expect(angulartics2AppInsights.loadStartTime).toBeLessThanOrEqual(Date.now());
         expect(angulartics2AppInsights.loadTime).toBe(null);
-      }),
+      },
     ),
-  );
+  ));
 
-  it('should set the total time on stop',
-    fakeAsync(inject([Angulartics2, Angulartics2AppInsights],
+  it('should set the total time on stop', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2AppInsights],
       (angulartics2: Angulartics2, angulartics2AppInsights: Angulartics2AppInsights) => {
         angulartics2AppInsights.loadStartTime = Date.now() - 1000;
         angulartics2AppInsights.stopTimer();
@@ -174,7 +187,7 @@ describe('Angulartics2AppInsights', () => {
         expect(angulartics2AppInsights.loadTime).toBeLessThanOrEqual(1150);
         expect(angulartics2AppInsights.loadTime).toBeGreaterThanOrEqual(1000);
         expect(angulartics2AppInsights.loadStartTime).toBe(null);
-      }),
+      },
     ),
-  );
+  ));
 });
