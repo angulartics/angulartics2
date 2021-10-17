@@ -32,12 +32,10 @@ Latest version available for each version of Angular
 
 | Angulartics2 | Angular   |
 | ------------ | --------- |
-| 5.4.0        | 4.x       |
-| 6.3.1        | 5.x       |
-| 7.5.2        | 6.x - 7.x |
 | 8.3.0        | 8.x       |
 | 9.1.0        | 9.x       |
-| latest       | 10.x      |
+| 10.1.0       | 10.x      |
+| latest       | 12.x      |
 
 ## Installation
 
