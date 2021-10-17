@@ -13,8 +13,8 @@
     "test:watch": "ng test",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
-    "presemantic-release": "cp -R .git dist/packages-dist",
-    "semantic-release": "cd dist/packages-dist && semantic-release",
+    "presemantic-release": "cp -R .git dist",
+    "semantic-release": "cd dist && semantic-release",
     "ghpages": "ng build --configuration production --no-progress --baseHref='/angulartics2/'"
   },
   "private": true,

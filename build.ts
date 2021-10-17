@@ -12,8 +12,8 @@ async function main() {
     .forProject(join(process.cwd(), 'src/lib/package.json'))
     .build();
 
-  copySync('README.md', join(process.cwd(), 'dist/packages-dist/README.md'));
-  copySync('LICENSE', join(process.cwd(), 'dist/packages-dist/LICENSE'));
+  copySync('README.md', join(process.cwd(), 'dist/README.md'));
+  copySync('LICENSE', join(process.cwd(), 'dist/LICENSE'));
 }
 
 main()
