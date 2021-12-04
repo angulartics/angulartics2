@@ -17,3 +17,5 @@ jobs:
         run: yarn install
       - name: test
         run: yarn test:ci
+      - name: lint
+        run: yarn lint

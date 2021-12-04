@@ -16,6 +16,10 @@ jobs:
           node-version: 'lts/*'
       - name: Install dependencies
         run: yarn install
+      - name: test
+        run: yarn test:ci
+      - name: lint
+        run: yarn lint
       - name: Build
         run: yarn build
       - name: Release
