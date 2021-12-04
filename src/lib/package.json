@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../node_modules/ng-packagr/package.schema.json",
+  "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "angulartics2",
   "description": "Vendor-agnostic web analytics for Angular2 applications",
   "version": "0.0.0-placeholder",
