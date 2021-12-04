@@ -16,7 +16,7 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "types":  [
+    "types": [
       "node",
       "google.analytics",
       "applicationinsights-js",
@@ -24,10 +24,7 @@
       "facebook-pixel",
       "jasmine"
     ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
