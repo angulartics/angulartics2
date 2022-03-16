@@ -81,19 +81,23 @@ export class Angulartics2 {
   protected clearUrl(url: string): string {
     if (
       this.settings.pageTracking.clearIds ||
+      this.settings.pageTracking.maskIds ||
       this.settings.pageTracking.clearQueryParams ||
       this.settings.pageTracking.clearHash
     ) {
-      return url
+      const newUrl = url
         .split('/')
         .map(part => (this.settings.pageTracking.clearQueryParams ? part.split('?')[0] : part))
-        .map(part => (this.settings.pageTracking.clearHash ? part.split('#')[0] : part))
-        .filter(
-          part =>
-            !this.settings.pageTracking.clearIds ||
-            !part.match(this.settings.pageTracking.idsRegExp),
-        )
-        .join('/');
+        .map(part => (this.settings.pageTracking.clearHash ? part.split('#')[0] : part));
+
+      if (this.settings.pageTracking.clearIds) {
+        return newUrl.filter(part => !part.match(this.settings.pageTracking.idsRegExp)).join('/');
+      } else if (this.settings.pageTracking.maskIds) {
+        return newUrl
+          .map(part => part.replace(this.settings.pageTracking.idsRegExp, 'XXXXX'))
+          .join('/');
+      }
+      return newUrl.join('/');
     }
     return url;
   }
