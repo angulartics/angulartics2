@@ -27,8 +27,8 @@ describe('Angulartics2Pyze', () => {
       postCustomEventWithAttributes: jasmine.createSpy('postCustomEventWithAttributes'),
     };
     window.PyzeIdentity = PyzeIdentity = {
-      setUserIdentifier: jasmine.createSpy('setUserIdentifier'),
-      postTraits: jasmine.createSpy('postTraits'),
+      setUserProfile: jasmine.createSpy('setUserProfile'),
+      updateUserProfile: jasmine.createSpy('updateUserProfile'),
     };
 
     const provider: Angulartics2Pyze = TestBed.inject(Angulartics2Pyze);
@@ -73,7 +73,7 @@ describe('Angulartics2Pyze', () => {
         fixture = createRoot(RootCmp);
         angulartics2.setUsername.next('testId');
         advance(fixture);
-        expect(PyzeIdentity.setUserIdentifier).toHaveBeenCalledWith('testId');
+        expect(PyzeIdentity.setUserProfile).toHaveBeenCalledWith('testId');
       },
     ),
   ));
@@ -89,7 +89,7 @@ describe('Angulartics2Pyze', () => {
           lastName: 'Lobo',
         });
         advance(fixture);
-        expect(PyzeIdentity.postTraits).toHaveBeenCalledWith({
+        expect(PyzeIdentity.updateUserProfile).toHaveBeenCalledWith({},{
           userId: 'testId',
           firstName: 'Jess',
           lastName: 'Lobo',

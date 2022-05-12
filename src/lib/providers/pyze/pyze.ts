@@ -9,8 +9,8 @@ declare var PyzeIdentity: any;
 @Injectable({ providedIn: 'root' })
 export class Angulartics2Pyze {
   constructor(private angulartics2: Angulartics2) {
-    this.angulartics2.setUsername.subscribe((x: string) => this.setUserId(x));
-    this.angulartics2.setUserProperties.subscribe(x => this.postTraits(x));
+    this.angulartics2.setUsername.subscribe((x: string) => this.setUserProfile(x));
+    this.angulartics2.setUserProperties.subscribe(x => this.updateUserProfile(x));
   }
 
   startTracking(): void {
@@ -42,9 +42,9 @@ export class Angulartics2Pyze {
     }
   }
 
-  setUserId(userId: string) {
+  setUserProfile(userId: string) {
     try {
-      PyzeIdentity.setUserIdentifier(userId);
+      PyzeIdentity.setUserProfile(userId);
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
@@ -52,9 +52,9 @@ export class Angulartics2Pyze {
     }
   }
 
-  postTraits(properties: string) {
+  updateUserProfile(properties: string) {
     try {
-      PyzeIdentity.postTraits(properties);
+      PyzeIdentity.updateUserProfile({},properties)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
