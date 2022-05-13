@@ -52,7 +52,7 @@ export class Angulartics2Pyze {
     }
   }
 
-  updateUserProfile(properties: string) {
+  updateUserProfile(properties: any) {
     try {
       PyzeIdentity.updateUserProfile({},properties)
     } catch (e) {
