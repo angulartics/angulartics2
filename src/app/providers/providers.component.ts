@@ -65,6 +65,11 @@ export class ProvidersComponent {
       type: 'Analytics',
     },
     {
+      name: 'incendium',
+      display: 'Incendium',
+      type: 'Analytics',
+    },
+    {
       name: 'intercom',
       display: 'Intercom',
       type: 'Email',
@@ -114,9 +119,7 @@ export class ProvidersComponent {
     for (const provider of this.providers) {
       iconRegistry.addSvgIcon(
         provider.name,
-        sanitizer.bypassSecurityTrustResourceUrl(
-          `/assets/svg/${provider.name}.svg`,
-        ),
+        sanitizer.bypassSecurityTrustResourceUrl(`/assets/svg/${provider.name}.svg`),
       );
     }
   }
