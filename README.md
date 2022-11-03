@@ -282,6 +282,7 @@ System.config({
 * [Hubspot](/src/lib/providers/hubspot)
 * [Adobe Analytics (Omniture)](/src/lib/providers/adobeanalytics)
 * [Launch, by Adobe](src/lib/providers/launch) (works with DTM, too)
+* [Incendium](/src/lib/providers/incendium)
 * [Intercom](/src/lib/providers/intercom)
 * [Woopra](/src/lib/providers/woopra)
 * [Clicky](/src/lib/providers/clicky)
