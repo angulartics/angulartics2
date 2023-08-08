@@ -17,7 +17,6 @@ export type EventTrackAction =
 export type ScopeMatomo = 'visit' | 'page';
 
 export interface DimensionsMatomoProperties {
-  dimension0?: string;
   dimension1?: string;
   dimension2?: string;
   dimension3?: string;
@@ -27,6 +26,12 @@ export interface DimensionsMatomoProperties {
   dimension7?: string;
   dimension8?: string;
   dimension9?: string;
+  dimension10?: string;
+  dimension11?: string;
+  dimension12?: string;
+  dimension13?: string;
+  dimension14?: string;
+  dimension15?: string;
 }
 export interface SetEcommerceViewMatomoProperties {
   /** @class SetEcommerceViewMatomoProperties */
@@ -103,10 +108,10 @@ export interface TrackEventMatomoProperties {
   /** @class TrackEventMatomoProperties */
   label?: string;
   /** @class TrackEventMatomoProperties */
-  value: number | string;
+  value?: number | string;
 }
 
-export interface SetCustomVariableMatomoProperties extends DimensionsMatomoProperties {
+export interface SetCustomVariableMatomoProperties {
   /** @class SetCustomVariableMatomoProperties */
   index: number;
   /** @class SetCustomVariableMatomoProperties */
@@ -141,7 +146,7 @@ export class Angulartics2Matomo {
       console.warn('Matomo not found');
     }
     this.angulartics2.setUsername.subscribe((x: string) => this.setUsername(x));
-    this.angulartics2.setUserProperties.subscribe((x: SetCustomVariableMatomoProperties) =>
+    this.angulartics2.setUserProperties.subscribe((x: any) =>
       this.setUserProperties(x),
     );
   }
@@ -406,16 +411,16 @@ export class Angulartics2Matomo {
    * If in doubt, prefer custom dimensions.
    * @link https://matomo.org/docs/custom-variables/
    */
-  setUserProperties(properties: SetCustomVariableMatomoProperties) {
+  setUserProperties(properties: SetCustomVariableMatomoProperties | DimensionsMatomoProperties) {
     const dimensions = this.setCustomDimensions(properties);
     try {
       if (dimensions.length === 0) {
         _paq.push([
           'setCustomVariable',
-          properties.index,
-          properties.name,
-          properties.value,
-          properties.scope,
+          (properties as SetCustomVariableMatomoProperties).index,
+          (properties as SetCustomVariableMatomoProperties).name,
+          (properties as SetCustomVariableMatomoProperties).value,
+          (properties as SetCustomVariableMatomoProperties).scope,
         ]);
       }
     } catch (e) {
@@ -441,7 +446,7 @@ export class Angulartics2Matomo {
     }
   }
 
-  private setCustomDimensions(properties: SetCustomVariableMatomoProperties): string[] {
+  private setCustomDimensions(properties: SetCustomVariableMatomoProperties | DimensionsMatomoProperties): string[] {
     const dimensionRegex: RegExp = /dimension[1-9]\d*/;
     const dimensions = Object.keys(properties).filter(key => dimensionRegex.exec(key));
     dimensions.forEach(dimension => {
