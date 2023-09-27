@@ -100,8 +100,7 @@ export function createRootWithRouter(router: Router, type: any): ComponentFixtur
 export class HelloModule {}
 
 @NgModule({
-  imports: [HelloModule, CommonModule, RouterTestingModule, Angulartics2Module.forRoot()],
-  entryComponents: [RootCmp],
-  declarations: [RootCmp],
+    imports: [HelloModule, CommonModule, RouterTestingModule, Angulartics2Module.forRoot()],
+    declarations: [RootCmp]
 })
 export class TestModule {}
