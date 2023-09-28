@@ -142,25 +142,4 @@ describe('angulartics2On', () => {
       });
     }),
   ));
-
-  describe('running on server', () => {
-    @Injectable({ providedIn: 'root' })
-    @Directive({
-      selector: '[angulartics2On]',
-    })
-    class Angulartics2OnStub extends Angulartics2On {
-      isBrowser() {
-        return false;
-      }
-    }
-
-    beforeEach(() => {
-      TestBed.overrideModule(Angulartics2Module, {
-        set: {
-          declarations: [Angulartics2OnStub],
-          exports: [Angulartics2OnStub],
-        },
-      });
-    });
-  });
 });
