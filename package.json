@@ -7,7 +7,7 @@
     "ng": "ng",
     "start": "ng serve",
     "prebuild": "del-cli dist",
-    "build": "ng-packagr -p src/lib/package.json",
+    "build": "ng-packagr -p src/lib/ng-package.json",
     "postbuild": "cpy README.md LICENSE dist",
     "test": "ng test --watch=false --browsers=ChromeCI",
     "test:ci": "ng test --code-coverage --watch=false --no-progress --browsers=ChromeCI",
