@@ -1,5 +1,4 @@
 {
-  "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "angulartics2",
   "description": "Vendor-agnostic web analytics for Angular2 applications",
   "version": "0.0.0-placeholder",
@@ -32,15 +31,9 @@
     "baidu",
     "pyze"
   ],
-  "ngPackage": {
-    "lib": {
-      "entryFile": "public_api.ts"
-    },
-    "dest": "../../dist"
-  },
   "peerDependencies": {
-    "@angular/common": ">=13.0.0-0",
-    "@angular/core": ">=13.0.0-0",
-    "rxjs": "^7.0.0"
+    "@angular/common": ">=14.0.0-0",
+    "@angular/core": ">=14.0.0-0",
+    "rxjs": "^7.4.0"
   }
 }
