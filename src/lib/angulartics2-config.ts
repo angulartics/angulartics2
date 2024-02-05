@@ -28,6 +28,8 @@ export interface PageTrackingSettings {
   excludedRoutes: (string | RegExp)[];
   /** drop ids from url `/sections/123/pages/456` -> `/sections/pages` */
   clearIds: boolean;
+  /** mask ids of url `/sections/123/pages/456` -> `/sections/XXXXX/pages/XXXXX` */
+  maskIds: boolean;
   /** drop contents of url after hash marker `/callback#authcode=1234` -> `/callback` */
   clearHash: boolean;
   /** drop query params from url `/sections/123/pages?param=456&param2=789` -> `/sections/123/pages` */
@@ -52,6 +54,7 @@ export class DefaultConfig implements Angulartics2Settings {
     basePath: '',
     excludedRoutes: [],
     clearIds: false,
+    maskIds: false,
     clearHash: false,
     clearQueryParams: false,
     idsRegExp:
