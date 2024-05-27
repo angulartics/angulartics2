@@ -95,6 +95,11 @@ export class ProvidersComponent {
       type: 'Analytics',
     },
     {
+      name: 'posthog',
+      display: 'Posthog',
+      type: 'Analytics',
+    },
+    {
       name: 'segment',
       display: 'Segment',
       type: 'Analytics',
