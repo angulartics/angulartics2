@@ -20,6 +20,7 @@ export * from './providers/hubspot/hubspot';
 export * from './providers/kissmetrics/kissmetrics';
 export * from './providers/launch/launch';
 export * from './providers/mixpanel/mixpanel';
+export * from './providers/posthog/posthog';
 export * from './providers/pyze/pyze';
 export * from './providers/matomo/matomo';
 export * from './providers/segment/segment';
