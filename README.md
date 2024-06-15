@@ -203,6 +203,19 @@ You can set your own regexp if you need to :
  }),
  ````
 
+ #### Mask IDs from url paths
+
+This can be combined with idsRegExp
+
+`/project/12981/feature` becomes `/project/XXXXX/feature`
+````ts
+Angulartics2Module.forRoot({
+  pageTracking: {
+    maskIds: true,
+  }
+}),
+````
+
 #### Remove Query Params from url paths
 
 This can be combined with clearIds and idsRegExp
