@@ -22,6 +22,7 @@ describe('Angulartics2Posthog', () => {
       capture: jasmine.createSpy('capture'),
       identify: jasmine.createSpy('identify'),
       alias: jasmine.createSpy('alias'),
+      group: jasmine.createSpy('group'),
     };
 
     const provider: Angulartics2Posthog = TestBed.inject(Angulartics2Posthog);
@@ -166,4 +167,16 @@ describe('Angulartics2Posthog', () => {
       },
     ),
   ));
+
+  it('should set group properties', fakeAsync(
+    inject(
+      [Angulartics2, Angulartics2Posthog],
+      (angulartics2: Angulartics2, angulartics2Posthog: Angulartics2Posthog) => {
+        fixture = createRoot(RootCmp);
+        angulartics2Posthog.setGroup('company', '123', { name: 'Company name' });
+        advance(fixture);
+        expect(posthog.group).toHaveBeenCalledWith('company', '123', { name: 'Company name' });
+      }
+    )
+  ))
 });

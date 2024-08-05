@@ -116,4 +116,14 @@ export class Angulartics2Posthog {
       }
     }
   }
+
+  setGroup(groupType: string, groupKey: string, properties: any) {
+    try {
+      posthog.group(groupType, groupKey, properties);
+    } catch (e) {
+      if (!(e instanceof ReferenceError)) {
+        throw e;
+      }
+    }
+  }
 }
