@@ -291,6 +291,7 @@ System.config({
 * [IBM Digital Analytics](/src/lib/providers/ibm-digital-analytics)
 * [Splunk](/src/lib/providers/splunk)
 * [Pyze](/src/lib/providers/pyze)
+* [Posthog](/src/lib/providers/posthog)
 
 ### For other providers
 
