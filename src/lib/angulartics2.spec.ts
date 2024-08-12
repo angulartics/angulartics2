@@ -316,6 +316,43 @@ describe('angulartics2', () => {
       ),
     ));
 
+    it('should mask ids and uuids from url if maskIds is true', fakeAsync(
+      inject(
+        [Router, Location, Angulartics2],
+        (router: Router, location: Location, angulartics2: Angulartics2) => {
+          fixture = createRootWithRouter(router, RootCmp);
+          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.settings.pageTracking.maskIds = true;
+          (location as SpyLocation).simulateUrlPop(
+            '/0sections0/01234567-9ABC-DEF0-1234-56789ABCDEF0/pages?param=456',
+          );
+          advance(fixture);
+          expect(EventSpy).toHaveBeenCalledWith({
+            path: '/0sections0/XXXXX/pages?param=456',
+          });
+        },
+      ),
+    ));
+
+    it('should mask ids using custom regex if idsRegExp is set', fakeAsync(
+      inject(
+        [Router, Location, Angulartics2],
+        (router: Router, location: Location, angulartics2: Angulartics2) => {
+          fixture = createRootWithRouter(router, RootCmp);
+          angulartics2.pageTrack.subscribe((x: any) => EventSpy(x));
+          angulartics2.settings.pageTracking.maskIds = true;
+          angulartics2.settings.pageTracking.idsRegExp = /^[a-z]\d+$/;
+          (location as SpyLocation).simulateUrlPop(
+            '/0sections0/a01/pages/page/2/summary?param=456',
+          );
+          advance(fixture);
+          expect(EventSpy).toHaveBeenCalledWith({
+            path: '/0sections0/XXXXX/pages/page/2/summary?param=456',
+          });
+        },
+      ),
+    ));
+
     it('should remove hash if clearHash is set', fakeAsync(
       inject(
         [Router, Location, Angulartics2],
