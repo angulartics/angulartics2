@@ -110,7 +110,7 @@ export class Angulartics2AppInsights {
    * @link https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#trackevent
    */
   eventTrack(name: string, properties: { [name: string]: string }) {
-    appInsights.trackEvent(name, properties, this.measurements);
+    appInsights.trackEvent({name : name, properties : properties, measurements: this.measurements});
   }
 
   /**
